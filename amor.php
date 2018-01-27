@@ -4,7 +4,7 @@
  * script amor.php
  * displays the detail page of one lover
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2017-12-14
+ * last updated 2018-01-23
 */
 
 require_once 'session.inc';
@@ -18,10 +18,6 @@ require_once 'locus.inc';
 // 1. get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
-
-$title = "Amor";
-include 'header.inc'; // header of all the pages of the app
-
 /*
  * amorID is retrieved from $_GET (intval needed)
  * and an object of the class 'Amor' is instantiated using it.
@@ -29,26 +25,49 @@ include 'header.inc'; // header of all the pages of the app
  */
 $amor = new Amor(intval($_GET['amorID']));
 
+$title = _("Lover");
+include 'header.inc'; // header of all the pages of the app
+echo "\t\t\t<section> <!-- section {{ -->\n";
+
 $amorAlias = $amor->getAlias(); // also used below in $amorSideview
 
-echo "\t\t\t\t\t\t<p class=\"medium\"><b>{$amorAlias}</b></p>\n";
+echo "\t\t\t\t<p class=\"medium\">";
+echo "<img src=\"".getImage("amor","small")."\" alt=\"".
+    _("(Image of a cycladic idol)").
+    "\" />";
+echo "<b>{$amorAlias}</b></p>\n";
 
 echo <<<HTML
-                    <!-- Script amor.php. Part 0: Navigation links -->
-                    <article id="start">
-                        <p class="center"><a href="#data"><img src="images/generalia-medium.jpg" title="General data" /></a><a href="#catalogue">List of experiences<img src="images/ampelmaenchen_rot.gif" style="width: 15px; height: 15px;"</a>
-	<a href="#alia"><img src="images/altera-medium.jpg" title="Other data" /></a></p>
-                        <p style="text-align: center"><img src="images/arrow_back.gif" /> <a href="history.back();">Back to previous page</a></p>
-                    </article>
-                    
-                    <!-- Script amor.php. Part I: General data -->
-                    <article id="data">
-                        <h1 onMouseOver="this.innerHTML='1. GENERALIA i.e. general data';" onMouseOut="this.innerHTML='1. GENERALIA';">1. GENERALIA</h1>
+                <!-- Script amor.php. Part 0: Navigation links -->
+                <article id="start">
 
 HTML;
 
-// 1. alias, evaluation, detailed alias comps
-echo "\t\t\t\t\t\t<p class=\"medium\">";
+// links to sections:
+echo "\t\t\t\t\t<ul>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#data\">".
+        _("Data").
+        "</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#practica\">".
+        _("List of experiences").
+        "</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#alia\">".
+        _("Other data")."</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
+        _("Actions")."</a></li>\n";
+echo "\t\t\t\t\t</ul>\n";
+                    
+echo <<<HTML
+                </article>
+
+                <!-- Script amor.php. Part I: General data -->
+                <article id="data">
+                    <h1 onMouseOver="this.innerHTML='1. GENERALIA i.e. general data';" onMouseOut="this.innerHTML='1. GENERALIA';">1. GENERALIA</h1>
+
+HTML;
+
+// alias and evaluation:
+echo "\t\t\t\t\t<p class=\"medium\">";
 
 if (DEBUG) {
     
@@ -56,91 +75,119 @@ if (DEBUG) {
     
 }
 
-echo "Alias and rating: <b>{$amorAlias}</b> - ";
+echo _("Alias and rating").": <b>".$amorAlias."</b> - ";
 echo writtenRate($amor->getRating(), TRUE);
 echo " </p>\n";
 
-// 2. other
+// genre:
+echo "\t\t\t\t\t<p class=\"medium\">".
+    _("Genre:").
+    $amor->getGenre().
+    "</p>\n";
+
+// other (TODELETE!!!)
 if ($amor->getOther() !== "") {
-	echo "\t\t\t\t\t\t<p>Other data: <b>{$amor->getOther()}</b></p>\n";
+	echo "\t\t\t\t\t\t<p>".
+            _("Other data").
+            ": <b>".
+            $amor->getOther().
+            "</b></p>\n";
 }
 
-// 3. description
+// description:
 $description1 = $amor->getDescription1();
 $description2 = $amor->getDescription2();
 $description3 = $amor->getDescription3();
 $description4 = $amor->getDescription4();
 
 echo <<<HTML
-                        <table align="center" border="1">
-                            <tr>
-                                <td>
-                                    <table border="0">
-                                        <tr style="text-align: center;">
-                                            <td colspan="2"><p>DESCRIPTIO i.e. description</p></td>
-                                        </tr>
-                                        <tr>
-                                            <td valign="middle"><img src="images/descriptio1-small.jpg" alt="Γενικὴ περιγραφή" /></td><td valign="middle"><p class="medium" style="margin-top: 0em">{$description1}</p></td>
-                                        </tr>
+                    <table id="description">
+                        <tr style="text-align: center;">
+                            <td colspan="2"><p>
+HTML;
+
+echo _("DESCRIPTIO i.e. description");
+
+echo <<<HTML
+</p></td>
+                        </tr>
+                        <tr>
+                            <td>(1/4)</td>
+                            <td><p>{$description1}</p></td>
+                        </tr>
 
 HTML;
 
 if ($description2 !== "") {
 	
     echo <<<HTML
-                                        <tr>
-                                            <td valign="middle"><img src="images/descriptio2-small.jpg" alt="Περιγραφή σώματος" /></td><td><p class="medium" style="margin-top: 0em;">{$description2}</p></td>
-                                        </tr>
+                        <tr>
+                            <td>(2/4)</td>
+                            <td><p>{$description2}</p></td>
+                        </tr>
 
 HTML;
     
-    } // if
+} // if
 
 if ($description3 !== "") {
     
     echo <<<HTML
-                                        <tr>
-                                            <td valign="middle"><img src="images/descriptio3-small.jpg" alt="Περιγραφὴ ἐμπροσθίων γεννητικῶν ὀργάνων" /></td><td><p class="medium" style="margin-top: 0em;">{$description3}</p></td>
-                                        </tr>
+                        <tr>
+                            <td>(3/4)</td>
+                            <td><p>{$description3}</p></td>
+                        </tr>
 
 HTML;
 
-    } // if
+} // if
 
 if ($description4 !== "") {
     
     echo <<<HTML
-                                        <tr>
-                                            <td valign="middle"><img src="images/descriptio4-small.jpg" alt="Περιγραφὴ ὀπισθίων γεννητικῶν ὀργάνων" /></td><td><p class="medium" style="margin-top: 0em;">{$description4}</p></td>
-                                        </tr>
+                        <tr>
+                            <td>(4/4)</td>
+                            <td><p>{$description4}</p></td>
+                        </tr>
 HTML;
 
-    } // if
+} // if
     
 echo "\n";
 
 echo <<<HTML
-                                    </td>
-                                </tr>
-                            </table>
-                        </table>
-                        <p style="text-align: center;"><img src="images/arrow_top.gif" /> <a href="#start">Top of the page</a></p>
-                    </article>
+                    </table>
+                </article>
 
-                    <!-- Script amor.php. Part II: experiences list -->
-                    <article id="practicaList">
-                        <h1 onMouseOver="this.innerHTML='2. ELENCHUS i.e. list of the xperiences with her/him';" onMouseOut="this.innerHTML='2. ELENCHUS';">2. ELENCHUS</h1>
+HTML;
+
+echo <<<HTML
+
+                <!-- script amor.php. part ii: experiences list -->
+                <article id="practica">
+                    <h1 onMouseOver="this.innerHTML='2. ELENCHUS i.e. list of the xperiences with her/him';" onMouseOut="this.innerHTML='2. ELENCHUS';">2. ELENCHUS</h1>
 
 HTML;
 
 $locaAmount = $amor->getPracticaAmount();
 
-echo "\t\t\t\t\t\t<p>Lived with her/him <b>";
-echo writtenNumber($locaAmount, FEMENINE);
+echo "\t\t\t\t\t<p>";
+switch ($amor->getGenre()) {
+    
+    case GENRE_MASCULINE:
+        echo _("Lived with him");
+        break;
+    case GENRE_FEMININE:
+        echo _("Lived with her");
+        break;
+}
+echo " <b>".
+    writtenNumber($locaAmount, FEMENINE);
 echo ($locaAmount > 1) ? " experiences" : " experience";
-echo "</b>, thus·</p>\n";
-
-echo "\t\t\t\t\t\t\t<p>Chronologic list follows</a>.</p>\n";
+echo "</b>.</p>\n";
+echo "\t\t\t\t\t<p>".
+    _("Chronologic list follows").
+    "</p>\n";
 
 
 
@@ -206,84 +253,136 @@ foreach ($practica as $praxisID) {
     
 }
 
-// put a link to the top of the page, and closes the tag <article>
+// link to top of the page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_top.gif\" />".
+    " <a href=\"#start\">".
+    _("Back to top").
+    "</a></p>\n";
+
 echo <<<HTML
-                        <p style="text-align: center;"><img src="images/arrow_top.gif" /> <a href="#start">Back to top of the page</a></p>
-                    </article>
+                </article>
 
 HTML;
 
 /*
- * section 'altera' (complementary data)
+ * complementary data
  */
 
 if ($amor->getAchtung() !== ""
-	|| $amor->getWeb() !== ""
+	|| $amor->getWww() !== ""
 	|| $amor->getName() !== ""
 	|| $amor->getPhoto() !== ""
 	|| $amor->getTelephone() !== ""
 	|| $amor->getEmail() !== ""
 	|| $amor->getOther() !== "") {
     
-    // ACHTUNG! αἱ πρηροφορίαι αὗται πρέπει νὰ εἶναι προσιταὶ μόνο εἰς τὸν superuser
     
     echo <<<HTML
 
-                    <!-- Script amor.php. Part III: Other -->
-                    <article id="alia">
-                        <h1 onMouseOver="this.innerHTML='3. ALTERA i.e. complementary data';" onMouseOut="this.innerHTML='3. ALTERA';">3. ALTERA</h1>
+                <!-- script amor.php. part iii: other -->
+                <article id="alia">
+                    <h1 onMouseOver="this.innerHTML='3. ALTERA i.e. complementary data';" onMouseOut="this.innerHTML='3. ALTERA';">3. ALTERA</h1>
 
 HTML;
 
-    if ($amor->getAchtung() !== "") {
-            echo "\t\t\t\t\t\t<p>Ἐκκρεμότητες: <b>";
-            echo $amor->getAchtung();
-            echo "</b>.</p>\n";
-    }
+    if ($amor->getAchtung() !== "")
+        echo "\t\t\t\t\t<p>".
+            _("Achtung:").
+            " <b>".
+            $amor->getAchtung().
+            "</b>.</p>\n";
 
-    if ($amor->getWeb() !== "") {
-            echo "\t\t\t\t\t\t<p>Δικτύωσις: <b>";
-            echo $amor->getWeb();
-            echo "</b>.</p>\n";
-    }
+    if ($amor->getWww() !== "")
+        echo "\t\t\t\t\t<p>".
+            _("Web:").
+            " <b>".
+            $amor->getWww().
+            "</b>.</p>\n";
 
-    if ($amor->getName() !== "") {
-            echo "\t\t\t\t\t\t<p>Ὀνοματεπώπυμον: <b>";
-            echo $amor->getName();
-            echo "</b>.</p>\n";
-    }
+    if ($amor->getName() !== "")
+        echo "\t\t\t\t\t<p>".
+            _("Name:").
+            " <b>".
+            $amor->getName().
+            "</b>.</p>\n";
 
-    if ($amor->getPhoto() !== "") {
-            echo "\t\t\t\t\t\t<p>ὕπαρξις φωτογραφιῶν: <b>";
-            echo $amor->getPhoto();
-            echo "</b>.</p>\n";
-    }
+    if ($amor->getPhoto() !== "")
+        echo "\t\t\t\t\t<p>".
+            _("Pictures:").
+            " <b>".
+            $amor->getPhoto().
+            "</b>.</p>\n";
 
-    if ($amor->getTelephone() !== "") {
-            echo "\t\t\t\t\t\t<p>Τηλέφωνον: <b>";
-            echo $amor->getTelephone();
-            echo "</b>.</p>\n";
-    }
+    if ($amor->getTelephone() !== "")
+        echo "\t\t\t\t\t<p>".
+            _("Telephone:").
+            " <b>".
+            $amor->getTelephone().
+            "</b>.</p>\n";
 
-    if ($amor->getEmail() !== "") {
-            echo "\t\t\t\t\t\t<p>Ἠλεκτρονικὸν ταχυδρομεῖον: <b>";
-            echo $amor->getEmail();
-            echo "</b>.</p>\n";
-    }
+    if ($amor->getEmail() !== "")
+        echo "\t\t\t\t\t<p>".
+            _("Email:").
+            " <b>".
+            $amor->getEmail().
+            "</b>.</p>\n";
 
-    if ($amor->getOther() !== "") {
-            echo "\t\t\t\t\t\t<p>Παραλοιπόμενα: <b>";
-            echo $amor->getOther();
-            echo "</b>.</p>\n";
-    }
-
-    echo <<<HTML
-                        <p style="text-align: center"><img src="images/arrow_back.gif" /> <a href="JavaScript: history.back();">Ἐπαναφορὰ εἰς τὴν προηγουμένην σελίδα</a></p>
-                    </article>
-
-HTML;
+    if ($amor->getOther() !== "")
+        echo "\t\t\t\t\t<p>".
+            _("Other data:").
+            " <b>".
+            $amor->getOther().
+            "</b>.</p>\n";
     
 } // if
+
+echo <<<HTML
+                </article>
+
+                <!-- script locus.php. part iv: actions -->
+                <article id="actions">
+
+HTML;
+
+echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+        _("ACTIONS i.e. XXX").
+        "';\" onMouseOut=\"this.innerHTML='".
+        _("ACTIONS").
+        "';\">".
+        _("ACTIONS").
+        "</h1>\n";
+
+// edit lover form:
+echo "\t\t\t\t\t<form action=\"amorEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"amorID\" value=\"".
+    $amor->getAmorID().
+    "\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
+    _("Edit lover").
+    "\" />\n";
+echo "\t\t\t\t\t</form>\n";
+
+// delete lover form:
+echo "\t\t\t\t\t<form action=\"amorDelete.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"amorID\" value=\"".
+    $amor->getAmorID().
+    "\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
+    _("Delete lover").
+    "\" />\n";
+echo "\t\t\t\t\t</form>\n";
+                            
+// link to previous page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_back.gif\" />".
+    " <a href=\"javascript: history.back();\">".
+    _("Back to previous").
+    "</a></p>\n";
+
+echo "\t\t\t\t</article>\n";
+
+HTML;
 
 //// $xperienceSideview displays a sommary of the xperience in the sidebar
 //// 1-step creation
@@ -304,6 +403,7 @@ HTML;
 //
 //$_SESSION['praxisSideview'] = $praxisSideview; // stores $praxisSideview in $_SESSION to be read from sidebar.inc
 
+echo "\t\t\t</section> <!-- }} section -->\n\n";
 require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

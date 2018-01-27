@@ -15,15 +15,16 @@ require_once 'DB.inc';
 class Locus {
 
     // I. properties
-    protected $locusID;             // place ID (ἀριθμὸς-κλείς)
-    protected $name;         // designation (ὀνομασία)
-    protected $country;             // country (χώρα)
-    protected $kind;                // kind (εἶδος)
-    protected $description;         // description (περιγραφή)
-    protected $address;             // address (διεύθυνσις)
-    protected $coordinatesExact;    // coordinates (exact)
-    protected $coordinatesGeneric;  // coordinates (generic)
-    protected $www;                 // www (δικτύωσις)
+    protected $locusID; // place ID
+    protected $name; // name
+    protected $country; // country
+    protected $kind; // kind
+    protected $description; // description
+    protected $rating; // rating
+    protected $address; // address
+    protected $coordinatesExact; // coordinates
+    protected $coordinatesGeneric; // coordinates
+    protected $www; // www
 
     // II. implementation methods
     
@@ -38,48 +39,12 @@ class Locus {
     public function getCountry() {return $this->country;}
     public function getKind() {return $this->kind;}
     public function getDescription() {return $this->description;}
+    public function getRating() {return $this->rating;}
     public function getAddress() {return $this->address;}
     public function getCoordinatesExact() {return $this->coordinatesExact;}
     public function getCoordinatesGeneric() {return $this->coordinatesGeneric;}
     public function getWww() {return $this->www;} // TOFIX: returns NULL
 	
-    /**
-     * method Locus::genericQuery
-     * auxiliary method used to query the DB. complete $queryString after neccessity
-    */
-//    protected function genericQuery() {
-//		
-//        // returns a DB connection to work with:
-//        $currentDBConnection = DB::getDBConnection();
-//
-//        $queryString = <<<QRY
-//SELECT *
-//FROM 
-//QRY;
-//
-//        $resultset = @$currentDBConnection->query($queryString); // TOFIX: try-catch block?
-//
-//        if ($resultset === FALSE || $resultset === NULL) {
-//
-//            $currentDBConnection->close();
-//            throw new DBErrorException($currentDBConnection->error);
-//
-//        } else {
-//
-//            while (($tuple = @$resultset->fetch_assoc()) !== NULL) {
-//
-//                    // $xperiences[] = intval($tuple['xperience_id']);
-//
-//            } // while block
-//
-//        }  // if-else block
-//
-//        // cleans up result set:
-//        $resultset->close();	
-//
-//        return;
-//	
-//    } // method Locus::genericQuery
 		
     /**
      * method Locus::__constructor
@@ -113,7 +78,7 @@ QUERY;
         $this->country = $row['country'];
         $this->kind = $row['kind'];
         $this->description = $row['description'];
-        $this->description = $row['address'];
+        $this->address = $row['address'];
         $this->coordinatesExact = $row['coordinatesExact'];
         $this->coordinatesGeneric = $row['coordinatesGeneric'];
         $this->www = $row['www'];
@@ -141,142 +106,82 @@ QUERY;
                 
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":locusID", $this->locusID);
-        $statement->execute(); //!!!
+        $statement->execute();
         
         // 3. the number of rows is retrieved and returned (intval needed):      
         return intval($statement->fetchColumn());
 
     } // method Locus::getDifferentDatesAmount
 	
-    /**
-     * method Locus::getGeographicCenter
-     * ACHTUNG! unfinish & unused
+   /**
+     * method Locus::getMapCenter
     */
-//    protected function getGeographicCenter() {
-//		
-//        // returns a DB connection to work with:
-//        $currentDBConnection = DB::getDBConnection();
-//
-//        $queryString = <<<QRY
-//SELECT `coordinates_exact`, `coordinates_generic`
-//FROM `pndnct`.`places`
-//QRY;
-//
-//        $resultset = @$currentDBConnection->query($queryString);
-//
-//        if ($resultset === FALSE || $resultset === NULL) {
-//
-//            $currentDBConnection->close();
-//            throw new DBException($currentDBConnection->error);
-//
-//        } else {
-//
-//            while (($tuple = @$resultset->fetch_assoc()) !== NULL) {
-//
-//                // TODO: determinate maximal positive latitude, maximal negative latitude,
-//                // maximal positive longitude, maximal negative longitude,
-//                // in order to get the exact geographic center
-//                $coordinates = ($tuple['coordinates_exact'] == '' ?
-//                        $tuple['coordinates_exact'] :
-//                        $tuple['coordinates_generic']);
-//                // if...
-//
-//            } // while
-//
-//        }  // if-else block
-//
-//        // cleans up result set:
-//        $resultset->close();	
-//
-//        return;	
-//	
-//    } // method Locus::getGeographicCenter
-    
-    /**
-     * method Locus::getJSCoordenates ACHTUNG! makes nothing!
-     * 
-     * used to display a JavaScript array with Google Maps LatLng objects
-     * representing each place in the table places
-    */
-//    protected function getJSCoordenates() {
-//
-//        $currentDBConnection = DB::getDBConnection(); // DB connection handle
-//
-//        $queryString = <<<QRY
-//SELECT COUNT(*) AS places_amount
-//FROM `pndnct`.`places`
-//QRY;
-//
-//        try {
-//
-//            $resultset = @$currentDBConnection->query($queryString);
-//
-//            if ($resultset === FALSE || $resultset === NULL) {
-//
-//                throw new DBException ($currentDBConnection->error);
-//
-//            } else {
-//
-//                $tuple = @$resultset->fetch_assoc(); // only one tuple expected
-//
-//                var_dump($tuple['places_amount']);
-//
-//
-//            } // if-else block
-//            
-//            $resultset->close();
-//
-//        } catch (DBException $e) {
-//
-//            DB::closeDBConnection(); // cleans up DB connection
-//            throw $e;
-//
-//        } // try ... catch
-//
-//        DB::closeDBConnection (); // cleans up DB connection
-//        
-//    } // method Locus::getJSCoordenates
-	
-    /**
-     * method Locus::getXperiences
-     * returns an array of experience IDs for the current place
-    */
-//    public function getXperiences() {
-//	
-//        $currentDBConnection = DB::getDBConnection(); // returns a DB connection
-//
-//        $xperiences = array();
-//
-//        $queryString = <<<QRY
-//SELECT xperience_id
-//FROM `pndnct`.`xperiences`
-//WHERE `pndnct`.`xperiences`.`place` = {$this->getPlaceID()}
-//ORDER BY date
-//QRY;
-//// TOFIX: ORDER BY time
-//
-//        $resultset = @$currentDBConnection->query($queryString); // TOFIX: try-catch block?
-//
-//        if ($resultset === FALSE || $resultset === NULL) {
-//
-//            $currentDBConnection->close();
-//            throw new DBErrorException($currentDBConnection->error);
-//
-//        } else {
-//
-//            while (($tuple = @$resultset->fetch_assoc()) !== NULL) {
-//
-//                $xperiences[] = intval($tuple['xperience_id']);
-//
-//            } // while block
-//
-//        }  // if-else block
-//
-//        $resultset->close(); // cleans up result set
-//
-//        return $xperiences;
-//	
-//    } // method Locus::getXperiences
+    public function getMapCenter() {
+        
+        $longs = array();
+        $lats = array();
+        
+        // get a DB handle to work with:
+        $pdo = DB::getDBHandle();
+        
+//!!!
+        // verify that there are some places:
+        $queryString = <<<QUERY
+SELECT COUNT(*)
+FROM `myX`.`loca`
+WHERE `user`=:userID
+QUERY;
+        $statement = $pdo->prepare($queryString);
+        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
+        if ($statement->fetchColumn() === 0)
+            return;
+//!!!
+        $queryString = <<<QUERY
+SELECT `coordinatesExact`, `coordinatesGeneric`
+FROM `myX`.`loca`
+WHERE `user`=:userID
+QUERY;
+
+        $statement = $pdo->prepare($queryString);
+        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
+        $statement->execute();
+        
+        foreach ($statement as $row) {
+            
+            $coordinates =
+                $row['coordinatesExact'] !== "" ?
+                $row['coordinatesExact'] :
+                $row['coordinatesGeneric'];
+            
+            $long = explode(", ", $coordinates)[0];
+            $lat = explode(", ", $coordinates)[1];
+            
+            $longs[] = $long;
+            $lats[] = $lat;
+             
+        }
+        
+        $maxLong = max($longs);
+        $minLong = min($longs);
+        $maxLat = max($lats);
+        $minLat = min($lats);
+        $centerLong = strval(($maxLong - $minLong) / 2);
+        $centerLat = strval(($maxLat - $minLat) / 2);
+        
+//        $mapBoundaries["longMax"] = strval($maxLong);
+//        $mapBoundaries["longMin"] = $minLong;
+//        $mapBoundaries["latMax"] = $maxLat;
+//        $mapBoundaries["latMin"] = $minLat;
+        $mapCenter =
+                strval($minLong + (($maxLong - $minLong) / 2)).
+                ", ".
+                strval($minLat + (($maxLat - $minLat) / 2));
+        
+        $_SESSION['mapCenter'] = $mapCenter;
+        
+        return;
+
+    } // method Locus::getMapCenter
 
     /**
      * method Locus::getPracticaAmount

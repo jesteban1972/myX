@@ -6,7 +6,7 @@
  * script with the implementation of
  * i) exception classes (...)
  * ii) myX's own exception handler
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2017-11-09
  */
 
@@ -120,19 +120,18 @@ class usernameExistsException extends Exception {
     
 } // class usernameExistsException
 
-// II. myX's exception handler
+// II. myX own exception handler
 
 function exceptionHandler($exception) {
     
     $msg = $exception->getMessage();
     
     $title = "myX error";
-    
     $description = "Application error";
-    
     include_once 'header.inc';
+    echo "\t\t\t<section> <!-- section {{ -->\n";
     
-    echo <<<XHTML
+    echo <<<HTML
                     <article>
                         <p>We are sorry, but an error occured while executing the application. The retrived error follows.</p>
                         <p style="color: red; text-align: center;">{$msg}</p>
@@ -140,7 +139,7 @@ function exceptionHandler($exception) {
                         <p>Back to <a href="index.php">start page</a></p>
                     </article>
 
-XHTML;
+HTML;
 
     error_log("Unhandled exception: "
             .$msg." "
@@ -148,11 +147,12 @@ XHTML;
             .$exception->getLine()." "
             .$exception->getCode(), 1); // does it work???
     
+    echo "\t\t\t</section> <!-- }} section -->\n";
     include_once 'footer.inc';
     
 } // function exceptionHandler
 
 // set of function exceptionHandler:
-set_exception_handler("exceptionHandler");
+//set_exception_handler("exceptionHandler");
 
 ?>

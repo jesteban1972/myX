@@ -13,7 +13,7 @@ session_start();
 
 // constants definition {{
 
-define("DEBUG", 1); // DEBUG: turn to 0 in production environment
+define("DEBUG", 0); // DEBUG: turn to 0 in production environment
 
 // genres
 define("GENRE_MASCULINE", 1);
@@ -33,6 +33,22 @@ define("USER_VISITOR", -1);
 define("USER_SUPER", 0);
 define("USER_PREMIUM", 1);
 
+// GUI languages:
+define("GUI_ENGLISH", 1);
+define("GUI_SPANISH", 2);
+define("GUI_GREEK", 3);
+$GUILanguages = Array("dummy", "English", "Español", "Ελληνικά");
+$GUILangCodes = Array("dummy", "en", "es", "el");
+// (add other languages on demand)
+
+
+$weekDays = Array(_("Sunday"),
+    _("Monday"),
+    _("Tuesday"),
+    _("Wednesday"),
+    _("Thursday"),
+    _("Friday"),
+    _("Saturday"));
 /*
  * error kinds
  * two kinds of errors are contempled:
@@ -100,7 +116,9 @@ class GenericList {
      * @description: list description in a somehow extended way
      * @queryString: SQL query used to retrieve the list
      */
-    public function __construct($designation = "", $description = "", $queryString = "") {
+    public function __construct($designation = "",
+            $description = "",
+            $queryString = "") {
 
         $this->designation = $designation;
         $this->description = $description;
@@ -130,13 +148,13 @@ class PracticaList extends GenericList {
         $description = "",
         $queryString = "") {
 
-        // when called without arguments, the list will be unfiltered
         if ($designation === "" || $description === "" || $queryString === "") {
+            // empty args, full list
             
-            $this->designation = "all experiences";
-            $this->description = "unfiltered list of all experiences";
+            $this->designation = _("all experiences");
+            $this->description = _("unfiltered list of experiences");
             $this->queryString = "SELECT * FROM `myX`.`practica`";
-            $this->queryString .= " WHERE user=".$_SESSION['userID'];
+            $this->queryString .= " WHERE `user`=".$_SESSION['userID'];
                         
         } else {
 
@@ -167,12 +185,13 @@ class AmoresList extends GenericList {
         $description = "",
         $queryString = "") {
 
-        if ($designation === "" || $description === "" || $queryString === "") { // empty args, full list
+        if ($designation === "" || $description === "" || $queryString === "") {
+            // empty args, full list
             
-            $this->designation = "all lovers";
-            $this->description = "unfiltered list of all lovers";
+            $this->designation = _("all lovers");
+            $this->description = _("unfiltered list of lovers");
             $this->queryString = "SELECT * FROM `myX`.`amores`";
-            $this->queryString .= " WHERE user=".$_SESSION['userID'];
+            $this->queryString .= " WHERE `user`=".$_SESSION['userID'];
             
         } else {
             
@@ -203,12 +222,13 @@ class LocaList extends GenericList {
         $description = "",
         $queryString = "") {
 
-        if ($designation === "" || $description === "" || $queryString === "") { // empty args, full list
+        if ($designation === "" || $description === "" || $queryString === "") {
+            // empty args, full list
 
-            $this->designation = "all places";
-            $this->description = "unfiltered list of all places";
+            $this->designation = _("all places");
+            $this->description = _("unfiltered list of places");
             $this->queryString = "SELECT * FROM `myX`.`loca`";
-            $this->queryString .= " WHERE user=".$_SESSION['userID'];
+            $this->queryString .= " WHERE `user`=".$_SESSION['userID'];
 
         } else {
 
@@ -229,15 +249,15 @@ class LocaList extends GenericList {
 */
 function ampelmaenchen($kind = GRUEN/*, $size = 15*/) {
     
-    $output = '<sup><img src="images/ampelmaenchen_';
+    $output = '<sup><img src="images/ampelmaenchen';
     
     switch ($kind) {
         
         case GRUEN:
-            $output .= 'gruen';
+            $output .= 'Gruen';
             break;
         case ROT:
-            $output .= 'rot';
+            $output .= 'Rot';
             break;
     
     } // switch block
@@ -247,6 +267,60 @@ function ampelmaenchen($kind = GRUEN/*, $size = 15*/) {
     return $output;
 
 } // function ampelmaenchen
+
+/**
+ * function getPraxisImage
+ * initializes the image of an experience from a random set
+ */
+function getImage($kind, $size) {
+    
+    $file = "images/";
+    
+    switch ($kind) {
+        
+        case "praxis":
+            $file .= "coin";
+            break;
+        case "amor":
+            $file .= "amor";
+            break;
+    }
+    
+    $number = random_int(1, 6);
+    $file .= strval($number);
+
+    switch ($size) {
+        
+        case "big":
+            $file .= "-big.png";
+            break;
+        case "medium":
+            $file .= "-medium.png";
+            break;
+        case "small":
+            $file .= "-small.png";
+            break;
+    }
+    
+    return $file;
+    
+}
+
+/**
+ * function GUILangInitialize
+ * initializes gettext to work with the GUI language
+ * @param string $GUILangCode
+ */
+function GUILangInitialize($GUILangCode) {
+
+    putenv("LANG=".$GUILangCode); 
+    setlocale(LC_ALL, $GUILangCode);
+
+    $domain = "GUIStrings";
+    bindtextdomain($domain, "locale"); 
+    bind_textdomain_codeset($domain, "UTF-8");
+    textdomain($domain);
+}
 
 /**
  * function languageFlag
@@ -390,7 +464,7 @@ HTML;
             echo "&";
             
 	}
-	echo "page=1';\" type=\"button\" value=\"<< πρώτη σελίς\" />\n";
+	echo "page=1';\" type=\"button\" value=\"<< First Page\" />\n";
 	echo "\t\t\t\t\t\t\t\t</td>\n";
 	
 	// composes previous page button:
@@ -413,7 +487,7 @@ HTML;
 	}
 	echo "page=";
 	echo $page - 1;
-	echo "';\" type=\"button\" value=\"< προηγούμενος σελίς\" />\n";
+	echo "';\" type=\"button\" value=\"< Previous Page\" />\n";
 	echo "\t\t\t\t\t\t\t\t</td>\n";
 	
 	//////////////////////////////////////////////////////////////////////////////////////
@@ -423,7 +497,7 @@ HTML;
 	$pageDisplayed = $page; //  displays current page
 	echo <<<HTML
                                 <td>
-                                    <p>σελὶς <input name="current_page" onhaschange="window.location.href='{$targetScript}';" size="10" type="text" value="{$pageDisplayed}" /> ἐκ συνολικῶς {$pagesAmount}</p>
+                                    <p>Page <input name="current_page" onhaschange="window.location.href='{$targetScript}';" size="10" type="text" value="{$pageDisplayed}" /> of {$pagesAmount}</p>
                                 </td>
 
 HTML;
@@ -449,7 +523,7 @@ HTML;
 	}
 	echo "page=";
 	echo $page + 1;
-	echo "';\" type=\"button\" value=\"ἑπόμενος σελίς >\" />\n";
+	echo "';\" type=\"button\" value=\"Next Page >\" />\n";
 	echo "\t\t\t\t\t\t\t\t</td>\n";
 	
 	// composes last page button:
@@ -474,7 +548,7 @@ HTML;
 	}
 	echo "page=";
 	echo $pagesAmount;
-	echo "';\" type=\"button\" value=\"τελευταία σελίς >>\" />\n";
+	echo "';\" type=\"button\" value=\"Last Page >>\" />\n";
 	echo "\t\t\t\t\t\t\t\t</td>\n";
 		
 	echo <<<HTML
@@ -535,21 +609,21 @@ function writtenNumber($number, $genre = MASCULINE) {
         case 1:
             switch ($genre) {
                     case FEMENINE:
-                            $writtenNumber = "one"; // μία
+                            $writtenNumber = _("one"); // μία gettext?
                             break;
                     default: // MASCULINE
-                            $writtenNumber = "one"; // εἷς
+                            $writtenNumber = _("one"); // εἷς
                             break;
                     }
             break;
         case 2:
-            $writtenNumber = "two";
+            $writtenNumber = _("two");
             break;
         case 3:
-            $writtenNumber = "three";
+            $writtenNumber = _("three");
             break;
         case 4:
-            $writtenNumber = "four";
+            $writtenNumber = _("four");
             break;
         default:
             $writtenNumber = strval($number);
@@ -573,82 +647,82 @@ function writtenOrdinal($ordinal) {
     switch ($ordinal) {
         
         case "a":
-            return "(ἡ μὲν α´)";
+            return _("(1st)"); // ἡ μὲν α´
             break;
         case "b":
-            return "(ἡ δὲ β´)";
+            return _("(2nd)"); // ἡ δὲ β´
             break;
         case "c":
-            return "(ἡ δὲ γ´)";
+            return _("(3rd)");
             break;
         case "d":
-            return "(ἡ δὲ δ´)";
+            return _("(4th)");
             break;
         case "e":
-            return "(ἡ δὲ ε´)";
+            return _("(5th)");
             break;
         case "f":
-            return "(ἡ δὲ ϛ´)";
+            return _("(6th)");
             break;
         case "g":
-            return "(ἡ δὲ ζ´)";
+            return _("(7th)");
             break;
         case "h":
-            return "(ἡ δὲ η´)";
+            return _("(8th)");
             break;
         case "i":
-            return "(ἡ δὲ θ´)";
+            return _("(9th)");
             break;
         case "j":
-            return "(ἡ δὲ ι´)";
+            return _("(10th)");
             break;
         case "k":
-            return "(ἡ δὲ ια´)";
+            return _("(11th)");
             break;
         case "l":
-            return "(ἡ δὲ ιβ´)";
+            return _("(12th)");
             break;
         case "m":
-            return "(ἡ δὲ ιγ´)";
+            return _("(13th)");
             break;
         case "n":
-            return "(ἡ δὲ ιδ´)";
+            return _("(14th)");
             break;
         case "o":
-            return "(ἡ δὲ ιε´)";
+            return _("(15th)");
             break;
         case "p":
-            return "(ἡ δὲ ιϛ´)";
+            return _("(16th)");
             break;
         case "q":
-            return "(ἡ δὲ ιζ´)";
+            return _("(17th)");
             break;
         case "r":
-            return "(ἡ δὲ ιη´)";
+            return _("(18th)");
             break;
         case "s":
-            return "(ἡ δὲ ιθ´)";
+            return _("(19th)");
             break;
         case "t":
-            return "(ἡ δὲ κ´)";
+            return _("(20th)");
             break;
         case "u":
-            return "(ἡ δὲ κα´)";
+            return _("(21st)");
             break;
         case "v":
-            return "(ἡ δὲ κβ´)";
+            return _("(22nd)");
             break;
         case "w":
-            return "(ἡ δὲ κγ´)";
+            return _("(23rd)");
             break;
         case "x":
-            return "(ἡ δὲ κδ´)";
+            return _("(24th)");
             break;
         case "y":
-            return "(ἡ δὲ κε´)";
+            return _("(25th)");
             break;
         case "z":
-            return "(ἡ δὲ κϛ´)";
+            return _("(26th)");
             break;
         default:
             if ($ordinal !== "") {
@@ -676,37 +750,51 @@ function writtenRate($evaluation, $explication = false) {
         case EXCELLENT:
                 $ret = "<img src=\"images/rating_star.gif\" /><img src=\"images/rating_star.gif\" /><img src=\"images/rating_star.gif\" /><img src=\"images/rating_star.gif\" /><img src=\"images/rating_star.gif\" />";
                 if ($explication) {
-                        $ret .= ' (excellent)';
+                    
+                    $ret .= " (".
+                        _("excellent").
+                        ")";
+                    
                 }
                 break;
         case VERY_GOOD:
                 $ret = '<img src="images/rating_star.gif" /><img src="images/rating_star.gif" /><img src="images/rating_star.gif" />';
                 if ($explication) {
-                        $ret .= ' (very good)';
+                        
+                    $ret .= " ("._("very good").")";
+                    
                 }
                 break;
         case GOOD:
                 $ret = '<img src="images/rating_star.gif" />';
                 if ($explication) {
-                        $ret .= ' (good)';
+                        
+                    $ret .= " ("._("good").")";
+                    
                 }
                 break;
         case BAD:
                 $ret = '<img src="images/rating_bad.gif" />';
                 if ($explication) {
-                        $ret .= ' (bad)';
+                        
+                    $ret .= " ("._("bad").")";
+                    
                 }
                 break;
         case VERY_BAD:
                 $ret = '<img src="images/rating_worst.gif" />';
                 if ($explication) {
-                        $ret .= ' (very bad)';
+                        
+                    $ret .= " ("._("very bad").")";
+                    
                 }
                 break;
         default:
                 $ret = '<img src="images/rating_undefined.gif" />';
                 if ($explication) {
-                        $ret .= ' (undefined)';
+                    
+                    $ret .= " ("._("undefined").")";
+                    
                 }
                 break;
                 

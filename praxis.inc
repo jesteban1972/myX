@@ -103,7 +103,7 @@ QUERY;
         $this->date = $row['date'];
         $this->ordinal = $row['ordinal'];
         $this->name = $row['name'];
-        $this->rating = $row['rating'];
+        $this->rating = intval($row['rating']);
         $this->description = $row['description'];
         $this->tq = $row['tq'];
         $this->tl = $row['tl'];
@@ -249,12 +249,12 @@ QUERY;
      * @ordinalNr: experience ordinal
      * @options: bitwise combination of options (v.gr. XPERIENCE_RATE & XPERIENCE_DATE & EXCEPTR_MED)
     */
-    public function HTMLPreview($ordinalNr, $options = '') {
+    public function HTMLPreview($ordinalNr, $options = "") {
 	
         // 1. get a DB connection to work with:
         $pdo = DB::getDBHandle();
 
-        echo "\t\t\t\t\t\t<div class=\"HTML_preview\">\n";
+        echo "\t\t\t\t\t<div class=\"HTML_preview\">\n";
 
         /*
          *  first line of the preview (headline):
@@ -264,7 +264,7 @@ QUERY;
          */
 
         // 1. ordinal number:
-        echo "\t\t\t\t\t\t\t<p class=\"medium\"> ";
+        echo "\t\t\t\t\t\t<p class=\"medium\"> ";
         echo $ordinalNr; // ordinal number is 1-based
         echo ". ";
 
@@ -304,8 +304,10 @@ QUERY;
 
         // 1. time
         // TODO: $year_span = $current_year - $date ['year'];
-        echo "\t\t\t\t\t\t\t<p><b>QVANDO</b> ";
-        echo $this->getDate();
+        echo "\t\t\t\t\t\t<p><b>".
+            _("QVANDO").
+            "</b> ".
+            $this->getDate();
 
         if (!empty($this->getOrdinal())) {
 
@@ -319,7 +321,7 @@ QUERY;
         // 2. place
         if ($options != self::LOCUS) { // not shown if in locus.php
             
-            echo "<b>VBI</b> ";
+            echo "<b>"._("VBI")."</b> ";
             
             // the place's designation is queried from the table 'places':
 
@@ -345,7 +347,7 @@ QRY;
         // 3. participants
         if ($options != self::PARTICIPANTS) { // not shown if in amor.php
             
-            echo "<b>CVM QVIBVS</b> ";
+            echo "<b>"._("CVM QVIBVS")."</b> ";
 
             $queryString = <<<QRY
 SELECT alias
@@ -405,7 +407,7 @@ QRY;
         } // if
    				
         // 4. description or excerpt
-        echo "<b>QVOD</b> ";
+        echo "<b>"._("QVOD")."</b> ";
         echo languageFlag($this->getTL(), 15);
         echo ' ';
         
@@ -426,7 +428,9 @@ QRY;
             $excerpt = str_replace("<i>", "", $excerpt);
             $excerpt = str_replace("</i>", "", $excerpt);
             echo $excerpt;
-            echo " [...] <input type=\"button\" name=\"evaluation\" value=\"> περισσοτέρως\" onclick=\"window.location.href='xperience.php?xperience_id=";
+            echo " [...] <input type=\"button\" value=\"> ".
+                _("See more...").
+                "\" onclick=\"window.location.href='praxis.php?praxisID=";
             echo $this->getPraxisID();
             echo "#participants'\" />";
 
@@ -444,7 +448,7 @@ QRY;
         }
 
         echo "</p>\n";
-        echo "\t\t\t\t\t\t</div>\n";
+        echo "\t\t\t\t\t</div>\n";
 
     } // method Praxis::HTMLPreview
 	

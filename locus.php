@@ -17,10 +17,6 @@ require_once 'locus.inc';
 // 1. get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
-
-$title = "Locus";
-include 'header.inc'; // header of all the pages of the app
-
 /*
  * locusID is retrieved from $_GET (intval needed)
  * and an object of the class 'Locus' is instantiated using it.
@@ -28,27 +24,58 @@ include 'header.inc'; // header of all the pages of the app
  */
 $locus = new Locus(intval($_GET['locusID']));
 
+$title = _("Place");
+//$mapAPI = true; // used to include the JavaScript code in the <header> section
+include 'header.inc'; // header of all the pages of the app
+echo "\t\t\t<section> <!-- section {{ -->\n";
+
 echo <<<HTML
-                    <!-- Script locus.php. Part 0: Navigation links -->
-                    <article id="start">
-                        <p class="center"><a href="#data"><img src="images/generalia-medium.jpg" title="Γενικὰ στοιχεῖα" /></a><a href="#amores"><img src="images/confratres-medium.jpg" title="Μεθέξοντες τῆς φάσεως" /></a><a href="#description"><img src="images/narratio-medium.jpg" title="Ἀφήγησις τῶν πεπραγμένων" /></a></p>
-                        <p style="text-align: center"><img src="images/arrow_back.gif" /> <a href="JavaScript: history.back();">Back to previous page</a></p>
-                    </article>
-                    
-                    <!-- Script locus.php. Part I: General data -->
-                    <article id="data">
-                        <h1 onMouseOver="this.innerHTML='1. GENERALIA i.e. general data';" onMouseOut="this.innerHTML='1. GENERALIA';">1. GENERALIA</h1>
+                <!-- script locus.php. part 0: links to sections -->
+                <article id="start">
 
 HTML;
 
+// links to sections:
+echo "\t\t\t\t\t<ul>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#data\">".
+        _("Data").
+        "</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#practica\">".
+        _("List of experiences").
+        "</a></li>\n";
+if ($locus->getCoordinatesExact() !== "" ||
+    $locus->getCoordinatesGeneric() !== "") {
+    
+    $coordinatesSet = true;
+    echo "\t\t\t\t\t\t<li><a href=\"#map\">".
+        _("Map")."</a></li>\n";
+    
+} else {
+    
+    $coordinatesSet = false;
+}
+
+echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
+        _("Actions")."</a></li>\n";
+echo "\t\t\t\t\t</ul>\n";
 
 echo <<<HTML
-                        <p style="text-align: center"><img src="images/arrow_back.gif" /> <a href="JavaScript: history.back();">Ἐπαναφορὰ εἰς τὴν προηγουμένην σελίδα</a></p>
-                    </article>
+                </article>
+
+                <!-- script locus.php. part i: general data -->
+                <article id="data">
 
 HTML;
 
-echo "\t\t\t\t\t\t<p class=\"medium\">";
+echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+    _("GENERALIA i.e. general data").
+    "';\" onMouseOut=\"this.innerHTML='".
+    _("GENERALIA").
+    "';\">".
+    _("GENERALIA").
+    "</h1>\n";
+
+echo "\t\t\t\t\t<p class=\"medium\">";
 if (DEBUG) {
     
     echo " <span class=\"debug\">[place_id: ";
@@ -56,22 +83,30 @@ if (DEBUG) {
     echo "]</span> ";
         
 }
-echo "Name: <b>{$locus->getName()}</b></p>\n";
+echo _("Name").": <b>".$locus->getName()."</b></p>\n";
 
 if ($locus->getDescription() !== "") {
     
-    echo "\t\t\t\t\t\t<p class=\"medium\">Place description: {$locus->getDescription()}</p>\n";
+    echo "\t\t\t\t\t<p class=\"medium\">"._("Place description").
+        ": ".$locus->getDescription()."</p>\n";
     
 }
 
 echo <<<HTML
-                    </article>
-                    
-                    <!-- Script place.php. Part II: List -->
-                    <article id="list">
-                        <h1 onMouseOver="this.innerHTML='2. ELENCHUS i.e. list of the experiences in this place';" onMouseOut="this.innerHTML='2. ELENCHUS';">2. ELENCHUS</h1>
+                </article>
+
+                <!-- script locus.php. part ii: practica -->
+                <article id="practica">
 
 HTML;
+
+echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+    _("ELENCHUS i.e. experiences list").
+    "';\" onMouseOut=\"this.innerHTML='".
+    _("ELENCHUS").
+    "';\">".
+    _("ELENCHUS").
+    "</h1>\n";
 		
 // the amount of experiences in this place is retrieved:
 $practicaAmount = $locus->getPracticaAmount(); // used also for page's settings
@@ -80,27 +115,30 @@ $practicaAmount = $locus->getPracticaAmount(); // used also for page's settings
 // is retrieved:
 $differentDatesAmount = $locus->getDifferentDatesAmount();
 
-echo "\t\t\t\t\t\t<p>";
+echo "\t\t\t\t\t<p>";
 
 switch ($practicaAmount) {
 
 	case 0:
-            echo "No experiences were performed in this place";
+            echo _("No experiences were performed in this place");
             break;
 	case 1: // only one xperience
-            echo "In this place was performed only <b>one</b> experience";
+            echo _("In this place was performed only <b>one</b> experience");
             break;
 	default: // more than one xperience
-        echo "In this place were performed the following <b>".writtenNumber($practicaAmount, FEMENINE)."</b> experiences";
-        echo ", happened ";
+        echo sprintf(
+            _("In this place were performed the following <b>%s</b> experiences"),
+            writtenNumber($practicaAmount, FEMENINE));
         switch ($differentDatesAmount) {
 
-                case 1: // all the same day
-                    echo "the <b>same</b> day";
-                    break;
-                default: // more than one day
-                    echo "in <b>".writtenNumber($differentDatesAmount, FEMENINE)."</b> different days";
-                    echo " (i.e. ".round($practicaAmount/$differentDatesAmount, 2)." experiences/day as average)";
+            case 1: // all the same day
+                echo ", happened the <b>same</b> day";
+                break;
+            default: // more than one day
+                echo sprintf(_(", happened in <b>%s</b> different days"),
+                    writtenNumber($differentDatesAmount, FEMENINE));
+                echo sprintf(_(" (i.e. %.2f experiences/day as average)"),
+                    round($practicaAmount/$differentDatesAmount, 2));
 
         } // switch block
 }
@@ -148,8 +186,8 @@ QRY;
 
 $statement = $pdo->prepare($queryString);
 $statement->bindParam(":locusID", $locus->getlocusID());
-$statement->bindParam(":ordinalZeroBased", $ordinalZeroBased, \PDO::PARAM_INT);
-$statement->bindParam(":resultsPerPage", intval($_SESSION['options']['resultsPerPage']), \PDO::PARAM_INT);
+$statement->bindParam(":ordinalZeroBased", $ordinalZeroBased, PDO::PARAM_INT);
+$statement->bindParam(":resultsPerPage", intval($_SESSION['options']['resultsPerPage']), PDO::PARAM_INT);
 $statement->execute();
 
 foreach ($statement as $row) {
@@ -173,112 +211,105 @@ if ($pageSettings['navigationBar']) {
         
 }
 
+// link to top of the page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_top.gif\" />".
+    " <a href=\"#start\">".
+    _("Back to top").
+    "</a></p>\n";
+
 echo <<<HTML
-                        <p style="text-align: center"><img src="images/arrow_back.gif" /> <a href="JavaScript: history.back();">Ἐπαναφορὰ εἰς τὴν προηγούμενον σελίδα</a></p>
-                    </article>
-                    
-                    <!-- Script place.php. Part III: Map -->
-                    <article id="map">
-                        <h1 onMouseOver="this.innerHTML='3. CHARTA ἤτοι χάρτης';" onMouseOut="this.innerHTML='3. CHARTA';">3. CHARTA</h1>
+                </article>
+
+                <!-- script locus.php. part iii: map -->
+                <article id="map">
 
 HTML;
 
+echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+    _("CHARTA i.e. map of the place").
+    "';\" onMouseOut=\"this.innerHTML='".
+    _("CHARTA").
+    "';\">".
+    _("CHARTA").
+    "</h1>\n";
+
 // address
-if ($currentPlace->getAddress() !== "") {
-	echo "\t\t\t\t\t\t<p>Διεύθυνσις: {$currentPlace->getAddress()}</p>\n";
+if ($locus->getAddress() !== "") {
+    
+    echo "\t\t\t\t\t<p>".
+        _("Address:").
+        " ".
+        $locus->getAddress().
+        "</p>\n";
 }
 
 if ($coordinatesSet) {
 
-	// coordinates
-	echo "\t\t\t\t\t\t<p>γεωγραφικαὶ συντεταγμένες: ";
-    
-    if ($currentPlace->getCoordinatesExact() !== "") { // exact coordinates
+    // coordinates:
+    echo "\t\t\t\t\t<p>"._("Coordinates:")." ";
+    if ($locus->getCoordinatesExact() !== "") { // exact coordinates
 
-        $coordinates = $currentPlace->getCoordinatesExact();
-        $coordinatesSetExact = TRUE;
+        $coordinates = $locus->getCoordinatesExact();
         $markerColor = "red";
-        echo $coordinates." (τοποθεσία ἀκριβής, κατὰ τὸ μᾶλλον ἢ ἦττον)";
+        echo $coordinates." ("._("exact position").")";
 
     } else { // generic coordinates if exact coordinates are missing
 
-        $coordinates = $currentPlace->getCoordinatesGeneric();
-        $coordinatesSetGeneric = TRUE;
+        $coordinates = $locus->getCoordinatesGeneric();
         $markerColor = "orange";
-        echo $coordinates." (τοποθεσία κατὰ προσέγγυσιν)";
+        echo $coordinates." ("._("approximate position").")";
 
     }
-	echo "</p>\n";
+    echo "</p>\n";
+    //var_dump($markerColor);
 
-	// parse coordinates (URL-escaped) necessary?
-	// $coordinates = XXX ($coordinates);
-
-    /* 
-    1st approach: Google Static Maps API V1
-        pros: simplicity
-        cons: not possible to scroll or zoom in or out the map
-        echo <<<HTML
-                        <img src="https://maps.googleapis.com/maps/api/staticmap
-                            ?zoom=15
-                            &size=640x640
-                            &format=jpg
-                            &markers=color:{$marker_color}%7C{$coordinates}
-                            &sensor=false" width="640" height="640" alt="(χάρτης τοῦ τόπου: {$place->get_designation ()})" />
-HTML;
-    */
-
-    /*
-    2nd approach: Google Maps Embed API (since march 2014)
-    best solution because of its features and simplicity
-    TODO:
-        1/ delete adress popup (or personalize it with the place's designation instead of the coordinates)
-        2/ marker color
-
-	echo <<<HTML
-                        <p>Χάρτης:</p>
-                        <iframe width="640" height="480" frameborder="0" style="border: 0;" src="https://www.google.com/maps/embed/v1/place?key=AIzaSyAHwEfIR7d0ICuaj_FSaDnLuNQJY48kWKI&q={$coordinates}"></iframe>
+    // map:
+    $mapURL =
+        "https://maps.googleapis.com/maps/api/staticmap?".
+        "zoom=5&size=640x480&markers=color:".
+        $markerColor.
+        "%7C".
+        $coordinates;
+    
+    echo "\t\t\t\t\t<p>"._("Map:")."</p>\n";
+    echo "\t\t\t\t\t<div style=\"text-align: center;\">\n";
+    
+    echo "\t\t\t\t\t\t<img src=\"".
+        $mapURL.
+        "\" width=\"640\" height=\"480\" />\n";
+    
+    echo <<<HTML
+                        <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=5&size=640x480&markers=color:red%7C37.683205, -0.734315" width="640" height="480" />
 
 HTML;
-    */
-    
-    /*
-        3rd approach: Static Maps V2
-        pros: easy to use, possibility to add customized marker(s)
-        cons: not possible to scroll or zoom in or out the map; three maps with three zoom levels
-    */
-    
-	echo <<<HTML
-                        <p>χάρτης:</p>
-                        <div style="text-align: center;">
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=5&size=640x480&markers=color:{$markerColor}%7C{$coordinates}" width="640" height="480" />
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=10&size=640x480&markers=color:{$markerColor}%7C{$coordinates}" width="640" height="480" />
-                            <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=15&size=640x480&markers=color:{$markerColor}%7C{$coordinates}" width="640" height="480" />
-                        </div>
+    // ...?zoom=5&...
+    // ...?zoom=10&...
+    // ...?zoom=15&...
 
-HTML;
+    echo "\t\t\t\t\t</div>\n";
     
-    // <img src="https://maps.googleapis.com/maps/api/staticmap?center={$coordinates}&zoom=13&size=640x480&markers=color:{$marker_color}%7Clabel:G" />
-    
-    // latitude: -90..90
-    // longitude -180..180
-    
-	} // if
+} // if
 
-// www
-if ($currentPlace->getWww() !== "") {
+// www:
+if ($locus->getWww() !== "") {
     
-    echo "\t\t\t\t\t\t<p>δικτύωσις: <a href=\"http:\\\\";
-    echo $currentPlace->getWww();
-    echo "\" target=\"_blank\">{$currentPlace->getWww()}";
-    echo "</a></p>\n";
+    echo "\t\t\t\t\t<p>".
+        _("Web:").
+        " <a href=\"http:\\\\".
+        $locus->getWww().
+        "\" target=\"_blank\">".
+        $locus->getWww().
+        "</a></p>\n";
         
 }
 
-echo <<<HTML
-                        <p style="text-align: center"><img src="images/arrow_back.gif" /> <a href="JavaScript: history.back();">ἐπαναφορὰ εἰς τὴν προηγούμενον σελίδα</a></p>
-                    </article>
-
-HTML;
+// link to top of the page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_top.gif\" />".
+    " <a href=\"#start\">".
+    _("Back to top").
+    "</a></p>\n";
 
 
 // displays bottom navigation bar
@@ -288,7 +319,50 @@ if ($pageSettings['navigationBar']) {
         
 }
 
+echo "\t\t\t\t</article>\n";
 
+echo "\n\t\t\t\t<!-- script locus.php. part iv: actions -->\n";
+echo "\t\t\t\t<article id=\"actions\">\n";
+
+echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+    _("ACTIONS i.e. XXX").
+    "';\" onMouseOut=\"this.innerHTML='".
+    _("ACTIONS").
+    "';\">".
+    _("ACTIONS").
+    "</h1>\n";
+
+// edit place form:
+echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"locusID\" value=\"".
+    $locus->getLocusID().
+    "\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
+    _("Edit place").
+    "\" />\n";
+echo "\t\t\t\t\t</form>\n";
+
+// delete place form:
+echo "\t\t\t\t\t<form action=\"locusDelete.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"locusID\" value=\"".
+    $locus->getLocusID().
+    "\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
+    _("Delete place").
+    "\" />\n";
+echo "\t\t\t\t\t</form>\n";
+                            
+// link to previous page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_back.gif\" />".
+    " <a href=\"javascript: history.back();\">".
+    _("Back to previous").
+    "</a></p>\n";
+
+echo "\t\t\t\t</article>\n";
+
+echo "\t\t\t</section> <!-- }} section -->\n\n";
+require_once 'footer.inc'; // footer of all the pages of the app
 
 //// $xperienceSideview displays a sommary of the xperience in the sidebar
 //// 1-step creation
@@ -308,7 +382,5 @@ if ($pageSettings['navigationBar']) {
 //$praxisSideview .= "</div>";
 //
 //$_SESSION['praxisSideview'] = $praxisSideview; // stores $praxisSideview in $_SESSION to be read from sidebar.inc
-
-require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

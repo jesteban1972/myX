@@ -18,38 +18,45 @@ session_start();
 class Amor {
 
     // I. properties
-    protected $loverID;       // loverID (ἀριθμὸς-κλείς)
-    protected $achtung;       // achtung (τυχὸν ἐκκρεμότητες)
-    protected $alias;         // alias (ψευδώνυμον)
-    protected $description1;  // description1 (γενικὴ περιγραφή)
-    protected $description2;  // description2 (περιγραφὴ σώματος
-    protected $description3;  // description3 (περιγραφὴ ἐμπροσθίων γεννητικῶν ὀργάνων: πέος, ὄρχεις)
-    protected $description4;  // description4 (περιγραφὴ ὀπισθίων γεννητικῶν ὀργάνων: κῶλος)
-    protected $rating;    // evaluation (ἀξιολόγησις)
-    protected $web;           // web (δικτύωσις)
-    protected $name;          // name (ὀνοματεπώνυμον)
-    protected $photo;         // photo (ὕπαρξις φωτογραφιῶν)
-    protected $telephone;     // telephone (τηλέφωνον ἢ τηλέφωνα)
-    protected $email;         // email (ἠλεκτρονικὸν ταχυδρομεῖον)
-    protected $other;         // other (παραλειπόμενα)
+    protected $amorID;          // amorID
+    protected $achtung;         // achtung
+    protected $alias;           // alias
+    protected $genre;           // genre
+    protected $description1;    // description1
+    protected $description2;    // description2
+    protected $description3;    // description3
+    protected $description4;    // description4
+    protected $rating;          // rating
+    protected $www;             // www
+    protected $name;            // name
+    protected $photo;           // photo
+    protected $telephone;       // telephone
+    protected $email;           // email
+    protected $other;           // other
 
     // II. member constants
     const RATING = 1;
     //const PLACE = 2;
     //const PARTICIPANTS = 3;
+    
+    const GENRE_MAN = 1;
+    const GENRE_WOMAN = 2;
+    // ...
+    //const GENRES = Array("dummy", _("man"), _("woman"));
 
     // III. methods
 	
     // getters:
-    public function getAmorID() {return $this->loverID;}
+    public function getAmorID() {return $this->amorID;}
     public function getAchtung() {return $this->achtung;}
     public function getAlias() {return $this->alias;}
+    public function getGenre() {return $this->genre;}
     public function getDescription1() {return $this->description1;}
     public function getDescription2() {return $this->description2;}
     public function getDescription3() {return $this->description3;}
     public function getDescription4() {return $this->description4;}
     public function getRating() {return $this->rating;}
-    public function getWeb() {return $this->web;}
+    public function getWww() {return $this->www;}
     public function getName() {return $this->name;}
     public function getPhoto() {return $this->photo;}
     public function getTelephone() {return $this->telephone;}
@@ -85,15 +92,16 @@ QUERY;
         $row = $statement->fetch();
         
         // the propierties of the current object are taken from the query:
-        $this->loverID = $amorID;
+        $this->amorID = $amorID;
         $this->achtung = $row['achtung'];
         $this->alias = $row['alias'];
-        $this->description1 = $row['descr1'];
-        $this->description2 = $row['descr2'];
-        $this->description3 = $row['descr3'];
-        $this->description4 = $row['descr4'];
-        $this->rating = $row['evaluation'];
-        $this->web = $row['web'];
+        $this->genre = intval($row['genre']);
+        $this->description1 = $row['description1'];
+        $this->description2 = $row['description2'];
+        $this->description3 = $row['description3'];
+        $this->description4 = $row['description4'];
+        $this->rating = intval($row['rating']);
+        $this->www = $row['www'];
         $this->name = $row['name'];
         $this->photo = $row['photo'];
         $this->telephone = $row['telephone'];
@@ -199,7 +207,7 @@ QUERY;
 
         echo writtenNumber($xperiencesAmount, FEMENINE);
         echo " ";
-        echo ($xperiencesAmount > 1) ? "φάσεις" : "φάσις";
+        echo ($xperiencesAmount > 1) ? _("experiences") : _("experience");
         echo " - ";
 
         // 2. evaluation (or middle evaluation)
@@ -232,7 +240,7 @@ QRY;
 
         if ($xperiencesAmount > 1) { // average value
 
-                echo " (average)";
+                echo " ("._("as average").")";
 
         }
         echo "</p>\n";

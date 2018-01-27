@@ -3,19 +3,25 @@
 /* 
  * footer.inc
  * footer for all pages of myX
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
- * last update: 2017-11-04
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * last update: 2017-12-21
  */
 
-echo <<<XHTML
-                <footer>
-                    <p>myX - &copy; Joaquín Javier Esteban Martínez 2018</p>
-                </footer>
-            </div><!-- }} content -->
-        </div><!-- }} container -->
+echo <<<HTML
+            <footer><!-- footer {{ -->
+                <p>myX - &copy; Joaquín Javier Esteban Martínez 2018</p>
+            </footer><!-- }} footer -->
+
+
+HTML;
+
+include 'aside.inc';
+
+echo <<<HTML
+        </div><!-- }} div container -->
     </body>
 </html>
 
-XHTML;
+HTML;
 
 ?>

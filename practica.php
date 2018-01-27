@@ -4,12 +4,11 @@
  * script practica.php
  * displays a list of experiences based in an instance of class 'PracticaList'
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2017-12-08
- * TOFIX: script refactored and rearranged; make the same with lovers_ and places_catalogue.php
+ * last updated 2018-01-24
 */
 
-require_once 'session.inc';
 require_once 'core.inc';
+require_once 'session.inc';
 require_once 'DB.inc';
 require_once 'praxis.inc';
 
@@ -38,33 +37,29 @@ $description = $practicaList->getDescription();
 $queryString = $practicaList->getQueryString();
 
 // page header:
-$title = "Practica";
+$title = _("Experiences");
 require_once 'header.inc'; // header of all the pages of the app
+echo "\t\t\t<section> <!-- section {{ -->\n";
 
 echo <<<HTML
-                    <!-- Script practica.php. Part 0: Description of the list -->
-                    <article id="start">
+                <!-- Script practica.php. Part 0: Description of the list -->
+                <article id="start">
 
 HTML;
 
-// list designation and description:
+// list designation and description
 
-echo "\t\t\t\t\t\t<p class=\"medium\"><b>";
-echo $designation;
-echo "</b>: ";
-echo $description;
+echo "\t\t\t\t\t<p class=\"medium\"><b>".
+    $designation.
+    "</b>: ".
+    $description.
+    " ";
 
-if (DEBUG) {
-    
+if (DEBUG)
     echo " <span class=\"debug\">[query string: ".$queryString."]</span> ";
-        
-}
-
-echo "</p>";
-
-echo "\t\t\t\t\t\t\t<p><input name=\"set_filter\" onclick=\"window.location.href='practicaFilter.php';\" type=\"button\" value=\"Filter query\" /></p>\n";
 
 /*
+ * experiences list.
  * a first query of practicaList::queryString is performed
  * just to retrieve the amount of experiences.
  * Praxis::getPracticaAmount() would retrieve the amount of all experiences,
@@ -74,39 +69,45 @@ echo "\t\t\t\t\t\t\t<p><input name=\"set_filter\" onclick=\"window.location.href
 $statement = $pdo->prepare($queryString);
 $statement->execute();
 $practicaAmount = $statement->rowCount();
-
-echo "\t\t\t\t\t\t\t<p>";
 switch ($practicaAmount) {
-    
-//    if ($lang === ENGLISH) {
-//        
-//        case 0:
-//            $output = sprintf($format);
-//    }
-	
+
     case 0:
-            echo "no experiences found";
-            break;
+        echo _("(no experiences found)");
+        break;
     case 1:
-            echo "only <b>one</b> experience found";
-            break;
+        echo _("(only <b>one</b> experience found)");
+        break;
     default:
-            echo "<b>{$practicaAmount}</b> experiences found";
+        echo sprintf(_("(<b>%d</b> experiences found)"), $practicaAmount);
             
-} // switch block
-//echo $output."</p>\n";
-echo ".</p>\n";
+}
+echo "</p>\n";
+    
+// links to page sections:
+echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
+    _("List of experiences").
+    "</a></li>\n".
+    "\t\t\t\t\t\t<li><a href=\"#actions\">".
+    _("Actions").
+    "</a></li>\n\t\t\t\t\t</ul>\n";
 
 if ($practicaAmount >= 1) {
-    
-    echo "\t\t\t\t\t\t\t<p>List follows</a>.</p>\n";
         
     echo <<<HTML
-                    </article>
-                    
-                    <!-- Script practica.php. Part I: List -->
-                    <article id="list">
-                        <h1>Experiences list</h1>
+                </article>
+
+                <!-- Script practica.php. Part I: List -->
+                <article id="list">
+
+HTML;
+    
+echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+    _("ELENCHUS i.e. list of experiences").
+    "';\" onMouseOut=\"this.innerHTML='".
+    _("ELENCHUS").
+    "';\">".
+    _("ELENCHUS").
+    "</h1>\n";
 
 HTML;
 
@@ -161,10 +162,10 @@ HTML;
  */
 
     $queryString .= " ORDER BY `myX`.`practica`.`date`";
-    $queryString .= " LIMIT ";
-    $queryString .= $ordinalZeroBased;
-    $queryString .= ", ";
-    $queryString .= $_SESSION['options']['resultsPerPage'];
+    $queryString .= " LIMIT ".
+        $ordinalZeroBased.
+        ", ".
+        $_SESSION['options']['resultsPerPage'];
 
     if (DEBUG) {
 
@@ -202,14 +203,55 @@ HTML;
     }
 
     echo <<<HTML
-                        <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />et je vis des peines que j'ai enduré, et que je ne sens plus»<br />(Giacomo Casanova, Histoire de ma vie, Préface)</p>
-                        <p style="text-align: center;"><img src="images/arrow_top.gif" /> <a href="#start">Back to top</a></p>
-                    </article>
+                    <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
+                        et je vis des peines que j'ai enduré, et que je ne sens plus»
+                        <br />(Giacomo Casanova, Histoire de ma vie, Préface)</p>
+    
+HTML;
+
+// link to top of the page:
+echo "\t\t\t\t<p style=\"text-align: center;\"><img src=\"images/arrow_top.gif\" /> <a href=\"#start\">".
+    _("Back to top").
+    "</a></p>\n";
+
+echo <<<HTML
+                </article>
 
 HTML;
     
 } // if ($practicaAmount > 1)
 
+echo <<<HTML
+                <!-- Script practica.php. Part II: Actions -->
+                <article id="actions">
+                    <h1>Actions</h1>
+
+HTML;
+
+// filter experiences:
+echo "\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"set_filter\" value=\""
+    ._("Apply filter").
+    "\" />\n";
+echo "\t\t\t\t\t</form>\n";
+
+// new experience:
+echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
+    _("New experience").
+    "\" />\n";
+echo "\t\t\t\t\t</form>\n";
+
+// link to previous page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_back.gif\" />".
+    " <a href=\"javascript: history.back();\">".
+    _("Back to previous").
+    "</a></p>\n";
+
+echo "\t\t\t\t</article>\n";
+
+echo "\t\t\t</section> <!-- }} section -->\n\n";
 require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

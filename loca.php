@@ -7,12 +7,11 @@
  * last updated 2017-12-15
 */
 
-require_once 'session.inc';
 require_once 'core.inc';
+require_once 'session.inc';
 require_once 'DB.inc';
 //require_once 'praxis.inc';
 require_once 'locus.inc';
-
 
 // 1. get a DB connection to work with:
 $pdo = DB::getDBHandle();
@@ -37,34 +36,33 @@ $designation = $locaList->getDesignation();
 $description = $locaList->getDescription();
 $queryString = $locaList->getQueryString();
 
+// map center: the coordinates are stored in the session to be read from JS
+Locus::getMapCenter();
+
 // page header:
-$title = "Loca";
+$title = _("Places");
+$mapAPI = true; // used to include the JavaScript code in the <header> section
 require_once 'header.inc'; // header of all the pages of the app
+echo "\t\t\t<section> <!-- section {{ -->\n";
 
 echo <<<HTML
-                    <!-- Script loca.php. Part 0: Description of the list -->
-                    <article id="start">
+                <!-- Script loca.php. Part 0: Description of the list -->
+                <article id="start">
 
 HTML;
 
-// list designation and description:
+// list designation and description, and places amount:
 
-echo "\t\t\t\t\t\t<p class=\"medium\"><b>";
-echo $designation;
-echo "</b>: ";
-echo $description;
-
-if (DEBUG) {
-    
-    echo " <span class=\"debug\">[query string: ".$queryString."]</span> ";
-        
-}
-
-echo "</p>";
-
-echo "\t\t\t\t\t\t\t<p><input name=\"set_filter\" onclick=\"window.location.href='locaFilter.php';\" type=\"button\" value=\"Filter query\" /></p>\n";
+echo "\t\t\t\t\t<p class=\"medium\"><b>".
+    $designation.
+    "</b>: ".
+    $description.
+    " ";
+if (DEBUG)
+    echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
 
 /*
+ * places amount.
  * a first query of locaList::queryString is performed
  * just to retrieve the amount of places.
  * Locus::getLocaAmount() would retrieve the amount of all places,
@@ -74,35 +72,66 @@ echo "\t\t\t\t\t\t\t<p><input name=\"set_filter\" onclick=\"window.location.href
 $statement = $pdo->prepare($queryString);
 $statement->execute();
 $locaAmount = $statement->rowCount();
-
-echo "\t\t\t\t\t\t\t<p>";
 switch ($locaAmount) {
 	
     case 0:
-            echo "no places found";
+            echo _("(no places found)");
             break;
     case 1:
-            echo "only <b>one</b> place found";
+            echo _("(only <b>one</b> place found)");
             break;
     default:
-            echo "<b>{$locaAmount}</b> places found";
+            echo sprintf(_("(<b>%d</b> places found)"), $locaAmount);
             
-} // switch block
-echo ".</p>\n";
+}
+echo "</p>\n";
+
+// links to page sections:
+echo "\t\t\t\t\t<ul>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#map\">".
+    _("Map").
+    "</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#list\">".
+    _("List of places").
+    "</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
+    _("Actions").
+    "</a></li>\n";
+echo "\t\t\t\t\t</ul>\n";
 
 if ($locaAmount >= 1) {
     
-    echo "\t\t\t\t\t\t\t<p>List follows</a>.</p>\n";
+    echo <<<HTML
+                <!-- Script loca.php. Part I: Map -->
+                <article id="map">
+
+HTML;
+    
+    echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+        _("CHARTA i.e. map of places").
+        "';\" onMouseOut=\"this.innerHTML='".
+        _("CHARTA").
+        "';\">".
+        _("CHARTA").
+        "</h1>\n";
+    
+    echo "\t\t\t\t\t\t<div id=\"mapCanvas\"></div>\n";
         
     echo <<<HTML
-                    </article>
-                    
-                    <!-- Script loca.php. Part I: List -->
-                    <article id="list">
-                        <h1>Places list</h1>
+                </article>
+
+                <!-- Script loca.php. Part II: List -->
+                <article id="list">
 
 HTML;
 
+    echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
+        _("ELENCHUS i.e. list of places").
+        "';\" onMouseOut=\"this.innerHTML='".
+        _("ELENCHUS").
+        "';\">".
+        _("ELENCHUS").
+        "</h1>\n";    
     /*
      * page settings
      * the script retrieves from the URI the parameter list (v.gr. page=69)
@@ -154,10 +183,10 @@ HTML;
  */
 
     $queryString .= " ORDER BY `myX`.`loca`.`name`";
-    $queryString .= " LIMIT ";
-    $queryString .= $ordinalZeroBased;
-    $queryString .= ", ";
-    $queryString .= $_SESSION['options']['resultsPerPage'];
+    $queryString .= " LIMIT ".
+        $ordinalZeroBased.
+        ", ".
+        $_SESSION['options']['resultsPerPage'];
 
     if (DEBUG) {
 
@@ -195,14 +224,48 @@ HTML;
     }
 
     echo <<<HTML
-                        <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />et je vis des peines que j'ai enduré, et que je ne sens plus»<br />(Giacomo Casanova, Histoire de ma vie, Préface)</p>
-                        <p style="text-align: center;"><img src="images/arrow_top.gif" /> <a href="#start">Back to top</a></p>
-                    </article>
+                    <p class="quote">«XXX»<br />(XXX)</p>
+                    <p style="text-align: center;"><img src="images/arrow_top.gif" /> <a href="#start">Back to top</a></p>
+                </article>
 
 HTML;
     
 } // if ($locaAmount >= 1)
 
+echo <<<HTML
+                <!-- Script loca.php. Part III: Actions -->
+                <article id="actions">
+                    <h1>Actions</h1>
+
+HTML;
+
+// filter places:
+echo "\t\t\t\t\t<form action=\"locaFilter.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"set_filter\" value=\""
+    ._("Apply filter").
+    "\" />\n";
+echo "\t\t\t\t\t</form>\n";
+
+// add place:
+echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New place")."\" />\n";
+echo "\t\t\t\t\t</form>\n";
+
+// edit countries list:
+echo "\t\t\t\t\t<form action=\"countriesEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list")."\" />\n";
+echo "\t\t\t\t\t</form>\n";
+
+// link to previous page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_back.gif\" />".
+    " <a href=\"javascript: history.back();\">".
+    _("Back to previous").
+    "</a></p>\n";
+
+echo "\t\t\t\t</article>\n";
+
+echo "\t\t\t</section> <!-- }} section -->\n\n";
 require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

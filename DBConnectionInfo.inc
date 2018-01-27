@@ -4,7 +4,7 @@
  * DBConnInfo.inc
  * 
  * data used to etablish the DB connection
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2017-11-04
  */
 

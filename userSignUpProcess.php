@@ -3,30 +3,25 @@
 /* 
  * userSignUpProcess.php
  * script to process a sign up in myX
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
- * last update: 2017-11-23
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * last update: 2018-01-26
  */
 
 require_once 'session.inc';
 require_once 'user.inc';
 require_once 'exceptions.inc';
 
-// 1. validate the input
-// 
-// 1.1. check that all the mandatory information was provided:
-$username = isset($_POST['username']) ? $_POST['username'] : '';
-$password1 = isset($_POST['password1']) ? $_POST['password1'] : '';
-$password2 = isset($_POST['password2']) ? $_POST['password2'] : '';
-$email = isset($_POST['email']) ? $_POST['email'] : '';
+// validate the input:
+if (!isset($_POST['username']) || trim($_POST['username']) === "" ||
+    !isset($_POST['password1']) || trim($_POST['password1']) === "" ||
+    !isset($_POST['password2']) || trim($_POST['password2']) === "" ||
+    !isset($_POST['email']) || trim($_POST['email']) === "")
+    throw new InputException('One or more fields are empty, but all of them are required');
 
-if (trim($username) === ""
-    || trim($password1) === ""
-    || trim($password2) === ""
-    || trim($email) === "") {
-    
-	throw new InputException('One or more fields are empty, but all of them are required');
-    
-}
+$username = $_POST['username'];
+$password1 = $_POST['password1'];
+$password2 = $_POST['password2'];
+$email = $_POST['email'];
 
 // 1.2 check that the passwords match:
 // (ACHTUNG! In Safari neither INPUT's required attribute nor type="email" are supported!)
@@ -39,16 +34,16 @@ if (strcmp($password1, $password2) !== 0) {
     
 }
 
-// 2. check that the given username does not exist yet:
-// (do it using AJAX in usersSignUp.php!!!)
+// check that the given username does not exist yet:
+// (do it using AJAX in userSignUp.php!!!)
 if (User::doesUsernameExist($username)) { // make it from inside class 'User' ???
     
     throw new usernameExistsException();
     
 }
 
-// 3. check that the given username is valid:
-if (!User::isValidUsername($username)) { // make it from inside class 'User' ???
+// check that the given username is valid:
+if (!User::isValidUsername($username)) {
     
     throw new InputException("The given username contains not allowed characters. Allowed characters are only: Letters (A-Z, a-z), numbers (0-9), space ( ), underscore (_) and dash (-)");
     

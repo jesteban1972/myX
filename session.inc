@@ -3,7 +3,7 @@
 /* 
  * session.inc
  * script to handle session start and timeouts
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2017-12-16
  */
 

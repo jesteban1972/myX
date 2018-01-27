@@ -3,7 +3,7 @@
 /* 
  * DB.inc
  * implementation of class DB
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2017-11-04
  */
 
@@ -38,16 +38,25 @@ class DB {
             $DSN = "mysql:host="
                     .$DBAccess['server']
                     .";dbname="
-                    .$DBAccess['DBname'];
+                    .$DBAccess['DBname']
+                    .";charset=utf8";
             $user = $DBAccess['user'];
             $password = $DBAccess['password'];
             $options = array(
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-                );
-            
-            //$dwes->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
+            );
+//            $DSN = "mysql:host="
+//                    .$DBAccess['server']
+//                    .";dbname="
+//                    .$DBAccess['DBname'];
+//            $user = $DBAccess['user'];
+//            $password = $DBAccess['password'];
+//            $options = array(
+//                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
+//                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
+//                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
+//                );
             
             try {
                 

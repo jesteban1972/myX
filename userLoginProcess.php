@@ -3,7 +3,7 @@
 /* 
  * userLoginProcess.php
  * script to process a login
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2017-11-23
  */
 
@@ -11,7 +11,6 @@ require_once 'session.inc';
 require_once 'user.inc';
 require_once 'exceptions.inc';
 
-session_start();
 
 // verify the input:
 if (!isset($_POST['username'])
@@ -33,15 +32,12 @@ $password = $_POST['password'];
 //    
 //}
 
-// a new object 'User' is instantiated:
-// (using static methods instead)
-//$myUser = new User(intval($_SESSION['userID']));
-//var_dump($myUser);
 
-// login the user:
-$_SESSION['userID'] = User::loginProcess($username, $password);
+// login the user (Achtung! intval needed):
+$_SESSION['userID'] = intval(User::loginProcess($username, $password));
 
-// 99. redirect the user to the start page:
-header ("Location: index.php?welcomeMessage=true");
+// 99. redirect the user to the start page
+// displaying a welcome message:
+header ("Location: index.php?welcomeMessage=1");
 
 ?>

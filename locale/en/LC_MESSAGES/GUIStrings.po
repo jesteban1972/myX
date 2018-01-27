@@ -1,0 +1,39 @@
+# GUIStrings.po.
+# Copyright (C) 2018 Joaquin Javier ESTEBAN MARTINEZ.
+# FIRST AUTHOR <jesteban1972@me.com>, 2018.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Lingohub 1.0.1\n"
+"Report-Msgid-Bugs-To: support@lingohub.com\n"
+"Last-Translator: Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>\n"
+"Language: en\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"POT-Creation-Date: \n"
+"PO-Revision-Date: \n"
+"Language-Team: \n"
+"X-Generator: Poedit 2.0.5\n"
+
+msgid "myX Home"
+msgstr "myX Home"
+
+msgid "myX is a web app used to manage sexual experiences"
+msgstr "myX is a web app used to manage sexual experiences"
+
+msgid "Welcome back, "
+msgstr "Welcome back, "
+
+msgid "%d experience found"
+msgid_plural "%d experiences found"
+msgstr[0] "%d experience found"
+msgstr[1] "%d experiences found"
+
+msgid "myX welcome message"
+msgstr ""
+"myX is a web application conceived to register and handle the lived sexual activity.<br />\n"
+"you can register information regarding sexual experiences, lovers and places. later on you can easily browse through this information using calendars, maps, and the ingenious mechanism Synchroton©, which allows you to browse forwards or backwards in the time according to different criteria.<br />\n"
+"myX does not require any installation and provides a secured environment which guarantees the confidentiality of the data.<br />\n"
+"create now you own account and enjoy the amazing possibilities myX offers to you. register and remember easily your sexual life. it’s free."

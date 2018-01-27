@@ -3,7 +3,7 @@
 /* 
  * user.inc
  * script with the implementation of 'User' class
- * (c) Joaquín Javier ESTEBAN MARTÍNEZ
+ * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2017-12-15
  * 
  * to manage the users of the application,
@@ -111,13 +111,13 @@ class User {
         // 2. get the record with the given userID:
         
         $queryString = <<<QUERY
-SELECT username, password, email
+SELECT `username`, `password`, `email`
 FROM `myx`.`users`
-WHERE userID=:userID
+WHERE `userID`=:userID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":userID", $userID);
+        $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
         
         // 3. the data is fetched:
@@ -171,20 +171,17 @@ QUERY;
         
         // 2. delete any rows for this userID in the table 'usersLoggedIn':
 
-        // 2.1. the DELETE statement is prepared:
         $queryString = <<<QUERY
 DELETE
-FROM `myx`.`usersLoggedIn`
-WHERE userID=:userID
+FROM `myX`.`usersLoggedIn`
+WHERE `userID`=:userID
 QUERY;
         
         $statement = $pdo->prepare($queryString);
-        
-        // 2.2. the parameter is binded:
-        $statement->bindParam(":userID", $userID);
-
-        // 2.3. the statement is executed:
+        $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
+        
+        return;
         
     } // method User::clearLoginEntriesForUser
     
@@ -227,15 +224,15 @@ QUERY;
         
         // 3.1 the SELECT statement is prepared:
         $queryString = <<<QUERY
-SELECT username, password
+SELECT `username`, `password`
 FROM `myx`.`users`
-WHERE username=:username
+WHERE `username`=:username
 QUERY;
 
         $statement = $pdo->prepare($queryString);
         
         // 3.2. the parameter is binded:
-        $statement->bindParam(":username", $username);
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
         
         // 3.3. the statement is executed:
         $statement->execute();
@@ -260,7 +257,7 @@ QUERY;
         // 6. check that the password matches:
         if (strcmp(md5($password), $row['password']) === 0) {
             
-            $returnValue = TRUE;
+            $returnValue = true;
             
         }
         
@@ -311,8 +308,8 @@ QUERY;
             
         // 3. query the table 'users' to get the highest used ID:
         $queryString = <<<QUERY
-SELECT MAX(userID)
-FROM `myx`.`users`
+SELECT MAX(`userID`)
+FROM `myX`.`users`
 QUERY;
         $maxID = $pdo->query($queryString)->fetchColumn();
 
@@ -323,18 +320,19 @@ QUERY;
 
         // 5.1. the INSERT statement is prepared:    
         $queryString = <<<QUERY
-INSERT INTO `myx`.`users` (userID, username, password, email, userKind)
+INSERT
+INTO `myx`.`users` (userID, username, password, email, userKind)
 VALUES (:userID, :username, :password, :email, :userKind)
 QUERY;
 
         $statement = $pdo->prepare($queryString);
 
         // 5.2. the parameters are binded:
-        $statement->bindParam(":userID", $userID);
-        $statement->bindParam(":username", $username);
-        $statement->bindParam(":password", $password);
-        $statement->bindParam(":email", $email);
-        $statement->bindParam(":userKind", $userKind);
+        $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
+        $statement->bindParam(":password", $password, PDO::PARAM_STR);
+        $statement->bindParam(":email", $email, PDO::PARAM_STR);
+        $statement->bindParam(":userKind", $userKind, PDO::PARAM_INT);
 
         // 5.3. the statement is executed
         $statement->execute();
@@ -356,33 +354,31 @@ QUERY;
      */
     static public function doesUsernameExist($username) { // private???
         
-        $returnValue = FALSE; // default return value
-        
         // 1. get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
         // 2. query the table 'users':
         
         $queryString = <<<QUERY
-SELECT COUNT(username)
-FROM `myx`.`users`
-WHERE username=:username
+SELECT COUNT(`username`)
+FROM `myX`.`users`
+WHERE `username`=:username
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":username", $username);
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
         $statement->execute();
         
-        // 3. the number of rows is checked:
+        // 3. the number of rows is checked: (intval needed???)
         $amount = intval($statement->fetchColumn());
         if ($amount !== 0) { // username already exists
             
-            $returnValue = TRUE;
+            return true;
             
+        } else {
+            
+            return false;
         }
-        
-        // 99. return:
-        return $returnValue;
         
     } // method User::doesUsernameExist
     
@@ -398,12 +394,11 @@ QUERY;
      *  userID
      */
     private function getUserIDFromUsername($username) {
-        //var_dump($username);
         
         // 0. check internal arguments:
         if (trim($username) === "") {
             
-            throw new ParameterException("the provided {$username} ...");
+            throw new ParameterException("one argument missing");
             
         }
         
@@ -412,33 +407,19 @@ QUERY;
         
         // 2. query the table 'users' to get the userID of the given username:
         
-        // 2.1. the SELECT statement is prepared:
         $queryString = <<<QUERY
-SELECT userID
-FROM `myx`.`users`
-WHERE username=:username
+SELECT `userID`
+FROM `myX`.`users`
+WHERE `username`=:username
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        
-        // 2.2. the parameter is binded:
-        $statement->bindParam(":username", $username);
-        
-        // 2.3. the statement is executed:
+        $statement->bindParam(":username", $username, PDO::PARAM_STR);
         $statement->execute();
-        //var_dump($statement);
         
-        // 3. the data is fetched:
-        $userID = intval($statement->fetchColumn());
-        //var_dump($row);
-
-        //$userID = intval($row[0]); //'userID'
-        
-        // 98. clean up DB handle:
-        $pdo = NULL;
-        
-        // 99. return:
-        return $userID;
+        // 3. userID is fetched (intval needed)
+        // and returned:
+        return intval($statement->fetchColumn());
         
     } // method User::getUserIDFromUsername
     
@@ -468,30 +449,18 @@ QUERY;
         
         // 2. query the table 'users' to find the corresponding usename:
         
-        // 2.1. the SELECT statement is prepared:
         $queryString = <<<QUERY
-SELECT username
-FROM `myx`.`users`
-WHERE userID=:userID
+SELECT `username`
+FROM `myX`.`users`
+WHERE `userID`=:userID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        
-        // 2.2. the parameter is binded:
-        $statement->bindParam(":userID", $userID);
-        
-        // 2.3. the statement is executed:
+        $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
         
-        // 3. fetch username:
-        $username = $statement->fetchColumn();
-
-//        $resultset = $pdo->query($queryString);
-//        $row = $resultset->fetch();
-//        $username = $row['username'];
-        
-        // 99. return:
-        return $username;
+        // 3. the username is fetched and returned:
+        return $statement->fetchColumn();
         
     } // method User::getUsernameFromUserID
     
@@ -509,16 +478,23 @@ QUERY;
      */
     static public function isValidUsername($username) {
         
-        $returnValue = FALSE; // default return value
+//        // 0. check internal arguments:
+//        if (trim($username) === "") {
+//            
+//            throw new ParameterException("one argument missing");
+//            
+//        }
+         
+        if (preg_match("/^[a-zA-Z0-9 _-]+$/", $username) &&
+            trim($username) !== "") {
+            
+            return true;
+            
+        } else {
         
-        if (trim($username) === ""
-                || preg_match("[ˆa-zA-Z0-9 _-]", $username) > 0) {
-            
-            $returnValue = TRUE;
-            
+            return false;
+        
         }
-        
-        return $returnValue;
         
     } // method User::isValidUsername
     
@@ -554,16 +530,12 @@ QUERY;
             
         }
         
-        // 1. the sessionID is retrieved:
-        $sessionID = session_id();
-        
         // 2. check that username and password match
         // with the values stored in the table 'users':
         //$this->confirmUsernamePassword($username, $password);
         
         // 3. the userID is retrieved:
         $userID = User::getUserIDFromUsername($username);
-        //var_dump($userID);
         
         // 4. clear out existing entries in the table 'usersLoggedIn'
         User::clearLoginEntriesForUser($userID);
@@ -575,13 +547,13 @@ QUERY;
        
         $queryString = <<<QUERY
 INSERT
-INTO `myx`.`usersLoggedIn` (sessionID, userID, lastUpdate)
+INTO `myX`.`usersLoggedIn` (sessionID, userID, lastUpdate)
 VALUES (:sessionID, :userID, NOW())
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":sessionID", $sessionID);
-        $statement->bindParam(":userID", $userID);
+        $statement->bindParam(":sessionID", session_id(), PDO::PARAM_STR);
+        $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
                 
         // 99. return userID:
@@ -609,12 +581,12 @@ QUERY;
         
         $queryString = <<<QUERY
 DELETE
-FROM `myx`.`usersLoggedIn`
-WHERE sessionID=:sessionID
+FROM `myX`.`usersLoggedIn`
+WHERE `sessionID`=:sessionID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":sessionID", session_id());
+        $statement->bindParam(":sessionID", session_id(), PDO::PARAM_STR);
         $statement->execute();       
         
     } // method User::logoutProcess
@@ -642,24 +614,22 @@ QUERY;
         $pdo = DB::getDBHandle();
 
         // 2. query the table 'usersLoggedIn'
-        // to get the userID from the current session ID:
+        // to get the userID from the current session ID
+        // (only one record, or none, expected):
 
         $queryString = <<<QUERY
-SELECT userID
-FROM `myx`.`usersLoggedIn`
-WHERE sessionID=:sessionID
+SELECT `userID`
+FROM `myX`.`usersLoggedIn`
+WHERE `sessionID`=:sessionID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":sessionID", session_id());
+        $statement->bindParam(":sessionID", session_id(), PDO::PARAM_STR);
         $statement->execute();
         
-        if ($statement->rowCount() === 0) { // user not logged in
+        if ($statement->rowCount() > 0) {
             
-            $userID = -1;
-            
-        } else {
-            
+            // the data is fetched and assigned to $userID (intval needed):
             $userID = intval($statement->fetchColumn());
             
         }
