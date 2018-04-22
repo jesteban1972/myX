@@ -38,22 +38,17 @@ HTML;
 
 echo "\t\t\t\t\t\t<p class=\"large\">";
 echo "<img src=\"".getImage("praxis","small")."\" alt=\"".
-    _("(Image of a gold coin)").
-    "\" />";
+    _("(Image of a gold coin)")."\" />";
 echo " <b>".$praxis->getName()."</b></p>\n";
 
 // links to sections:
 echo "\t\t\t\t\t\t<ul>\n";
-echo "\t\t\t\t\t\t\t<li><a href=\"#data\">".
-        _("Data").
-        "</a></li>\n";
-echo "\t\t\t\t\t\t\t<li><a href=\"#list\">".
-        _("List of participants").
-        "</a></li>\n";
+echo "\t\t\t\t\t\t\t<li><a href=\"#data\">"._("Data")."</a></li>\n";
+echo "\t\t\t\t\t\t\t<li><a href=\"#list\">"._("List of participants").
+    "</a></li>\n";
 echo "\t\t\t\t\t\t\t<li><a href=\"#description\">".
-        _("Description")."</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
-        _("Actions")."</a></li>\n";
+    _("Description")."</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#actions\">"._("Actions")."</a></li>\n";
 echo "\t\t\t\t\t\t</ul>\n";
 
 echo <<<HTML
@@ -79,15 +74,10 @@ $locus = new Locus($praxis->getLocus()); // used also below in $xperienceSidevie
 
 // place string is echoed:
 echo "\t\t\t\t\t\t<p class=\"medium\">"._("Place:").
-    " <b><a href=\"locus.php?locusID=".
-    $locus->getLocusID().
-    "\">".
-    $locus->getName().
-    "</a></b>".
-    ampelmaenchen().
-    " (".
-    writtenNumber($locus->getPracticaAmount(), FEMENINE).
-    " ".($locus->getPracticaAmount() > 1 ? _("experiences") : _("experience")).
+    " <b><a href=\"locus.php?locusID=".$locus->getLocusID()."\">".
+    $locus->getName()."</a></b>".ampelmaenchen()." (".
+    writtenNumber($locus->getPracticaAmount(), FEMENINE)." ".
+    ($locus->getPracticaAmount() > 1 ? _("experiences") : _("experience")).
     ").</p>\n";
 
 // 2. time
@@ -252,10 +242,8 @@ Praxis::HTMLSynchroton($praxis->getPraxisID(),
 
 // link to top of the page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
-    "<img src=\"images/arrow_top.gif\" />".
-    " <a href=\"#start\">".
-    _("Back to top").
-    "</a></p>\n";
+    "<img src=\"images/arrow_top.gif\" /> <a href=\"#start\">".
+    _("Back to top")."</a></p>\n";
 
 echo <<<HTML
                 </article>
