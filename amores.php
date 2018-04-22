@@ -4,16 +4,15 @@
  * script amores.php
  * displays a list of lovers
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-01-04
+ * last updated 2018-03-24
 */
 
 require_once 'core.inc';
-require_once 'session.inc';
 require_once 'DB.inc';
 require_once 'praxis.inc';
 require_once 'amor.inc';
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 /*
@@ -21,23 +20,23 @@ $pdo = DB::getDBHandle();
  * if already storage in $_SESSION, retrieve list;
  * otherwise create an unfiltered list 
  */
-if (!isset($_SESSION['amoresList'])) {
+if (!isset($_SESSION['amoresQuery'])) {
     
-    $amoresList = new AmoresList();
-    $_SESSION['amoresList'] = $amoresList;
+    $amoresQuery = new AmoresQuery();
+    $_SESSION['amoresQuery'] = $amoresQuery;
     
 } else {
     
-    $amoresList = $_SESSION['amoresList'];
+    $amoresQuery = $_SESSION['amoresQuery'];
     
 }
 
-$designation = $amoresList->getDesignation();
-$description = $amoresList->getDescription();
-$queryString = $amoresList->getQueryString();
+$designation = $amoresQuery->getDesignation();
+$description = $amoresQuery->getDescription();
+$queryString = $amoresQuery->getQueryString();
 
 // page header:
-$title = _("Lovers");
+$title = "myX - Lovers";
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
@@ -47,16 +46,17 @@ echo <<<HTML
 
 HTML;
 
-// list designation and description, and lovers amount:
+// list designation and description:
 
-echo "\t\t\t\t\t\t<p class=\"medium\"><b>".
-    $designation.
+echo "\t\t\t\t\t<p class=\"medium\">".
+    "<img src=\"".
+    getImage("amor", "small")."\" alt=\"".
+    _("(Image of a cycladic idol)").
+    "\" /> <b>".
+    _($designation).
     "</b>: ".
-    $description.
+    _($description).
     " ";
-
-if (DEBUG)
-    echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
 
 /*
  * lovers amount.
@@ -72,16 +72,24 @@ $amoresAmount = $statement->rowCount();
 switch ($amoresAmount) {
 	
     case 0:
+        
         echo _("(no lovers found)");
         break;
+    
     case 1:
+        
         echo _("(only <b>one</b> lover found)");
         break;
+    
     default:
+        
         echo sprintf(_("(<b>%d</b> lovers found)"), $amoresAmount);
             
 }
 echo "</p>\n";
+
+if (DEBUG)
+    echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
 
 // links to page sections:
 echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
@@ -91,7 +99,7 @@ echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
     _("Actions").
     "</a></li>\n\t\t\t\t\t</ul>\n";
 
-if ($amoresAmount > 1) {
+if ($amoresAmount > 0) {
     
     echo <<<HTML
                     </article>
@@ -120,23 +128,20 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
      * retrieves the parameter list and composes the string
      * $dataString (without page) that will be passed to navigationBar()
      */
-    $uri = $_SERVER['REQUEST_URI'];
-    $uriQuery = parse_url($uri)['query'];
-    // parse_url: parse a URL, and return its components
+    //del $uri = $_SERVER['REQUEST_URI'];
+    //del $uriQuery = parse_url($uri)['query'];
+    $uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
 
     $data = explode("&", $uriQuery);
     $dataString = "";
-    foreach ($data as $value) {
-
-        if (substr($value, 0, 5) != "page=") {
-
+    foreach ($data as $value)
+        if (substr($value, 0, 5) != "page=")
             $dataString .= $value; // this is the current segment number
-        }
 
-    } // foreach block
-
-    // retrieves the current segment, NULL if not set
-    $currentPage = ($_GET['page'] !== NULL) ? intval($_GET['page']) : 1; // $page is 1-based
+    // retrieves the current page (1 if not set)
+    $currentPage = ($_GET['page'] !== NULL) ?
+        intval($_GET['page']) :
+        1; // $page is 1-based
 
     $pageSettings = pageSettings($amoresAmount, $currentPage);
     $pagesAmount = $pageSettings['numPages'];
@@ -144,11 +149,8 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar']) {
-
+    if ($pageSettings['navigationBar'])
         navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -162,20 +164,19 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     $queryString .= " LIMIT ".
         $ordinalZeroBased.
         ", ".
-        $_SESSION['options']['resultsPerPage'];
+        $_SESSION['navigationOptions']['resultsPerPage'];
 
-    if (DEBUG) {
-
-        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".$queryString."]</span></p>";
-
-    }
+    if (DEBUG)
+        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
+            $queryString.
+            "]</span></p>";
 
     $statement = $pdo->prepare($queryString);
     $statement->execute();
+    $numRows = $statement->rowCount(); // used?
 
 /*
- * the results of the query are fetched
- * withing a foreach...as loop.
+ * the results of the query are fetched withing a foreach-as loop.
  */
     foreach ($statement as $row) {
 
@@ -185,17 +186,24 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
         // calls the method xperience::preview to display a brief preview of the xperience
         $amor->HTMLPreview($ordinal, $preview_options);
 
+        // names of the first and last lovers are stored to be shown in the sidebar
+        if ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
+            
+            $firstAmor = $row['alias'];
+            
+        } elseif ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage']) * $currentPage ||
+            $ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
+            
+            $lastAmor = $row['alias'];
+        }
         $ordinal++;
 
     } //foreach
 
 
    // displays bottom navigation bar
-   if ($pageSettings['navigationBar']) {
-
+   if ($pageSettings['navigationBar'])
        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-
-   }
 
    echo <<<HTML
                         <p class="quote">«<i>Χαρὰ καὶ μύρο τῆς ζωῆς μου ἡ μνήμη τῶν ὡρῶν<br />
@@ -213,7 +221,7 @@ echo "\t\t\t\t\t\t<p style=\"text-align: center;\">".
     _("Back to top").
     "</a></p>\n";
     
-} // if ($amoresAmount > 1)
+} // if ($amoresAmount > 0)
 
 echo <<<HTML
                 </article>
@@ -224,10 +232,16 @@ echo <<<HTML
 HTML;
 
 // filter lovers:
-echo "\t\t\t\t\t<form action=\"amoresFilter.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"set_filter\" value=\""
+echo "\t\t\t\t\t<form action=\"amoresQuery.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
     ._("Apply filter").
     "\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+    ._("Remove filter").
+    "\" ";
+if ($amoresQuery->getDesignation() === "all lovers")
+    echo "disabled=\"disabled\" ";
+echo "/>\n";
 echo "\t\t\t\t\t</form>\n";
 
 // new lover:
@@ -235,14 +249,13 @@ echo "\t\t\t\t\t<form action=\"amorEdit.php\" method=\"POST\">\n";
 echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New lover")."\" />\n";
 echo "\t\t\t\t\t</form>\n";
 
-//// edit countries list:
-//echo "\t\t\t\t\t<form action=\"countriesEdit.php\" method=\"POST\">\n";
-//echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list")."\" />\n";
-//echo "\t\t\t\t\t</form>\n";
-
 echo "\t\t\t\t</article>\n";
 
 echo "\t\t\t</section><!-- }} section -->\n\n";
+
+// first and last lovers are stored in the session to be read in 'sidebar.inc':
+$_SESSION['asideItem'] = $firstAmor."..".$lastAmor;
+
 require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

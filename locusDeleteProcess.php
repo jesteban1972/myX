@@ -9,7 +9,7 @@
 
 require_once 'DB.inc';
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 

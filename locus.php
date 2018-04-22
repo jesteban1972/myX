@@ -1,20 +1,19 @@
 <?php
-
 /**
- * script locus.php
+ * script 'locus.php'.
+ * 
  * displays the detail page of a place
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2017-12-16
+ * last updated 2018-04-20
 */
 
-require_once 'session.inc';
 require_once 'core.inc';
-require_once 'DB.inc';
+//require_once 'DB.inc';
 require_once 'praxis.inc';
 //require_once 'amor.inc';
 require_once 'locus.inc';
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 /*
@@ -24,10 +23,13 @@ $pdo = DB::getDBHandle();
  */
 $locus = new Locus(intval($_GET['locusID']));
 
-$title = _("Place");
-//$mapAPI = true; // used to include the JavaScript code in the <header> section
+$title = "myX - Place";
 include 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
+
+echo "\t\t\t\t<p class=\"large\">"."<img src=\"".getImage("locus","small").
+    "\" alt=\""._("(Image of a compass)")."\" />";
+echo " <b>".$locus->getName()."</b></p>\n";
 
 echo <<<HTML
                 <!-- script locus.php. part 0: links to sections -->
@@ -35,7 +37,8 @@ echo <<<HTML
 
 HTML;
 
-// links to sections:
+// links to sections {{
+
 echo "\t\t\t\t\t<ul>\n";
 echo "\t\t\t\t\t\t<li><a href=\"#data\">".
         _("Data").
@@ -43,21 +46,21 @@ echo "\t\t\t\t\t\t<li><a href=\"#data\">".
 echo "\t\t\t\t\t\t<li><a href=\"#practica\">".
         _("List of experiences").
         "</a></li>\n";
-if ($locus->getCoordinatesExact() !== "" ||
-    $locus->getCoordinatesGeneric() !== "") {
+if ($locus->getCoordExact() !== "" || $locus->getCoordGeneric() !== "") {
     
-    $coordinatesSet = true;
-    echo "\t\t\t\t\t\t<li><a href=\"#map\">".
-        _("Map")."</a></li>\n";
+    $coordSet = true;
+    echo "\t\t\t\t\t\t<li><a href=\"#map\">"._("Map")."</a></li>\n";
     
 } else {
     
-    $coordinatesSet = false;
+    $coordSet = false;
 }
 
 echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
         _("Actions")."</a></li>\n";
 echo "\t\t\t\t\t</ul>\n";
+
+// }} links to sections
 
 echo <<<HTML
                 </article>
@@ -76,27 +79,34 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     "</h1>\n";
 
 echo "\t\t\t\t\t<p class=\"medium\">";
-if (DEBUG) {
-    
-    echo " <span class=\"debug\">[place_id: ";
-    echo $locus->getLocusID();
-    echo "]</span> ";
-        
-}
-echo _("Name").": <b>".$locus->getName()."</b></p>\n";
+if (DEBUG)
+    echo " <span class=\"debug\">[locusID <b>".$locus->getLocusID()."</b>]</span> ";
 
-if ($locus->getDescription() !== "") {
-    
-    echo "\t\t\t\t\t<p class=\"medium\">"._("Place description").
-        ": ".$locus->getDescription()."</p>\n";
-    
-}
+echo _("Name and rating").": <b>".$locus->getName()."</b> - ";
+echo writtenRate($locus->getRating(), TRUE);
+echo ".</p>\n";
+
+// description:
+if ($locus->getDescription() !== "")
+    echo "\t\t\t\t\t<p class=\"medium\">"._("Place description").": <b>".
+        $locus->getDescription()."</b>.</p>\n";
+
+// address:
+if ($locus->getAddress() !== "")    
+    echo "\t\t\t\t\t<p class=\"medium\">"._("Address").": <b>".
+        $locus->getAddress()."</b>.</p>\n";
+
+echo "\t\t\t\t\t<p class=\"medium\">"._("Country").": <b>".
+    $locus->getCountryName()."</b>.</p>\n";
+
+echo "\t\t\t\t\t<p class=\"medium\">"._("Kind of place").": <b>".
+    $locus->getKindName()."</b>.</p>\n";
 
 echo <<<HTML
                 </article>
 
                 <!-- script locus.php. part ii: practica -->
-                <article id="practica">
+                <article id="list">
 
 HTML;
 
@@ -111,36 +121,37 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 // the amount of experiences in this place is retrieved:
 $practicaAmount = $locus->getPracticaAmount(); // used also for page's settings
 
-// the amount of different dates where all these experiences happened
-// is retrieved:
+// the amount of different dates when these experiences happened is retrieved:
 $differentDatesAmount = $locus->getDifferentDatesAmount();
 
 echo "\t\t\t\t\t<p>";
 
-switch ($practicaAmount) {
+if ($practicaAmount === 1) {
+    
+    echo _("In this place was performed only <b>one</b> experience");
+    
+} else {
+    
+    echo sprintf(
+        _("In this place were performed the following <b>%s</b> experiences"),
+        writtenNumber($practicaAmount, FEMENINE));
+    
+    switch ($differentDatesAmount) {
 
-	case 0:
-            echo _("No experiences were performed in this place");
+        case 1: // all the same day
+            
+            echo ", happened the <b>same</b> day";
             break;
-	case 1: // only one xperience
-            echo _("In this place was performed only <b>one</b> experience");
-            break;
-	default: // more than one xperience
-        echo sprintf(
-            _("In this place were performed the following <b>%s</b> experiences"),
-            writtenNumber($practicaAmount, FEMENINE));
-        switch ($differentDatesAmount) {
+        
+        default: // more than one day
+            
+            echo sprintf(_(", happened in <b>%s</b> different days"),
+                writtenNumber($differentDatesAmount, FEMENINE));
+            echo sprintf(_(" (i.e. %.2f experiences/day as average)"),
+                round($practicaAmount/$differentDatesAmount, 2));
 
-            case 1: // all the same day
-                echo ", happened the <b>same</b> day";
-                break;
-            default: // more than one day
-                echo sprintf(_(", happened in <b>%s</b> different days"),
-                    writtenNumber($differentDatesAmount, FEMENINE));
-                echo sprintf(_(" (i.e. %.2f experiences/day as average)"),
-                    round($practicaAmount/$differentDatesAmount, 2));
-
-        } // switch block
+    }
+    
 }
 echo ".</p>\n";
 
@@ -151,49 +162,44 @@ $uri = $_SERVER ['REQUEST_URI'];
 $uriQuery = parse_url($uri)['query'];
 $data = explode("&", $uriQuery);
 $dataString = "";
-foreach ($data as $value) {
-
-    if (substr($value, 0, 5) !== "page=") {
-
+foreach ($data as $value)
+    if (substr($value, 0, 5) !== "page=")
         $dataString .= $value;
-            
-    }
-	 
-} // foreach
 
 // retrieves the current page
-$currentPage = $_GET['page'] != "" ? intval($_GET ['page']) : 1; // $page is 1-based
+$currentPage = $_GET['page'] != "" ?
+    intval($_GET ['page']) :
+    1; // $page is 1-based
 
 $pageSettings = pageSettings ($practicaAmount, $currentPage);
 $pagesAmount = $pageSettings['numPages'];
 $ordinal = $pageSettings['ordinal'];
 $ordinalZeroBased = $ordinal - 1;
 
-if ($pageSettings['navigationBar']) {
-    
+if ($pageSettings['navigationBar'])
     navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-        
-}
 
-// page contents (xperiences catalogue)
+// page contents (experiences catalogue)
 $queryString = <<<QRY
-SELECT praxisID
+SELECT `praxisID`
 FROM `myX`.`practica`
-WHERE locus=:locusID
-ORDER BY date
+WHERE `locus` = :locusID
+ORDER BY `date`, `ordinal`
 LIMIT :ordinalZeroBased, :resultsPerPage
 QRY;
 
 $statement = $pdo->prepare($queryString);
 $statement->bindParam(":locusID", $locus->getlocusID());
 $statement->bindParam(":ordinalZeroBased", $ordinalZeroBased, PDO::PARAM_INT);
-$statement->bindParam(":resultsPerPage", intval($_SESSION['options']['resultsPerPage']), PDO::PARAM_INT);
+$statement->bindParam(":resultsPerPage",
+    intval($_SESSION['navigationOptions']['resultsPerPage']),
+    PDO::PARAM_INT);
 $statement->execute();
 
 foreach ($statement as $row) {
     
     // instantiate a 'praxis' object:
-    $praxis = new Praxis($row['praxisID']);
+    $praxis = new Praxis(intval($row['praxisID']));
     
     // call the method Praxis::XHTMLPreview
     // to display a brief preview of the experience:
@@ -205,11 +211,8 @@ foreach ($statement as $row) {
 }
 
 // displays bottom navigation bar
-if ($pageSettings['navigationBar']) {
-    
-	navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-        
-}
+if ($pageSettings['navigationBar'])
+    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 // link to top of the page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
@@ -233,76 +236,67 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     "';\">".
     _("CHARTA").
     "</h1>\n";
-
-// address
-if ($locus->getAddress() !== "") {
-    
-    echo "\t\t\t\t\t<p>".
-        _("Address:").
-        " ".
-        $locus->getAddress().
-        "</p>\n";
-}
-
-if ($coordinatesSet) {
+   
+if ($coordSet) {
 
     // coordinates:
     echo "\t\t\t\t\t<p>"._("Coordinates:")." ";
-    if ($locus->getCoordinatesExact() !== "") { // exact coordinates
+    if ($locus->getCoordExact() !== "") { // exact coordinates
 
-        $coordinates = $locus->getCoordinatesExact();
+        $coord = $locus->getCoordExact();
         $markerColor = "red";
-        echo $coordinates." ("._("exact position").")";
+        echo $coord." ("._("exact position").")";
 
     } else { // generic coordinates if exact coordinates are missing
 
-        $coordinates = $locus->getCoordinatesGeneric();
+        $coord = $locus->getCoordGeneric();
         $markerColor = "orange";
-        echo $coordinates." ("._("approximate position").")";
+        echo $coord." ("._("approximate position").")";
 
     }
     echo "</p>\n";
-    //var_dump($markerColor);
-
-    // map:
-    $mapURL =
-        "https://maps.googleapis.com/maps/api/staticmap?".
-        "zoom=5&size=640x480&markers=color:".
-        $markerColor.
-        "%7C".
-        $coordinates;
     
     echo "\t\t\t\t\t<p>"._("Map:")."</p>\n";
     echo "\t\t\t\t\t<div style=\"text-align: center;\">\n";
-    
-    echo "\t\t\t\t\t\t<img src=\"".
-        $mapURL.
-        "\" width=\"640\" height=\"480\" />\n";
-    
-    echo <<<HTML
-                        <img src="https://maps.googleapis.com/maps/api/staticmap?zoom=5&size=640x480&markers=color:red%7C37.683205, -0.734315" width="640" height="480" />
 
-HTML;
-    // ...?zoom=5&...
-    // ...?zoom=10&...
-    // ...?zoom=15&...
+    // map 1 (zoom 5):
+    $mapURL =
+        "https://maps.googleapis.com/maps/api/staticmap".
+        "?center=".$coord.
+        "&zoom=5&size=640x480".
+        "&markers=color:".$markerColor."%7C".$coord.
+        "&key= AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
+    echo "\t\t\t\t\t\t<img src=\"".$mapURL.
+        "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
+    
+    // map 2 (zoom 10):
+    $mapURL =
+        "https://maps.googleapis.com/maps/api/staticmap".
+        "?center=".$coord.
+        "&zoom=10&size=640x480".
+        "&markers=color:".$markerColor."%7C".$coord.
+        "&key= AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
+    echo "\t\t\t\t\t\t<img src=\"".$mapURL.
+        "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
+    
+    // map 3 (zoom 15):
+    $mapURL =
+        "https://maps.googleapis.com/maps/api/staticmap".
+        "?center=".$coord.
+        "&zoom=15&size=640x480".
+        "&markers=color:".$markerColor."%7C".$coord.
+        "&key= AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
+    echo "\t\t\t\t\t\t<img src=\"".$mapURL.
+        "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
 
     echo "\t\t\t\t\t</div>\n";
     
 } // if
 
 // www:
-if ($locus->getWww() !== "") {
-    
-    echo "\t\t\t\t\t<p>".
-        _("Web:").
-        " <a href=\"http:\\\\".
-        $locus->getWww().
-        "\" target=\"_blank\">".
-        $locus->getWww().
-        "</a></p>\n";
-        
-}
+if ($locus->getWeb() !== "")    
+    echo "\t\t\t\t\t<p>"._("Web:")." <a href=\"http:\\\\".$locus->getWeb().
+        "\" target=\"_blank\">".$locus->getWeb()."</a></p>\n";
 
 // link to top of the page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
@@ -310,14 +304,6 @@ echo "\t\t\t\t\t<p style=\"text-align: center;\">".
     " <a href=\"#start\">".
     _("Back to top").
     "</a></p>\n";
-
-
-// displays bottom navigation bar
-if ($pageSettings['navigationBar']) {
-    
-	navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-        
-}
 
 echo "\t\t\t\t</article>\n";
 
@@ -362,25 +348,11 @@ echo "\t\t\t\t\t<p style=\"text-align: center;\">".
 echo "\t\t\t\t</article>\n";
 
 echo "\t\t\t</section> <!-- }} section -->\n\n";
-require_once 'footer.inc'; // footer of all the pages of the app
 
-//// $xperienceSideview displays a sommary of the xperience in the sidebar
-//// 1-step creation
-//$praxisSideview = "\t\t\t\t\t\t<div class=\"HTML_preview_sidebar\">PRAXIS<br /><br />@";
-//$praxisSideview .= $locus->getName();
-//$praxisSideview .= "<br /><br />τῇ ";
-//$praxisSideview .= $dateString;
-//if ($praxisOrdinal !== "") {
-//
-//    $praxisSideview .= $praxisOrdinal;
-//    
-//}
-//$praxisSideview .= "<br /><br /><b>";
-//$praxisSideview .= $praxisName;
-//$praxisSideview .= "</b><br /><br />";
-//$praxisSideview .= writtenRate($praxisRating, false);
-//$praxisSideview .= "</div>";
-//
-//$_SESSION['praxisSideview'] = $praxisSideview; // stores $praxisSideview in $_SESSION to be read from sidebar.inc
+
+// locus ID is stored in the session to be read in 'sidebar.inc':
+$_SESSION['asideItem'] = $locus->getLocusID();
+
+require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

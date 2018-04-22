@@ -1,7 +1,7 @@
 <?php
-
 /* 
- * amorEditProcess.php
+ * script 'amorEditProcess.php'.
+ * 
  * script to process the edition or insertion of a new lover
  * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2018-01-13
@@ -12,11 +12,11 @@ require_once 'DB.inc';
 //require_once 'user.inc';
 //require_once 'exceptions.inc';
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 
-// verify the input (TODO!!!):
+// TODO: verify the input:
 //if (!isset($_POST['username'])
 //        || trim($_POST['username']) === ""
 //        || !isset($_POST['password'])
@@ -47,10 +47,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     // the values are retrieved from $_POST:
     $alias = $_POST['alias'];
     $genre = intval($_POST['genre']);
-    $description1 = $_POST['description1'];
-    $description2 = $_POST['description2'];
-    $description3 = $_POST['description3'];
-    $description4 = $_POST['description4'];
+    $descr1 = $_POST['descr1'];
+    $descr2 = $_POST['descr2'];
+    $descr3 = $_POST['descr3'];
+    $descr4 = $_POST['descr4'];
     $rating = intval($_POST['rating']);
     $www = $_POST['www'];
     $name = $_POST['name'];
@@ -67,10 +67,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
 UPDATE `amores`
 SET `alias`=:alias,
     `genre`=:genre,
-    `description1`=:description1,
-    `description2`=:description2,
-    `description3`=:description3,
-    `description4`=:description4,
+    `descr1`=:descr1,
+    `descr2`=:descr2,
+    `descr3`=:descr3,
+    `descr4`=:descr4,
     `rating`=:rating,
     `www`=:www,
     `name`=:name,
@@ -91,10 +91,10 @@ VALUES (:amorID,
     "",
     :alias,
     :genre,
-    :description1,
-    :description2,
-    :description3,
-    :description4,
+    :descr1,
+    :descr2,
+    :descr3,
+    :descr4,
     :rating,
     :www,
     :name,
@@ -111,10 +111,10 @@ QUERY;
     $statement->bindParam(":amorID", $amorID, PDO::PARAM_INT);
     $statement->bindParam(":alias", $alias, PDO::PARAM_STR);
     $statement->bindParam(":genre", $genre, PDO::PARAM_INT);
-    $statement->bindParam(":description1", $description1, PDO::PARAM_STR);
-    $statement->bindParam(":description2", $description2, PDO::PARAM_STR);
-    $statement->bindParam(":description3", $description3, PDO::PARAM_STR);
-    $statement->bindParam(":description4", $description4, PDO::PARAM_STR);
+    $statement->bindParam(":descr1", $descr1, PDO::PARAM_STR);
+    $statement->bindParam(":descr2", $descr2, PDO::PARAM_STR);
+    $statement->bindParam(":descr3", $descr3, PDO::PARAM_STR);
+    $statement->bindParam(":descr4", $descr4, PDO::PARAM_STR);
     $statement->bindParam(":rating", $rating, PDO::PARAM_INT);
     $statement->bindParam(":www", $www, PDO::PARAM_STR);
     $statement->bindParam(":name", $name, PDO::PARAM_STR);

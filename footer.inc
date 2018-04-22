@@ -4,17 +4,19 @@
  * footer.inc
  * footer for all pages of myX
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2017-12-21
+ * last update: 2018-04-11
  */
 
-echo <<<HTML
-            <footer><!-- footer {{ -->
-                <p>myX - &copy; Joaquín Javier Esteban Martínez 2018</p>
-            </footer><!-- }} footer -->
+echo "\t\t\t<footer><!-- footer {{ -->\n";
+echo "\t\t\t\t<p>\n";
+echo "\t\t\t\t\tmyX \n";
+echo "\t\t\t\t\t- &copy; Joaquín Javier Esteban Martínez 2018\n";
+echo "\t\t\t\t\t- <a href=\"\">Privacy policy</a>\n";
+echo "\t\t\t\t\t- <a href=\"\">Cookies policy</a>\n";
+echo "\t\t\t\t</p>\n";
+echo "\t\t\t</footer><!-- }} footer -->\n\n";
 
-
-HTML;
-
+// include sidebar:
 include 'aside.inc';
 
 echo <<<HTML

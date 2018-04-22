@@ -25,17 +25,22 @@ $userID = intval($_SESSION['userID']);
 //    exit;
 //    
 //}
-// an instance of class 'User' is created to handle logout:
-// (using static method instead)
-//$myUser = new User($userID);
-// log the user out of the system if he is currently logged in:
+
+// the user is logged out of the system (if he is currently logged in):
 if ($userID !== -1) {
+    
     User::logoutProcess();
+    
     // clean up all the $_SESSION variables:
     $_SESSION['userID'] = -1;
-    unset($_SESSION['practicaList']);
-    unset($_SESSION['amoresList']);
-    unset($_SESSION['locaList']);
+    unset($_SESSION['practicaQuery']);
+    unset($_SESSION['amoresQuery']);
+    unset($_SESSION['locaQuery']);
+    unset($_SESSION['userOptions']);
+    unset($_SESSION['navigationOptions']);
+    
 }
+
 header("Location: index.php");
+
 ?>

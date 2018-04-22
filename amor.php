@@ -1,21 +1,20 @@
 <?php
-
 /**
- * script amor.php
+ * script ᾽amor.php᾽.
+ * 
  * displays the detail page of one lover
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-01-23
+ * last updated 2018-04-14
 */
 
-require_once 'session.inc';
 require_once 'core.inc';
-require_once 'DB.inc';
+//require_once 'DB.inc';
 require_once 'praxis.inc';
 require_once 'amor.inc';
 require_once 'locus.inc';
 
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 /*
@@ -25,17 +24,14 @@ $pdo = DB::getDBHandle();
  */
 $amor = new Amor(intval($_GET['amorID']));
 
-$title = _("Lover");
+$title = "myX - Lover";
 include 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
-$amorAlias = $amor->getAlias(); // also used below in $amorSideview
-
-echo "\t\t\t\t<p class=\"medium\">";
-echo "<img src=\"".getImage("amor","small")."\" alt=\"".
-    _("(Image of a cycladic idol)").
-    "\" />";
-echo "<b>{$amorAlias}</b></p>\n";
+echo "\t\t\t\t<p class=\"large\">";
+echo "<img src=\"".getImage("amor", "small")."\" alt=\"".
+    _("(Image of a cycladic idol)")."\" />";
+echo " <b>".$amor->getAlias()."</b></p>\n";
 
 echo <<<HTML
                 <!-- Script amor.php. Part 0: Navigation links -->
@@ -45,118 +41,96 @@ HTML;
 
 // links to sections:
 echo "\t\t\t\t\t<ul>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#data\">".
-        _("Data").
+echo "\t\t\t\t\t\t<li><a href=\"#data\">"._("Data")."</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#list\">"._("List of experiences").
         "</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#practica\">".
-        _("List of experiences").
-        "</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#alia\">".
-        _("Other data")."</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
-        _("Actions")."</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#alia\">"._("Other data")."</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#actions\">"._("Actions")."</a></li>\n";
 echo "\t\t\t\t\t</ul>\n";
                     
 echo <<<HTML
                 </article>
 
-                <!-- Script amor.php. Part I: General data -->
+                <!-- script amor.php. part i: general data -->
                 <article id="data">
-                    <h1 onMouseOver="this.innerHTML='1. GENERALIA i.e. general data';" onMouseOut="this.innerHTML='1. GENERALIA';">1. GENERALIA</h1>
+                    <h1 onMouseOver="this.innerHTML='GENERALIA i.e. general data';" onMouseOut="this.innerHTML='GENERALIA';">GENERALIA</h1>
 
 HTML;
 
-// alias and evaluation:
+// alias and rating:
 echo "\t\t\t\t\t<p class=\"medium\">";
 
-if (DEBUG) {
-    
-    echo " <span class=\"debug\">[amorID: ".$amor->getAmorID()."]</span> ";
-    
-}
+if (DEBUG)
+    echo " <span class=\"debug\">[amorID <b>".$amor->getAmorID().
+        "</b>]</span> ";
 
-echo _("Alias and rating").": <b>".$amorAlias."</b> - ";
-echo writtenRate($amor->getRating(), TRUE);
-echo " </p>\n";
+echo _("Alias and rating").": <b>".$amor->getAlias()."</b> - ".
+    writtenRate($amor->getRating(), TRUE).".</p>\n";
 
 // genre:
-echo "\t\t\t\t\t<p class=\"medium\">".
-    _("Genre:").
-    $amor->getGenre().
-    "</p>\n";
-
-// other (TODELETE!!!)
-if ($amor->getOther() !== "") {
-	echo "\t\t\t\t\t\t<p>".
-            _("Other data").
-            ": <b>".
-            $amor->getOther().
-            "</b></p>\n";
-}
+echo "\t\t\t\t\t<p class=\"medium\">"._("Genre:")." <b>".
+    _($genres[$amor->getGenre()])."</b>.</p>\n";
 
 // description:
-$description1 = $amor->getDescription1();
-$description2 = $amor->getDescription2();
-$description3 = $amor->getDescription3();
-$description4 = $amor->getDescription4();
+$descr1 = $amor->getDescr1();
+$descr2 = $amor->getDescr2();
+$descr3 = $amor->getDescr3();
+$descr4 = $amor->getDescr4();
 
-echo <<<HTML
-                    <table id="description">
-                        <tr style="text-align: center;">
-                            <td colspan="2"><p>
-HTML;
+echo "\t\t\t\t\t<table class=\"amorDescription\"".
+    " summary=\"table containing the description of a lover\">\n";
+echo "\t\t\t\t\t<caption>"._("Lover description")."</caption>\n";
 
-echo _("DESCRIPTIO i.e. description");
+echo "\t\t\t\t\t\t<tbody>\n";
 
-echo <<<HTML
-</p></td>
-                        </tr>
-                        <tr>
-                            <td>(1/4)</td>
-                            <td><p>{$description1}</p></td>
-                        </tr>
+// description 1:
+echo "\t\t\t\t\t\t\t<tr>\n";
+echo "\t\t\t\t\t\t\t\t<td>".$_SESSION['userOptions']['descr1']."</td>\n";
+echo "\t\t\t\t\t\t\t</tr>\n";
+echo "\t\t\t\t\t\t\t<tr>\n";
+echo "\t\t\t\t\t\t\t\t<td>".$descr1."</td>\n";
+echo "\t\t\t\t\t\t\t</tr>\n";
 
-HTML;
-
-if ($description2 !== "") {
+if ($descr2 !== "") {
 	
-    echo <<<HTML
-                        <tr>
-                            <td>(2/4)</td>
-                            <td><p>{$description2}</p></td>
-                        </tr>
-
-HTML;
+    // description 2:
+    echo "\t\t\t\t\t\t\t<tr>\n";
+    echo "\t\t\t\t\t\t\t\t<td>".$_SESSION['userOptions']['descr2']."</td>\n";
+    echo "\t\t\t\t\t\t\t</tr>\n";
+    echo "\t\t\t\t\t\t\t<tr>\n";
+    echo "\t\t\t\t\t\t\t\t<td>".$descr2."</td>\n";
+    echo "\t\t\t\t\t\t\t</tr>\n";
     
-} // if
+}
 
-if ($description3 !== "") {
+if ($descr3 !== "") {
     
-    echo <<<HTML
-                        <tr>
-                            <td>(3/4)</td>
-                            <td><p>{$description3}</p></td>
-                        </tr>
+    // description 3:
+    echo "\t\t\t\t\t\t\t<tr>\n";
+    echo "\t\t\t\t\t\t\t\t<td>".$_SESSION['userOptions']['descr3']."</td>\n";
+    echo "\t\t\t\t\t\t\t</tr>\n";
+    echo "\t\t\t\t\t\t\t<tr>\n";
+    echo "\t\t\t\t\t\t\t\t<td>".$descr3."</td>\n";
+    echo "\t\t\t\t\t\t\t</tr>\n";
 
-HTML;
+}
 
-} // if
-
-if ($description4 !== "") {
+if ($descr4 !== "") {
     
-    echo <<<HTML
-                        <tr>
-                            <td>(4/4)</td>
-                            <td><p>{$description4}</p></td>
-                        </tr>
-HTML;
+    // description 4:
+    echo "\t\t\t\t\t\t\t<tr>\n";
+    echo "\t\t\t\t\t\t\t\t<td>".$_SESSION['userOptions']['descr4']."</td>\n";
+    echo "\t\t\t\t\t\t\t</tr>\n";
+    echo "\t\t\t\t\t\t\t<tr>\n";
+    echo "\t\t\t\t\t\t\t\t<td>".$descr4."</td>\n";
+    echo "\t\t\t\t\t\t\t</tr>\n";
 
-} // if
-    
-echo "\n";
+}
+
+echo "\t\t\t\t\t\t<tbody>\n";
+echo "\t\t\t\t\t</table>\n";
 
 echo <<<HTML
-                    </table>
                 </article>
 
 HTML;
@@ -164,32 +138,56 @@ HTML;
 echo <<<HTML
 
                 <!-- script amor.php. part ii: experiences list -->
-                <article id="practica">
-                    <h1 onMouseOver="this.innerHTML='2. ELENCHUS i.e. list of the xperiences with her/him';" onMouseOut="this.innerHTML='2. ELENCHUS';">2. ELENCHUS</h1>
+                <article id="list">
+                    <h1 onMouseOver="this.innerHTML='ELENCHUS i.e. list of the experiences with her/him';" onMouseOut="this.innerHTML='ELENCHUS';">ELENCHUS</h1>
 
 HTML;
 
-$locaAmount = $amor->getPracticaAmount();
+// the amount of experiences is retrieved:
+$practicaAmount = $amor->getPracticaAmount();
+
+// the amount of different dates when these experiences happened
+// is retrieved:
+$differentDatesAmount = $amor->getDifferentDatesAmount();
 
 echo "\t\t\t\t\t<p>";
 switch ($amor->getGenre()) {
     
     case GENRE_MASCULINE:
+        
         echo _("Lived with him");
         break;
+    
     case GENRE_FEMININE:
+        
         echo _("Lived with her");
         break;
+    
 }
 echo " <b>".
-    writtenNumber($locaAmount, FEMENINE);
-echo ($locaAmount > 1) ? " experiences" : " experience";
-echo "</b>.</p>\n";
-echo "\t\t\t\t\t<p>".
-    _("Chronologic list follows").
-    "</p>\n";
+    writtenNumber($practicaAmount, FEMENINE); // rewrite with sprintf
+echo ($practicaAmount > 1) ? " experiences" : " experience";
+echo "</b>";
 
+if ($practicaAmount > 1) {
+    
+    switch ($differentDatesAmount) {
 
+        case 1: // all the same day
+            
+            echo ", happened the <b>same</b> day";
+            break;
+        
+        default: // more than one day
+            
+            echo sprintf(_(", happened in <b>%s</b> different days"),
+                writtenNumber($differentDatesAmount, FEMENINE));
+            echo sprintf(_(" (i.e. %.2f experiences/day as average)"),
+                round($practicaAmount/$differentDatesAmount, 2));
+
+        }
+} 
+echo ".</p>\n";
 
 /*
  * page settings
@@ -202,47 +200,78 @@ echo "\t\t\t\t\t<p>".
  * retrieves the parameter list and composes the string
  * $datatring (without page) that will be passed to navigationBar()
  */
-$uri = $_SERVER['REQUEST_URI'];
-$uriQuery = parse_url($uri)['query'];
-// parse_url: parse a URL, and return its components
+
+$uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
 
 $data = explode("&", $uriQuery);
 $dataString = "";
-foreach ($data as $value) {
+foreach ($data as $value)
+    if (substr($value, 0, 5) != "page=")
+        $dataString .= $value; // this is the current page number
 
-    if (substr($value, 0, 5) != "page=") {
+// retrieves the current page (1 if not set)
+$currentPage = ($_GET['page'] !== NULL) ?
+    intval($_GET['page']) :
+    1; // $page is 1-based
 
-            $dataString .= $value;
-    }
-	 
-} // foreach block
-
-// retrieves the current page, NULL if not set
-$currentPage = ($_GET['page'] !== NULL) ? intval($_GET['page']) : 1; // $page is 1-based
-
-$pageSettings = pageSettings($xperiencesAmount, $currentPage);
+$pageSettings = pageSettings($practicaAmount, $currentPage);
 $pagesAmount = $pageSettings['numPages'];
-$ordinal = $pageSettings['ordinal'];
+$ordinal = $pageSettings['ordinal']; // $ordinal is 1-based
 $ordinalZeroBased = $ordinal - 1;
 
 // displays top navigation bar
-if ($pageSettings['navigationBar']) {
-    
+if ($pageSettings['navigationBar'])
     navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-        
-}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // experiences list
 
+/*
+ * Amor::getPractica() is not appropiate to retrieve the experiences,
+ * (the query result is not divided into sections -LIMIT-,
+ * and it is not ordered -ORDER BY- taken into account
+ * the parameter $_SESSION['options']['listsOrder']
+ */
+//$practica = $amor->getPractica();
+$queryString = <<<QRY
+SELECT `praxisID`
+FROM `myX`.`practica`
+INNER JOIN `myX`.`assignations`
+ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
+WHERE `myX`.`assignations`.`amor`=:amorID
+QRY;
 
-// get an array with all praxisIDs:
-$practica = $amor->getPractica();
+switch ($_SESSION['navigationOptions']['listsOrder']) {
+        
+    case OLDEST_TO_NEWEST:
 
-foreach ($practica as $praxisID) {
+        $queryString .= " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
+        break;
+
+    case NEWEST_TO_OLDEST:
+
+        $queryString .= " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
+        break;
+        
+}
+$queryString .= " LIMIT ".
+    $ordinalZeroBased.
+    ", ".
+    $_SESSION['navigationOptions']['resultsPerPage'];
+
+if (DEBUG)
+    echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
+        $queryString.
+        "]</span></p>";
+
+$statement = $pdo->prepare($queryString);
+$statement->bindParam(":amorID", $amor->getAmorID(), PDO::PARAM_INT);
+$statement->execute();
+
+foreach ($statement as $row) {
     
     // instantiate a 'praxis' object:
-    $praxis = new Praxis($praxisID);
+    $praxis = new Praxis($row['praxisID']);
     
     // call the method Praxis::XHTMLPreview
     // to display a brief preview of the experience:
@@ -252,6 +281,10 @@ foreach ($practica as $praxisID) {
     $ordinal++;
     
 }
+
+// displays bottom navigation bar:
+if ($pageSettings['navigationBar'])
+    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 // link to top of the page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
@@ -270,77 +303,60 @@ HTML;
  */
 
 if ($amor->getAchtung() !== ""
-	|| $amor->getWww() !== ""
-	|| $amor->getName() !== ""
-	|| $amor->getPhoto() !== ""
-	|| $amor->getTelephone() !== ""
-	|| $amor->getEmail() !== ""
-	|| $amor->getOther() !== "") {
-    
+    || $amor->getWeb() !== ""
+    || $amor->getName() !== ""
+    || $amor->getPhoto() !== ""
+    || $amor->getPhone() !== ""
+    || $amor->getEmail() !== ""
+    || $amor->getOther() !== "") {
     
     echo <<<HTML
 
                 <!-- script amor.php. part iii: other -->
                 <article id="alia">
-                    <h1 onMouseOver="this.innerHTML='3. ALTERA i.e. complementary data';" onMouseOut="this.innerHTML='3. ALTERA';">3. ALTERA</h1>
+                    <h1 onMouseOver="this.innerHTML='ALTERA i.e. complementary data';" onMouseOut="this.innerHTML='ALTERA';">ALTERA</h1>
 
 HTML;
 
     if ($amor->getAchtung() !== "")
-        echo "\t\t\t\t\t<p>".
-            _("Achtung:").
-            " <b>".
-            $amor->getAchtung().
-            "</b>.</p>\n";
+        echo "\t\t\t\t\t<p class=\"medium\">"._("Achtung").": <b>".
+            $amor->getAchtung()."</b>.</p>\n";
 
-    if ($amor->getWww() !== "")
-        echo "\t\t\t\t\t<p>".
-            _("Web:").
-            " <b>".
-            $amor->getWww().
+    if ($amor->getWeb() !== "")
+        echo "\t\t\t\t\t<p class=\"medium\">"._("Web").": <b>".$amor->getWeb().
             "</b>.</p>\n";
 
     if ($amor->getName() !== "")
-        echo "\t\t\t\t\t<p>".
-            _("Name:").
-            " <b>".
-            $amor->getName().
-            "</b>.</p>\n";
+        echo "\t\t\t\t\t<p class=\"medium\">"._("Name").": <b>".
+            $amor->getName()."</b>.</p>\n";
 
+/*
+ * photo: a boolean value is stored, which indicates just
+ * if there are any pictures or not. TODO: a checkbox is to be displayed.
+ * in a more evaluated version this should be a real picture to display.
+ */
     if ($amor->getPhoto() !== "")
-        echo "\t\t\t\t\t<p>".
-            _("Pictures:").
-            " <b>".
-            $amor->getPhoto().
-            "</b>.</p>\n";
+        echo "\t\t\t\t\t<p class=\"medium\">"._("Pictures").": <b>".
+            $amor->getPhoto()."</b>.</p>\n";
 
-    if ($amor->getTelephone() !== "")
-        echo "\t\t\t\t\t<p>".
-            _("Telephone:").
-            " <b>".
-            $amor->getTelephone().
-            "</b>.</p>\n";
+    if ($amor->getPhone() !== "")
+        echo "\t\t\t\t\t<p class=\"medium\">"._("Phone").": <b>".
+            $amor->getPhone()."</b>.</p>\n";
 
     if ($amor->getEmail() !== "")
-        echo "\t\t\t\t\t<p>".
-            _("Email:").
-            " <b>".
-            $amor->getEmail().
-            "</b>.</p>\n";
+        echo "\t\t\t\t\t<p class=\"medium\">"._("Email").": <b>".
+            $amor->getEmail()."</b>.</p>\n";
 
     if ($amor->getOther() !== "")
-        echo "\t\t\t\t\t<p>".
-            _("Other data:").
-            " <b>".
-            $amor->getOther().
-            "</b>.</p>\n";
+        echo "\t\t\t\t\t<p class=\"medium\">"._("Other data").": <b>".
+            $amor->getOther()."</b>.</p>\n";
     
-} // if
+}
 
 echo <<<HTML
                 </article>
 
-                <!-- script locus.php. part iv: actions -->
+                <!-- script amor.php. part iv: actions -->
                 <article id="actions">
 
 HTML;
@@ -356,21 +372,15 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 // edit lover form:
 echo "\t\t\t\t\t<form action=\"amorEdit.php\" method=\"POST\">\n";
 echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"amorID\" value=\"".
-    $amor->getAmorID().
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
-    _("Edit lover").
-    "\" />\n";
+    $amor->getAmorID()."\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit lover")."\" />\n";
 echo "\t\t\t\t\t</form>\n";
 
 // delete lover form:
 echo "\t\t\t\t\t<form action=\"amorDelete.php\" method=\"POST\">\n";
 echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"amorID\" value=\"".
-    $amor->getAmorID().
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
-    _("Delete lover").
-    "\" />\n";
+    $amor->getAmorID()."\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Delete lover")."\" />\n";
 echo "\t\t\t\t\t</form>\n";
                             
 // link to previous page:
@@ -382,28 +392,11 @@ echo "\t\t\t\t\t<p style=\"text-align: center;\">".
 
 echo "\t\t\t\t</article>\n";
 
-HTML;
-
-//// $xperienceSideview displays a sommary of the xperience in the sidebar
-//// 1-step creation
-//$praxisSideview = "\t\t\t\t\t\t<div class=\"HTML_preview_sidebar\">PRAXIS<br /><br />@";
-//$praxisSideview .= $praxisLocus;
-//$praxisSideview .= "<br /><br />τῇ ";
-//$praxisSideview .= $dateString;
-//if ($praxisOrdinal !== "") {
-//
-//    $praxisSideview .= $praxisOrdinal;
-//    
-//}
-//$praxisSideview .= "<br /><br /><b>";
-//$praxisSideview .= $praxisName;
-//$praxisSideview .= "</b><br /><br />";
-//$praxisSideview .= writtenRate($praxisRating, false);
-//$praxisSideview .= "</div>";
-//
-//$_SESSION['praxisSideview'] = $praxisSideview; // stores $praxisSideview in $_SESSION to be read from sidebar.inc
-
 echo "\t\t\t</section> <!-- }} section -->\n\n";
+
+// amor ID is stored in the session to be read in 'sidebar.inc':
+$_SESSION['asideItem'] = $amor->getAmorID();
+
 require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

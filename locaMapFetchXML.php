@@ -26,18 +26,18 @@ function parseToXML($htmlStr) {
 
 $dom = new DOMDocument("1.0");
 $node = $dom->createElement("loca");
-$parnode = $dom->appendChild($node);
+$documentNode = $dom->appendChild($node);
 
 header("Content-type: text/xml");
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 // Select all the rows in the markers table
 $queryString = <<<QRY
 SELECT *
 FROM `loca`
-WHERE `user`=:userID
+WHERE `user` = :userID
 ORDER BY `loca`.`name`
 QRY;
 
@@ -55,7 +55,7 @@ foreach ($statement as $row) {
 
     // ADD TO XML DOCUMENT NODE
     $node = $dom->createElement('locus');
-    $newnode = $parnode->appendChild($node);
+    $newnode = $documentNode->appendChild($node);
     $newnode->setAttribute('locusID', $row['locusID']);
 
     // xperiences amount on place:
@@ -84,13 +84,13 @@ foreach ($statement as $row) {
 
     }
 
-    if ($row['coordinatesExact'] !== "") {
+    if ($row['coordExact'] !== "") {
 
-        $newnode->setAttribute("coordinatesExact", $row['coordinatesExact']);
+        $newnode->setAttribute("coordExact", $row['coordExact']);
         
-    } else if ($row['coordinatesGeneric'] !== "") {
+    } else if ($row['coordGeneric'] !== "") {
 
-        $newnode->setAttribute("coordinatesGeneric", $row['coordinatesGeneric']);
+        $newnode->setAttribute("coordGeneric", $row['coordGeneric']);
         
     }
 

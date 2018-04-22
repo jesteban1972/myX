@@ -1,19 +1,18 @@
 <?php
-
 /**
- * script loca.php
+ * script 'loca.php'.
+ * 
  * displays a list of places based in an instance of class 'LocaList'
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2017-12-15
+ * last updated 2018-03-24
 */
 
 require_once 'core.inc';
-require_once 'session.inc';
-require_once 'DB.inc';
+//require_once 'DB.inc';
 //require_once 'praxis.inc';
 require_once 'locus.inc';
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 /*
@@ -21,27 +20,28 @@ $pdo = DB::getDBHandle();
  * if already storage in $_SESSION, retrieve the list;
  * otherwise create an unfiltered list 
  */
-if (!isset($_SESSION['locaList'])) {
+if (!isset($_SESSION['locaQuery'])) {
     
-    $locaList = new LocaList();
-    $_SESSION['locaList'] = $locaList;
+    $locaQuery = new LocaQuery();
+    $_SESSION['locaQuery'] = $locaQuery;
     
 } else {
     
-    $locaList = $_SESSION['locaList'];
+    $locaQuery = $_SESSION['locaQuery'];
     
 }
 
-$designation = $locaList->getDesignation();
-$description = $locaList->getDescription();
-$queryString = $locaList->getQueryString();
+$designation = $locaQuery->getDesignation();
+$description = $locaQuery->getDescription();
+$queryString = $locaQuery->getQueryString();
 
 // map center: the coordinates are stored in the session to be read from JS
 Locus::getMapCenter();
 
 // page header:
-$title = _("Places");
-$mapAPI = true; // used to include the JavaScript code in the <header> section
+$title = "myX - Places";
+$js = "loca.js";
+$mapAPI = true; // used to include the Google Maps API key
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
@@ -51,15 +51,17 @@ echo <<<HTML
 
 HTML;
 
-// list designation and description, and places amount:
+// list designation and description:
 
-echo "\t\t\t\t\t<p class=\"medium\"><b>".
-    $designation.
+echo "\t\t\t\t\t<p class=\"medium\">".
+    "<img src=\"".
+    getImage("locus","small")."\" alt=\"".
+    _("(Image of a compass)").
+    "\" /> <b>".
+    _($designation).
     "</b>: ".
-    $description.
+    _($description).
     " ";
-if (DEBUG)
-    echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
 
 /*
  * places amount.
@@ -72,19 +74,28 @@ if (DEBUG)
 $statement = $pdo->prepare($queryString);
 $statement->execute();
 $locaAmount = $statement->rowCount();
+
 switch ($locaAmount) {
 	
     case 0:
-            echo _("(no places found)");
-            break;
+        
+        echo _("(no places found)");
+        break;
+        
     case 1:
-            echo _("(only <b>one</b> place found)");
-            break;
+        
+        echo _("(only <b>one</b> place found)");
+        break;
+        
     default:
-            echo sprintf(_("(<b>%d</b> places found)"), $locaAmount);
+        
+        echo sprintf(_("(<b>%d</b> places found)"), $locaAmount);
             
 }
 echo "</p>\n";
+
+if (DEBUG)
+    echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
 
 // links to page sections:
 echo "\t\t\t\t\t<ul>\n";
@@ -99,7 +110,7 @@ echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
     "</a></li>\n";
 echo "\t\t\t\t\t</ul>\n";
 
-if ($locaAmount >= 1) {
+if ($locaAmount > 0) {
     
     echo <<<HTML
                 <!-- Script loca.php. Part I: Map -->
@@ -143,23 +154,21 @@ HTML;
      * retrieves the parameter list and composes the string
      * $dataString (without page) that will be passed to navigationBar()
      */
-    $uri = $_SERVER['REQUEST_URI'];
-    $uriQuery = parse_url($uri)['query'];
+    //del $uri = $_SERVER['REQUEST_URI'];
+    //del $uriQuery = parse_url($uri)['query'];
     // parse_url: parse a URL, and return its components
+    $uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
 
     $data = explode("&", $uriQuery);
     $dataString = "";
-    foreach ($data as $value) {
+    foreach ($data as $value)
+        if (substr($value, 0, 5) != "page=")
+                $dataString .= $value; // this is the current segment number
 
-        if (substr($value, 0, 5) != "page=") {
-
-            $dataString .= $value; // this is the current segment number
-        }
-
-    } // foreach block
-
-    // retrieves the current segment, NULL if not set
-    $currentPage = ($_GET['page'] !== NULL) ? intval($_GET['page']) : 1; // $page is 1-based
+    // retrieves the current page (1 if not set)
+    $currentPage = ($_GET['page'] !== NULL) ?
+        intval($_GET['page']) :
+        1; // $page is 1-based
 
     $pageSettings = pageSettings($locaAmount, $currentPage);
     $pagesAmount = $pageSettings['numPages'];
@@ -167,11 +176,8 @@ HTML;
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar']) {
-
+    if ($pageSettings['navigationBar'])
         navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-
-    }
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -186,20 +192,16 @@ HTML;
     $queryString .= " LIMIT ".
         $ordinalZeroBased.
         ", ".
-        $_SESSION['options']['resultsPerPage'];
+        $_SESSION['navigationOptions']['resultsPerPage'];
 
-    if (DEBUG) {
-
+    if (DEBUG)
         echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".$queryString."]</span></p>";
-
-    }
 
     $statement = $pdo->prepare($queryString);
     $statement->execute();
 
 /*
- * the results of the query are fetched
- * withing a foreach...as loop.
+ * the results of the query are fetched withing a foreach-as loop.
  */
     foreach ($statement as $row) {
 
@@ -217,11 +219,8 @@ HTML;
     } //foreach
 
     // displays bottom navigation bar:
-    if ($pageSettings['navigationBar']) {
-
+    if ($pageSettings['navigationBar'])
         navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
-
-    }
 
     echo <<<HTML
                     <p class="quote">«XXX»<br />(XXX)</p>
@@ -230,7 +229,7 @@ HTML;
 
 HTML;
     
-} // if ($locaAmount >= 1)
+} // if ($locaAmount > 0)
 
 echo <<<HTML
                 <!-- Script loca.php. Part III: Actions -->
@@ -240,10 +239,16 @@ echo <<<HTML
 HTML;
 
 // filter places:
-echo "\t\t\t\t\t<form action=\"locaFilter.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"set_filter\" value=\""
+echo "\t\t\t\t\t<form action=\"locaQuery.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
     ._("Apply filter").
     "\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+    ._("Remove filter").
+    "\" ";
+if ($locaQuery->getDesignation() === "all places")
+    echo "disabled=\"disabled\" ";
+echo "/>\n";
 echo "\t\t\t\t\t</form>\n";
 
 // add place:

@@ -1,16 +1,16 @@
 <?php
-
-/*
- * amor.inc
+/**
+ * script 'amor.inc'.
+ * 
  * inc file implementing class 'Amor'
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2017-12-12
+ * last update: 2018-04-20.
 */
 
-require_once 'core.inc'; // needed?!!!
+require_once 'core.inc';
 require_once 'DB.inc';
 
-session_start();
+//session_start();
 
 /**
  * class Amor
@@ -18,29 +18,29 @@ session_start();
 class Amor {
 
     // I. properties
-    protected $amorID;          // amorID
-    protected $achtung;         // achtung
-    protected $alias;           // alias
-    protected $genre;           // genre
-    protected $description1;    // description1
-    protected $description2;    // description2
-    protected $description3;    // description3
-    protected $description4;    // description4
-    protected $rating;          // rating
-    protected $www;             // www
-    protected $name;            // name
-    protected $photo;           // photo
-    protected $telephone;       // telephone
-    protected $email;           // email
-    protected $other;           // other
+    protected $amorID;  // amor ID
+    protected $achtung; // achtung
+    protected $alias;   // alias
+    protected $genre;   // genre
+    protected $descr1;  // description 1
+    protected $descr2;  // description 2
+    protected $descr3;  // description 3
+    protected $descr4;  // description 4
+    protected $rating;  // rating
+    protected $web;     // web
+    protected $name;    // name
+    protected $photo;   // photo
+    protected $phone;   // telephone
+    protected $email;   // email
+    protected $other;   // other
 
     // II. member constants
     const RATING = 1;
     //const PLACE = 2;
     //const PARTICIPANTS = 3;
     
-    const GENRE_MAN = 1;
-    const GENRE_WOMAN = 2;
+    const GENRE_MASCULINE = 1;
+    const GENRE_FEMININE = 2;
     // ...
     //const GENRES = Array("dummy", _("man"), _("woman"));
 
@@ -51,15 +51,15 @@ class Amor {
     public function getAchtung() {return $this->achtung;}
     public function getAlias() {return $this->alias;}
     public function getGenre() {return $this->genre;}
-    public function getDescription1() {return $this->description1;}
-    public function getDescription2() {return $this->description2;}
-    public function getDescription3() {return $this->description3;}
-    public function getDescription4() {return $this->description4;}
+    public function getDescr1() {return $this->descr1;}
+    public function getDescr2() {return $this->descr2;}
+    public function getDescr3() {return $this->descr3;}
+    public function getDescr4() {return $this->descr4;}
     public function getRating() {return $this->rating;}
-    public function getWww() {return $this->www;}
+    public function getWeb() {return $this->web;}
     public function getName() {return $this->name;}
     public function getPhoto() {return $this->photo;}
-    public function getTelephone() {return $this->telephone;}
+    public function getPhone() {return $this->phone;}
     public function getEmail() {return $this->email;}
     public function getOther() {return $this->other;}
 	
@@ -73,38 +73,38 @@ class Amor {
     */
     public function __construct($amorID) {
         
-        // 1. get a DB connection to work with:
+        // get a DB connection to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'amores'. only one row expected.
+        // query the table 'amores'. only one row expected.
         
         $queryString = <<<QUERY
 SELECT *
 FROM `myX`.`amores`
-WHERE amorID=:amorID
+WHERE `amorID` = :amorID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":amorID", $amorID);
+        $statement->bindParam(":amorID", $amorID, PDO::PARAM_INT);
         $statement->execute();
         
-        // 3. the data is fetched:
+        // the data is fetched:
         $row = $statement->fetch();
         
         // the propierties of the current object are taken from the query:
         $this->amorID = $amorID;
         $this->achtung = $row['achtung'];
         $this->alias = $row['alias'];
-        $this->genre = intval($row['genre']);
-        $this->description1 = $row['description1'];
-        $this->description2 = $row['description2'];
-        $this->description3 = $row['description3'];
-        $this->description4 = $row['description4'];
-        $this->rating = intval($row['rating']);
-        $this->www = $row['www'];
+        $this->genre = intval($row['genre']); // TODO: intval needed?
+        $this->descr1 = $row['descr1'];
+        $this->descr2 = $row['descr2'];
+        $this->descr3 = $row['descr3'];
+        $this->descr4 = $row['descr4'];
+        $this->rating = intval($row['rating']); // TODO: intval needed?
+        $this->web = $row['web'];
         $this->name = $row['name'];
         $this->photo = $row['photo'];
-        $this->telephone = $row['telephone'];
+        $this->phone = $row['phone'];
         $this->email = $row['email'];
         $this->other = $row['other'];
 
@@ -116,25 +116,140 @@ QUERY;
     */
     public static function getAmoresAmount() {
         
-        // 1. get a DB handle to work with:
+        // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'practica':
+        // query the table 'amores':
         
         $queryString = <<<QUERY
 SELECT COUNT(*)
 FROM `myX`.`amores`
-WHERE user=:userID
+WHERE `user` = :userID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":userID", $_SESSION['userID']);
+        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
         
-        // 3. the number of rows is retrieved and returned (intval needed):      
+        // 3. the number of rows is retrieved (intval needed) and returned :
         return intval($statement->fetchColumn());
         
     } // method Amor::getAmoresAmount
+    
+    /**
+     * method 'Amor::getAverageRating'.
+     * 
+     * this private method retrieves from the DB the average rating
+     * of the experiences lived with the lover ...
+     * note that only experiences having an effective ratting (i.e. > 0)
+     * are taken into account.
+    */
+    private function getAverageRating() {
+        
+        // initialize values:
+        $cumulate = 0;
+        $average = 0;
+        
+        // get a DB handle to work with:
+        $pdo = DB::getDBHandle();
+        
+        // query the tables 'practica' and 'assignations':
+
+        $queryString = <<<QRY
+SELECT `rating`
+FROM `myX`.`practica`
+INNER JOIN `myX`.`assignations`
+ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
+WHERE `amor` = :amorID
+QRY;
+        
+        $statement = $pdo->prepare($queryString);
+        $statement->bindparam(":amorID", $this->getAmorID());
+        $statement->execute();
+        
+        // only experiences with rating other than 0 (undefined)
+        // are to be taken into account:
+        $countableRating = 0;
+        
+        foreach ($statement as $row) {
+            
+            if (intval($row['rating']) !== 0) {
+                
+                $cumulate += intval($row['rating']);
+                $countableRating++;
+                
+            }
+            
+        }
+        
+        if ($countableRating === 0)
+            $countableRating = 1; // prevents division by 0
+        
+        $average = intval(round($cumulate / $countableRating));
+        
+        // the average rating is returned:
+        return $average;
+        
+    } // method Amor::getAverageRating
+    
+    /**
+     * method Amor::HTMLAsidePreview
+    */
+    function HTMLAsidePreview() {
+
+        echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
+        
+        echo "\t\t\t\t\t<img src=\"".getImage("amor","small")."\" alt=\"".
+    _("(Image of a cycladic idol)").
+    "\" />\n";
+        echo "\t\t\t\t\t<p><b>".$this->getAlias()."</b></p>\n";
+        echo "\t\t\t\t\t<p>".$this->getCombinedDescription()."</p>\n";
+        echo "\t\t\t\t\t".writtenRate($this->getRating(), false)."\n";
+        
+        // experiences amount:
+        echo "\t\t\t\t\t<p>".$this->getPracticaAmount()." ";
+        echo ($this->getPracticaAmount() > 1) ?
+            _("experiences") : _("experience");
+        echo "</p>\n";
+        
+        echo "\t\t\t\t</div>\n";
+
+    } // method Amor::HTMLAsidePreview
+    
+    /**
+     * method Praxis::HTMLAsidePreviewAmores
+     * displays a sommary of the experiences in the sidebar
+     */
+    public function HTMLAsidePreviewAmores() {
+        
+        echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
+        echo "\t\t\t\t\t<img src=\"".getImage("amor", "medium")."\" alt=\"".
+            _("(Image of a cycladic idol)").
+            "\" />\n";
+        
+        $amoresAmount = Amor::getAmoresAmount();
+        
+        switch ($amoresAmount) {
+            
+            case 0:
+                echo "\t\t\t\t\t<p>"._("Not any lovers yet")."</p>\n";
+                break;
+            case 1:
+                echo "\t\t\t\t\t<p>"._("Only one lover so far")."</p>\n";
+                break;
+            default:
+                echo "\t\t\t\t\t<p>".
+                    sprintf(_("%d lovers"), $amoresAmount).
+                    "</p>\n";
+                $limits = explode("..", $_SESSION['asideItem']);
+                echo "\t\t\t\t\t<p>".
+                    sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"), $_SESSION['options']['resultsPerPage'], $limits[0], $limits[1]).
+                    "</p>\n";
+        }
+
+        echo "\t\t\t\t</div>\n";
+        
+    } // method Praxis::HTMLAsidePreviewAmores
     
     /**
      * method Amor::HTMLPreview
@@ -142,19 +257,19 @@ QUERY;
      * @ordinalNr: page's ordinal to be represented at the beginning
      * @options: bitwise combination of options
     */
-    function HTMLPreview($ordinalNr, $options) {
+    function HTMLPreview($ordinalNr, $options, $script = "amores.php") {
 	
-        // 1. get a DB connection to work with:
+        // get a DB connection to work with:
         $pdo = DB::getDBHandle();
 
-        echo "\t\t\t\t\t\t<div class=\"HTML_preview\">\n";
+        echo "\t\t\t\t\t\t<div class=\"HTMLPreview\">\n";
 
         /*
          * first line (headline):
          * 1/ ordinal number
          * 2/ alias (with hyperlink)
          * 3/ evaluation
-         * 4/ xperiences amount
+         * 4/ experiences amount
          */
 
         // 1. ordinal number:
@@ -162,11 +277,10 @@ QUERY;
         echo $ordinalNr; // ordinal number is 1-based
         echo ". ";
 
-        if (DEBUG) {
-
-                echo " <span class=\"debug\">[D/ lover ID: ".$this->getAmorID()."]</span> ";
-
-        }
+        if (DEBUG)
+            echo " <span class=\"debug\">[amorID <b>".
+                $this->getAmorID().
+                "</b>]</span> ";
 
         // 2. alias with hyperlink:
         echo "<b><a href=\"amor.php?amorID=";
@@ -186,7 +300,6 @@ QUERY;
 
         echo "</p>\n";
 
-
         //////////////////////////////////////////////////////////////////////////
         // 2nd line: combined description
 
@@ -195,56 +308,36 @@ QUERY;
         echo "</p>\n";
 
         //////////////////////////////////////////////////////////////////////////
-        // third line: xperiences amount
-        // 1. xperiences amount
+        // third line: experiences amount
+        // 1. experiences amount (when > 1)
         // 2. evaluation (absolut or average)
-
-        echo "<p>";
-
-        // 1. xperiences amount
-
-        $xperiencesAmount = $this->getPracticaAmount();
-
-        echo writtenNumber($xperiencesAmount, FEMENINE);
-        echo " ";
-        echo ($xperiencesAmount > 1) ? _("experiences") : _("experience");
-        echo " - ";
-
-        // 2. evaluation (or middle evaluation)
-        // TOFIX: fix average evaluation (e.g. for 2081 Ἀναστάσιος Β´, SOLL good, IST bad)
-
-        $cumulate = 0;
-        $average = 0;
-
-        $queryString = <<<QRY
-SELECT rating
-FROM `myX`.`practica`
-INNER JOIN `myX`.`assignations`
-ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
-WHERE amor=:amorID
-QRY;
         
-        $statement = $pdo->prepare($queryString);
-        $statement->bindparam(":amorID", $this->getAmorID());
-        $statement->execute();
-        
-        foreach ($statement as $row) {
+        if ($this->getPracticaAmount() > 1) {
             
-            $cumulate += intval($row['rating']);
+            $praxisID = substr($script, 20);
+            // only praxisID (and not 'praxis.php?praxisID=') considered.
+            
+            $practica = $this->getPractica(true);
+            // flag 'true' needed for chronologically order.
+            
+            $currentPraxis = array_search($praxisID, $practica) + 1;
+            // currentPraxis is 1-based.
+            
+//            echo "<p>".writtenNumber($this->getPracticaAmount(), FEMENINE)." ".
+//                _("experiences").", this is the ".$currentPraxis.
+//                " - ".writtenRate($this->getAverageRating()).
+//                " ("._("as average").") -</p>\n";
+            
+            echo sprintf(_("<b>%s</b> experiences"),
+                writtenNumber($this->getPracticaAmount()));
+            if ($script !== "amores.php")
+                echo sprintf(_(", this one #%s"),
+                    $currentPraxis);
+            echo " - ".writtenRate($this->getAverageRating())." (".
+                _("as average").") -</p>\n";
             
         }
         
-        $average = ceil($cumulate / $xperiencesAmount);
-        echo writtenRate($average);
-        echo " - ";
-
-        if ($xperiencesAmount > 1) { // average value
-
-                echo " ("._("as average").")";
-
-        }
-        echo "</p>\n";
-
         echo "</div>\n";
 
     } // method Amor::HTMLPreview
@@ -255,54 +348,104 @@ QRY;
     */
     public function getCombinedDescription() {
 
-        $combinedDescription = $this->getDescription1();
+        $combinedDescription = $this->getDescr1();
 
-        if ($this->getDescription2() !== "") {
+        if ($this->getDescr2() !== "")
+            $combinedDescription .= ". ".$this->getDescr2();
 
-            $combinedDescription .= ". ".$this->getDescription2();
+        if ($this->getDescr3() !== "")
+            $combinedDescription .= ". ".$this->getDescr3();
 
-        }
-
-        if ($this->getDescription3() !== "") {
-
-            $combinedDescription .= ". ".$this->getDescription3();
-
-        }
-
-        if ($this->getDescription4() !== "") {
-
-            $combinedDescription .= ". ".$this->getDescription4();
-
-        }
+        if ($this->getDescr4() !== "")
+            $combinedDescription .= ". ".$this->getDescr4();
+        
+        $combinedDescription .= ".";
 
         return $combinedDescription;
 
     } // method Amor::getCombinedDescription
+    
+        /**
+     * method Amor::getDifferentDatesAmount
+     * returns the number of different dates where experiences are documented with this lover
+    */
+    public function getDifferentDatesAmount() {
+        
+        // get a DB handle to work with:
+        $pdo = DB::getDBHandle();
+        
+        // 2. query the table 'practica':
+
+        $queryString = <<<QUERY
+SELECT COUNT(DISTINCT date)
+FROM `myX`.`practica`
+INNER JOIN `myX`.`assignations`
+ON `assignations`.`praxis` = `practica`.`praxisID`
+WHERE `amor`=:amorID
+QUERY;
+        
+        $statement = $pdo->prepare($queryString);
+        $statement->bindParam(":amorID", $this->amorID, PDO::PARAM_INT);
+        $statement->execute();
+        
+        // 3. the number of rows is retrieved and returned (intval needed):      
+        return intval($statement->fetchColumn());
+
+    } // method Amor::getDifferentDatesAmount
 	
     /**
      * method Amor::getPractica
+     * 
+     * this method returns an array with the IDs of the experiences
+     * lived with this lover.
+     * the parameter $synchoton is used by the Synchroton and Amor::HTMLPreview
+     * to order the results alphabetically independently of listsOrders.
     */
-    public function getPractica() {
+    public function getPractica($synchroton = false) {
         
         $practica = array(); // the array to be returned
         
-        // 1. get a DB handle to work with:
+        // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'assignations':
+        // query the table 'assignations':
 
         $queryString = <<<QRY
-SELECT praxisID
+SELECT `praxisID`
 FROM `myX`.`practica`
 INNER JOIN `myX`.`assignations`
-ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
-WHERE `myX`.`assignations`.`amor`=:amorID
-ORDER BY date
+ON `myX`.`practica`.`praxisID` = `myX`.`assignations`.`praxis`
+WHERE `myX`.`assignations`.`amor` = :amorID
+
 QRY;
+// ORDER BY `date`, `ordinal`
+// ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`
 // posible hacerlo simplemente en assignations?
+        
+        if ($synchroton) {
+            
+            $queryString .= " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
+            
+        } else {        
+        
+            switch ($_SESSION['options']['listsOrder']) {
+
+                case OLDEST_TO_NEWEST:
+
+                    $queryString .= " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
+                    break;
+
+                case NEWEST_TO_OLDEST:
+
+                    $queryString .= " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
+                    break;
+
+            }
+            
+        }
 
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":amorID", $this->getAmorID());
+        $statement->bindParam(":amorID", $this->getAmorID(), PDO::PARAM_INT);
         $statement->execute();
         
         foreach ($statement as $row) {
@@ -323,24 +466,22 @@ QRY;
     */
     public function getPracticaAmount() {
        
-        // 1. get a DB handle to work with:
+        // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'assignations':  check the query!!!      
-        
-//        $queryString = <<<QRY
+        // query the table 'assignations':
+
+        $queryString = <<<QRY
+SELECT COUNT(*)
+FROM `myX`.`assignations`
+WHERE amor = :amorID
+QRY;
+// old query:
 //SELECT COUNT(*)
 //FROM `myX`.`practica`
 //INNER JOIN `myX`.`assignations`
 //ON `myX`.`practica`.`praxisID` = `myX`.`assignations`.`praxis`
 //WHERE amor=:amorID
-//QRY;
-
-        $queryString = <<<QRY
-SELECT COUNT(*)
-FROM `myX`.`assignations`
-WHERE amor=:amorID
-QRY;
 
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":amorID", $this->getAmorID());

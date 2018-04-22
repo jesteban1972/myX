@@ -13,7 +13,7 @@ require_once 'DB.inc';
 //require_once 'core.inc';
 //require_once 'user.inc';
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 $title = _("Edit countries list");

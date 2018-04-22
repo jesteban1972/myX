@@ -1,7 +1,7 @@
 /* myX.sql
  * myX DB schema
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2017-12-09
+ * last update: 2018-04-18
  */
 
 CREATE DATABASE myX
@@ -10,55 +10,64 @@ CREATE DATABASE myX
 
 /* table 'users' */
 CREATE TABLE `myX`.`users` (
-    userID INTEGER NOT NULL,
-    username VARCHAR(16) NOT NULL,
-    password VARCHAR(50) NOT NULL,
-    email VARCHAR(250) NOT NULL,
-    userKind INTEGER,
+    `userID`        INTEGER NOT NULL,
+    `username`      VARCHAR(16) NOT NULL,
+    `password`      VARCHAR(50) NOT NULL,
+    `email`         VARCHAR(250) NOT NULL,
+    `birthdate`     DATE NOT NULL,
+    `defaultGenre`  INTEGER,
+    `descr1`        VARCHAR(255),
+    `descr2`        VARCHAR(255),
+    `descr3`        VARCHAR(255),
+    `descr4`        VARCHAR(255),
+    `GUILang`       INTEGER DEFAULT 1,
+    `resultsPerPage`INTEGER DEFAULT 25,
+    `listsOrder`    INTEGER DEFAULT 1,
+    `userKind`      INTEGER DEFAULT 2,
     CONSTRAINT users_pk PRIMARY KEY (userID)
 ) ENGINE=InnoDB;
 
 /* table 'usersLoggedIn' */
 CREATE TABLE `myX`.`usersLoggedIn` (
-    sessionID VARCHAR(100) NOT NULL,
-    userID INTEGER NOT NULL,
-    lastUpdate DATETIME NOT NULL,
+    `sessionID`     VARCHAR(100) NOT NULL,
+    `userID`        INTEGER NOT NULL,
+    `lastUpdate`    DATETIME NOT NULL,
     CONSTRAINT usersLoggedIn_pk PRIMARY KEY (sessionID),
     CONSTRAINT usersLoggedIn_user_fk FOREIGN KEY (userID) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
 
 /* table 'countries' */
 CREATE TABLE `myX`.`countries` (
-    countryID INTEGER NOT NULL,
-    name VARCHAR(255),
-    user INTEGER NOT NULL,
+    `countryID` INTEGER NOT NULL,
+    `name`      VARCHAR(255),
+    `user`      INTEGER NOT NULL,
     CONSTRAINT countries_pk PRIMARY KEY (countryID),
     CONSTRAINT countries_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* table 'kinds' */
 CREATE TABLE `myX`.`kinds` (
-    kindID INTEGER NOT NULL,
-    name VARCHAR(255),
-    user INTEGER NOT NULL,
+    `kindID`    INTEGER NOT NULL,
+    `name`      VARCHAR(255),
+    `user`      INTEGER NOT NULL,
     CONSTRAINT kinds_pk PRIMARY KEY (kindID),
     CONSTRAINT kinds_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 /* table 'loca' */
 CREATE TABLE `myX`.`loca` (
-    locusID INTEGER NOT NULL,
-    achtung VARCHAR(255),
-    name VARCHAR(255) NOT NULL,
-    country INTEGER,
-    kind INTEGER,
-    description MEDIUMTEXT,
-    rating INTEGER,
-    address VARCHAR(255),
-    coordinatesExact VARCHAR(255),
-    coordinatesGeneric VARCHAR(255),
-    www VARCHAR(255),
-    user INTEGER NOT NULL,
+    `locusID`       INTEGER NOT NULL,
+    `achtung`       VARCHAR(255),
+    `name`          VARCHAR(255) NOT NULL,
+    `country`       INTEGER,
+    `kind`          INTEGER,
+    `description`   MEDIUMTEXT,
+    `rating`        INTEGER,
+    `address`       VARCHAR(255),
+    `coordExact`    VARCHAR(255),
+    `coordGeneric`  VARCHAR(255),
+    `web`           VARCHAR(255),
+    `user`          INTEGER NOT NULL,
     INDEX (name),
     CONSTRAINT loca_pk PRIMARY KEY (locusID),
     CONSTRAINT loca_country_fk FOREIGN KEY (country) REFERENCES `myX`.`countries` (countryID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -68,18 +77,18 @@ CREATE TABLE `myX`.`loca` (
 
 /* table 'practica' */
 CREATE TABLE `myX`.`practica` (
-    praxisID INTEGER NOT NULL,
-    achtung VARCHAR(765),
-    locus INTEGER NOT NULL,
-    date DATE NOT NULL,
-    ordinal VARCHAR(1),
-    name VARCHAR(255) NOT NULL,
-    rating INTEGER,
-    description MEDIUMTEXT,
-    tq INTEGER,
-    tl INTEGER,
-    favorite INTEGER,
-    user INTEGER NOT NULL,
+    `praxisID`      INTEGER NOT NULL,
+    `achtung`       VARCHAR(765),
+    `locus`         INTEGER NOT NULL,
+    `date`          DATE NOT NULL,
+    `ordinal`       VARCHAR(1),
+    `name`          VARCHAR(255) NOT NULL,
+    `rating`        INTEGER NOT NULL,
+    `description`   MEDIUMTEXT,
+    `tq`            INTEGER,
+    `tl`            INTEGER,
+    `favorite`      INTEGER,
+    `user`          INTEGER NOT NULL,
     INDEX (date, ordinal),
     CONSTRAINT practica_pk PRIMARY KEY (praxisID),
     CONSTRAINT practica_locus_fk FOREIGN KEY (locus) REFERENCES `myX`.`loca` (locusID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -90,22 +99,22 @@ CREATE TABLE `myX`.`practica` (
 
 /* table 'amores' */
 CREATE TABLE `myX`.`amores` (
-    amorID INTEGER NOT NULL,
-    achtung VARCHAR(255),
-    alias VARCHAR(255) NOT NULL,
-    genre INTEGER,
-    description1 VARCHAR(255),
-    description2 VARCHAR(255),
-    description3 VARCHAR(255),
-    description4 VARCHAR(255),
-    rating INTEGER,
-    www VARCHAR(255),
-    name VARCHAR(255),
-    photo INTEGER,
-    telephone VARCHAR(255),
-    email VARCHAR(255),
-    other VARCHAR(255),
-    user INTEGER NOT NULL,
+    `amorID`    INTEGER NOT NULL,
+    `achtung`   VARCHAR(255),
+    `alias`     VARCHAR(255) NOT NULL,
+    `genre`     INTEGER,
+    `descr1`    VARCHAR(510),
+    `descr2`    VARCHAR(510),
+    `descr3`    VARCHAR(510),
+    `descr4`    VARCHAR(510),
+    `rating`    INTEGER,
+    `web`       VARCHAR(255),
+    `name`      VARCHAR(255),
+    `photo`     INTEGER,
+    `telephone` VARCHAR(255),
+    `email`     VARCHAR(255),
+    `other`     VARCHAR(255),
+    `user`      INTEGER NOT NULL,
     INDEX (alias),
     CONSTRAINT amores_pk PRIMARY KEY (amorID),
     CONSTRAINT amores_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE,
@@ -115,8 +124,18 @@ CREATE TABLE `myX`.`amores` (
 
 /* table 'assignations' */
 CREATE TABLE `myX`.`assignations` (
-    praxis INTEGER NOT NULL,
-    amor INTEGER NOT NULL,
+    `praxis`    INTEGER NOT NULL,
+    `amor`      INTEGER NOT NULL,
     CONSTRAINT assignations_praxis_fk FOREIGN KEY (praxis) REFERENCES `myX`.`practica` (praxisID) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT assignations_amor_fk FOREIGN KEY (amor) REFERENCES `myX`.`amores` (amorID) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB;
+
+/* table 'queries' */
+CREATE TABLE `myX`.`queries` (
+    `queryID`       INTEGER NOT NULL,
+    `name`          VARCHAR(255),
+    `description`   VARCHAR(510),
+    `user`          INTEGER NOT NULL,
+    CONSTRAINT queries_pk PRIMARY KEY (queryID),
+    CONSTRAINT queries_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;

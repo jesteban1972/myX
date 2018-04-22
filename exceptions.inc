@@ -110,7 +110,7 @@ class ParameterException extends Exception {
  */
 class usernameExistsException extends Exception {
     
-    //private static $responsability = ERROR_BACKEND; //???
+    //private static $responsability = ERROR_FRONTEND;
     
     function __construct() {
         
@@ -145,14 +145,14 @@ HTML;
             .$msg." "
             .$exception->getFile()." "
             .$exception->getLine()." "
-            .$exception->getCode(), 1); // does it work???
+            .$exception->getCode(), 1); // TODO: check if it works
     
     echo "\t\t\t</section> <!-- }} section -->\n";
     include_once 'footer.inc';
     
 } // function exceptionHandler
 
-// set of function exceptionHandler:
+// function exceptionHandler is set:
 //set_exception_handler("exceptionHandler");
 
 ?>

@@ -16,10 +16,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     echo "\t\t\t\t<h1>".
         _("Atention!").
         "</h1>\n";
-    echo "\t\t\t\t<p>".
+    echo "\t\t\t\t<p class=\"medium\">".
         _("Are you sure you want to delete the current experience?").
         "</p>\n";
-    echo "\t\t\t\t<p>".
+    echo "\t\t\t\t<p class=\"medium\">".
         _("Experience details and its associated data will be erased").
         ". ".
         _("This action cannot be undone").

@@ -1,24 +1,31 @@
 <?php
-
-/** core.inc
- * inc file
- * contains core definitions for the web application myX
+/** script 'core.inc'.
+ * 
+ * this file contains core definitions for the web application myX
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2017-12-08
+ * last update: 2018-03-28
 */
 
 //require_once 'exceptions.inc'")';
 
-session_start();
+require_once 'query.inc';
+require_once 'session.inc';
 
 // constants definition {{
 
-define("DEBUG", 0); // DEBUG: turn to 0 in production environment
+define("DEBUG", 1); // DEBUG: turn to 0 in production environment
 
 // genres
 define("GENRE_MASCULINE", 1);
 define("GENRE_FEMININE", 2);
+$genres = array("dummy", "man", "woman");
 // other genres can be added if needed
+
+/*
+ * what is meant with 'other genres'? XXX bigender, butch, femme...
+ * as this software tries to be as inclussive as possible,
+ * all other genres should be considered.
+ */
 
 // rating values
 define("UNDEFINED", 0);
@@ -37,18 +44,22 @@ define("USER_PREMIUM", 1);
 define("GUI_ENGLISH", 1);
 define("GUI_SPANISH", 2);
 define("GUI_GREEK", 3);
-$GUILanguages = Array("dummy", "English", "Español", "Ελληνικά");
-$GUILangCodes = Array("dummy", "en", "es", "el");
+$GUILanguages = array("dummy", "English", "Español", "Ελληνικά");
+$GUILangCodes = array("dummy", "en", "es", "el");
 // (add other languages on demand)
 
+// lists order:
+define("OLDEST_TO_NEWEST", 1);
+define("NEWEST_TO_OLDEST", 2);
 
-$weekDays = Array(_("Sunday"),
-    _("Monday"),
-    _("Tuesday"),
-    _("Wednesday"),
-    _("Thursday"),
-    _("Friday"),
-    _("Saturday"));
+
+$weekDays = Array("Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday");
 /*
  * error kinds
  * two kinds of errors are contempled:
@@ -64,9 +75,6 @@ define("ERROR_BACKEND", 1); // application-generated
 
 // other
 define("SYNCHROTON", 1);
-define("MY_BIRTHDATE", 93222000); // timestamp of 1972-12-15, obtained using mktime(00, 00, 00, 12, 15, 1972);
-
-define ("USER", isset($_SESSION['userID'])?intval($_SESSION['userID']):-1);
 
 // καταργητέα {{
 // navigation liks:
@@ -82,163 +90,6 @@ define("GRUEN", 1);
 // }} constants definition
 
 date_default_timezone_set("Europe/Berlin");
-
-/**
- * class ListGeneric
- * this is the base class of PracticaList, AmoresList and LocaList
- * used to store a list of experiences, lovers or places respectively
- * containing:
- * a) their designation/title,
- * b) a description of it, and
- * c) the SQL query used to retrieve the list
- * TODO: when entering into each list entry details, the former catalogue should
- * be loaded calling the method backToPreviousList()
- */
-class GenericList {
-
-    // I. member variables
-    
-    protected $designation; // list designation or title
-    protected $description; // list description in a somehow extended way
-    protected $queryString; // SQL query used to retrieve the list
-
-    // II. implementation methods
-
-    // getters:
-    public function getDesignation() {return $this->designation;}
-    public function getDescription() {return $this->description;}
-    public function getQueryString() {return $this->queryString;}
-
-    /**
-     * method List::__construct
-     * class constructor
-     * @designation: list designation or title
-     * @description: list description in a somehow extended way
-     * @queryString: SQL query used to retrieve the list
-     */
-    public function __construct($designation = "",
-            $description = "",
-            $queryString = "") {
-
-        $this->designation = $designation;
-        $this->description = $description;
-        $this->queryString = $queryString;
-            
-    } // method List::__construct
-    
-} // class GenericList
-
-/**
- * class PracticaList
- * used to be displayed in the scripts 'practica.php' and 'amor.php'
- */
-class PracticaList extends GenericList {
-
-    // I. member variables: inherited from GenericList
-
-    // II. implementation methods
-
-    // getties: inherited from GenericList
-
-    /**
-     * method PracticaList::__construct
-     * class constructor
-     */
-    public function __construct($designation = "",
-        $description = "",
-        $queryString = "") {
-
-        if ($designation === "" || $description === "" || $queryString === "") {
-            // empty args, full list
-            
-            $this->designation = _("all experiences");
-            $this->description = _("unfiltered list of experiences");
-            $this->queryString = "SELECT * FROM `myX`.`practica`";
-            $this->queryString .= " WHERE `user`=".$_SESSION['userID'];
-                        
-        } else {
-
-            parent::__construct($designation, $description, $queryString);
-
-        }
-
-    } // method PracticaList::__construct
-		
-} // class PracticaList
-
-/**
- * class AmoresList, used to be displayed by the script amoresList.php
- */
-class AmoresList extends GenericList {
-
-    // I. member variables: inherited from GenericList
-    // 
-    // II. implementation methods
-
-    // getties: inherited from GenericList
-
-    /**
-     * method LoversList::__construct
-     * class constructor
-     */
-    public function __construct($designation = "",
-        $description = "",
-        $queryString = "") {
-
-        if ($designation === "" || $description === "" || $queryString === "") {
-            // empty args, full list
-            
-            $this->designation = _("all lovers");
-            $this->description = _("unfiltered list of lovers");
-            $this->queryString = "SELECT * FROM `myX`.`amores`";
-            $this->queryString .= " WHERE `user`=".$_SESSION['userID'];
-            
-        } else {
-            
-            parent::__construct($designation, $description, $queryString);
-            
-        }
-
-    } // method AmoresList::__construct
-		
-} // class AmoresList
-
-/**
- * class LocaList, used to be displayed by the script locaList.php
- */
-class LocaList extends GenericList {
-
-    // I. member variables: inherited from GenericList
-
-    // II. implementation methods
-
-    // getties: inherited from GenericList
-
-    /**
-     * method LocaList::__construct
-     * class constructor
-     */
-    public function __construct($designation = "",
-        $description = "",
-        $queryString = "") {
-
-        if ($designation === "" || $description === "" || $queryString === "") {
-            // empty args, full list
-
-            $this->designation = _("all places");
-            $this->description = _("unfiltered list of places");
-            $this->queryString = "SELECT * FROM `myX`.`loca`";
-            $this->queryString .= " WHERE `user`=".$_SESSION['userID'];
-
-        } else {
-
-            parent::__construct($designation, $description, $queryString);
-
-        }
-
-    } // method LocaList::__construct
-		
-} // class LocaList
 
 // XXX. global functions
 
@@ -274,17 +125,7 @@ function ampelmaenchen($kind = GRUEN/*, $size = 15*/) {
  */
 function getImage($kind, $size) {
     
-    $file = "images/";
-    
-    switch ($kind) {
-        
-        case "praxis":
-            $file .= "coin";
-            break;
-        case "amor":
-            $file .= "amor";
-            break;
-    }
+    $file = "images/".$kind;
     
     $number = random_int(1, 6);
     $file .= strval($number);
@@ -330,25 +171,25 @@ function GUILangInitialize($GUILangCode) {
  */
 function languageFlag($language, $size) {
     
-    $output = '<img src="images/language_';
+    $output = '<img src="images/lang';
     
     switch ($language) {
         
         case 1: // Spanish only
-            $output .= 'spanish';
+            $output .= 'Spanish';
             break;
         case 2: // Spanish with Greek additions
-            $output .= 'spanish';
+            $output .= 'Spanish';
             break;
         case 3: // katharevousa Greek
         case 6: // romaic with katharevousa
-            $output .= 'kingdom_greek';
+            $output .= 'KingdomGreek';
             break;
         case 4: // koine Greek
-            $output .= 'hellenistic_greek';
+            $output .= 'HellenisticGreek';
             break;
         case 5: // romaic Greek
-            $output .= 'romaic_greek';
+            $output .= 'RomaicGreek';
             break;
         
     } // switch block
@@ -362,7 +203,7 @@ function languageFlag($language, $size) {
 /**
  * function moonPhase
  * TODO: check for accuracy
- * (from http://www.voidware.com/moon_phase.htm)
+ * (algorithm taken from http://www.voidware.com/moon_phase.htm)
  */
 function moonPhase($year, $month, $day) {
 
@@ -416,148 +257,150 @@ function moonPhase($year, $month, $day) {
 } // function moonPhase
 
 /**
- * function myAge
- * TODO: check for correctly functionnement!
- */
-function myAge($date) {
-
-	$birthdate = MY_BIRTHDATE;
-	$elapsedTime = $date - $birthdate;
-	return intval($elapsedTime / (86400 * 365.25));
-
-} // function myAge
-
-/**
  * function navigationBar
- * displays a navigation bar for pages having more contents than
+ * displays a navigation bar for lists having more items than
  * $options['resultsPerPage']
- * @$target_script script to jump to
- * @$args arguments list (except page)
- * @$page current page (1-based)
- * @$num_pages pages amount
+ * @$targetScript script to jump to
+ * @$dataString arguments list (except page)
+ * @$page current page number (1-based)
+ * @$pagesAmount amount of pages
  */
-function navigationBar($targetScript, $dataString, $page, $pagesAmount) {
+function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
 
-	echo <<<HTML
-                        <table align="center" border="0">
-                            <tr>
-
-HTML;
+    echo "\t\t\t\t\t\t<table align=\"center\" border=\"0\">\n";
+    echo "\t\t\t\t\t\t\t<tr>\n";
 	
-	// composes first page button:
-	
-        echo "\t\t\t\t\t\t\t\t<td>\n";
-	echo "\t\t\t\t\t\t\t\t\t<input";
-        
-	// disables the button in the first page
-	if ($page === 1) {
-            
-            echo " disabled=\"disabled\"";
-                
-	}
-	echo " name=\"previous_page\" onclick=\"window.location.href='";
-	echo $targetScript;
-	echo "?";
-	if ($dataString !== "") {
+    // first page button:
 
+    echo "\t\t\t\t\t\t\t\t<td>\n";
+    echo "\t\t\t\t\t\t\t\t\t<input type=\"button\" value=\"<< ".
+        _("First Page").
+        "\" ";
+    echo "onclick=\"window.location.href='".
+        $targetScript.
+        "?";
+    if ($dataString !== "") {
+
+        echo $dataString;
+        echo "&";
+
+    }
+    echo "page=1#list';\" ";
+    
+    // disables the button if current page is the first one:
+    if ($currentPage === 1)
+        echo "disabled=\"disabled\" ";
+    
+    echo "/>\n";
+    echo "\t\t\t\t\t\t\t\t</td>\n";
+
+    // previous page button:
+
+    echo "\t\t\t\t\t\t\t\t<td>\n";
+    echo "\t\t\t\t\t\t\t\t\t<input type=\"button\" value=\"< ".
+        _("Previous Page").
+        "\" ";
+    echo "onclick=\"window.location.href='".
+        $targetScript.
+        "?";
+    if ($dataString !== "") {
             echo $dataString;
             echo "&";
-            
-	}
-	echo "page=1';\" type=\"button\" value=\"<< First Page\" />\n";
-	echo "\t\t\t\t\t\t\t\t</td>\n";
+    }
+    echo "page=";
+    echo $currentPage - 1;
+    echo "#list';\" ";
+    
+    // disables the button if current page is the first one
+    if ($currentPage === 1)
+        echo "disabled=\"disabled\" ";
+    
+    echo "/>\n";    
+    echo "\t\t\t\t\t\t\t\t</td>\n";
 	
-	// composes previous page button:
-        
-	echo "\t\t\t\t\t\t\t\t<td>\n";
-	echo "\t\t\t\t\t\t\t\t\t<input";
-	// disables the button in the first page
-	if ($page === 1) {
-            
-            echo " disabled=\"disabled\"";
-            
-	}
-        
-	echo " name=\"previous_page\" onclick=\"window.location.href='";
-	echo $targetScript;
-	echo "?";
-	if ($dataString !== "") {
-		echo $dataString;
-		echo "&";
-	}
-	echo "page=";
-	echo $page - 1;
-	echo "';\" type=\"button\" value=\"< Previous Page\" />\n";
-	echo "\t\t\t\t\t\t\t\t</td>\n";
+    /*
+     * current page and pages amount:
+     * display current page and amount of pages
+     * TODO: rewrite in JavaScript
+     * when updating current page's textbox (event 'change')
+     * it should jump to the referred page 
+     */
+    
+    echo "\t\t\t\t\t\t\t\t<td>\n";
+    echo "\t\t\t\t\t\t\t\t\t<p>"._("Page").
+        " <input type=\"text\" name=\"directPageInput\" size=\"10\" value=\""
+        .$currentPage."\" /> "._("of")." ".$pagesAmount."</p>\n";
+    echo "\t\t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"pagesAmount\" value=\"".
+        $pagesAmount."\" />\n"; // this value is read from JavaScript
+    echo "\t\t\t\t\t\t\t\t</td>\n";
+//    echo "\t\t\t\t\t\t\t\t<td>\n";
+//    echo "\t\t\t\t\t\t\t\t\t<p>"._("Page").
+//        " <input type=\"text\" size=\"10\" value=\"".
+//        $currentPage.
+//        "\"  onhaschange=\"window.location.href='".
+//        $targetScript.
+//        "';\" /> "._("of")." ".$pagesAmount."</p>\n";
+//    echo "\t\t\t\t\t\t\t\t</td>\n";
 	
-	//////////////////////////////////////////////////////////////////////////////////////
-	// current page and pages' amount
-	// display current page and page's amount
-	// TODO: when updating current page's textbox (onhaschange?) it should jump to the referred page
-	$pageDisplayed = $page; //  displays current page
-	echo <<<HTML
-                                <td>
-                                    <p>Page <input name="current_page" onhaschange="window.location.href='{$targetScript}';" size="10" type="text" value="{$pageDisplayed}" /> of {$pagesAmount}</p>
-                                </td>
+    // next page button:
 
-HTML;
-	
-	// composes next page button:
-	
-        echo "\t\t\t\t\t\t\t\t<td>\n";
-	echo "\t\t\t\t\t\t\t\t\t<input";
-	// disables the button in the last page
-	if ($page === $pagesAmount) {
-            
-            echo " disabled=\"disabled\"";
-                
-	}
-	echo " name=\"next_page\" onclick=\"window.location.href='";
-	echo $targetScript;
-	echo "?";
-	if ($dataString !== "") {
-            
-            echo $dataString;
-            echo "&";
-                
-	}
-	echo "page=";
-	echo $page + 1;
-	echo "';\" type=\"button\" value=\"Next Page >\" />\n";
-	echo "\t\t\t\t\t\t\t\t</td>\n";
-	
-	// composes last page button:
-        
-	echo "\t\t\t\t\t\t\t\t<td>\n";
-	echo "\t\t\t\t\t\t\t\t\t<input";
-	// disables the button in the last page
-	if ($page === $pagesAmount) {
-            
-            echo " disabled=\"disabled\"";
-            
-	}
-	echo " name=\"last_page\" onclick=\"window.location.href='";
-	echo $targetScript;
-	echo "?";
-        
-	if ($dataString !== "") {
-            
-            echo $dataString;
-            echo "&";
-                
-	}
-	echo "page=";
-	echo $pagesAmount;
-	echo "';\" type=\"button\" value=\"Last Page >>\" />\n";
-	echo "\t\t\t\t\t\t\t\t</td>\n";
-		
-	echo <<<HTML
-                            </tr>
-                        </table>
+    echo "\t\t\t\t\t\t\t\t<td>\n";
+    echo "\t\t\t\t\t\t\t\t\t<input type=\"button\" value=\"".
+        _("Next Page").
+        " >\" ";
 
-HTML;
-	
-	return;
+    echo "onclick=\"window.location.href='".
+        $targetScript.
+        "?";
+    if ($dataString !== "") {
+
+        echo $dataString;
+        echo "&";
+
+    }
+    echo "page=";
+    echo $currentPage + 1;
+    echo "#list';\" ";
+    
+    // disables the button if current page is the last one:
+    if ($currentPage === $pagesAmount)            
+        echo "disabled=\"disabled\" ";
+    
+    echo "/>\n";
+    echo "\t\t\t\t\t\t\t\t</td>\n";
+
+    // last page button:
+
+    echo "\t\t\t\t\t\t\t\t<td>\n";
+    echo "\t\t\t\t\t\t\t\t\t<input type=\"button\" value=\"".
+        _("Last Page").
+        " >>\" ";
+
+    echo "onclick=\"window.location.href='";
+    echo $targetScript;
+    echo "?";
+
+    if ($dataString !== "") {
+
+        echo $dataString;
+        echo "&";
+
+    }
+    echo "page=";
+    echo $pagesAmount;
+    echo "#list';\" ";
+    
+    // disables the button if current page is the last one:
+    if ($currentPage === $pagesAmount)            
+        echo "disabled=\"disabled\" ";
+    
+    echo "/>\n";
+    echo "\t\t\t\t\t\t\t\t</td>\n";
+
+    echo "\t\t\t\t\t\t\t</tr>\n";
+    echo "\t\t\t\t\t\t</table>\n";
+
+    return;
 
 } // function navigationBar
 
@@ -573,24 +416,24 @@ HTML;
  */
 function pageSettings($amount, $page) {
 
-        $navigationBar = FALSE; // default return value
-    
-	// calculates total number of pages
-	$numPages = intval(ceil($amount / $_SESSION['options']['resultsPerPage']));
+    $navigationBar = FALSE; // default return value
 
-	// determines if navigation bar is necessary:
-	if ($amount > $_SESSION['options']['resultsPerPage']) {
-            
-            $navigationBar = TRUE;
-                
-	}
+    // calculates total number of pages
+    $numPages =
+       intval(ceil($amount / $_SESSION['navigationOptions']['resultsPerPage']));
 
-	// etablishes the initial ordinal of the page
-	$ordinal = (($page - 1) * $_SESSION['options']['resultsPerPage'] + 1); // $ordinal is 1-based
-	
-	return array('numPages' => $numPages,
-            'navigationBar' => $navigationBar,
-            'ordinal' => $ordinal);
+    // determines if navigation bar is necessary:
+    if ($amount > $_SESSION['options']['resultsPerPage'])            
+        $navigationBar = TRUE;
+
+    // etablishes the initial ordinal of the page
+    // $ordinal is 1-based
+    $ordinal =
+        (($page - 1) * $_SESSION['navigationOptions']['resultsPerPage'] + 1);
+
+    return array('numPages' => $numPages,
+        'navigationBar' => $navigationBar,
+        'ordinal' => $ordinal);
 
 } // function pageSettings
 

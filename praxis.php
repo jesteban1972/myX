@@ -1,21 +1,21 @@
 <?php
-
 /**
- * script praxis.php
+ * script 'praxis.php'.
+ * 
  * displays the experience's detail page
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2017-12-12
+ * last updated 2018-03-24
 */
 
-require_once 'session.inc';
 require_once 'core.inc';
-require_once 'DB.inc';
+//require_once 'DB.inc';
 require_once 'praxis.inc';
 require_once 'amor.inc';
 require_once 'locus.inc';
+require_once 'user.inc';
 
 
-// 1. get a DB connection to work with:
+// get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 /*
@@ -26,29 +26,29 @@ $pdo = DB::getDBHandle();
 $praxis = new Praxis(intval($_GET['praxisID']));
 
 
-$title = _("Experience");
+$title = "myX - Experience";
 include 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
 echo <<<HTML
-                    <!-- Script praxis.php. Part 0: Navigation links -->
+                    <!-- script praxis.php. part 0: navigation links -->
                     <article id="start">
 
 HTML;
 
-echo "\t\t\t\t\t\t<p class=\"medium\">";
+echo "\t\t\t\t\t\t<p class=\"large\">";
 echo "<img src=\"".getImage("praxis","small")."\" alt=\"".
     _("(Image of a gold coin)").
     "\" />";
-echo "<b>{$praxis->getName()}</b></p>\n";
+echo " <b>".$praxis->getName()."</b></p>\n";
 
 // links to sections:
 echo "\t\t\t\t\t\t<ul>\n";
 echo "\t\t\t\t\t\t\t<li><a href=\"#data\">".
         _("Data").
         "</a></li>\n";
-echo "\t\t\t\t\t\t\t<li><a href=\"#participants\">".
-        _("Participants").
+echo "\t\t\t\t\t\t\t<li><a href=\"#list\">".
+        _("List of participants").
         "</a></li>\n";
 echo "\t\t\t\t\t\t\t<li><a href=\"#description\">".
         _("Description")."</a></li>\n";
@@ -59,7 +59,7 @@ echo "\t\t\t\t\t\t</ul>\n";
 echo <<<HTML
                     </article>
                     
-                    <!-- Script praxis.php. Part I: General data -->
+                    <!-- script praxis.php. part i: general data -->
                     <article id="data">
 
 HTML;
@@ -88,51 +88,50 @@ echo "\t\t\t\t\t\t<p class=\"medium\">"._("Place:").
     " (".
     writtenNumber($locus->getPracticaAmount(), FEMENINE).
     " ".($locus->getPracticaAmount() > 1 ? _("experiences") : _("experience")).
-    ")</p>\n";
+    ").</p>\n";
 
 // 2. time
 // format the time stamp
 echo "\t\t\t\t\t\t<p class=\"medium\">"._("Time:")." <b>";
 $date = strtotime($praxis->getDate());
-$dateString = date("Y-m-d", $date); // used also below in $xperienceSideview
+$dateString = date("Y-m-d", $date);
 echo $dateString;
 
-$praxisOrdinal = $praxis->getOrdinal(); // used also below in $xperienceSideview
-if ($praxisOrdinal !== "") {
+if ($praxis->getOrdinal() !== "") {
 
     echo " ";
-    echo writtenOrdinal($praxisOrdinal);
+    echo writtenOrdinal($praxis->getOrdinal());
     
 }
 echo "</b> (";
-// weekDay is echoed:
-echo sprintf(_("the day was %s, "), $weekDays[date("w", $date)]);
-// moon phase is echoed:
+
+// weekDay:
+echo sprintf(_("the day was %s, "), _($weekDays[date("w", $date)]));
+
+// moon phase:
 $date_elems = explode("-", $dateString);
-echo moonPhase(intval($date_elems[0]), intval($date_elems[1]), intval($date_elems[2]));
-echo " was the moon, ";
-// user age is echoed:
-echo sprintf(_("I was %d years old"), myAge($date)).
-    ")</p>\n";
+echo sprintf(_("the moon was %s, "), _(moonPhase(intval($date_elems[0]), intval($date_elems[1]), intval($date_elems[2]))));
+$user = new User($_SESSION['userID']);
+
+// user age:
+echo sprintf(_("I was %d years old"), $user->getAge($date)).
+    ").</p>\n";
 
 // 3. designation
 $praxisName = $praxis->getName(); // used also below in $xperienceSideview
-echo "\t\t\t\t\t\t<p class=\"medium\">Name: <b>{$praxisName}</b></p>\n";
+echo "\t\t\t\t\t\t<p class=\"medium\">"._("Name:")." <b>{$praxisName}</b>.</p>\n";
 	
 // 4. rating	
 // displays rating with explication
 $praxisRating = $praxis->getRating(); // used also below in $xperienceSideview
-echo "\t\t\t\t\t\t<p class=\"medium\">".
-    _("Rating:").
-    " ".
-    writtenRate($praxisRating, true).
-    "</p>\n";
+echo "\t\t\t\t\t\t<p class=\"medium\">"._("Rating:")." ".
+    writtenRate($praxisRating, true).".</p>\n";
 
 echo <<<HTML
                     </article>
 
-                    <!-- Script praxis.php. Part II: Participants -->
-                    <article id="participants">
+                    <!-- script praxis.php. part ii: participants -->
+                    <article id="list">
 
 HTML;
 
@@ -161,7 +160,6 @@ if ($amoresAmount > 1) {
 echo "\t\t\t\t\t\t<p>";
 
 // participant list is echoed:
-//echo "\t\t\t\t\t\t<ul>\n";
 		
 $amores = $praxis->getAmores();
 
@@ -174,61 +172,27 @@ foreach ($amores as $amorID) {
 
         if ($amoresAmount > 1) {
 
-            if ($i > 0) {
-
+            if ($i > 0)
                 $participants_list .= " & ";
-
-            }
 
             $i++;
             $participants_list .= "$i/ ";
         }
 
-        $participants_list .= "$amorID {$amor->getAlias()}";
+        $participants_list .= "<b>".$amorID."</b> ".$amor->getAlias();
         
     }
-				
-    // creates hyperlink
-//    echo "\t\t\t\t\t\t\t<li><p class=\"medium\"><a href=\"amor.php?amorID=";
-//    echo $amor->getAmorID();
-//    echo "#data\">";
-//    echo $amor->getAlias();
-//    echo "</a>";
-//    echo ampelmaenchen();
-//    echo " - ";
-//
-//    // lover evaluation
-//    echo writtenRate($amor->getRating());
-//
-//    echo " - (";
-
-//    $practicaAmount = $amor->getPracticaAmount();
-//
-//    if ($practicaAmount === 1) {
-//
-//        echo _("one night stand");
-//
-//    } else {
-//
-//        echo sprintf(_("%s  experiences"),
-//            writtenNumber($amor->getPracticaAmount(), FEMENINE));
-//
-//    }
-
-    //echo "): ";
-    //echo $amor->getCombinedDescription();
-    echo $amor->HTMLPreview($ordinalNr, $options);
-    //echo ".</p></li>\n";
+    
+    echo $amor->HTMLPreview($ordinalNr, $options, "praxis.php?praxisID=".$praxis->getPraxisID());
     $ordinalNr++;
     
 } // foreach ($amores as $amorID)
 			
-//echo "\t\t\t\t\t\t</ul>\n";
 
 echo <<<HTML
                     </article>
     
-                    <!-- Script praxis.php. Part III: Description -->
+                    <!-- script praxis.php. part iii: description -->
                     <article id="description">
 
 HTML;
@@ -243,79 +207,55 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 		
 $description = $praxis->getDescription();
 
-// divides the description in an array of paragraphs separated by HTML-tag <br />:
+// divides the description in an array of paragraphs separated by '<br />':
 $paragraphs = explode("<br />", $description);
 		
 for ($i = 0; $i < count($paragraphs); $i++) {
     
-    echo "\t\t\t\t\t\t<p class=\"large\"";
-
-    if ($i != 0) {
+    echo "\t\t\t\t\t\t";
+    
+    if ($i === 0) {
         
-        echo " style=\"text-indent: 50px;\""; // TODO: CSS
+        echo "<p class=\"large\">".languageFlag($praxis->getTL(), 25)." ";
+        
+    } else {
+        
+        echo "<p class=\"description\">";
 
     }
-    echo ">";
 
-    if ($i === 0) { // put the language flag before the first paragraph
-        
-        echo languageFlag($praxis->getTL(), 25);
-        echo " ";
-        
-    }
-
-    if ((DEBUG) && ($i === 0)) {
-
-        echo " <span class=\"debug\">[xperience ID: ";
-        echo $praxis->getPraxisID();
-        echo "; participant(s): ";
-        echo $participants_list;
-        echo "; text quality: ".$praxis->getTQ();
-        echo "; text language: ".$praxis->getTL();  
-        echo "]</span> ";
-
-    }
+    if ((DEBUG) && ($i === 0))
+        echo " <span class=\"debug\">[praxisID <b>".$praxis->getPraxisID().
+            "</b>; participant(s) ".$participants_list.
+            "; tq ".$praxis->getTQ().
+            "; tl ".$praxis->getTL()."]</span> ";
 
     echo $paragraphs[$i];
     echo "</p>\n";
         
 } // for block
 	    
-if (strlen($praxis->getDescription()) > 1000) { // TODO: ἂς ὀρισθῇ κριτήριον βάσει τῶν ἰδιοτήτων τῆς ὀθόνης
-    
-    $link_to_start = true;
-        
-}
 
-// link to top of the page:
-echo "\t\t\t\t\t\t<p style=\"text-align: center;\"><img src=\"images/arrow_top.gif\" /> <a href=\"#start\">".
-    _("Back to top").
-    "</a></p>\n";
+ // Synchroton {{
 
-/**
- * Synchroton(R)
- * this part should be rewritten!!!
-*/
-
-if ($amoresAmount > 1) {
-    
-    $amor = NULL;
-        
-} elseif ($amor->getPracticaAmount() < 2) {
-    
-    $amor = NULL; //!
-        
-}
-
-if ($locus->getPracticaAmount() < 2) {
-    
-    $locus = NULL; //!
-        
-}
+// set loverID being passed to Synchroton.
+// if there is more than one participant, row experience-with is disabled
+$amorID = ($amoresAmount === 1) ?
+    $praxis->getAmores()[0] :
+    NULL;
 
 Praxis::HTMLSynchroton($praxis->getPraxisID(),
-    $amor,
-    $locus);
+    $amorID,
+    $praxis->getLocus());
+
+// }} Synchroton
+
+// link to top of the page:
+echo "\t\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_top.gif\" />".
+    " <a href=\"#start\">".
+    _("Back to top").
+    "</a></p>\n";
 
 echo <<<HTML
                 </article>
@@ -336,10 +276,8 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 // edit experience form:
 echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"POST\">\n";
 echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"praxisID\" value=\"".
-    $praxis->getPraxisID().
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
-    _("Edit experience").
+    $praxis->getPraxisID()."\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit experience").
     "\" />\n";
 echo "\t\t\t\t\t</form>\n";
 
@@ -362,27 +300,11 @@ echo "\t\t\t\t\t<p style=\"text-align: center;\">".
 
 echo "\t\t\t\t</article>\n";
 
-HTML;
-
 echo "\t\t\t</section> <!-- }} section -->\n\n";
+
+// praxis ID is stored in the session to be read in 'sidebar.inc':
+$_SESSION['asideItem'] = $praxis->getPraxisID();
+
 require_once 'footer.inc'; // footer of all the pages of the app
 
-//// $xperienceSideview displays a sommary of the xperience in the sidebar
-//// 1-step creation
-//$praxisSideview = "\t\t\t\t\t\t<div class=\"HTML_preview_sidebar\">PRAXIS<br /><br />@";
-//$praxisSideview .= $locus->getName();
-//$praxisSideview .= "<br /><br />τῇ ";
-//$praxisSideview .= $dateString;
-//if ($praxisOrdinal !== "") {
-//
-//    $praxisSideview .= $praxisOrdinal;
-//    
-//}
-//$praxisSideview .= "<br /><br /><b>";
-//$praxisSideview .= $praxisName;
-//$praxisSideview .= "</b><br /><br />";
-//$praxisSideview .= writtenRate($praxisRating, false);
-//$praxisSideview .= "</div>";
-//
-//$_SESSION['praxisSideview'] = $praxisSideview; // stores $praxisSideview in $_SESSION to be read from sidebar.inc
 ?>
