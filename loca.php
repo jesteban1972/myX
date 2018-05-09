@@ -223,7 +223,9 @@ HTML;
         navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     echo <<<HTML
-                    <p class="quote">«XXX»<br />(XXX)</p>
+                    <p class="quote">«Cuando emprendas tu viaje a Ítaca<br />
+                    pide que el camino sea largo,<br />
+                    lleno de aventuras, lleno de experiencias»<br />(Kavafis)</p>
                     <p style="text-align: center;"><img src="images/arrow_top.gif" /> <a href="#start">Back to top</a></p>
                 </article>
 
