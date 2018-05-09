@@ -20,6 +20,16 @@ $description = "Homepage of myX";
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
+if (DEBUG) {
+    var_dump($_SESSION);
+//    echo "\t\t\t\t<div id=\"sessionViewer\"><h1>session status</h1>\n".
+//        "\t\t\t\t\t<pre>";
+//    print_r($_SESSION);
+//    echo "</pre>\n\t\t\t\t</div>\n";
+//    
+//    echo "<span class=\"debug\">session: ".var_dump($_SESSION)."</span>";
+}
+
 echo <<<HTML
                 <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
                 et je vis des peines que j'ai enduré, et que je ne sens plus»<br />
@@ -38,15 +48,6 @@ echo <<<HTML
                 Last but not least, having your <b>places</b> well arranged will allow you to surf through them in a map.</p>
 
 HTML;
-
-if (DEBUG) {
-    
-    echo "\t\t\t\t<div id=\"sessionViewer\"><h1>session status</h1>\n".
-        "\t\t\t\t\t<pre>";
-    print_r($_SESSION);
-    echo "</pre>\n\t\t\t\t</div>\n";
-//    echo "<span class=\"debug\">session: ".var_dump($_SESSION)."</span>";
-}
 
 echo "\t\t\t</section> <!-- }} section -->\n\n";
 require_once 'footer.inc'; // footer of all the pages of the app

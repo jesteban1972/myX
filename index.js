@@ -9,8 +9,8 @@
 window.onload = function() {
     
     // add event to the session viewer:
-    document.getElementById('sessionViewer').
-        addEventListener('click', disableSessionViewer, false);
+//    document.getElementById('sessionViewer').
+//        addEventListener('click', disableSessionViewer, false);
     
 }
 

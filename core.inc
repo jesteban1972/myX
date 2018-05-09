@@ -257,13 +257,14 @@ function moonPhase($year, $month, $day) {
 } // function moonPhase
 
 /**
- * function navigationBar
- * displays a navigation bar for lists having more items than
- * $options['resultsPerPage']
- * @$targetScript script to jump to
- * @$dataString arguments list (except page)
- * @$page current page number (1-based)
- * @$pagesAmount amount of pages
+ * function 'navigationBar'.
+ * 
+ * this function displays a navigation bar using in long lists (i.e. those
+ * having more items than $_SESSION['navigationOptions']['resultsPerPage']).
+ * @param string $targetScript script to jump to
+ * @param string $dataString XXXarguments list (except page)XXX
+ * @param int $page current part ('page'), (1-based)
+ * @param int $pagesAmount amount of parts ('pages')
  */
 function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
 
@@ -319,11 +320,9 @@ function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
     echo "\t\t\t\t\t\t\t\t</td>\n";
 	
     /*
-     * current page and pages amount:
+     * current part ('page') and parts ('pages') amount:
      * display current page and amount of pages
-     * TODO: rewrite in JavaScript
-     * when updating current page's textbox (event 'change')
-     * it should jump to the referred page 
+     * TODO: check JavaScript (event 'change'): it should jump to the referred page 
      */
     
     echo "\t\t\t\t\t\t\t\t<td>\n";
@@ -333,14 +332,6 @@ function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
     echo "\t\t\t\t\t\t\t\t\t<input type=\"hidden\" id=\"pagesAmount\" value=\"".
         $pagesAmount."\" />\n"; // this value is read from JavaScript
     echo "\t\t\t\t\t\t\t\t</td>\n";
-//    echo "\t\t\t\t\t\t\t\t<td>\n";
-//    echo "\t\t\t\t\t\t\t\t\t<p>"._("Page").
-//        " <input type=\"text\" size=\"10\" value=\"".
-//        $currentPage.
-//        "\"  onhaschange=\"window.location.href='".
-//        $targetScript.
-//        "';\" /> "._("of")." ".$pagesAmount."</p>\n";
-//    echo "\t\t\t\t\t\t\t\t</td>\n";
 	
     // next page button:
 
@@ -405,25 +396,32 @@ function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
 } // function navigationBar
 
 /**
- * function pageSettings
- * used in listed pages, determines the page settings
- * @amount
- * @page the current page(?)
- * returns an array with the page settings, being these:
- * - numPages: the pages amount(?)
- * - navigationBar: a boolean value true if a navigation bar is needed
- * - ordinal: the 
+ * global function 'pageSettings'.
+ * 
+ * this function is called in pages displaying a list:
+ * i) list pages ('practica.php', 'amores.php' and 'loca.php'), and
+ * ii) XXX from lover detail page ('amor.php').
+ * it composes an associative array with the following page settings:
+ * - numPages: the pages amount which composes the list. this value
+ * depends on the setting '$_SESSION['navigationOptions']['resultsPerPage']'.
+ * - navigationBar: a boolean value indicating if a navigation bar is needed
+ * (when the amount of list elements is bigger than 'resultsPerPage')
+ * - ordinal: the XXX 
+ * used in listed pages, determines the page settings.
+ * @param integer $amount the number of entries in a list.
+ * @param int page the current page(?).
+ * @return array containing the page settings.
  */
 function pageSettings($amount, $page) {
 
-    $navigationBar = FALSE; // default return value
+    $navigationBar = FALSE; // default return value (navigatioBar not needed)
 
     // calculates total number of pages
     $numPages =
        intval(ceil($amount / $_SESSION['navigationOptions']['resultsPerPage']));
 
     // determines if navigation bar is necessary:
-    if ($amount > $_SESSION['options']['resultsPerPage'])            
+    if ($amount > $_SESSION['navigationOptions']['resultsPerPage'])            
         $navigationBar = TRUE;
 
     // etablishes the initial ordinal of the page

@@ -3,7 +3,7 @@
  * script practicaQueryProcess.php
  * XXX
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-03-31
+ * last updated 2018-04-28
 */
 
 require_once 'core.inc';
@@ -54,7 +54,7 @@ if (isset($_POST['sent']) && intval($_POST['sent']) === 1) { // form already sen
             case 'rating':
             case 'name':
             case 'rating':
-            case 'description':
+            case 'descr':
                 
                 $queryString .= "`practica`.`".$_POST['ruleFields'][$i]."`";
                 break;

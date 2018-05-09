@@ -19,17 +19,14 @@ class Praxis {
 
     // I. properties
     protected $praxisID;    // praxis ID
-    
+    protected $achtung;     // achtung
     protected $name;        // name
     protected $rating;      // rating
     protected $favorite;    // favorite
     protected $locus;       // place
     protected $date;        // date
     protected $ordinal;     // ordinal
-
-    protected $description; // narration
-    
-    protected $achtung;     // achtung
+    protected $description; // description
     protected $tq;          // field 'tq'
     protected $tl;          // field 'tl'
     
@@ -58,6 +55,12 @@ class Praxis {
         
     }
     
+    public function getName() {
+        
+        return $this->name;
+        
+    }
+    
     public function getLocus() {
         
         return (int)$this->locus;
@@ -72,9 +75,7 @@ class Praxis {
         return $this->ordinal;
     }
 
-    public function getName() {
-        return $this->name;
-    }
+    
 
     public function getRating() {
         
@@ -87,7 +88,7 @@ class Praxis {
      * returns the value of property 'description' (getter method).
      * @return type
      */
-    public function getDescription() {
+    public function getDescr() {
         
         return $this->description;
         
@@ -127,10 +128,10 @@ class Praxis {
         $queryString = <<<QUERY
 SELECT *
 FROM `myX`.`practica`
-WHERE praxisID=:praxisID
+WHERE praxisID = :praxisID
 QUERY;
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":praxisID", $praxisID);
+        $statement->bindParam(":praxisID", $praxisID, PDO::PARAM_INT);
         $statement->execute();
 
         // 3. the data is fetched:
@@ -139,15 +140,16 @@ QUERY;
         // the propierties of the current object are taken from the query:
         $this->praxisID = $praxisID;
         $this->achtung = $row['achtung'];
+        $this->name = $row['name'];
+        $this->rating = intval($row['rating']);
+        $this->favorite = $row['favorite'];
         $this->locus = $row['locus'];
         $this->date = $row['date'];
         $this->ordinal = $row['ordinal'];
-        $this->name = $row['name'];
-        $this->rating = intval($row['rating']);
-        $this->description = $row['description'];
+        $this->description = $row['descr'];
         $this->tq = $row['tq'];
         $this->tl = $row['tl'];
-        $this->favorite = $row['favorite'];
+        
     }
 
 // method Praxis::__construct
@@ -509,12 +511,12 @@ QRY;
         echo languageFlag($this->getTL(), 15);
         echo ' ';
 
-        if (strlen($this->getDescription()) > 510) { // long description
+        if (strlen($this->getDescr()) > 510) { // long description
         // 
             // long narration: only a excerpt will be presented
             // a 510 char long string are treamed at it last whitespace
             // TODO: excerpt's length configurable with a parametrer (ex. EXCEPTR_MED)
-            $excerpt = substr($this->getDescription(), 0, 510); // retrievess only the firs chars
+            $excerpt = substr($this->getDescr(), 0, 510); // retrievess only the firs chars
             $excerpt = substr($excerpt, 0, strrpos($excerpt, " ")); // trims the excerpt in an space
             
             // some substitutions are made:
@@ -535,7 +537,7 @@ QRY;
             
         } else { // short description (less than 510 characters)
             
-            echo $this->getDescription();
+            echo $this->getDescr();
             
         }
         

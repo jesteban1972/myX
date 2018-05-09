@@ -3,12 +3,19 @@
  * 
  * XXX
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-21
+ * last updated 2018-04-25
 */
 
 window.onload = function() {
     
-    // initialize radio buttons 'locusOrigin':
+    // form validation event:
+    document.getElementById('praxisEditForm').
+        addEventListener('submit', validateForm, true);
+    
+    /*
+     * radio buttons 'locusOrigin' are initialized.
+     */
+    
     var locusOriginExisting = document.getElementById('locusOriginExisting');
     var locusOriginNew = document.getElementById('locusOriginNew');
     var locusID = document.getElementById('locusID');
@@ -27,43 +34,124 @@ window.onload = function() {
     }
     
     // add event listeners to the radio buttons 'locusOrigin':
-    locusOriginExisting.addEventListener('change', changeLocusOrigin, false);
-    locusOriginNew.addEventListener('change', changeLocusOrigin, false);
+    locusOriginExisting.addEventListener('change', changeLocusOrigin, true);
+    locusOriginNew.addEventListener('change', changeLocusOrigin, true);
     
     // add event listener to the button 'locusNew':
-    locusNew.addEventListener('click', newLocus, false);
+    locusNew.addEventListener('click', newLocus, true);
     
-//    // initialize radio buttons 'amorOrigin':
-//    var amorOrigin = document.getElementsByName('amorOrigin');
-//    var amorID = document.getElementById('locusID');
-//    var amorNew = document.getElementById('locusNew');
-//    
-//    if (amorOrigin[0].checked) { // there are some places yet. checked existing place
-//        
-//        amorID.enabled = 'enabled';
-//        amorNew.disabled = 'disabled';
-//        
-//    } else {
-//        
-//        amorID.disabled = 'disabled';
-//        amorNew.enabled = 'enabled';
-//        
-//    }
-//    
-//    // add event listeners to the radio buttons 'amorOrigin':
-//    amorOrigin[0].addEventListener('change', changeAmorOrigin, false);
-//    amorOrigin[1].addEventListener('change', changeAmorOrigin, false);
+    /*
+     * radio buttons 'amorOrigin' are initialized.
+     */
+    
+    var amorOriginExisting = document.getElementById('amorOriginExisting');
+    var amorOriginNew = document.getElementById('amorOriginNew');
+    var amorID = document.getElementById('amorID');
+    var amorNew = document.getElementById('amorNew');
+    
+    if (amorOriginExisting.checked) { // there are some places yet. checked existing place
+        
+        amorID.disabled = false;
+        amorNew.disabled = true;
+        
+    } else {
+        
+        amorID.disabled = true;
+        amorNew.disabled = false;
+        
+    }
+    
+    // add event listeners to the radio buttons 'amorOrigin':
+    amorOriginExisting.addEventListener('change', changeAmorOrigin, true);
+    amorOriginNew.addEventListener('change', changeAmorOrigin, true);
+    
+    // add event listener to the button 'amorNew':
+    amorNew.addEventListener('click', newAmor, true);
+    
+    // event listeners are added to 'addAmor[0]' and 'removeAmor[0]':
+    document.getElementById('addAmor[0]').
+        addEventListener('click', addAmor, true);
+    document.getElementById('removeAmor[0]').
+        addEventListener('click', removeAmor, true);
+    
+    // button removeAmor[0] is not shown on page load:
+    document.getElementById('removeAmor[0]').style.visibility = 'hidden';
     
 }
 
+function addAmor(evt) {
+    
+    var /*hr, select,*/ att, /*option, label, br,*/ txt, /*input,*/ button;
+    
+    // rulesAmount is retrieved from the already existing 'ruleFields':
+    var amoresAmount =
+        document.querySelectorAll("select[name^='XXXruleFields[']").length + 1;
+
+    // amoresTable is the DOM element
+    // and at the end of which new lovers are added:
+    var amoresTable = document.getElementById('amoresTable');
+     
+
+    // insert an horizontal rule and a DOM comment to separate rules:
+//    hr = document.createElement('hr');
+//    att = document.createAttribute('id');
+//    att.value = 'hrRule' + (rulesAmount - 1);
+//    hr.setAttributeNode(att);
+//    rules.appendChild(hr);
+    
+    // button 'addAmor':
+    button = document.createElement('button');
+    att = document.createAttribute('type');
+    att.value = 'button';
+    button.setAttributeNode(att);
+    att = document.createAttribute('id');
+    att.value = 'addAmor[' + (amoresAmount - 1) + ']'; // array 0-based
+    button.setAttributeNode(att);
+    txt = document.createTextNode('+');
+    button.appendChild(txt);
+    amoresTable.appendChild(button);g
+    
+    // event listener is added to the newly created button:
+    button.addEventListener('click', addAmor, true);
+    
+    // button 'removeAmor':
+    button = document.createElement('button');
+    att = document.createAttribute('type');
+    att.value = 'button';
+    button.setAttributeNode(att);
+    att = document.createAttribute('id');
+    att.value = 'removeAmor[' + (rulesAmount - 1) + ']'; // array 0-based
+    button.setAttributeNode(att);
+    txt = document.createTextNode('-');
+    button.appendChild(txt);
+    amoresTable.appendChild(button);
+    
+    // event listener is added to the newly created button:
+    button.addEventListener('click', removeAmor, true);
+    
+    // button removeAmor[0] shown when amoresAmount > 1:
+    if (amoresAmount > 1)
+        document.getElementById('removeAmor[0]').style.visibility = 'visible';
+    else
+        document.getElementById('removeAmor[0]').style.visibility = 'hidden';
+    
+    
+}
+
+/**
+ * this event handler is used to provide functionality when switching the
+ * radio button 'locusOrigin'.
+ * when an option is selected, the corresponding controls of the other option
+ * are disabled.
+ * @param {type} evt
+ * @returns {undefined}
+ */
 function changeLocusOrigin (evt) {
     
     var locusOriginExisting = document.getElementById('locusOriginExisting');
     var locusOriginNew = document.getElementById('locusOriginNew');
     var locusID = document.getElementById('locusID');
     var locusNew = document.getElementById('locusNew');
-    
-    //console.log(evt.target);
     
     switch (evt.target) {
         
@@ -85,21 +173,20 @@ function changeLocusOrigin (evt) {
 
 function changeAmorOrigin (evt) {
     
-    var amorOrigin = document.getElementsByName('amorOrigin');
+    var amorOriginExisting = document.getElementById('amorOriginExisting');
+    var amorOriginNew = document.getElementById('amorOriginNew');
     var amorID = document.getElementById('amorID');
     var amorNew = document.getElementById('amorNew');
     
-    //console.log(evt.target);
-    
     switch (evt.target) {
         
-        case amorOrigin[0]: // existing lover
+        case amorOriginExisting: // existing lover
             
             amorID.disabled = false; // TODO: what happens if there aren't any experiences?
             amorNew.disabled = true;
             break;
             
-        case amorOrigin[1]: // new place
+        case amorOriginNew: // new lover
             
             amorID.disabled = true;
             amorNew.disabled = false;
@@ -109,8 +196,35 @@ function changeAmorOrigin (evt) {
     
 }
 
+function newAmor() {
+    
+    storeTempPraxisData();
+    
+    // redirect to 'locusEdit.php' passing in the URL an argument (GET method):
+    window.location = 'amorEdit.php?tempPraxis=1';
+    
+///*
+// * a temporary form is created and submitted,
+// * so that 'amorEdit.php' has $_SERVER['REQUEST_METHOD'] === "GET"
+// * and having as unique parameter tempPraxis set to 1.
+// */    
+//    var tempForm = document.createElement('form');
+//    tempForm.action = 'amorEdit.php?tempPraxis=1';
+//    tempForm.method = 'GET';
+//    
+////    var input = document.createElement('input');
+////    input.type = 'hidden';
+////    input.name = 'fragment';
+////    input.value = '<!DOCTYPE html>' + document.documentElement.outerHTML;
+////    tempForm.appendChild(input);
+//    
+//    document.body.appendChild(tempForm);
+//    tempForm.submit();
+    
+}
+
 /**
- * function 'newPlace'.
+ * function 'newLocus'.
  * 
  * launched when button 'newPlace' is clicked, this function performs following:
  * - the current values are stored temporarily to be recovered later
@@ -120,41 +234,82 @@ function changeAmorOrigin (evt) {
  */
 function newLocus() {
     
-    // the current values of all fields are temporarily stored
-    // name, rating, favorite, date, ordinal, (lovers), description, tq, tl
-    var temporaryPraxisData;
+    storeTempPraxisData();
     
-    sessionStorage.setItem(temporaryPraxisData,
-        JSON.stringify({
-            name: document.getElementById('name').value,
-            rating: document.getElementById('rating').value,
-            favorite: document.getElementById('favorite').checked ? 1 : 0,
-            date: document.getElementById('date').value,
-            ordinal: document.getElementById('ordinal').value,
-            description: document.getElementById('description').value,
-            tq: document.getElementById('tq').value,
-            tl: document.getElementById('tl').value,
-        })
-    );
-    
+    // redirect to 'locusEdit.php' passing in the URL an argument (GET method):
+    window.location = 'locusEdit.php?tempPraxis=1';
 /*
  * a temporary form is created and submitted,
- * so that 'locusEdit.php' has $_SERVER['REQUEST_METHOD'] === "POST"
+ * so that 'locusEdit.php' has $_SERVER['REQUEST_METHOD'] === "GET"
+ * and having as unique parameter tempPraxis set to 1.
  */    
-    var temporaryForm = document.createElement('form');
-    temporaryForm.action = 'locusEdit.php';
-    temporaryForm.method = 'POST';
-    //temporaryForm.target = '_blank';
-
-    var input=document.createElement('input');
-    input.type = 'hidden';
-    input.name = 'fragment';
-    input.value = '<!DOCTYPE html>' + document.documentElement.outerHTML;
-    temporaryForm.appendChild(input);
-
-    document.body.appendChild(temporaryForm);
-    temporaryForm.submit();
+//    var tempForm = document.createElement('form');
+//    tempForm.action = 'locusEdit.php?tempPraxis=1';
+//    tempForm.method = 'GET';
+//    //tempForm.target = '_blank';
+//
+////    var input = document.createElement('input');
+////    input.type = 'hidden';
+////    input.name = 'fragment';
+////    input.value = '<!DOCTYPE html>' + document.documentElement.outerHTML;
+////    tempForm.appendChild(input);
+//
+//    document.body.appendChild(tempForm);
+//    tempForm.submit();
     
-    //location.href = 'locusEdit.php';
+}
+
+function removeAmor() {
+    
+    return;
+    
+}
+
+/**
+ * function storeTempPraxisData.
+ * 
+ * the data input so far is JSON codified and stored in PHP's session,
+ * making an asynchronous call to microscript 'sessionFromJS.php'.
+ */
+function storeTempPraxisData() {
+
+    var tempPraxisData = JSON.stringify({
+        achtung: document.getElementById('achtung').value,
+        name: document.getElementById('name').value,
+        rating: parseInt(document.getElementById('rating').value),
+        favorite: document.getElementById('favorite').checked ? 1 : 0,
+        /*locus: document.getElementById('XXX').value,*/
+        date: document.getElementById('date').value,
+        ordinal: document.getElementById('ordinal').value,
+        /*amor: document.getElementById('XXX').value,*/
+        descr: document.getElementById('descrTxt').value,
+        tq: parseInt(document.getElementById('tq').value),
+        tl: parseInt(document.getElementById('tl').value)
+    });
+    
+    var request = new XMLHttpRequest(); // TODO: make it cross browser
+
+//    request.onreadystatechange = function() {
+//        
+//        if ((this.readyState === 4) && (this.status === 200)) {
+//            
+//            console.log(this.responseText); // there is not any response
+//            
+//        }
+//        
+//    };
+
+    request.open('POST', 'sessionFromJS.php', true);
+    request.setRequestHeader("Content-type",
+        "application/x-www-form-urlencoded");
+    request.send('tempPraxisData=' + tempPraxisData);
+    
+    return;
+    
+}
+
+function validateForm(evt) { // TODO: validate
+    
+    this.submit();
     
 }

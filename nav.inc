@@ -18,6 +18,7 @@ if ((isset($_SESSION['userID'])) &&
     echo "\t\t\t\t\t<li><a href=\"practica.php\">"._("Experiences")."</a></li>\n";
     echo "\t\t\t\t\t<li><a href=\"amores.php\">"._("Lovers")."</a></li>\n";
     echo "\t\t\t\t\t<li><a href=\"loca.php\">"._("Places")."</a></li>\n";
+    echo "\t\t\t\t\t<li><a href=\"queries.php\">"._("Queries")."</a></li>\n";
 
 } else {
     

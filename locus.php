@@ -4,7 +4,7 @@
  * 
  * displays the detail page of a place
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-20
+ * last updated 2018-04-24
 */
 
 require_once 'core.inc';
@@ -78,18 +78,20 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     _("GENERALIA").
     "</h1>\n";
 
+// name:
 echo "\t\t\t\t\t<p class=\"medium\">";
 if (DEBUG)
     echo " <span class=\"debug\">[locusID <b>".$locus->getLocusID()."</b>]</span> ";
+echo _("Name").": <b>".$locus->getName()."</b>.</p>\n";
 
-echo _("Name and rating").": <b>".$locus->getName()."</b> - ";
-echo writtenRate($locus->getRating(), TRUE);
-echo ".</p>\n";
+// rating:
+echo "\t\t\t\t\t<p class=\"medium\">"._("Subjetive rating").": <b>".
+    writtenRate($locus->getRating(), TRUE)."</b>.</p>\n";
 
 // description:
-if ($locus->getDescription() !== "")
+if ($locus->getDescr() !== "")
     echo "\t\t\t\t\t<p class=\"medium\">"._("Place description").": <b>".
-        $locus->getDescription()."</b>.</p>\n";
+        $locus->getDescr()."</b>.</p>\n";
 
 // address:
 if ($locus->getAddress() !== "")    
@@ -319,13 +321,10 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     "</h1>\n";
 
 // edit place form:
-echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"GET\">\n";
 echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"locusID\" value=\"".
-    $locus->getLocusID().
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
-    _("Edit place").
-    "\" />\n";
+    $locus->getLocusID()."\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit place")."\" />\n";
 echo "\t\t\t\t\t</form>\n";
 
 // delete place form:

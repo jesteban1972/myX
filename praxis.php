@@ -4,7 +4,7 @@
  * 
  * displays the experience's detail page
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-03-24
+ * last updated 2018-04-22
 */
 
 require_once 'core.inc';
@@ -69,8 +69,20 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 
 HTML;
 
-// 1. place
-$locus = new Locus($praxis->getLocus()); // used also below in $xperienceSideview
+// name:
+$praxisName = $praxis->getName(); // TODO: check (used also below in $xperienceSideview)
+echo "\t\t\t\t\t\t<p class=\"medium\">"._("Name").": <b>".$praxisName.
+    "</b>.</p>\n";
+	
+// rating:	
+// displays rating with explication
+$praxisRating = $praxis->getRating(); // TODO: check (used also below in $xperienceSideview)
+echo "\t\t\t\t\t\t<p class=\"medium\">"._("Subjective rating").": <b>".
+    writtenRate($praxisRating, true)."</b>.</p>\n";
+
+// place:
+
+$locus = new Locus($praxis->getLocus()); // TODO: check (used also below in $xperienceSideview)
 
 // place string is echoed:
 echo "\t\t\t\t\t\t<p class=\"medium\">"._("Place:").
@@ -80,7 +92,8 @@ echo "\t\t\t\t\t\t<p class=\"medium\">"._("Place:").
     ($locus->getPracticaAmount() > 1 ? _("experiences") : _("experience")).
     ").</p>\n";
 
-// 2. time
+// time:
+
 // format the time stamp
 echo "\t\t\t\t\t\t<p class=\"medium\">"._("Time:")." <b>";
 $date = strtotime($praxis->getDate());
@@ -106,16 +119,6 @@ $user = new User($_SESSION['userID']);
 // user age:
 echo sprintf(_("I was %d years old"), $user->getAge($date)).
     ").</p>\n";
-
-// 3. designation
-$praxisName = $praxis->getName(); // used also below in $xperienceSideview
-echo "\t\t\t\t\t\t<p class=\"medium\">"._("Name:")." <b>{$praxisName}</b>.</p>\n";
-	
-// 4. rating	
-// displays rating with explication
-$praxisRating = $praxis->getRating(); // used also below in $xperienceSideview
-echo "\t\t\t\t\t\t<p class=\"medium\">"._("Rating:")." ".
-    writtenRate($praxisRating, true).".</p>\n";
 
 echo <<<HTML
                     </article>
@@ -195,7 +198,7 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     _("NARRATIO").
     "</h1>\n";
 		
-$description = $praxis->getDescription();
+$description = $praxis->getDescr();
 
 // divides the description in an array of paragraphs separated by '<br />':
 $paragraphs = explode("<br />", $description);
@@ -262,7 +265,7 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     "</h1>\n";
 
 // edit experience form:
-echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"GET\">\n";
 echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"praxisID\" value=\"".
     $praxis->getPraxisID()."\" />\n";
 echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit experience").

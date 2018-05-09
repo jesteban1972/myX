@@ -2,9 +2,9 @@
 /**
  * script 'loca.php'.
  * 
- * displays a list of places based in an instance of class 'LocaList'
+ * displays a list of places based in an instance of class 'LocaQuery'
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-03-24
+ * last updated 2018-04-24
 */
 
 require_once 'core.inc';
@@ -252,13 +252,14 @@ echo "/>\n";
 echo "\t\t\t\t\t</form>\n";
 
 // add place:
-echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"GET\">\n";
 echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New place")."\" />\n";
 echo "\t\t\t\t\t</form>\n";
 
 // edit countries list:
 echo "\t\t\t\t\t<form action=\"countriesEdit.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list")."\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list").
+    "\" />\n";
 echo "\t\t\t\t\t</form>\n";
 
 // link to previous page:

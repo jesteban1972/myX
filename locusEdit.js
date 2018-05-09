@@ -8,7 +8,13 @@
 
 window.onload = function() {
     
-    // initialize radio buttons 'countryOrigin':
+    // event listener is added to form:
+    document.getElementById('locusEditForm').
+        addEventListener('submit', submitForm, true);
+    
+    // radio buttons 'countryOrigin':
+    
+    // radio buttons are initialized:
     var countryOriginExisting = document.getElementById('countryOriginExisting');
     var countryOriginNew = document.getElementById('countryOriginNew');
     var countryID = document.getElementById('countryID');
@@ -29,14 +35,14 @@ window.onload = function() {
         
     }
     
-    // add event listeners to the radio buttons 'countryOrigin':
-    countryOriginExisting.addEventListener('change', changeCountryOrigin, false);
-    countryOriginNew.addEventListener('change', changeCountryOrigin, false);
+    // event listeners are added:
+    countryOriginExisting.addEventListener('change', changeCountryOrigin, true);
+    countryOriginNew.addEventListener('change', changeCountryOrigin, true);
+    countryNew.addEventListener('click', newCountry, true);
     
-    // add event listener to the button 'countryNew':
-    countryNew.addEventListener('click', newCountry, false);
+    // radio buttons 'kindOrigin':
     
-    // initialize radio buttons 'kindOrigin':
+    // radio buttons are initialized:
     var kindOriginExisting = document.getElementById('kindOriginExisting');
     var kindOriginNew = document.getElementById('kindOriginNew');
     var kindID = document.getElementById('kindID');
@@ -57,12 +63,10 @@ window.onload = function() {
         
     }
     
-    // add event listeners to the radio buttons 'kindOrigin':
-    kindOriginExisting.addEventListener('change', changeKindOrigin, false);
-    kindOriginNew.addEventListener('change', changeKindOrigin, false);
-    
-    // add event listener to the button 'kindNew':
-    kindNew.addEventListener('click', newKind, false);
+    // event listeners are added:
+    kindOriginExisting.addEventListener('change', changeKindOrigin, true);
+    kindOriginNew.addEventListener('change', changeKindOrigin, true);
+    kindNew.addEventListener('click', newKind, true);
     
 }
 
@@ -145,5 +149,79 @@ function newKind() {
             name: document.getElementById('kindNewTxt').value
         })
     );
+    
+}
+
+/**
+ * function 'storeTempLocusData'.
+ * 
+ * the data input so far is JSON codified and stored in PHP's session,
+ * making an asynchronous call to microscript 'sessionFromJS.php'.
+ */
+function storeTempLocusData() {
+
+    var tempLocusData = JSON.stringify({
+            achtung: document.getElementById('achtung').value,
+            name: document.getElementById('name').value,
+            rating: parseInt(document.getElementById('rating').value),
+            address: document.getElementById('address').value,
+            /*country: document.getElementById('XXX').value,
+            kind: document.getElementById('XXX').value,*/
+            descr: document.getElementById('descrTxt').value,
+            coordExact: document.getElementById('coordExact').value,
+            coordGeneric: document.getElementById('coordGeneric').value,
+            web: document.getElementById('web').value
+        });
+    
+    var request = new XMLHttpRequest(); // TODO: make it cross browser
+    request.open('POST', 'sessionFromJS.php', true);
+    request.setRequestHeader("Content-type",
+        "application/x-www-form-urlencoded");
+    request.send('tempLocusData=' + tempLocusData);
+    
+    return;
+    
+}
+
+function submitForm(evt) { // TODO: validate form
+    
+    evt.preventDefault();
+    
+/*
+ * a hidden field tempPraxis has been placed in the document when...
+ */
+    
+    var tempPraxis = document.getElementById('tempPraxis');
+    
+    if (tempPraxis === null) { // tempPraxis not set, script not called from praxisEdit.php
+        
+        this.submit();
+        
+    } else { // save and continue
+        
+        storeTempLocusData();
+        
+        // redirect to 'praxisEdit.php' passing in the URL an argument (GET method):
+        window.location = 'praxisEdit.php?tempLocus=1';
+        
+/*
+ * a temporary form is created and submitted,
+ * so that 'praxisEdit.php' has $_SERVER['REQUEST_METHOD'] === "GET".
+ */    
+    
+//        var tempForm = document.createElement('form');
+//        tempForm.action = 'praxisEdit.php';
+//        tempForm.method = 'GET';
+//
+////        var input = document.createElement('input');
+////        input.type = 'hidden';
+////        input.name = 'fragment';
+////        input.value = '<!DOCTYPE html>' + document.documentElement.outerHTML;
+////        tempForm.appendChild(input);
+//
+//        document.body.appendChild(tempForm);
+//        tempForm.submit();
+        
+    }
     
 }

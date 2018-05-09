@@ -89,7 +89,7 @@ echo "\t\t\t\t\t\t\t\t<option value=\"date\">"._("Date")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"ordinal\">"._("Ordinal")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"name\">"._("Name")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"rating\">"._("Rating")."</option>\n";
-echo "\t\t\t\t\t\t\t\t<option value=\"description\">".
+echo "\t\t\t\t\t\t\t\t<option value=\"descr\">".
     _("Description")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"tq\">"._("TQ")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"tl\">"._("TL")."</option>\n";

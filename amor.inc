@@ -50,12 +50,12 @@ class Amor {
     public function getAmorID() {return $this->amorID;}
     public function getAchtung() {return $this->achtung;}
     public function getAlias() {return $this->alias;}
+    public function getRating() {return $this->rating;}
     public function getGenre() {return $this->genre;}
     public function getDescr1() {return $this->descr1;}
     public function getDescr2() {return $this->descr2;}
     public function getDescr3() {return $this->descr3;}
     public function getDescr4() {return $this->descr4;}
-    public function getRating() {return $this->rating;}
     public function getWeb() {return $this->web;}
     public function getName() {return $this->name;}
     public function getPhoto() {return $this->photo;}
@@ -95,12 +95,12 @@ QUERY;
         $this->amorID = $amorID;
         $this->achtung = $row['achtung'];
         $this->alias = $row['alias'];
+        $this->rating = intval($row['rating']); // TODO: intval needed?
         $this->genre = intval($row['genre']); // TODO: intval needed?
         $this->descr1 = $row['descr1'];
         $this->descr2 = $row['descr2'];
         $this->descr3 = $row['descr3'];
         $this->descr4 = $row['descr4'];
-        $this->rating = intval($row['rating']); // TODO: intval needed?
         $this->web = $row['web'];
         $this->name = $row['name'];
         $this->photo = $row['photo'];

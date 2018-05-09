@@ -140,10 +140,10 @@ echo "\t\t\t\t\t\t\t\t<option value=\"descr3\">"._("Description 3").
 echo "\t\t\t\t\t\t\t\t<option value=\"descr4\">"._("Description 4").
     "</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"rating\">"._("Rating")."</option>\n";
-echo "\t\t\t\t\t\t\t\t<option value=\"www\">"._("WWW")."</option>\n";
+echo "\t\t\t\t\t\t\t\t<option value=\"web\">"._("Web")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"name\">"._("Name")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"photo\">"._("Photo")."</option>\n";
-echo "\t\t\t\t\t\t\t\t<option value=\"telephone\">"._("Telephone").
+echo "\t\t\t\t\t\t\t\t<option value=\"phone\">"._("Telephone").
     "</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"email\">"._("Email")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"other\">"._("Other")."</option>\n";

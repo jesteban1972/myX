@@ -1,10 +1,10 @@
 <?php
-
 /**
- * script practica.php
+ * script 'practica.php'.
+ * 
  * displays a list of experiences based in an instance of class 'PracticaList'
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-03-24
+ * last updated 2018-04-24
 */
 
 require_once 'core.inc';
@@ -49,12 +49,16 @@ HTML;
 
 // list designation and description:
 
-echo "\t\t\t\t\t<div class=\"sectionTitle\">\n";
+echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("praxis", "small").
+    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>"._($designation).
+    "</b>: "._($description)." ";
 
-echo "\t\t\t\t\t\t<p class=\"large\"><img src=\"".getImage("praxis", "small").
-    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>".
-    _($designation)."</b></p>";
-echo "\t\t\t\t\t\t<p class=\"medium\">"._($description)."</p>\n";
+//echo "\t\t\t\t\t<div class=\"sectionTitle\">\n";
+//
+//echo "\t\t\t\t\t\t<p class=\"large\"><img src=\"".getImage("praxis", "small").
+//    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>".
+//    _($designation)."</b></p>";
+//echo "\t\t\t\t\t\t<p class=\"medium\">"._($description)."</p>\n";
 
 /*
  * experiences list.
@@ -67,7 +71,7 @@ echo "\t\t\t\t\t\t<p class=\"medium\">"._($description)."</p>\n";
 $statement = $pdo->prepare($queryString);
 $statement->execute();
 $practicaAmount = $statement->rowCount();
-echo "\t\t\t\t\t\t<p class=\"medium\">";
+//echo "\t\t\t\t\t\t<p class=\"medium\">";
 switch ($practicaAmount) {
 
     case 0:
@@ -94,7 +98,7 @@ if (DEBUG)
 // filter icon:
         //if ($this->isFavorite())            
 echo "\t\t\t\t\t\t<div class=\"filter\"></div>\n";
-echo "\t\t\t\t\t</div>\n";
+//echo "\t\t\t\t\t</div>\n";
     
 // links to page sections:
 echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
@@ -132,7 +136,21 @@ HTML;
 
     /*
      * retrieves the parameter list and composes the string
-     * $dataString (without page) that will be passed to navigationBar()
+     * $dataString (without page) that will be passed to navigationBar().
+     * 
+     * $uriQuery contains URL's arguments.
+     * $data is an associative array containing each one of the above arguments.
+     * $dataString is XXX
+     * - $currentPage is the part of the list ('page') being actually displayed,
+     * whose value is retrieved from $_GET, if set. otherwise is set to 1.
+     * - $pageSettings is an associative array with the settings which apply
+     * to the current part of the list ('page'),
+     * depending of $practicaAmount and $currentPage:
+     * (numPages: the amount of parts ('pages'),
+     * navigationBar: if a navigation bar is needed or not,
+     * ordinal: the current part ('page') of the list).
+     * - $ordinalZeroBased: the current part ('page') of the list, 0-based
+     * 
      */
     
     $uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
@@ -150,13 +168,13 @@ HTML;
         1; // $page is 1-based
 
     $pageSettings = pageSettings($practicaAmount, $currentPage);
-    $pagesAmount = $pageSettings['numPages'];
+    //$pagesAmount = $pageSettings['numPages'];
     $ordinal = $pageSettings['ordinal']; // $ordinal is 1-based
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
     if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -228,7 +246,7 @@ HTML;
 
     // displays bottom navigation bar:
     if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
 
     echo <<<HTML
                     <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
@@ -270,9 +288,8 @@ echo "/>\n";
 echo "\t\t\t\t\t</form>\n";
 
 // new experience:
-echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
-    _("New experience").
+echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"GET\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New experience").
     "\" />\n";
 echo "\t\t\t\t\t</form>\n";
 

@@ -48,15 +48,9 @@ HTML;
 
 // list designation and description:
 
-echo "\t\t\t\t\t<p class=\"medium\">".
-    "<img src=\"".
-    getImage("amor", "small")."\" alt=\"".
-    _("(Image of a cycladic idol)").
-    "\" /> <b>".
-    _($designation).
-    "</b>: ".
-    _($description).
-    " ";
+echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("amor", "small").
+    "\" alt=\""._("(Image of a cycladic idol)")."\" /> <b>"._($designation).
+    "</b>: "._($description)." ";
 
 /*
  * lovers amount.

@@ -165,14 +165,14 @@ section {
     overflow: auto;
 }
 
-.sectionTitle {
+/*.sectionTitle {
     
     margin: 0;
     padding: 10px;
     border: none;
     background-color: var(--analogousColor2);
     
-}
+}*/
 
 section h1 {
     padding: 10px 5px 5px 5px;
@@ -649,7 +649,7 @@ aside {
 	background-color: black;
 }
 
-#sessionViewer {
+/*#sessionViewer {
     position: fixed;
     top: 200px;
     left: 10px;
@@ -659,7 +659,7 @@ aside {
     background-color: var(--analogousColor1);
     overflow-y: scroll;
     z-index: 1;
-}
+}*/
 
 .descr-medium-left { /* image 377x377px */
     float: left;

@@ -16,12 +16,13 @@ class Locus {
 
     // I. properties
     protected $locusID;         // place ID
+    protected $achtung;         // achtung
     protected $name;            // name
-    protected $country;         // country
-    protected $kind;            // kind
-    protected $description;     // description
     protected $rating;          // rating
     protected $address;         // address
+    protected $country;         // country
+    protected $kind;            // kind
+    protected $descr;           // description
     protected $coordExact;      // exact coordinates
     protected $coordGeneric;    // generic coordinates
     protected $web;             // web
@@ -35,15 +36,16 @@ class Locus {
         return $this->locusID;
         
     }
+    public function getAchtung() {return $this->achtung;}
     public function getName() {return $this->name;}
-    public function getCountry() {return $this->country;}
-    public function getKind() {return $this->kind;}
-    public function getDescription() {return $this->description;}
     public function getRating() {return $this->rating;}
     public function getAddress() {return $this->address;}
+    public function getCountry() {return $this->country;}
+    public function getKind() {return $this->kind;}
+    public function getDescr() {return $this->descr;}
     public function getCoordExact() {return $this->coordExact;}
     public function getCoordGeneric() {return $this->coordGeneric;}
-    public function getWeb() {return $this->web;} // TOFIX: returns NULL
+    public function getWeb() {return $this->web;}
     
     /**
      * method Locus::getCountryName
@@ -87,7 +89,7 @@ QUERY;
         $queryString = <<<QUERY
 SELECT *
 FROM `myX`.`loca`
-WHERE `locusID`=:locusID
+WHERE `locusID` = :locusID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
@@ -100,11 +102,11 @@ QUERY;
         // the propierties of the current object are taken from the query:
         $this->locusID = intval($locusID);
         $this->name = $row['name'];
-        $this->country = intval($row['country']);
-        $this->kind = intval($row['kind']);
-        $this->description = $row['description'];
         $this->rating = intval($row['rating']);
         $this->address = $row['address'];
+        $this->country = intval($row['country']);
+        $this->kind = intval($row['kind']);
+        $this->descr = $row['descr'];
         $this->coordExact = $row['coordExact'];
         $this->coordGeneric = $row['coordGeneric'];
         $this->web = $row['web'];

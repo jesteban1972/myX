@@ -4,7 +4,7 @@
  * 
  * displays the detail page of one lover
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-14
+ * last updated 2018-05-05
 */
 
 require_once 'core.inc';
@@ -62,13 +62,16 @@ echo "\t\t\t\t\t<p class=\"medium\">";
 
 if (DEBUG)
     echo " <span class=\"debug\">[amorID <b>".$amor->getAmorID().
-        "</b>]</span> ";
+        "</b> ".$amor->getAlias()."]</span> ";
 
-echo _("Alias and rating").": <b>".$amor->getAlias()."</b> - ".
-    writtenRate($amor->getRating(), TRUE).".</p>\n";
+echo _("Alias").": <b>".$amor->getAlias()."</b>.</p>\n";
+
+// rating:
+echo "\t\t\t\t\t<p class=\"medium\">"._("Subjective rating").": <b>".
+    writtenRate($amor->getRating(), TRUE)."</b>.</p>\n";
 
 // genre:
-echo "\t\t\t\t\t<p class=\"medium\">"._("Genre:")." <b>".
+echo "\t\t\t\t\t<p class=\"medium\">"._("Genre").": <b>".
     _($genres[$amor->getGenre()])."</b>.</p>\n";
 
 // description:
@@ -198,7 +201,10 @@ echo ".</p>\n";
 
 /*
  * retrieves the parameter list and composes the string
- * $datatring (without page) that will be passed to navigationBar()
+ * $datatring (without page) that will be passed to navigationBar().
+ * 
+ * 
+ * XXX
  */
 
 $uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
@@ -238,7 +244,7 @@ SELECT `praxisID`
 FROM `myX`.`practica`
 INNER JOIN `myX`.`assignations`
 ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
-WHERE `myX`.`assignations`.`amor`=:amorID
+WHERE `myX`.`assignations`.`amor` = :amorID
 QRY;
 
 switch ($_SESSION['navigationOptions']['listsOrder']) {
@@ -370,7 +376,7 @@ echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
         "</h1>\n";
 
 // edit lover form:
-echo "\t\t\t\t\t<form action=\"amorEdit.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t<form action=\"amorEdit.php\" method=\"GET\">\n";
 echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"amorID\" value=\"".
     $amor->getAmorID()."\" />\n";
 echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit lover")."\" />\n";
