@@ -248,10 +248,16 @@ HTML;
     if ($pageSettings['navigationBar'])
         navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
 
+//    echo <<<HTML
+//                    <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
+//                        et je vis des peines que j'ai enduré, et que je ne sens plus»
+//                        <br />(Giacomo Casanova, Histoire de ma vie, Préface)</p>
+//    
+//HTML;
     echo <<<HTML
                     <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
                         et je vis des peines que j'ai enduré, et que je ne sens plus»
-                        <br />(Giacomo Casanova, Histoire de ma vie, Préface)</p>
+                        <br />(Casanova)</p>
     
 HTML;
 

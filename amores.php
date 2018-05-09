@@ -199,12 +199,21 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
    if ($pageSettings['navigationBar'])
        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
+//   echo <<<HTML
+//                        <p class="quote">«<i>Χαρὰ καὶ μύρο τῆς ζωῆς μου ἡ μνήμη τῶν ὡρῶν<br />
+//                                           ποὺ ηὗρα καὶ ποὺ κράτηξα τὴν ἡδονὴ ὡς τὴν ἤθελα.<br />
+//                                           Χαρὰ καὶ μύρο τῆς ζωῆς μου ἐμένα, ποὺ ἀποστράφηκα<br />
+//                                           τὴν κάθε ἀπόλαυσιν ἐρώτων τῆς ρουτίνας</i>»<br />
+//                                           (Κ. Π. Καβάφης, 1863-1933: «Ἡδονή», ἐν· Ποιήματα 1916-1918)</p>
+//
+//HTML;
+   
    echo <<<HTML
-                        <p class="quote">«<i>Χαρὰ καὶ μύρο τῆς ζωῆς μου ἡ μνήμη τῶν ὡρῶν<br />
-                                           ποὺ ηὗρα καὶ ποὺ κράτηξα τὴν ἡδονὴ ὡς τὴν ἤθελα.<br />
-                                           Χαρὰ καὶ μύρο τῆς ζωῆς μου ἐμένα, ποὺ ἀποστράφηκα<br />
-                                           τὴν κάθε ἀπόλαυσιν ἐρώτων τῆς ρουτίνας</i>»<br />
-                                           (Κ. Π. Καβάφης, 1863-1933: «Ἡδονή», ἐν· Ποιήματα 1916-1918)</p>
+                        <p class="quote">«<i>Esencia y perfume de mi vida, la memoria de las horas<br />
+                                             que hallé y retuve el placer tal como anhelaba.<br/>
+                                             Esencia y perfume de mi vida, para mí, que me alejé<br />
+                                             de cada placer de amores rutinarios.</i>»<br />
+                                            (Kavafis)</p>
 
 HTML;
 
