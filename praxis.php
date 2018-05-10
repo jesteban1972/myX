@@ -2,9 +2,13 @@
 /**
  * script 'praxis.php'.
  * 
- * displays the experience's detail page
+ * this script builds an experience´s detail page.
+ * it is called using a parameter 'praxisID' within the URL.
+ * using this lover identificator an object of class 'Praxis' is created,
+ * whose data are read from database.
+ * the page´s parts will be created using this object.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-22
+ * last updated 2018-05-10
 */
 
 require_once 'core.inc';

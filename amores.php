@@ -1,5 +1,4 @@
 <?php
-
 /**
  * script amores.php
  * displays a list of lovers
@@ -212,7 +211,7 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
                         <p class="quote">«<i>Esencia y perfume de mi vida, la memoria de las horas<br />
                                              que hallé y retuve el placer tal como anhelaba.<br/>
                                              Esencia y perfume de mi vida, para mí, que me alejé<br />
-                                             de cada placer de amores rutinarios.</i>»<br />
+                                             de cada placer de amores rutinarios</i>»<br />
                                             (Kavafis)</p>
 
 HTML;

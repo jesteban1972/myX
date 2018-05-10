@@ -1,14 +1,13 @@
 <?php
-
-/* 
- * praxisDeleteProcess.php
- * script to process the deletion of an experience
+/**
+ * script 'praxisDeleteProcess.php'.
+ * 
+ * script to process the deletion of an experience.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2018-01-25
  */
 
 require_once 'DB.inc';
-
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
 
@@ -27,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     $queryString = <<<QUERY
 DELETE
 FROM `practica`
-WHERE `praxisID`=:praxisID
+WHERE `praxisID` = :praxisID
 QUERY;
     
     $statement = $pdo->prepare($queryString);

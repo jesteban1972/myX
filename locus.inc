@@ -1,10 +1,11 @@
 <?php
-/*
+/**
  * script 'locus.inc'.
  * 
- * inc file with the declaration of class 'Locus'
+ * this script contains the implementation of class 'Locus',
+ * the class which represents the abstraction of a place.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2017-12-12
+ * last update: 2018-05-10
 */
 
 require_once 'DB.inc';

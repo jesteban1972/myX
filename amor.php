@@ -2,7 +2,11 @@
 /**
  * script ᾽amor.php᾽.
  * 
- * displays the detail page of one lover
+ * this script builds a lover´s detail page.
+ * it is called using a parameter 'amorID' within the URL.
+ * using this lover identificator an object of class 'Amor' is created,
+ * whose data are read from database.
+ * the page´s parts will be created using this object.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last updated 2018-05-05
 */

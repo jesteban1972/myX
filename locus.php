@@ -2,9 +2,13 @@
 /**
  * script 'locus.php'.
  * 
- * displays the detail page of a place
+ * this script builds a place´s detail page.
+ * it is called using a parameter 'locusID' within the URL.
+ * using this lover identificator an object of class 'Locus' is created,
+ * whose data are read from database.
+ * the page´s parts will be created using this object.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-24
+ * last updated 2018-05-10
 */
 
 require_once 'core.inc';

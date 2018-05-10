@@ -2,9 +2,10 @@
 /**
  * script 'amor.inc'.
  * 
- * inc file implementing class 'Amor'
+ * this script contains the implementation of class 'Amor',
+ * the class which represents the abstraction of a lover.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-04-20.
+ * last update: 2018-05-10.
 */
 
 require_once 'core.inc';

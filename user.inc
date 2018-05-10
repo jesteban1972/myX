@@ -1,13 +1,11 @@
 <?php
-
-/* 
+/**
  * script 'user.inc'.
  * 
- * script with the implementation of 'User' class
- * to manage the users of the application,
- * an instance of class 'User' provides all methods needed.
+ * this script contains the implementation of class 'User',
+ * the class which represents the abstraction of a user of the application.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-04-18
+ * last update: 2018-05-10
  */
 
 require_once 'core.inc';

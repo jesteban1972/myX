@@ -2,10 +2,12 @@
 /**
  * script 'praxis.inc'.
  * 
- * inc file implementing class 'Praxis' (experience)
+ * this script contains the implementation of class 'Praxis',
+ * the class which represents the abstraction of an experience.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last update: 2018-04-17
  */
+
 require_once 'core.inc';
 require_once 'DB.inc';
 //require_once 'amor.inc';
