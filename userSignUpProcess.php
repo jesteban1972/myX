@@ -2,9 +2,9 @@
 /** 
  * script 'userSignUpProcess.php'.
  * 
- * script to process a sign up in myX
+ * script to process the sign up of a new user of the application.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-04-11
+ * last update: 2018-05-11
  */
 
 require_once 'session.inc';

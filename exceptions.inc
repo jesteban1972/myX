@@ -1,13 +1,12 @@
 <?php
-
 /* 
- * exceptions.inc
+ * file 'exceptions.inc'
  * 
  * script with the implementation of
  * i) exception classes (...)
  * ii) myX's own exception handler
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2017-11-09
+ * last update: 2018-05-11
  */
 
 // I. classes derived from Exception

@@ -310,6 +310,11 @@ function storeTempPraxisData() {
 
 function validateForm(evt) { // TODO: validate
     
+    var txt;
+    txt = document.getElementById('achtung').value;
+    txt = document.getElementById('name').value;
+    alert(txt);
+    
     this.submit();
     
 }

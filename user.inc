@@ -12,18 +12,8 @@ require_once 'core.inc';
 require_once 'DB.inc';
 require_once 'exceptions.inc';
 
-//session_start(); // needed? (any call to $_SESSION?)
-
-// CLEAR_STALE_PROB: number 1..100 indicating the probability that
-// clearStaleLoginEntries() will actually execute a query
-define("CLEAR_STALE_PROB", 50); // needed? working?
-
-// STALE_LOGIN_INTERVAL: how long before we consider logins stale.
-// this is directry specified in MySQL syntax
-define("STALE_LOGIN_INTERVAL", "1 HOUR"); // needed? working?
-
 /**
- * class 'User'
+ * class 'User'.
  * 
  * this class manages the core interactions with the users of the app.
  * it manages both users and user logins;
