@@ -18,6 +18,8 @@ require_once 'amor.inc';
 require_once 'locus.inc';
 require_once 'user.inc';
 
+$title = "myX - Experience";
+include 'header.inc'; // header of all the pages of the app
 
 // get a DB connection to work with:
 $pdo = DB::getDBHandle();
@@ -29,9 +31,6 @@ $pdo = DB::getDBHandle();
  */
 $praxis = new Praxis(intval($_GET['praxisID']));
 
-
-$title = "myX - Experience";
-include 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
 echo <<<HTML
@@ -81,7 +80,7 @@ echo "\t\t\t\t\t\t<p class=\"medium\">"._("Name").": <b>".$praxisName.
 // rating:	
 // displays rating with explication
 $praxisRating = $praxis->getRating(); // TODO: check (used also below in $xperienceSideview)
-echo "\t\t\t\t\t\t<p class=\"medium\">"._("Subjective rating").": <b>".
+echo "\t\t\t\t\t\t<p class=\"medium\">"._("Rating").": <b>".
     writtenRate($praxisRating, true)."</b>.</p>\n";
 
 // place:

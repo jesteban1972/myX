@@ -90,7 +90,7 @@ echo "\t\t\t\t\t</fieldset>\n";
 
 // navigation options:
 
-$navigationOptions = User::getNavigationOptions();
+$navOptions = User::getNavOptions();
 
 echo "\t\t\t\t\t<fieldset>\n";
 echo "\t\t\t\t\t\t<legend>"._("Navigation options")."</legend>\n";
@@ -102,19 +102,19 @@ echo "\t\t\t\t\t\t<select name=\"GUILang\">\n";
 
 // English:
 echo "\t\t\t\t\t\t\t<option value=\"1\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_ENGLISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_ENGLISH)
     echo " selected=\"selected\"";
 echo ">English</option>\n";
 
 // Spanish:
 echo "\t\t\t\t\t\t\t<option value=\"2\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_SPANISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_SPANISH)
     echo " selected=\"selected\"";
 echo ">Español</option>\n";
 
 // Greek:
 echo "\t\t\t\t\t\t\t<option value=\"3\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_GREEK)
+if ($_SESSION['navOptions']['GUILang'] === GUI_GREEK)
     echo " selected=\"selected\"";
 echo ">Ελληνικά</option>\n";
 
@@ -125,8 +125,8 @@ echo "\t\t\t\t\t\t<label for=\"resultsPerPage\">".
     _("Results per page:").
     "</label>\n";
 echo "\t\t\t\t\t\t<input type=\"number\" name=\"resultsPerPage\" value=\"";
-if ($navigationOptions['resultsPerPage'] !== null)
-    echo $navigationOptions['resultsPerPage'];
+if ($navOptions['resultsPerPage'] !== null)
+    echo $navOptions['resultsPerPage'];
 echo "\" /><br />\n";
 
 // lists order:

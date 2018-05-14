@@ -17,7 +17,7 @@ function initializeMap() {
     */
     
     // TODO: this value should come from PHP
-    sessionStorage.setItem("mapCenter", "38.325707, 24.390816");
+    sessionStorage.setItem('mapCenter', '38.325707, 24.390816');
         
     var mapCenterLat = parseFloat(sessionStorage.getItem("mapCenter").split(", ")[0]);
     var mapCenterLng = parseFloat(sessionStorage.getItem("mapCenter").split(", ")[1]);

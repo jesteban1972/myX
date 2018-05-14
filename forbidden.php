@@ -1,7 +1,7 @@
 <?php
-
 /**
- * script forbidden.php
+ * script 'forbidden.php'.
+ * 
  * contains a message "access forbidden"
  * (c) Joaquin Javier ESTEBAN MARTINEZ
  * last updated 2018-03-25
@@ -15,12 +15,11 @@
     echo "\t\t\t\t<h1>".
         _("403 Forbidden").
         "</h1>\n";
-    echo "\t\t\t\t<p>".
-        _("The access to this page is not allowed").
-        "</p>\n";
-    echo "\t\t\t\t<a href=\"index.php\">".
-        _("Click here to go to the start page").
-        "</a>\n";
+    echo "\t\t\t\t<p class=\"large\">".
+        _("We are sorry, but the access to this page is not allowed").
+        ".</p>\n";
+    echo "\t\t\t\t<p  class=\"medium\"><a href=\"index.php\">".
+        _("Click here to go to the start page").".</a></p>\n";
     // "Get back or visit our home page"?
    
     

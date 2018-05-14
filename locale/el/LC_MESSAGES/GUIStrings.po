@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-02 08:06+0200\n"
+"POT-Creation-Date: 2018-05-13 10:31+0200\n"
 "PO-Revision-Date: 2018-05-02 08:13+0200\n"
 "Last-Translator: Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>\n"
 "Language-Team: el_GR\n"
@@ -58,6 +58,9 @@ msgstr "Ψευδώνυμο και αξιολόγηση"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:201
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:285
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:374
+#: /Users/jesteban1972/Sites/myX/amor.php:51
+#: /Users/jesteban1972/Sites/myX/amor.php:361
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:377
 msgid "Other data"
 msgstr "Άλλα στοιχεία"
 
@@ -144,6 +147,9 @@ msgstr "Τόπος"
 #: /Users/jesteban1972/Sites/myX/locus.php:85
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:79
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:117
+#: /Users/jesteban1972/Sites/myX/amor.php:340
+#: /Users/jesteban1972/Sites/myX/locus.php:89
+#: /Users/jesteban1972/Sites/myX/praxis.php:77
 msgid "Name"
 msgstr "Όνομα"
 
@@ -154,6 +160,7 @@ msgstr "Όνομα"
 #: /Users/jesteban1972/Sites/myX/locus.php:96
 #: /Users/jesteban1972/Sites/myX/locus.php:95
 #: /Users/jesteban1972/Sites/myX/locus.php:93
+#: /Users/jesteban1972/Sites/myX/locus.php:97
 msgid "Place description"
 msgstr "Περιγραφή του τόπου"
 
@@ -182,6 +189,7 @@ msgstr "Σ’ αυτό το τόπο έγινε μόνο <b>μία</b> φάση"
 #: /Users/jesteban1972/Sites/myX/locus.php:138
 #: /Users/jesteban1972/Sites/myX/locus.php:132
 #: /Users/jesteban1972/Sites/myX/locus.php:134
+#: /Users/jesteban1972/Sites/myX/locus.php:142
 #, php-format
 msgid "In this place were performed the following <b>%s</b> experiences"
 msgstr "Σ’ αυτό το τόπο έγιναν οι εξής <b>%s</b> φάσεις"
@@ -201,6 +209,8 @@ msgstr "Σ’ αυτό το τόπο έγιναν οι εξής <b>%s</b> φάσ
 #: /Users/jesteban1972/Sites/myX/locus.php:152
 #: /Users/jesteban1972/Sites/myX/amor.php:183
 #: /Users/jesteban1972/Sites/myX/locus.php:150
+#: /Users/jesteban1972/Sites/myX/amor.php:190
+#: /Users/jesteban1972/Sites/myX/locus.php:154
 #, php-format
 msgid ", happened in <b>%s</b> different days"
 msgstr ", που έγιναν σε <b>%s</b> διαφορετικές μέρες"
@@ -220,6 +230,8 @@ msgstr ", που έγιναν σε <b>%s</b> διαφορετικές μέρες
 #: /Users/jesteban1972/Sites/myX/locus.php:154
 #: /Users/jesteban1972/Sites/myX/amor.php:185
 #: /Users/jesteban1972/Sites/myX/locus.php:152
+#: /Users/jesteban1972/Sites/myX/amor.php:192
+#: /Users/jesteban1972/Sites/myX/locus.php:156
 #, php-format
 msgid " (i.e. %.2f experiences/day as average)"
 msgstr " (δηλαδή %.2f φάσεις/μέρα ως μέσο όρος)"
@@ -231,6 +243,7 @@ msgstr " (δηλαδή %.2f φάσεις/μέρα ως μέσο όρος)"
 #: /Users/jesteban1972/Sites/myX/locus.php:100
 #: /Users/jesteban1972/Sites/myX/locus.php:98
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:125
+#: /Users/jesteban1972/Sites/myX/locus.php:102
 msgid "Address"
 msgstr "Διεύθυνση"
 
@@ -273,6 +286,7 @@ msgstr "Επιλογές προσαρμοσμένες από τον χρήστη
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:120
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:120
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:164
+#: /Users/jesteban1972/Sites/myX/core.inc:596
 msgid "excellent"
 msgstr "πάρα πολύ καλά"
 
@@ -296,6 +310,7 @@ msgstr "πάρα πολύ καλά"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:115
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:115
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:158
+#: /Users/jesteban1972/Sites/myX/core.inc:605
 msgid "very good"
 msgstr "πολύ καλά"
 
@@ -319,6 +334,7 @@ msgstr "πολύ καλά"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:110
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:110
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:152
+#: /Users/jesteban1972/Sites/myX/core.inc:613
 msgid "good"
 msgstr "καλά"
 
@@ -342,6 +358,7 @@ msgstr "καλά"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:105
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:105
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:146
+#: /Users/jesteban1972/Sites/myX/core.inc:621
 msgid "bad"
 msgstr "κακώς"
 
@@ -365,6 +382,7 @@ msgstr "κακώς"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:100
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:100
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:140
+#: /Users/jesteban1972/Sites/myX/core.inc:629
 msgid "very bad"
 msgstr "πολύ κακώς"
 
@@ -392,6 +410,9 @@ msgstr "πολύ κακώς"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:134
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:385
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:428
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:388
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:431
+#: /Users/jesteban1972/Sites/myX/core.inc:637
 msgid "undefined"
 msgstr "αόριστα"
 
@@ -417,6 +438,7 @@ msgstr "Φάση"
 #: /Users/jesteban1972/Sites/myX/praxis.php:81
 #: /Users/jesteban1972/Sites/myX/praxis.php:80
 #: /Users/jesteban1972/Sites/myX/praxis.php:76
+#: /Users/jesteban1972/Sites/myX/praxis.php:91
 msgid "Place:"
 msgstr "Τόπος:"
 
@@ -440,6 +462,10 @@ msgstr "Τόπος:"
 #: /Users/jesteban1972/Sites/myX/locus.inc:345
 #: /Users/jesteban1972/Sites/myX/locus.inc:421
 #: /Users/jesteban1972/Sites/myX/praxis.php:80
+#: /Users/jesteban1972/Sites/myX/praxis.php:95
+#: /Users/jesteban1972/Sites/myX/amor.inc:251
+#: /Users/jesteban1972/Sites/myX/locus.inc:389
+#: /Users/jesteban1972/Sites/myX/locus.inc:465
 msgid "experiences"
 msgstr "φάσεις"
 
@@ -463,6 +489,10 @@ msgstr "φάσεις"
 #: /Users/jesteban1972/Sites/myX/locus.inc:345
 #: /Users/jesteban1972/Sites/myX/locus.inc:421
 #: /Users/jesteban1972/Sites/myX/praxis.php:80
+#: /Users/jesteban1972/Sites/myX/praxis.php:95
+#: /Users/jesteban1972/Sites/myX/amor.inc:251
+#: /Users/jesteban1972/Sites/myX/locus.inc:389
+#: /Users/jesteban1972/Sites/myX/locus.inc:465
 msgid "experience"
 msgstr "φάση"
 
@@ -521,6 +551,7 @@ msgstr "Σάββατο"
 #: /Users/jesteban1972/Sites/myX/praxis.php:95
 #: /Users/jesteban1972/Sites/myX/praxis.php:94
 #: /Users/jesteban1972/Sites/myX/praxis.php:85
+#: /Users/jesteban1972/Sites/myX/praxis.php:101
 msgid "Time:"
 msgstr "Χρόνος:"
 
@@ -530,6 +561,7 @@ msgstr "Χρόνος:"
 #: /Users/jesteban1972/Sites/myX/praxis.php:109
 #: /Users/jesteban1972/Sites/myX/praxis.php:108
 #: /Users/jesteban1972/Sites/myX/praxis.php:99
+#: /Users/jesteban1972/Sites/myX/praxis.php:115
 #, php-format
 msgid "the day was %s, "
 msgstr "η μέρα ήταν %s, "
@@ -542,6 +574,7 @@ msgstr "η μέρα ήταν %s, "
 #: /Users/jesteban1972/Sites/myX/praxis.php:117
 #: /Users/jesteban1972/Sites/myX/praxis.php:116
 #: /Users/jesteban1972/Sites/myX/praxis.php:107
+#: /Users/jesteban1972/Sites/myX/praxis.php:123
 #, php-format
 msgid "I was %d years old"
 msgstr "ήμουν %d χρονών"
@@ -575,6 +608,7 @@ msgstr "Αξιολόγηση:"
 #: /Users/jesteban1972/Sites/myX/praxis.php:152
 #: /Users/jesteban1972/Sites/myX/praxis.php:155
 #: /Users/jesteban1972/Sites/myX/praxis.php:142
+#: /Users/jesteban1972/Sites/myX/praxis.php:148
 #, php-format
 msgid "Apart from myself, <b>%s</b> lovers participated in this experience:"
 msgstr "Εκτός από μένα, <b>%s</b> εραστές συμμετείχαν σ’ αυτή τη φάση:"
@@ -587,6 +621,7 @@ msgstr "Εκτός από μένα, <b>%s</b> εραστές συμμετείχ�
 #: /Users/jesteban1972/Sites/myX/praxis.php:157
 #: /Users/jesteban1972/Sites/myX/praxis.php:160
 #: /Users/jesteban1972/Sites/myX/praxis.php:147
+#: /Users/jesteban1972/Sites/myX/praxis.php:153
 msgid ""
 "Apart from myself, only <b>one</b> lover participated in this experience:"
 msgstr "Εκτός από μένα, μόνο <b>ένας</b> εραστής συμμετείχε σ’ αυτή τη φάση:"
@@ -604,6 +639,7 @@ msgstr "Εκτός από μένα, μόνο <b>ένας</b> εραστής συ
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:46
 #: /Users/jesteban1972/Sites/myX/locus.php:327
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:54
+#: /Users/jesteban1972/Sites/myX/locus.php:331
 msgid "Edit place"
 msgstr "Επεξεργασία τόπου"
 
@@ -622,6 +658,7 @@ msgstr "Επεξεργασία τόπου"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:46
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:54
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:236
+#: /Users/jesteban1972/Sites/myX/loca.php:259
 msgid "New place"
 msgstr "Καινούργιος τόπος"
 
@@ -718,6 +755,8 @@ msgstr "%s  φάσεις"
 #: /Users/jesteban1972/Sites/myX/core.inc:457
 #: /Users/jesteban1972/Sites/myX/core.inc:455
 #: /Users/jesteban1972/Sites/myX/core.inc:458
+#: /Users/jesteban1972/Sites/myX/core.inc:453
+#: /Users/jesteban1972/Sites/myX/core.inc:456
 msgid "one"
 msgstr "μία"
 
@@ -729,6 +768,7 @@ msgstr "μία"
 #: /Users/jesteban1972/Sites/myX/core.inc:617
 #: /Users/jesteban1972/Sites/myX/core.inc:462
 #: /Users/jesteban1972/Sites/myX/core.inc:463
+#: /Users/jesteban1972/Sites/myX/core.inc:461
 msgid "two"
 msgstr "δύο"
 
@@ -740,6 +780,7 @@ msgstr "δύο"
 #: /Users/jesteban1972/Sites/myX/core.inc:620
 #: /Users/jesteban1972/Sites/myX/core.inc:465
 #: /Users/jesteban1972/Sites/myX/core.inc:466
+#: /Users/jesteban1972/Sites/myX/core.inc:464
 msgid "three"
 msgstr "τρείς"
 
@@ -751,6 +792,7 @@ msgstr "τρείς"
 #: /Users/jesteban1972/Sites/myX/core.inc:623
 #: /Users/jesteban1972/Sites/myX/core.inc:468
 #: /Users/jesteban1972/Sites/myX/core.inc:469
+#: /Users/jesteban1972/Sites/myX/core.inc:467
 msgid "four"
 msgstr "τέσσερις"
 
@@ -760,6 +802,7 @@ msgstr "τέσσερις"
 #: /Users/jesteban1972/Sites/myX/amor.inc:333
 #: /Users/jesteban1972/Sites/myX/amor.inc:332
 #: /Users/jesteban1972/Sites/myX/amor.inc:337
+#: /Users/jesteban1972/Sites/myX/amor.inc:377
 msgid "as average"
 msgstr "ως μέσο όρο"
 
@@ -769,6 +812,7 @@ msgstr "ως μέσο όρο"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:441
 #: /Users/jesteban1972/Sites/myX/praxis.inc:447
 #: /Users/jesteban1972/Sites/myX/praxis.inc:469
+#: /Users/jesteban1972/Sites/myX/praxis.inc:472
 msgid "QVANDO"
 msgstr "ΠΟΤΕ"
 
@@ -778,6 +822,7 @@ msgstr "ΠΟΤΕ"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:454
 #: /Users/jesteban1972/Sites/myX/praxis.inc:460
 #: /Users/jesteban1972/Sites/myX/praxis.inc:482
+#: /Users/jesteban1972/Sites/myX/praxis.inc:485
 msgid "VBI"
 msgstr "ΠΟΥ"
 
@@ -787,6 +832,7 @@ msgstr "ΠΟΥ"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:476
 #: /Users/jesteban1972/Sites/myX/praxis.inc:482
 #: /Users/jesteban1972/Sites/myX/praxis.inc:504
+#: /Users/jesteban1972/Sites/myX/praxis.inc:507
 msgid "CVM QVIBVS"
 msgstr "ΜΕ ΠΟΙΟΣ"
 
@@ -796,6 +842,7 @@ msgstr "ΜΕ ΠΟΙΟΣ"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:483
 #: /Users/jesteban1972/Sites/myX/praxis.inc:489
 #: /Users/jesteban1972/Sites/myX/praxis.inc:508
+#: /Users/jesteban1972/Sites/myX/praxis.inc:511
 msgid "QVOD"
 msgstr "ΤΙ"
 
@@ -805,6 +852,7 @@ msgstr "ΤΙ"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:503
 #: /Users/jesteban1972/Sites/myX/praxis.inc:509
 #: /Users/jesteban1972/Sites/myX/praxis.inc:531
+#: /Users/jesteban1972/Sites/myX/praxis.inc:534
 msgid "See more..."
 msgstr "Βλέπε περισσότερα…"
 
@@ -1040,6 +1088,7 @@ msgstr "Άλλα στοιχεία:"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:47
 #: /Users/jesteban1972/Sites/myX/amor.php:376
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:49
+#: /Users/jesteban1972/Sites/myX/amor.php:386
 msgid "Edit lover"
 msgstr "Επεξεργασία εραστή"
 
@@ -1054,6 +1103,7 @@ msgstr "Επεξεργασία εραστή"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:47
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:49
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:332
+#: /Users/jesteban1972/Sites/myX/amores.php:251
 msgid "New lover"
 msgstr "Καινούργιος εραστής"
 
@@ -1075,6 +1125,7 @@ msgstr "Πληροφορίες για myX"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:140
 #: /Users/jesteban1972/Sites/myX/locus.php:101
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:135
+#: /Users/jesteban1972/Sites/myX/locus.php:105
 msgid "Country"
 msgstr "Χώρα"
 
@@ -1205,6 +1256,7 @@ msgstr "Γλώσσα της διεπαφής:"
 #: /Users/jesteban1972/Sites/myX/loca.php:267
 #: /Users/jesteban1972/Sites/myX/loca.php:260
 #: /Users/jesteban1972/Sites/myX/loca.php:261
+#: /Users/jesteban1972/Sites/myX/loca.php:264
 msgid "Edit countries list"
 msgstr "Επεξεργασία καταλόγου χωρών"
 
@@ -1262,6 +1314,11 @@ msgstr "Κατάλογος τόπων"
 #: /Users/jesteban1972/Sites/myX/amor.php:48
 #: /Users/jesteban1972/Sites/myX/locus.php:60
 #: /Users/jesteban1972/Sites/myX/praxis.php:51
+#: /Users/jesteban1972/Sites/myX/amor.php:52
+#: /Users/jesteban1972/Sites/myX/amores.php:92
+#: /Users/jesteban1972/Sites/myX/practica.php:129
+#: /Users/jesteban1972/Sites/myX/praxis.php:54
+#: /Users/jesteban1972/Sites/myX/queries.php:108
 msgid "Actions"
 msgstr "Δράσεις"
 
@@ -1356,6 +1413,11 @@ msgstr "Απόκτησε ένα λογαριασμό"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:368
 #: /Users/jesteban1972/Sites/myX/amor.inc:203
 #: /Users/jesteban1972/Sites/myX/amor.inc:227
+#: /Users/jesteban1972/Sites/myX/amor.php:37
+#: /Users/jesteban1972/Sites/myX/amores.php:51
+#: /Users/jesteban1972/Sites/myX/amor.inc:242
+#: /Users/jesteban1972/Sites/myX/amor.inc:266
+#: /Users/jesteban1972/Sites/myX/praxis.inc:369
 msgid "(Image of a cycladic idol)"
 msgstr "(εικόνα κυκλαδικού ειδωλίου)"
 
@@ -1363,6 +1425,7 @@ msgstr "(εικόνα κυκλαδικού ειδωλίου)"
 #: /Users/jesteban1972/Sites/myX/amores.php:88
 #: /Users/jesteban1972/Sites/myX/amores.php:92
 #: /Users/jesteban1972/Sites/myX/amores.php:96
+#: /Users/jesteban1972/Sites/myX/amores.php:89
 msgid "List of lovers"
 msgstr "Κατάλογος εραστών"
 
@@ -1393,6 +1456,9 @@ msgstr "Βρέθηκαν <b>%d</b> εραστές:"
 #: /Users/jesteban1972/Sites/myX/practica.php:259
 #: /Users/jesteban1972/Sites/myX/loca.php:244
 #: /Users/jesteban1972/Sites/myX/practica.php:262
+#: /Users/jesteban1972/Sites/myX/amores.php:239
+#: /Users/jesteban1972/Sites/myX/loca.php:247
+#: /Users/jesteban1972/Sites/myX/practica.php:104
 msgid "Apply filter"
 msgstr "Εφαρμογή φίλτρου"
 
@@ -1410,6 +1476,12 @@ msgstr "Εφαρμογή φίλτρου"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:345
 #: /Users/jesteban1972/Sites/myX/praxis.inc:384
 #: /Users/jesteban1972/Sites/myX/locus.inc:360
+#: /Users/jesteban1972/Sites/myX/practica.php:53
+#: /Users/jesteban1972/Sites/myX/praxis.php:44
+#: /Users/jesteban1972/Sites/myX/queries.php:58
+#: /Users/jesteban1972/Sites/myX/locus.inc:404
+#: /Users/jesteban1972/Sites/myX/praxis.inc:346
+#: /Users/jesteban1972/Sites/myX/praxis.inc:386
 msgid "(Image of a gold coin)"
 msgstr "(εικόνα χρυσού νομίσματος)"
 
@@ -1434,6 +1506,7 @@ msgstr "(εικόνα καρφακιού Google Maps)"
 #: /Users/jesteban1972/Sites/myX/practica.php:101
 #: /Users/jesteban1972/Sites/myX/amor.php:45
 #: /Users/jesteban1972/Sites/myX/locus.php:47
+#: /Users/jesteban1972/Sites/myX/practica.php:126
 msgid "List of experiences"
 msgstr "Κατάλογος φάσεων"
 
@@ -1495,6 +1568,11 @@ msgstr "Βρέθηκαν <b>%d</b> φάσεις:"
 #: /Users/jesteban1972/Sites/myX/locus.php:223
 #: /Users/jesteban1972/Sites/myX/locus.php:307
 #: /Users/jesteban1972/Sites/myX/praxis.php:246
+#: /Users/jesteban1972/Sites/myX/amores.php:223
+#: /Users/jesteban1972/Sites/myX/locus.php:227
+#: /Users/jesteban1972/Sites/myX/practica.php:288
+#: /Users/jesteban1972/Sites/myX/praxis.php:252
+#: /Users/jesteban1972/Sites/myX/queries.php:250
 msgid "Back to top"
 msgstr "Επιστροφή στην αρχή της σελίδας"
 
@@ -1512,6 +1590,8 @@ msgstr "Επιστροφή στην αρχή της σελίδας"
 #: /Users/jesteban1972/Sites/myX/amor.php:44
 #: /Users/jesteban1972/Sites/myX/locus.php:44
 #: /Users/jesteban1972/Sites/myX/praxis.php:46
+#: /Users/jesteban1972/Sites/myX/amor.php:48
+#: /Users/jesteban1972/Sites/myX/praxis.php:49
 msgid "Data"
 msgstr "Στοιχεία"
 
@@ -1536,6 +1616,7 @@ msgstr "Συμμετέχοντες"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:275
 #: /Users/jesteban1972/Sites/myX/praxis.php:50
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:357
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:360
 msgid "Description"
 msgstr "Περιγραφή"
 
@@ -1575,6 +1656,7 @@ msgstr "GENERALIA"
 #: /Users/jesteban1972/Sites/myX/praxis.php:139
 #: /Users/jesteban1972/Sites/myX/praxis.php:142
 #: /Users/jesteban1972/Sites/myX/praxis.php:129
+#: /Users/jesteban1972/Sites/myX/praxis.php:135
 msgid "CONFRATRES i.e. participants in the experience"
 msgstr "CONFRATRES τουτέστι συμμετέχοντες στη φάση"
 
@@ -1586,6 +1668,8 @@ msgstr "CONFRATRES τουτέστι συμμετέχοντες στη φάση"
 #: /Users/jesteban1972/Sites/myX/praxis.php:146
 #: /Users/jesteban1972/Sites/myX/praxis.php:131
 #: /Users/jesteban1972/Sites/myX/praxis.php:133
+#: /Users/jesteban1972/Sites/myX/praxis.php:137
+#: /Users/jesteban1972/Sites/myX/praxis.php:139
 msgid "CONFRATRES"
 msgstr "CONFRATRES"
 
@@ -1596,6 +1680,7 @@ msgstr "CONFRATRES"
 #: /Users/jesteban1972/Sites/myX/praxis.php:200
 #: /Users/jesteban1972/Sites/myX/praxis.php:201
 #: /Users/jesteban1972/Sites/myX/praxis.php:191
+#: /Users/jesteban1972/Sites/myX/praxis.php:197
 msgid "NARRATIO i.e. description of the facts"
 msgstr "NARRATIO τουτέστη περιγραφή πεπραγμένων"
 
@@ -1612,6 +1697,8 @@ msgstr "NARRATIO τουτέστη περιγραφή πεπραγμένων"
 #: /Users/jesteban1972/Sites/myX/praxis.php:205
 #: /Users/jesteban1972/Sites/myX/praxis.php:193
 #: /Users/jesteban1972/Sites/myX/praxis.php:195
+#: /Users/jesteban1972/Sites/myX/praxis.php:199
+#: /Users/jesteban1972/Sites/myX/praxis.php:201
 msgid "NARRATIO"
 msgstr "NARRATIO"
 
@@ -1656,6 +1743,12 @@ msgstr "NARRATIO"
 #: /Users/jesteban1972/Sites/myX/locus.php:344
 #: /Users/jesteban1972/Sites/myX/practica.php:282
 #: /Users/jesteban1972/Sites/myX/praxis.php:286
+#: /Users/jesteban1972/Sites/myX/amor.php:400
+#: /Users/jesteban1972/Sites/myX/loca.php:272
+#: /Users/jesteban1972/Sites/myX/locus.php:348
+#: /Users/jesteban1972/Sites/myX/practica.php:315
+#: /Users/jesteban1972/Sites/myX/praxis.php:292
+#: /Users/jesteban1972/Sites/myX/queries.php:290
 msgid "Back to previous"
 msgstr "Επιστροφή στην προηγούμενη σελίδα"
 
@@ -1716,6 +1809,9 @@ msgstr "Γυναίκα"
 #: /Users/jesteban1972/Sites/myX/amor.php:365
 #: /Users/jesteban1972/Sites/myX/locus.php:316
 #: /Users/jesteban1972/Sites/myX/praxis.php:257
+#: /Users/jesteban1972/Sites/myX/amor.php:375
+#: /Users/jesteban1972/Sites/myX/locus.php:320
+#: /Users/jesteban1972/Sites/myX/praxis.php:263
 msgid "ACTIONS i.e. XXX"
 msgstr "ACTIONS i.e. δράσεις"
 
@@ -1766,6 +1862,12 @@ msgstr "ACTIONS i.e. δράσεις"
 #: /Users/jesteban1972/Sites/myX/locus.php:320
 #: /Users/jesteban1972/Sites/myX/praxis.php:259
 #: /Users/jesteban1972/Sites/myX/praxis.php:261
+#: /Users/jesteban1972/Sites/myX/amor.php:377
+#: /Users/jesteban1972/Sites/myX/amor.php:379
+#: /Users/jesteban1972/Sites/myX/locus.php:322
+#: /Users/jesteban1972/Sites/myX/locus.php:324
+#: /Users/jesteban1972/Sites/myX/praxis.php:265
+#: /Users/jesteban1972/Sites/myX/praxis.php:267
 msgid "ACTIONS"
 msgstr "ACTIONS"
 
@@ -1780,6 +1882,9 @@ msgstr "ACTIONS"
 #: /Users/jesteban1972/Sites/myX/amor.php:414
 #: /Users/jesteban1972/Sites/myX/amor.php:415
 #: /Users/jesteban1972/Sites/myX/amor.php:383
+#: /Users/jesteban1972/Sites/myX/amor.php:393
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:25
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:49
 msgid "Delete lover"
 msgstr "Διαγραφή εραστή"
 
@@ -1787,14 +1892,17 @@ msgstr "Διαγραφή εραστή"
 #: /Users/jesteban1972/Sites/myX/locusDelete.php:17
 #: /Users/jesteban1972/Sites/myX/praxisDelete.php:17
 #: /Users/jesteban1972/Sites/myX/userDelete.php:17
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:30
 msgid "Atention!"
 msgstr "Προσοχή!"
 
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:20
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:33
 msgid "Are you sure you want to delete the current lover?"
 msgstr "Είσαι σίγουρος ότι θέλεις να διαγραφήσεις τον παρόντα εραστή;"
 
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:23
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:36
 msgid "Lover details and its associated data will be erased"
 msgstr "Οι λεπτομέρειες του εραστή και τα συνδεδωμένα στοιχεία θα διαγραφτούν"
 
@@ -1802,6 +1910,7 @@ msgstr "Οι λεπτομέρειες του εραστή και τα συνδε
 #: /Users/jesteban1972/Sites/myX/locusDelete.php:25
 #: /Users/jesteban1972/Sites/myX/praxisDelete.php:25
 #: /Users/jesteban1972/Sites/myX/userDelete.php:25
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:38
 msgid "This action cannot be undone"
 msgstr "Αυτή η δράση δεν μπορεί να επανασταθεί"
 
@@ -1833,23 +1942,28 @@ msgstr "Αυτή η δράση δεν μπορεί να επανασταθεί"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:269
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:335
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:473
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:52
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:476
 msgid "Cancel"
 msgstr "Ακύρωση"
 
 #: /Users/jesteban1972/Sites/myX/amores.php:75
 #: /Users/jesteban1972/Sites/myX/amores.php:76
+#: /Users/jesteban1972/Sites/myX/amores.php:69
 msgid "(no lovers found)"
 msgstr "(δεν βρέθηκαν εραστές)"
 
 #: /Users/jesteban1972/Sites/myX/amores.php:78
 #: /Users/jesteban1972/Sites/myX/amores.php:79
 #: /Users/jesteban1972/Sites/myX/amores.php:81
+#: /Users/jesteban1972/Sites/myX/amores.php:74
 msgid "(only <b>one</b> lover found)"
 msgstr "(μόνο βρέθηκε <b>ένας</b> εραστής)"
 
 #: /Users/jesteban1972/Sites/myX/amores.php:81
 #: /Users/jesteban1972/Sites/myX/amores.php:82
 #: /Users/jesteban1972/Sites/myX/amores.php:86
+#: /Users/jesteban1972/Sites/myX/amores.php:79
 #, php-format
 msgid "(<b>%d</b> lovers found)"
 msgstr "(βρέθηκαν <b>%d</b> εραστές)"
@@ -1857,6 +1971,7 @@ msgstr "(βρέθηκαν <b>%d</b> εραστές)"
 #: /Users/jesteban1972/Sites/myX/amores.php:105
 #: /Users/jesteban1972/Sites/myX/amores.php:109
 #: /Users/jesteban1972/Sites/myX/amores.php:113
+#: /Users/jesteban1972/Sites/myX/amores.php:106
 msgid "ELENCHUS i.e. list of lovers"
 msgstr "ELENCHUS i.e. κατάλογος εραστών"
 
@@ -1892,6 +2007,13 @@ msgstr "ELENCHUS i.e. κατάλογος εραστών"
 #: /Users/jesteban1972/Sites/myX/practica.php:122
 #: /Users/jesteban1972/Sites/myX/locus.php:120
 #: /Users/jesteban1972/Sites/myX/locus.php:122
+#: /Users/jesteban1972/Sites/myX/amores.php:108
+#: /Users/jesteban1972/Sites/myX/amores.php:110
+#: /Users/jesteban1972/Sites/myX/locus.php:124
+#: /Users/jesteban1972/Sites/myX/practica.php:145
+#: /Users/jesteban1972/Sites/myX/practica.php:147
+#: /Users/jesteban1972/Sites/myX/queries.php:124
+#: /Users/jesteban1972/Sites/myX/queries.php:126
 msgid "ELENCHUS"
 msgstr "ELENCHUS"
 
@@ -1958,6 +2080,7 @@ msgstr "CHARTA i.e. χάρτης των τόπων"
 #: /Users/jesteban1972/Sites/myX/locus.php:239
 #: /Users/jesteban1972/Sites/myX/locus.php:241
 #: /Users/jesteban1972/Sites/myX/locus.php:237
+#: /Users/jesteban1972/Sites/myX/locus.php:243
 msgid "CHARTA"
 msgstr "CHARTA"
 
@@ -1975,6 +2098,7 @@ msgstr "ELENCHUS i.e. κατάλογος τόπων"
 #: /Users/jesteban1972/Sites/myX/locus.php:112
 #: /Users/jesteban1972/Sites/myX/locus.php:118
 #: /Users/jesteban1972/Sites/myX/locus.php:116
+#: /Users/jesteban1972/Sites/myX/locus.php:120
 msgid "ELENCHUS i.e. experiences list"
 msgstr "ELENCHUS i.e. κατάλογος φάσεων"
 
@@ -1986,6 +2110,7 @@ msgstr "ELENCHUS i.e. κατάλογος φάσεων"
 #: /Users/jesteban1972/Sites/myX/locus.php:231
 #: /Users/jesteban1972/Sites/myX/locus.php:237
 #: /Users/jesteban1972/Sites/myX/locus.php:235
+#: /Users/jesteban1972/Sites/myX/locus.php:239
 msgid "CHARTA i.e. map of the place"
 msgstr "CHARTA i.e. χάρτης του τόπου"
 
@@ -2033,6 +2158,7 @@ msgstr "τοποθεσία κατά προσέγγυση"
 #: /Users/jesteban1972/Sites/myX/locus.php:266
 #: /Users/jesteban1972/Sites/myX/locus.php:264
 #: /Users/jesteban1972/Sites/myX/locus.php:261
+#: /Users/jesteban1972/Sites/myX/locus.php:265
 msgid "Map:"
 msgstr "Χάρτης:"
 
@@ -2046,6 +2172,7 @@ msgstr "Χάρτης:"
 #: /Users/jesteban1972/Sites/myX/locus.php:349
 #: /Users/jesteban1972/Sites/myX/locus.php:347
 #: /Users/jesteban1972/Sites/myX/locus.php:336
+#: /Users/jesteban1972/Sites/myX/locus.php:340
 msgid "Delete place"
 msgstr "Διαγραφή τόπου"
 
@@ -2060,6 +2187,7 @@ msgstr "Οι λεπτομέρειες του τόπου και τα συνδεδ
 #: /Users/jesteban1972/Sites/myX/practica.php:75
 #: /Users/jesteban1972/Sites/myX/practica.php:76
 #: /Users/jesteban1972/Sites/myX/practica.php:77
+#: /Users/jesteban1972/Sites/myX/practica.php:73
 msgid "(no experiences found)"
 msgstr "(δεν βρέθηκαν φάσεις)"
 
@@ -2074,6 +2202,7 @@ msgstr "(μόνο βρέθηκε <b>μία</b> φάση)"
 #: /Users/jesteban1972/Sites/myX/practica.php:82
 #: /Users/jesteban1972/Sites/myX/practica.php:87
 #: /Users/jesteban1972/Sites/myX/practica.php:85
+#: /Users/jesteban1972/Sites/myX/practica.php:83
 #, php-format
 msgid "(<b>%d</b> experiences found)"
 msgstr "(βρέθηκαν <b>%d</b> φάσεις)"
@@ -2082,6 +2211,7 @@ msgstr "(βρέθηκαν <b>%d</b> φάσεις)"
 #: /Users/jesteban1972/Sites/myX/practica.php:110
 #: /Users/jesteban1972/Sites/myX/practica.php:115
 #: /Users/jesteban1972/Sites/myX/practica.php:118
+#: /Users/jesteban1972/Sites/myX/practica.php:143
 msgid "ELENCHUS i.e. list of experiences"
 msgstr "ELENCHUS i.e. κατάλογος φάσεων"
 
@@ -2096,6 +2226,7 @@ msgstr "ELENCHUS i.e. κατάλογος φάσεων"
 #: /Users/jesteban1972/Sites/myX/praxis.php:295
 #: /Users/jesteban1972/Sites/myX/praxis.php:292
 #: /Users/jesteban1972/Sites/myX/praxis.php:278
+#: /Users/jesteban1972/Sites/myX/praxis.php:284
 msgid "Delete experience"
 msgstr "Διαγραφή φάσης"
 
@@ -2146,6 +2277,7 @@ msgstr "(κατάλογος τόπων χωρίς φίλτρου)"
 #: /Users/jesteban1972/Sites/myX/core.inc:647
 #: /Users/jesteban1972/Sites/myX/core.inc:492
 #: /Users/jesteban1972/Sites/myX/core.inc:493
+#: /Users/jesteban1972/Sites/myX/core.inc:491
 msgid "(1st)"
 msgstr "(η μεν πρώτη)"
 
@@ -2155,6 +2287,7 @@ msgstr "(η μεν πρώτη)"
 #: /Users/jesteban1972/Sites/myX/core.inc:650
 #: /Users/jesteban1972/Sites/myX/core.inc:495
 #: /Users/jesteban1972/Sites/myX/core.inc:496
+#: /Users/jesteban1972/Sites/myX/core.inc:494
 msgid "(2nd)"
 msgstr "(η δε δεύτερη)"
 
@@ -2164,6 +2297,7 @@ msgstr "(η δε δεύτερη)"
 #: /Users/jesteban1972/Sites/myX/core.inc:653
 #: /Users/jesteban1972/Sites/myX/core.inc:498
 #: /Users/jesteban1972/Sites/myX/core.inc:499
+#: /Users/jesteban1972/Sites/myX/core.inc:497
 msgid "(3rd)"
 msgstr "(η δε τρίτη)"
 
@@ -2173,6 +2307,7 @@ msgstr "(η δε τρίτη)"
 #: /Users/jesteban1972/Sites/myX/core.inc:656
 #: /Users/jesteban1972/Sites/myX/core.inc:501
 #: /Users/jesteban1972/Sites/myX/core.inc:502
+#: /Users/jesteban1972/Sites/myX/core.inc:500
 msgid "(4th)"
 msgstr "(4<sup>η</sup>)"
 
@@ -2182,6 +2317,7 @@ msgstr "(4<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:659
 #: /Users/jesteban1972/Sites/myX/core.inc:504
 #: /Users/jesteban1972/Sites/myX/core.inc:505
+#: /Users/jesteban1972/Sites/myX/core.inc:503
 msgid "(5th)"
 msgstr "(5<sup>η</sup>)"
 
@@ -2191,6 +2327,7 @@ msgstr "(5<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:662
 #: /Users/jesteban1972/Sites/myX/core.inc:507
 #: /Users/jesteban1972/Sites/myX/core.inc:508
+#: /Users/jesteban1972/Sites/myX/core.inc:506
 msgid "(6th)"
 msgstr "(6<sup>η</sup>)"
 
@@ -2200,6 +2337,7 @@ msgstr "(6<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:665
 #: /Users/jesteban1972/Sites/myX/core.inc:510
 #: /Users/jesteban1972/Sites/myX/core.inc:511
+#: /Users/jesteban1972/Sites/myX/core.inc:509
 msgid "(7th)"
 msgstr "(7<sup>η</sup>)"
 
@@ -2209,6 +2347,7 @@ msgstr "(7<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:668
 #: /Users/jesteban1972/Sites/myX/core.inc:513
 #: /Users/jesteban1972/Sites/myX/core.inc:514
+#: /Users/jesteban1972/Sites/myX/core.inc:512
 msgid "(8th)"
 msgstr "(8<sup>η</sup>)"
 
@@ -2218,6 +2357,7 @@ msgstr "(8<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:671
 #: /Users/jesteban1972/Sites/myX/core.inc:516
 #: /Users/jesteban1972/Sites/myX/core.inc:517
+#: /Users/jesteban1972/Sites/myX/core.inc:515
 msgid "(9th)"
 msgstr "(9<sup>η</sup>)"
 
@@ -2227,6 +2367,7 @@ msgstr "(9<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:674
 #: /Users/jesteban1972/Sites/myX/core.inc:519
 #: /Users/jesteban1972/Sites/myX/core.inc:520
+#: /Users/jesteban1972/Sites/myX/core.inc:518
 msgid "(10th)"
 msgstr "(10<sup>η</sup>)"
 
@@ -2236,6 +2377,7 @@ msgstr "(10<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:677
 #: /Users/jesteban1972/Sites/myX/core.inc:522
 #: /Users/jesteban1972/Sites/myX/core.inc:523
+#: /Users/jesteban1972/Sites/myX/core.inc:521
 msgid "(11th)"
 msgstr "(11<sup>η</sup>)"
 
@@ -2245,6 +2387,7 @@ msgstr "(11<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:680
 #: /Users/jesteban1972/Sites/myX/core.inc:525
 #: /Users/jesteban1972/Sites/myX/core.inc:526
+#: /Users/jesteban1972/Sites/myX/core.inc:524
 msgid "(12th)"
 msgstr "(12<sup>η</sup>)"
 
@@ -2254,6 +2397,7 @@ msgstr "(12<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:683
 #: /Users/jesteban1972/Sites/myX/core.inc:528
 #: /Users/jesteban1972/Sites/myX/core.inc:529
+#: /Users/jesteban1972/Sites/myX/core.inc:527
 msgid "(13th)"
 msgstr "(13<sup>η</sup>)"
 
@@ -2263,6 +2407,7 @@ msgstr "(13<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:686
 #: /Users/jesteban1972/Sites/myX/core.inc:531
 #: /Users/jesteban1972/Sites/myX/core.inc:532
+#: /Users/jesteban1972/Sites/myX/core.inc:530
 msgid "(14th)"
 msgstr "(14<sup>η</sup>)"
 
@@ -2272,6 +2417,7 @@ msgstr "(14<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:689
 #: /Users/jesteban1972/Sites/myX/core.inc:534
 #: /Users/jesteban1972/Sites/myX/core.inc:535
+#: /Users/jesteban1972/Sites/myX/core.inc:533
 msgid "(15th)"
 msgstr "(15<sup>η</sup>)"
 
@@ -2281,6 +2427,7 @@ msgstr "(15<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:692
 #: /Users/jesteban1972/Sites/myX/core.inc:537
 #: /Users/jesteban1972/Sites/myX/core.inc:538
+#: /Users/jesteban1972/Sites/myX/core.inc:536
 msgid "(16th)"
 msgstr "(16<sup>η</sup>)"
 
@@ -2290,6 +2437,7 @@ msgstr "(16<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:695
 #: /Users/jesteban1972/Sites/myX/core.inc:540
 #: /Users/jesteban1972/Sites/myX/core.inc:541
+#: /Users/jesteban1972/Sites/myX/core.inc:539
 msgid "(17th)"
 msgstr "(17<sup>η</sup>)"
 
@@ -2309,6 +2457,7 @@ msgstr "DESCRIPTIO τουτέστη περιγραφή πεπραγμένων"
 #: /Users/jesteban1972/Sites/myX/amor.php:168
 #: /Users/jesteban1972/Sites/myX/amor.php:169
 #: /Users/jesteban1972/Sites/myX/amor.php:158
+#: /Users/jesteban1972/Sites/myX/amor.php:165
 msgid "Lived with him"
 msgstr "Βίωσα μ’ αυτόν"
 
@@ -2320,6 +2469,7 @@ msgstr "Βίωσα μ’ αυτόν"
 #: /Users/jesteban1972/Sites/myX/amor.php:173
 #: /Users/jesteban1972/Sites/myX/amor.php:174
 #: /Users/jesteban1972/Sites/myX/amor.php:163
+#: /Users/jesteban1972/Sites/myX/amor.php:170
 msgid "Lived with her"
 msgstr "Βίωσα μ’ αυτή"
 
@@ -2347,6 +2497,7 @@ msgstr "Βίωσα μ’ αυτή"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:264
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:330
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:471
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:474
 msgid "Submit data"
 msgstr "Αποστολή"
 
@@ -2358,6 +2509,8 @@ msgstr "Αποστολή"
 #: /Users/jesteban1972/Sites/myX/practica.php:275
 #: /Users/jesteban1972/Sites/myX/practica.php:274
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:59
+#: /Users/jesteban1972/Sites/myX/index.php:77
+#: /Users/jesteban1972/Sites/myX/practica.php:307
 msgid "New experience"
 msgstr "Καινούργια φάση"
 
@@ -2373,6 +2526,7 @@ msgstr "Καινούργια φάση"
 #: /Users/jesteban1972/Sites/myX/praxis.php:282
 #: /Users/jesteban1972/Sites/myX/praxis.php:268
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:59
+#: /Users/jesteban1972/Sites/myX/praxis.php:274
 msgid "Edit experience"
 msgstr "Επεξεργασία φάσης"
 
@@ -2389,6 +2543,7 @@ msgstr "Ήδη υπάρχων εραστής:"
 #: /Users/jesteban1972/Sites/myX/core.inc:698
 #: /Users/jesteban1972/Sites/myX/core.inc:543
 #: /Users/jesteban1972/Sites/myX/core.inc:544
+#: /Users/jesteban1972/Sites/myX/core.inc:542
 msgid "(18th)"
 msgstr "(18<sup>η</sup>)"
 
@@ -2398,6 +2553,7 @@ msgstr "(18<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:701
 #: /Users/jesteban1972/Sites/myX/core.inc:546
 #: /Users/jesteban1972/Sites/myX/core.inc:547
+#: /Users/jesteban1972/Sites/myX/core.inc:545
 msgid "(19th)"
 msgstr "(19<sup>η</sup>)"
 
@@ -2407,6 +2563,7 @@ msgstr "(19<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:704
 #: /Users/jesteban1972/Sites/myX/core.inc:549
 #: /Users/jesteban1972/Sites/myX/core.inc:550
+#: /Users/jesteban1972/Sites/myX/core.inc:548
 msgid "(20th)"
 msgstr "(20<sup>η</sup>)"
 
@@ -2416,6 +2573,7 @@ msgstr "(20<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:707
 #: /Users/jesteban1972/Sites/myX/core.inc:552
 #: /Users/jesteban1972/Sites/myX/core.inc:553
+#: /Users/jesteban1972/Sites/myX/core.inc:551
 msgid "(21st)"
 msgstr "(21<sup>η</sup>)"
 
@@ -2425,6 +2583,7 @@ msgstr "(21<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:710
 #: /Users/jesteban1972/Sites/myX/core.inc:555
 #: /Users/jesteban1972/Sites/myX/core.inc:556
+#: /Users/jesteban1972/Sites/myX/core.inc:554
 msgid "(22nd)"
 msgstr "(22<sup>η</sup>)"
 
@@ -2434,6 +2593,7 @@ msgstr "(22<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:713
 #: /Users/jesteban1972/Sites/myX/core.inc:558
 #: /Users/jesteban1972/Sites/myX/core.inc:559
+#: /Users/jesteban1972/Sites/myX/core.inc:557
 msgid "(23rd)"
 msgstr "(23<sup>η</sup>)"
 
@@ -2443,6 +2603,7 @@ msgstr "(23<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:716
 #: /Users/jesteban1972/Sites/myX/core.inc:561
 #: /Users/jesteban1972/Sites/myX/core.inc:562
+#: /Users/jesteban1972/Sites/myX/core.inc:560
 msgid "(24th)"
 msgstr "(24<sup>η</sup>)"
 
@@ -2452,6 +2613,7 @@ msgstr "(24<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:719
 #: /Users/jesteban1972/Sites/myX/core.inc:564
 #: /Users/jesteban1972/Sites/myX/core.inc:565
+#: /Users/jesteban1972/Sites/myX/core.inc:563
 msgid "(25th)"
 msgstr "(25<sup>η</sup>)"
 
@@ -2461,6 +2623,7 @@ msgstr "(25<sup>η</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:722
 #: /Users/jesteban1972/Sites/myX/core.inc:567
 #: /Users/jesteban1972/Sites/myX/core.inc:568
+#: /Users/jesteban1972/Sites/myX/core.inc:566
 msgid "(26th)"
 msgstr "(26<sup>η</sup>)"
 
@@ -2560,6 +2723,9 @@ msgstr "μ’ αυτήν"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:352
 #: /Users/jesteban1972/Sites/myX/locus.inc:336
 #: /Users/jesteban1972/Sites/myX/locus.php:31
+#: /Users/jesteban1972/Sites/myX/locus.php:35
+#: /Users/jesteban1972/Sites/myX/locus.inc:380
+#: /Users/jesteban1972/Sites/myX/praxis.inc:353
 msgid "(Image of a compass)"
 msgstr "(εικόνα πυξίδας)"
 
@@ -2579,6 +2745,7 @@ msgstr "Κατάλογος συμμετεχόντων"
 #: /Users/jesteban1972/Sites/myX/praxis.php:112
 #: /Users/jesteban1972/Sites/myX/praxis.php:113
 #: /Users/jesteban1972/Sites/myX/praxis.php:103
+#: /Users/jesteban1972/Sites/myX/praxis.php:119
 #, php-format
 msgid "the moon was %s, "
 msgstr "το φεγγάρι ήταν %s, "
@@ -2609,6 +2776,7 @@ msgstr ""
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:126
 #: /Users/jesteban1972/Sites/myX/amoresQuery.php:132
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:81
+#: /Users/jesteban1972/Sites/myX/amor.php:71
 msgid "Alias"
 msgstr "Ψευδώνυμο"
 
@@ -2616,6 +2784,7 @@ msgstr "Ψευδώνυμο"
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:129
 #: /Users/jesteban1972/Sites/myX/amoresQuery.php:133
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:126
+#: /Users/jesteban1972/Sites/myX/amor.php:78
 msgid "Genre"
 msgstr "Φύλο"
 
@@ -2663,6 +2832,7 @@ msgstr "Περιγραφή 4"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:89
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:89
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:127
+#: /Users/jesteban1972/Sites/myX/praxis.php:83
 msgid "Rating"
 msgstr "Αξιολόγηση"
 
@@ -2694,6 +2864,7 @@ msgstr "Τηλέφωνο"
 #: /Users/jesteban1972/Sites/myX/amoresQuery.php:148
 #: /Users/jesteban1972/Sites/myX/amor.php:347
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:232
+#: /Users/jesteban1972/Sites/myX/amor.php:357
 msgid "Email"
 msgstr "Email"
 
@@ -2851,24 +3022,30 @@ msgstr "ID της φάσης"
 #: /Users/jesteban1972/Sites/myX/practica.php:262
 #: /Users/jesteban1972/Sites/myX/loca.php:247
 #: /Users/jesteban1972/Sites/myX/practica.php:265
+#: /Users/jesteban1972/Sites/myX/amores.php:242
+#: /Users/jesteban1972/Sites/myX/loca.php:250
+#: /Users/jesteban1972/Sites/myX/practica.php:112
 msgid "Remove filter"
 msgstr "Αφαίρεση φίλτρου"
 
 #: /Users/jesteban1972/Sites/myX/amor.inc:179
 #: /Users/jesteban1972/Sites/myX/amor.inc:231
 #: /Users/jesteban1972/Sites/myX/amor.inc:235
+#: /Users/jesteban1972/Sites/myX/amor.inc:274
 msgid "Not any lovers yet"
 msgstr "Δέν υπάρχουν εραστές ακόμη"
 
 #: /Users/jesteban1972/Sites/myX/amor.inc:182
 #: /Users/jesteban1972/Sites/myX/amor.inc:234
 #: /Users/jesteban1972/Sites/myX/amor.inc:238
+#: /Users/jesteban1972/Sites/myX/amor.inc:277
 msgid "Only one lover so far"
 msgstr "Μέχρι στιγμής μόνο ένας εραστής"
 
 #: /Users/jesteban1972/Sites/myX/amor.inc:186
 #: /Users/jesteban1972/Sites/myX/amor.inc:238
 #: /Users/jesteban1972/Sites/myX/amor.inc:242
+#: /Users/jesteban1972/Sites/myX/amor.inc:281
 #, php-format
 msgid "%d lovers"
 msgstr "%d εραστές"
@@ -2880,17 +3057,21 @@ msgstr "%d εραστές"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:386
 #: /Users/jesteban1972/Sites/myX/praxis.inc:408
 #: /Users/jesteban1972/Sites/myX/amor.inc:246
+#: /Users/jesteban1972/Sites/myX/amor.inc:285
+#: /Users/jesteban1972/Sites/myX/praxis.inc:410
 #, php-format
 msgid "Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"
 msgstr "Δείχνοντας %d<br /><b>από</b> %s<br /><b>μέχρι</b> %s"
 
 #: /Users/jesteban1972/Sites/myX/core.inc:439
 #: /Users/jesteban1972/Sites/myX/core.inc:277
+#: /Users/jesteban1972/Sites/myX/core.inc:278
 msgid "First Page"
 msgstr "Πρώτη σελίδα"
 
 #: /Users/jesteban1972/Sites/myX/core.inc:463
 #: /Users/jesteban1972/Sites/myX/core.inc:301
+#: /Users/jesteban1972/Sites/myX/core.inc:302
 msgid "Previous Page"
 msgstr "Προηγούμενη σελίδα"
 
@@ -2909,30 +3090,35 @@ msgstr "από"
 #: /Users/jesteban1972/Sites/myX/core.inc:503
 #: /Users/jesteban1972/Sites/myX/core.inc:348
 #: /Users/jesteban1972/Sites/myX/core.inc:349
+#: /Users/jesteban1972/Sites/myX/core.inc:340
 msgid "Next Page"
 msgstr "Επόμενη σελίδα"
 
 #: /Users/jesteban1972/Sites/myX/core.inc:530
 #: /Users/jesteban1972/Sites/myX/core.inc:375
 #: /Users/jesteban1972/Sites/myX/core.inc:376
+#: /Users/jesteban1972/Sites/myX/core.inc:367
 msgid "Last Page"
 msgstr "Τελευταία σελίδα"
 
 #: /Users/jesteban1972/Sites/myX/locus.inc:313
 #: /Users/jesteban1972/Sites/myX/locus.inc:343
 #: /Users/jesteban1972/Sites/myX/locus.inc:368
+#: /Users/jesteban1972/Sites/myX/locus.inc:412
 msgid "Not any places yet"
 msgstr "Δεν υπάρχουν τόποι ακόμη"
 
 #: /Users/jesteban1972/Sites/myX/locus.inc:316
 #: /Users/jesteban1972/Sites/myX/locus.inc:346
 #: /Users/jesteban1972/Sites/myX/locus.inc:371
+#: /Users/jesteban1972/Sites/myX/locus.inc:415
 msgid "Only one place so far"
 msgstr "Μέχρι στιγμής μόνο ένας τόπος"
 
 #: /Users/jesteban1972/Sites/myX/locus.inc:320
 #: /Users/jesteban1972/Sites/myX/locus.inc:350
 #: /Users/jesteban1972/Sites/myX/locus.inc:375
+#: /Users/jesteban1972/Sites/myX/locus.inc:419
 #, php-format
 msgid "%d places"
 msgstr "%d τόποι"
@@ -2941,6 +3127,7 @@ msgstr "%d τόποι"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:370
 #: /Users/jesteban1972/Sites/myX/praxis.inc:371
 #: /Users/jesteban1972/Sites/myX/praxis.inc:393
+#: /Users/jesteban1972/Sites/myX/praxis.inc:395
 msgid "Not any experiences yet"
 msgstr "Δεν υπάρχουν φάσεις ακόμη"
 
@@ -2948,6 +3135,7 @@ msgstr "Δεν υπάρχουν φάσεις ακόμη"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:373
 #: /Users/jesteban1972/Sites/myX/praxis.inc:376
 #: /Users/jesteban1972/Sites/myX/praxis.inc:398
+#: /Users/jesteban1972/Sites/myX/praxis.inc:400
 msgid "Only one experience so far"
 msgstr "Μέχρι στιγμής μόνο μία φάση"
 
@@ -2955,6 +3143,7 @@ msgstr "Μέχρι στιγμής μόνο μία φάση"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:377
 #: /Users/jesteban1972/Sites/myX/praxis.inc:382
 #: /Users/jesteban1972/Sites/myX/praxis.inc:404
+#: /Users/jesteban1972/Sites/myX/praxis.inc:406
 #, php-format
 msgid "%d experiences"
 msgstr "%d φάσεις"
@@ -3066,6 +3255,7 @@ msgstr "Ημερομηνία γέννησης:"
 #: /Users/jesteban1972/Sites/myX/locus.php:100
 #: /Users/jesteban1972/Sites/myX/locus.php:106
 #: /Users/jesteban1972/Sites/myX/locus.php:104
+#: /Users/jesteban1972/Sites/myX/locus.php:108
 msgid "Kind of place"
 msgstr "Είδος τόπου"
 
@@ -3116,6 +3306,7 @@ msgstr "Περιγραφή του εραστή"
 
 #: /Users/jesteban1972/Sites/myX/amor.inc:327
 #: /Users/jesteban1972/Sites/myX/amor.inc:331
+#: /Users/jesteban1972/Sites/myX/amor.inc:371
 #, php-format
 msgid "<b>%s</b> experiences"
 msgstr "<b>%s</b> φάσεις"
@@ -3127,6 +3318,7 @@ msgstr ", αυτή είναι το νούρερο %s"
 
 #: /Users/jesteban1972/Sites/myX/index.php:31
 #: /Users/jesteban1972/Sites/myX/index.php:41
+#: /Users/jesteban1972/Sites/myX/index.php:56
 msgid "Welcome to myX!"
 msgstr "Καλωσόρισες στο myX!"
 
@@ -3142,71 +3334,85 @@ msgstr "Συμμετέχων/-οντες"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:254
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:337
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:339
 msgid "Add lover..."
 msgstr "Πρόσθεση εραστή…"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:294
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:378
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:381
 msgid "TQ:"
 msgstr "TQ:"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:305
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:391
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:394
 msgid "E_PRIVATE"
 msgstr "E_PRIVATE"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:310
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:397
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:400
 msgid "E_EDIT_TO_SHARE"
 msgstr "E_EDIT_TO_SHARE"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:315
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:403
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:406
 msgid "E_SHARE"
 msgstr "E_SHARE"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:320
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:409
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:412
 msgid "E_SHARE_TO_BROADCAST"
 msgstr "E_SHARE_TO_BROADCAST"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:325
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:415
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:418
 msgid "E_BROADCAST"
 msgstr "E_BROADCAST"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:331
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:421
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:424
 msgid "TL:"
 msgstr "TL:"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:342
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:434
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:437
 msgid "E_LANG1"
 msgstr "E_LANG1"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:347
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:440
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:443
 msgid "E_LANG2"
 msgstr "E_LANG2"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:352
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:446
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:449
 msgid "E_LANG3"
 msgstr "E_LANG3"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:357
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:452
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:455
 msgid "E_LANG4"
 msgstr "E_LANG4"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:362
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:458
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:461
 msgid "E_LANG5"
 msgstr "E_LANG5"
 
 #: /Users/jesteban1972/Sites/myX/amor.inc:330
 #: /Users/jesteban1972/Sites/myX/amor.inc:334
+#: /Users/jesteban1972/Sites/myX/amor.inc:374
 #, php-format
 msgid ", this one #%s"
 msgstr ", αυτή είναι η νούρερο %s"
@@ -3228,6 +3434,8 @@ msgstr "Πρόσθεση είδους"
 #: /Users/jesteban1972/Sites/myX/amor.php:326
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:204
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:306
+#: /Users/jesteban1972/Sites/myX/amor.php:336
+#: /Users/jesteban1972/Sites/myX/amoresQuery.php:143
 msgid "Web"
 msgstr "Web"
 
@@ -3235,15 +3443,18 @@ msgstr "Web"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:73
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:72
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:108
+#: /Users/jesteban1972/Sites/myX/amor.php:332
 msgid "Achtung"
 msgstr "Εκκρεμότητες"
 
 #: /Users/jesteban1972/Sites/myX/amor.php:339
+#: /Users/jesteban1972/Sites/myX/amor.php:349
 msgid "Pictures"
 msgstr "Φωτό"
 
 #: /Users/jesteban1972/Sites/myX/amor.php:343
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:225
+#: /Users/jesteban1972/Sites/myX/amor.php:353
 msgid "Phone"
 msgstr "Τηλέφωνο"
 
@@ -3253,6 +3464,7 @@ msgid "Submit data and continue..."
 msgstr "Αποθήκευση στοιχειών και συνέχεια…"
 
 #: /Users/jesteban1972/Sites/myX/locus.php:88
+#: /Users/jesteban1972/Sites/myX/locus.php:92
 msgid "Subjetive rating"
 msgstr "Υποκειμενική αξιολόγηση"
 
@@ -3283,6 +3495,70 @@ msgstr "Επεξεργασία τόπου…"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:291
 msgid "Existing lover(s)"
 msgstr "Ήδη υπάρχων εραστής"
+
+#: /Users/jesteban1972/Sites/myX/amor.php:74
+#, fuzzy
+msgid "Subjective rating"
+msgstr "Υποκειμενική αξιολόγηση"
+
+#: /Users/jesteban1972/Sites/myX/forbidden.php:19
+#, fuzzy
+msgid "We are sorry, but the access to this page is not allowed"
+msgstr "Η πρόσβαση σ’ αυτή τη σελίδα δεν επιτρέπεται"
+
+#: /Users/jesteban1972/Sites/myX/index.php:75
+#, fuzzy
+msgid "Add experiences"
+msgstr "%d φάσεις"
+
+#: /Users/jesteban1972/Sites/myX/index.php:83
+#, fuzzy
+msgid "Discover your experiences"
+msgstr "Κατάλογος φάσεων"
+
+#: /Users/jesteban1972/Sites/myX/index.php:90
+#, fuzzy
+msgid "Discover your lovers"
+msgstr "Κατάλογος εραστών"
+
+#: /Users/jesteban1972/Sites/myX/index.php:97
+#, fuzzy
+msgid "Discover your places"
+msgstr "Κατάλογος τόπων"
+
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:338
+#, fuzzy
+msgid "Edit lover..."
+msgstr "Επεξεργασία εραστή"
+
+#: /Users/jesteban1972/Sites/myX/queries.php:79
+#, fuzzy
+msgid "(no saved queries found)"
+msgstr "(δεν βρέθηκαν φάσεις)"
+
+#: /Users/jesteban1972/Sites/myX/queries.php:84
+#, fuzzy
+msgid "(only <b>one</b> saved query found)"
+msgstr "(μόνο βρέθηκε <b>ένας</b> εραστής)"
+
+#: /Users/jesteban1972/Sites/myX/queries.php:89
+#, fuzzy, php-format
+msgid "(<b>%d</b> saved queries found)"
+msgstr "(βρέθηκαν <b>%d</b> φάσεις)"
+
+#: /Users/jesteban1972/Sites/myX/queries.php:105
+#, fuzzy
+msgid "List of saved queries"
+msgstr "Κατάλογος φάσεων"
+
+#: /Users/jesteban1972/Sites/myX/queries.php:122
+#, fuzzy
+msgid "ELENCHUS i.e. list of queries"
+msgstr "ELENCHUS i.e. κατάλογος εραστών"
+
+#: /Users/jesteban1972/Sites/myX/nav.inc:23
+msgid "Queries"
+msgstr ""
 
 #~ msgid "full moon"
 #~ msgstr "πανσέλινος"

@@ -92,7 +92,7 @@ $_SESSION['userID'] = User::loginProcess($username, $password1);
 // once the user logged in, set user options and navigation options:
 User::setUserOptions($defaultGenre, $descr1, $descr2, $descr3,
     $descr4);
-User::setNavigationOptions($GUILang, $resultsPerPage, $listsOrder);
+User::setNavOptions($GUILang, $resultsPerPage, $listsOrder);
 
 // 6. redirect the user to the start page:
 header('Location: index.php');

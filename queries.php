@@ -229,15 +229,22 @@ HTML;
     if ($pageSettings['navigationBar'])
         navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
+//    echo <<<HTML
+//                    <p class="quote">«Αἰτεῖτε καὶ δοθήσεται ὑμῖν,<br />
+//                    ζητεῖτε καὶ εὑρήσετε,<br />
+//                    κρούετε καὶ ἀνοιγήσετε ὑμῖν.<br />
+//                    Καὶ ὅσα ἂν αἰτήσετε πιστεύοντες λήψεσθε»<br />
+//                        <br />(N.T. Mt. 7.7)</p>
+//    
+//HTML;
     echo <<<HTML
-                    <p class="quote">«Αἰτεῖτε καὶ δοθήσεται ὑμῖν,<br />
-                    ζητεῖτε καὶ εὑρήσετε,<br />
-                    κρούετε καὶ ἀνοιγήσετε ὑμῖν.<br />
-                    Καὶ ὅσα ἂν αἰτήσετε πιστεύοντες λήψεσθε»<br />
-                        <br />(N.T. Mt. 7.7)</p>
+                    <p class="quote">«Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá.<br />
+                    Porque todo el que pide, recibe; y el que busca, halla; y al que llama, se le abrirá»<br />
+                        <br />(Evangelio según Mateo)</p>
     
 HTML;
-
+    //Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá. Porque todo el que pide, recibe; y el que busca, halla; y al que llama, se le abrirá
+    
 // link to top of the page:
 echo "\t\t\t\t<p style=\"text-align: center;\"><img src=\"images/arrow_top.gif\" /> <a href=\"#start\">".
     _("Back to top").

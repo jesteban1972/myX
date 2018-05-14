@@ -56,14 +56,31 @@ class User {
      */
     private $birthdate;
     
-    // II. methods
+    /**
+     * @var int userKind the kind of user, as defined in the class constants
+     */
+    private $userKind;
     
-    // II.1. getters
+    // II. class constants
+    const KIND_ADMIN = 1;
+    const KIND_USER = 2;
+    
+    // III. methods
+    
     public function getUserID() {return $this->userID;}
     public function getUserName() {return $this->username;}
     public function getEmail() {return $this->email;}
     
-    // II.2 constructor
+    /**
+     * method 'User::getUserKind'.
+     * 
+     * this method returns the attribute 'userKind'.
+     */
+    public function getUserKind() {
+        
+        return $this->userKind;
+        
+    }
     
     /**
      * method User::__construct
@@ -109,7 +126,7 @@ class User {
         // 2. get the record with the given userID:
         
         $queryString = <<<QUERY
-SELECT `username`, `password`, `email`
+SELECT `username`, `password`, `email`, `userKind`
 FROM `myx`.`users`
 WHERE `userID` = :userID
 QUERY;
@@ -140,6 +157,7 @@ QUERY;
         $this->username = $row['username'];
         $this->password = $row['password'];
         $this->email = $row['email'];
+        $this->userKind = intval($row['userKind']);
         
     } // method User::__construct
     
@@ -498,7 +516,7 @@ QUERY;
     } // method User::getUsernameFromUserID
     
     /**
-     * method User::getNavigationOptions
+     * method 'User::getNavOptions'.
      * 
      * this method returns an associative array containing the navigation options,
      * values which have been taken from the DB (if set).
@@ -510,7 +528,7 @@ QUERY;
      * iii) the order for lists: ascending or descending
      * (i.e., from oldest to newest or from newest to oldest).
      */
-    public static function getNavigationOptions () {
+    public static function getNavOptions () {
         
         // array to be returned:
         $navigationOptions = array();
@@ -543,7 +561,7 @@ QUERY;
         //return:
         return $navigationOptions;
         
-    } // method User::getNavigationOptions
+    } // method User::getNavOptions
     
     /**
      * method User::getUserOptions
@@ -782,11 +800,11 @@ QUERY;
     } // method User::sessionLoggedIn
     
     /**
-     * method User::setNavigationOptions
+     * method 'User::setNavOptions'.
      * 
      * XXX
      */
-    public static function setNavigationOptions ($GUILang, $resultsPerPage,
+    public static function setNavOptions ($GUILang, $resultsPerPage,
             $listsOrder) {
         
         // get a DB handle to work with:
@@ -813,7 +831,7 @@ QUERY;
         //return:
         return;
         
-    } // method User::setNavigationOptions
+    } // method User::setNavOptions
     
     /**
      * method User::setUserOptions

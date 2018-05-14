@@ -110,6 +110,44 @@ QUERY;
         $this->other = $row['other'];
 
     } // method Amor::__construct
+    
+    /**
+     * method Amor::getAllAmores
+     * returns an array of lover ID's from all lovers.
+     */
+
+    public function getAllAmores() {
+
+        /*
+         * $practica is the array to be returned.
+         * it will be filled up with the IDs of all lovers.
+         */
+
+        $amores = array(); // the array to be returned. it will be filled
+        // get a DB handle to work with:
+        $pdo = DB::getDBHandle();
+
+        // 2. query the table 'amores':
+        $queryString = <<<QRY
+SELECT `amorID`
+FROM `myX`.`amores`
+WHERE `user` = :userID
+QRY;
+
+        $statement = $pdo->prepare($queryString);
+        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
+        $statement->execute();
+
+        foreach ($statement as $row) {
+
+            // add a new element in the array (intval needed):
+            $amores[] = intval($row['amorID']);
+            
+        }
+        
+        return $amores;
+        
+    } // method Amor::getAllAmores
 	
     /**
      * method Amor::getAmoresAmount
@@ -244,7 +282,8 @@ QRY;
                     "</p>\n";
                 $limits = explode("..", $_SESSION['asideItem']);
                 echo "\t\t\t\t\t<p>".
-                    sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"), $_SESSION['options']['resultsPerPage'], $limits[0], $limits[1]).
+            sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"),
+    $_SESSION['navigationOptions']['resultsPerPage'], $limits[0], $limits[1]).
                     "</p>\n";
         }
 
@@ -258,7 +297,7 @@ QRY;
      * @ordinalNr: page's ordinal to be represented at the beginning
      * @options: bitwise combination of options
     */
-    function HTMLPreview($ordinalNr, $options, $script = "amores.php") {
+    function HTMLPreview($ordinalNr, $options = "", $script = "amores.php") {
 	
         // get a DB connection to work with:
         $pdo = DB::getDBHandle();
@@ -275,8 +314,8 @@ QRY;
 
         // 1. ordinal number:
         echo "\t\t\t\t\t\t\t<p class=\"medium\"> ";
-        echo $ordinalNr; // ordinal number is 1-based
-        echo ". ";
+        if ($ordinalNr !== 0)
+            echo $ordinalNr.". "; // ordinal number is 1-based
 
         if (DEBUG)
             echo " <span class=\"debug\">[amorID <b>".

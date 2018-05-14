@@ -192,10 +192,11 @@ HTML;
     $queryString .= " LIMIT ".
         $ordinalZeroBased.
         ", ".
-        $_SESSION['navigationOptions']['resultsPerPage'];
+        $_SESSION['navOptions']['resultsPerPage'];
 
     if (DEBUG)
-        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".$queryString."]</span></p>";
+        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
+            $queryString."]</span></p>";
 
     $statement = $pdo->prepare($queryString);
     $statement->execute();

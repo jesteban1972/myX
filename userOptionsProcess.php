@@ -63,7 +63,7 @@ $user->setUserOptions($defaultGenre,
 
 // GUI language:
 $GUILang = filter_input(INPUT_POST, "GUILang", FILTER_VALIDATE_INT);
-$_SESSION['navigationOptions']['GUILang'] = $GUILang;
+$_SESSION['navOptions']['GUILang'] = $GUILang;
 //setcookie("userOptions[GUILang]", $GUILang, time() + 3600);
 
 // results per page:
@@ -77,7 +77,7 @@ $_SESSION['navigationOptions']['listsOrder'] = $listsOrder;
 //setcookie("userOptions[listsOrder]", $listsOrder, time() + 3600);
 
 // navigation options are stored in the DB:
-$user->setNavigationOptions($GUILang, $resultsPerPage, $listsOrder);
+$user->setNavOptions($GUILang, $resultsPerPage, $listsOrder);
 
 header("Location: index.php");
 

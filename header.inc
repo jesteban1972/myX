@@ -21,19 +21,18 @@ require_once 'user.inc';
 
 if ((isset($_SESSION['userID']) && ($_SESSION['userID'] !== -1))) { // user logged in
     
-    $navigationOptions = User::getNavigationOptions();
+    $navOptions = User::getNavOptions();
     
-    if ($navigationOptions['GUILang'] !== null &&
-        !isset($_SESSION['navigationOptions']['GUILang']))
-            $_SESSION['navigationOptions']['GUILang'] =
-                $navigationOptions['GUILang'];
+    if ($navOptions['GUILang'] !== null/* &&
+        !isset($_SESSION['navOptions']['GUILang'])*/)
+            $_SESSION['navOptions']['GUILang'] = $navOptions['GUILang'];
     
-    if ($navigationOptions['resultsPerPage'] !== null)
-        $_SESSION['navigationOptions']['resultsPerPage'] =
-            $navigationOptions['resultsPerPage'];
-    if ($navigationOptions['listsOrder'] !== null)
-        $_SESSION['navigationOptions']['listsOrder'] =
-            $navigationOptions['listsOrder'];
+    if ($navOptions['resultsPerPage'] !== null)
+        $_SESSION['navOptions']['resultsPerPage'] =
+            $navOptions['resultsPerPage'];
+    if ($navOptions['listsOrder'] !== null)
+        $_SESSION['navOptions']['listsOrder'] =
+            $navOptions['listsOrder'];
             
     $userOptions = User::getUserOptions();
     
@@ -69,15 +68,15 @@ QUERY;
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
         $_SESSION['DBStatus']['doPracticaExist'] =
-            (intval($statement->fetchColumn()) > 0) ? true : false;
+            intval($statement->fetchColumn()) > 0 ? true : false;
 
     }
             
 } else { // user not logged in, use defaults
     
-    $_SESSION['navigationOptions']['GUILang'] = GUI_ENGLISH;
-    $_SESSION['navigationOptions']['resultsPerPage'] = 25;
-    $_SESSION['navigationOptions']['listsOrder'] = OLDEST_TO_NEWEST;
+    $_SESSION['navOptions']['GUILang'] = GUI_ENGLISH;
+    $_SESSION['navOptions']['resultsPerPage'] = 25;
+    $_SESSION['navOptions']['listsOrder'] = OLDEST_TO_NEWEST;
     
 }
 
@@ -91,24 +90,24 @@ if (isset($_POST['GUILang'])) {
         
         case "es":
             
-            $_SESSION['navigationOptions']['GUILang'] = GUI_SPANISH;
+            $_SESSION['navOptions']['GUILang'] = GUI_SPANISH;
             break;
         
         case "el":
             
-            $_SESSION['navigationOptions']['GUILang'] = GUI_GREEK;
+            $_SESSION['navOptions']['GUILang'] = GUI_GREEK;
             break;
         
         default:
             
-            $_SESSION['navigationOptions']['GUILang'] = GUI_ENGLISH;            
+            $_SESSION['navOptions']['GUILang'] = GUI_ENGLISH;            
         
     }
     
 }
 
 // initialize gettext:
-GUILangInitialize($GUILangCodes[$_SESSION['navigationOptions']['GUILang']]);
+GUILangInitialize($GUILangCodes[$_SESSION['navOptions']['GUILang']]);
 
 // the top of the page is echoed:
 
@@ -161,19 +160,19 @@ echo "\t\t\t\t\t\t<select name=\"GUILang\" onchange=\"this.form.submit();\">\n";
 
 // English:
 echo "\t\t\t\t\t\t\t<option value=\"en\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_ENGLISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_ENGLISH)
     echo " selected=\"selected\"";
 echo ">English</option>\n";
 
 // Spanish:
 echo "\t\t\t\t\t\t\t<option value=\"es\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_SPANISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_SPANISH)
     echo " selected=\"selected\"";
 echo ">Español</option>\n";
 
 // Greek:
 echo "\t\t\t\t\t\t\t<option value=\"el\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_GREEK)
+if ($_SESSION['navOptions']['GUILang'] === GUI_GREEK)
     echo " selected=\"selected\"";
 echo ">Ελληνικά</option>\n";
 echo "\t\t\t\t\t\t</select>\n";

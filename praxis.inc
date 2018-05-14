@@ -15,7 +15,7 @@ require_once 'session.inc';
 require_once 'locus.inc';
 
 /**
-  class Praxis
+ * class Praxis
  */
 class Praxis {
 
@@ -28,7 +28,7 @@ class Praxis {
     protected $locus;       // place
     protected $date;        // date
     protected $ordinal;     // ordinal
-    protected $description; // description
+    protected $descr;       // description
     protected $tq;          // field 'tq'
     protected $tl;          // field 'tl'
     
@@ -87,12 +87,12 @@ class Praxis {
 
     /**
      * method getDescription.
-     * returns the value of property 'description' (getter method).
+     * returns the value of property 'descr' (getter method).
      * @return type
      */
     public function getDescr() {
         
-        return $this->description;
+        return $this->descr;
         
     }
 
@@ -148,35 +148,33 @@ QUERY;
         $this->locus = $row['locus'];
         $this->date = $row['date'];
         $this->ordinal = $row['ordinal'];
-        $this->description = $row['descr'];
+        $this->descr = $row['descr'];
         $this->tq = $row['tq'];
         $this->tl = $row['tl'];
         
-    }
-
-// method Praxis::__construct
+    } // method Praxis::__construct
+    
     /**
      * method Praxis::getAllPractica
-     * returns an array of experiences ID's from all the practica
-     * ACHTUNG! unused
+     * returns an array of experiences ID's from all the practica.
      */
 
-    private function getAllPractica() {
+    public function getAllPractica() {
 
         /*
          * $practica is the array to be returned.
-         * it will be filled up with the IDs of all the practica of the current user
+         * it will be filled up with the IDs of all the experiences.
          */
 
         $practica = array(); // the array to be returned. it will be filled
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'assignations':
+        // 2. query the table 'practica':
         $queryString = <<<QRY
 SELECT `praxisID`
 FROM `myX`.`practica`
-WHERE `user`=:userID
+WHERE `user` = :userID
 ORDER BY `date`, `ordinal`
 QRY;
 
@@ -192,9 +190,8 @@ QRY;
         }
         
         return $practica;
-    }
-
-// method Praxis::getAllPractica
+    } // method Praxis::getAllPractica
+    
     /**
      * method Praxis::getAmores
      * returns an array of lover ID's of all the lovers
@@ -378,8 +375,9 @@ QUERY;
     } // method Praxis::HTMLAsidePreview
     
     /**
-     * method Praxis::HTMLAsidePreviewPractica
-     * displays a sommary of the experiences in the sidebar
+     * method 'Praxis::HTMLAsidePreviewPractica'.
+     * 
+     * displays a summary of the experiences in the sidebar
      */
     public function HTMLAsidePreviewPractica() {
         
@@ -409,8 +407,9 @@ QUERY;
                     "</p>\n";
                 $limits = explode("..", $_SESSION['asideItem']);
                 echo "\t\t\t\t\t<p>".
-                    sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"), $_SESSION['navigationOptions']['resultsPerPage'], $limits[0], $limits[1]).
-                    "</p>\n";
+            sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"),
+                        $_SESSION['navOptions']['resultsPerPage'],
+                        $limits[0], $limits[1])."</p>\n";
                 
         }
 
@@ -421,8 +420,8 @@ QUERY;
     /**
      * method Praxis::HTMLPreview
      * displays a preview of the experience
-     * @ordinalNr: experience ordinal
-     * @options: bitwise combination of options (v.gr. XPERIENCE_RATE & XPERIENCE_DATE & EXCEPTR_MED)
+     * @param int ordinalNr: experience ordinal
+     * @param int options: bitwise combination of options (v.gr. EXPERIENCE_RATE & EXPERIENCE_DATE & EXCEPTR_MED)
      */
     public function HTMLPreview($ordinalNr, $options = "") {
 
@@ -438,8 +437,8 @@ QUERY;
          */
         // 1. ordinal number:
         echo "\t\t\t\t\t\t<p class=\"medium\"> ";
-        echo $ordinalNr; // ordinal number is 1-based
-        echo ". ";
+        if ($ordinalNr !== 0)
+            echo $ordinalNr.". "; // ordinal number is 1-based
         
         if (DEBUG)
             echo " <span class=\"debug\">[praxisID <b>".$this->getPraxisID().
@@ -560,15 +559,16 @@ QRY;
     } // method Praxis::HTMLPreview
 
     /**
-     * method Praxis::HTMLSynchroton
+     * method 'Praxis::HTMLSynchroton'.
+     * 
      * displays the Synchroton, a tool to navigate through the experiences
      * forwards or backwards in time, according to different criteria:
      * i) with the same lover
      * ii) chronologically, or
      * iii) locally
-     * @praxisID
-     * @loverID
-     * @placeID
+     * @param int praxisID the identifier of the current experience
+     * @param int loverID the identifier of the only participant in the current experience
+     * @param int placeID the identifier of the place where the current experience happened
      */
     public function HTMLSynchroton($praxisID, $amorID, $locusID) {
         // TODO: rewrite without passed parameters: $praxis->HTMLSynchoton()

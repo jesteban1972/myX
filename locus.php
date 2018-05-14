@@ -47,7 +47,7 @@ echo "\t\t\t\t\t<ul>\n";
 echo "\t\t\t\t\t\t<li><a href=\"#data\">".
         _("Data").
         "</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#practica\">".
+echo "\t\t\t\t\t\t<li><a href=\"#list\">".
         _("List of experiences").
         "</a></li>\n";
 if ($locus->getCoordExact() !== "" || $locus->getCoordGeneric() !== "") {
@@ -89,7 +89,7 @@ if (DEBUG)
 echo _("Name").": <b>".$locus->getName()."</b>.</p>\n";
 
 // rating:
-echo "\t\t\t\t\t<p class=\"medium\">"._("Subjetive rating").": <b>".
+echo "\t\t\t\t\t<p class=\"medium\">"._("Rating").": <b>".
     writtenRate($locus->getRating(), TRUE)."</b>.</p>\n";
 
 // description:
@@ -198,7 +198,7 @@ $statement = $pdo->prepare($queryString);
 $statement->bindParam(":locusID", $locus->getlocusID());
 $statement->bindParam(":ordinalZeroBased", $ordinalZeroBased, PDO::PARAM_INT);
 $statement->bindParam(":resultsPerPage",
-    intval($_SESSION['navigationOptions']['resultsPerPage']),
+    intval($_SESSION['navOptions']['resultsPerPage']),
     PDO::PARAM_INT);
 $statement->execute();
 

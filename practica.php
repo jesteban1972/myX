@@ -4,7 +4,7 @@
  * 
  * displays a list of experiences based in an instance of class 'PracticaList'
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-24
+ * last updated 2018-05-11
 */
 
 require_once 'core.inc';
@@ -53,12 +53,6 @@ echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("praxis", "small").
     "\" alt=\""._("(Image of a gold coin)")."\" /> <b>"._($designation).
     "</b>: "._($description)." ";
 
-//echo "\t\t\t\t\t<div class=\"sectionTitle\">\n";
-//
-//echo "\t\t\t\t\t\t<p class=\"large\"><img src=\"".getImage("praxis", "small").
-//    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>".
-//    _($designation)."</b></p>";
-//echo "\t\t\t\t\t\t<p class=\"medium\">"._($description)."</p>\n";
 
 /*
  * experiences list.
@@ -71,7 +65,7 @@ echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("praxis", "small").
 $statement = $pdo->prepare($queryString);
 $statement->execute();
 $practicaAmount = $statement->rowCount();
-//echo "\t\t\t\t\t\t<p class=\"medium\">";
+
 switch ($practicaAmount) {
 
     case 0:
@@ -91,14 +85,41 @@ switch ($practicaAmount) {
 }
 echo "</p>\n";
 
+// query experiences:
+//echo "\t\t\t\t\t<form action=\"practicaQuery.php\" method=\"POST\">\n";
+//echo "\t\t\t\t\t\t<input type=\"submit\" value=\""
+//    ._("Apply filter").
+//    "\" />\n"; //name=\"applyFilter\"
+//echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+//    ._("Remove filter").
+//    "\" ";
+//if ($practicaQuery->getDesignation() === "all experiences")
+//    echo "disabled=\"disabled\" ";
+//echo "/>\n";
+//echo "\t\t\t\t\t</form>\n";
+
+echo "\t\t\t\t\t<form action=\"practicaQuery.php\" method=\"POST\">\n";
+if ($practicaQuery->getDesignation() === "all experiences") {
+    
+    echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Apply filter").
+    "\" />\n"; //name=\"applyFilter\"
+    echo "\t\t\t\t\t\t<a href=\"practicaQuery.php\">".
+    "<img src=\"images/filter-small.png\" /></a>\n";
+    
+} else {
+
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+    ._("Remove filter").
+    "\" />\n";
+    echo "\t\t\t\t\t\t<a href=\"practicaQuery.php\">".
+    "<img src=\"images/filterStrikethrough-small.png\" /></a>\n";
+    
+}
+
+echo "\t\t\t\t\t</form>\n";
+
 if (DEBUG)
     echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString."]</span>\n";
-
-
-// filter icon:
-        //if ($this->isFavorite())            
-echo "\t\t\t\t\t\t<div class=\"filter\"></div>\n";
-//echo "\t\t\t\t\t</div>\n";
     
 // links to page sections:
 echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
@@ -185,7 +206,7 @@ HTML;
  * to display the appropiate segment of the whole list.
  */
 
-    switch ($_SESSION['navigationOptions']['listsOrder']) {
+    switch ($_SESSION['navOptions']['listsOrder']) {
         
         case OLDEST_TO_NEWEST:
             
@@ -202,10 +223,11 @@ HTML;
     $queryString .= " LIMIT ".
         $ordinalZeroBased.
         ", ".
-        $_SESSION['navigationOptions']['resultsPerPage'];
+        $_SESSION['navOptions']['resultsPerPage'];
 
     if (DEBUG)
-        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".$queryString."]</span></p>";
+        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
+            $queryString."]</span></p>";
 
     $statement = $pdo->prepare($queryString);
     $statement->execute();
@@ -274,24 +296,12 @@ HTML;
 } // if ($practicaAmount > 0)
 
 echo <<<HTML
-                <!-- Script practica.php. Part II: Actions -->
+                <!-- script practica.php. part ii: Actions -->
                 <article id="actions">
-                    <h1>Actions</h1>
 
 HTML;
 
-// query experiences:
-echo "\t\t\t\t\t<form action=\"practicaQuery.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""
-    ._("Apply filter").
-    "\" />\n"; //name=\"applyFilter\"
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-    ._("Remove filter").
-    "\" ";
-if ($practicaQuery->getDesignation() === "all experiences")
-    echo "disabled=\"disabled\" ";
-echo "/>\n";
-echo "\t\t\t\t\t</form>\n";
+echo "\t\t\t\t\t<h1>"._("Actions")."</h1>\n";
 
 // new experience:
 echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"GET\">\n";

@@ -113,6 +113,45 @@ QUERY;
         $this->web = $row['web'];
 
     } // method Locus::__construct
+    
+    /**
+     * method Locus::getAllLoca
+     * returns an array of lover ID's from all places.
+     */
+
+    public function getAllLoca() {
+
+        /*
+         * $loca is the array to be returned.
+         * it will be filled up with the IDs of all places.
+         */
+
+        $loca = array(); // the array to be returned. it will be filled
+        
+        // get a DB handle to work with:
+        $pdo = DB::getDBHandle();
+
+        // 2. query the table 'loca':
+        $queryString = <<<QRY
+SELECT `locusID`
+FROM `myX`.`loca`
+WHERE `user` = :userID
+QRY;
+
+        $statement = $pdo->prepare($queryString);
+        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
+        $statement->execute();
+
+        foreach ($statement as $row) {
+
+            // add a new element in the array (intval needed):
+            $amores[] = intval($row['locusID']);
+            
+        }
+        
+        return $amores;
+        
+    } // method Locus::getAllLoca
 
     /**
      * method Locus::getDifferentDatesAmount
@@ -216,6 +255,7 @@ QUERY;
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         if ($statement->fetchColumn() === 0)
             return;
+        else $_SESSION['DBStatus']['doPracticaExist'] = true;
 
         $queryString = <<<QUERY
 SELECT `coordExact`, `coordGeneric`
@@ -262,7 +302,8 @@ QUERY;
                 ", ".
                 strval($minLat + (($maxLat - $minLat) / 2));
         
-        $_SESSION['mapCenter'] = $mapCenter;
+        //$_SESSION['mapCenter'] = $mapCenter;
+        $_SESSION['DBStatus']['mapCenter'] = $mapCenter;
         
         return;
 
@@ -401,8 +442,8 @@ QUERY;
 
         // 1. ordinal number
         echo "\t\t\t\t\t\t\t<p class=\"medium\">";
-        echo $ordinalNr; // ordinal number is 1-based
-        echo ". ";
+        if ($ordinalNr !== 0)
+            echo $ordinalNr.". "; // ordinal number is 1-based
 
         if (DEBUG)
             echo " <span class=\"debug\">[locusID <b>".

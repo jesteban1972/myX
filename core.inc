@@ -418,16 +418,16 @@ function pageSettings($amount, $page) {
 
     // calculates total number of pages
     $numPages =
-       intval(ceil($amount / $_SESSION['navigationOptions']['resultsPerPage']));
+       intval(ceil($amount / $_SESSION['navOptions']['resultsPerPage']));
 
     // determines if navigation bar is necessary:
-    if ($amount > $_SESSION['navigationOptions']['resultsPerPage'])            
+    if ($amount > $_SESSION['navOptions']['resultsPerPage'])            
         $navigationBar = TRUE;
 
     // etablishes the initial ordinal of the page
     // $ordinal is 1-based
     $ordinal =
-        (($page - 1) * $_SESSION['navigationOptions']['resultsPerPage'] + 1);
+        (($page - 1) * $_SESSION['navOptions']['resultsPerPage'] + 1);
 
     return array('numPages' => $numPages,
         'navigationBar' => $navigationBar,
