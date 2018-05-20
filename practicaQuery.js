@@ -450,6 +450,7 @@ function removeRule(evt) {
     }
    
 /*
+ * indexes are rearranged:
  * when a rule is removed (e.g. rule #3),
  * the indexes of the remaining rules (0, 1, 3...)
  * are to be rearranged (0, 1, 2...)
@@ -494,7 +495,7 @@ function removeRule(evt) {
     var rulesAmount =
         document.querySelectorAll("select[name^='ruleFields[']").length;
     
-    // button removeRule[0] shown when rulesAmount > 1:
+    // button removeRule[0] shown only when rulesAmount > 1:
     if (rulesAmount > 1)
         document.getElementById('removeRule[0]').style.visibility = 'visible';
     else

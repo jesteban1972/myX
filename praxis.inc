@@ -324,7 +324,7 @@ QRY;
         $queryString = <<<QUERY
 SELECT COUNT(*)
 FROM `myX`.`practica`
-WHERE user=:userID
+WHERE `user` = :userID
 QUERY;
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);

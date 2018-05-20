@@ -39,7 +39,8 @@ $userID = $_SESSION['userID'];
 
 // divide the URL in parts in order to filter actions according with $fileName:
 $resourceParts = explode('/', $_SERVER['PHP_SELF']); // SCRIPT_NAME, SCRIPT_FILENAME
-$fileName = end($resourceParts); // alternatively: $file_name = $resource_parts[count($URL_parts) - 1]
+$fileName = end($resourceParts);
+// alternatively: $scriptΝame = $resource_parts[count($URL_parts) - 1]
 
 if ($fileName !== "userSignUp.php") { // login form not shown when signing up
     

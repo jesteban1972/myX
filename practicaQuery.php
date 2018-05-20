@@ -96,7 +96,7 @@ echo "\t\t\t\t\t\t\t\t<option value=\"tl\">"._("TL")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"favorite\">"._("Favorite")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"praxisID\">".
     _("Experience ID")."</option>\n";
-echo "\t\t\t\t\t\t\t</select>\n";
+echo "\t\t\t\t\t\t\t</select>";
 
 /*
  * ruleCriteria are the criteria applied in each rule
@@ -107,7 +107,7 @@ echo "\t\t\t\t\t\t\t</select>\n";
  * which is of type string.
  */
 
-echo "\t\t\t\t\t\t\t<select name=\"ruleCriteria[0]\">\n";
+echo "<select name=\"ruleCriteria[0]\">\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"contains\">"._("contains")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"doesNotContain\">".
     _("does not contain")."</option>\n";

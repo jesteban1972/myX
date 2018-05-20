@@ -8,8 +8,9 @@
  */
 
 require_once 'core.inc';
-require_once 'DB.inc';
+//require_once 'DB.inc';
 require_once 'user.inc';
+require_once 'praxis.inc';
 
 /*
  * initialization of userOptions and navigationOptions:
@@ -55,21 +56,34 @@ if ((isset($_SESSION['userID']) && ($_SESSION['userID'] !== -1))) { // user logg
 
    if (!isset($_SESSION['DBStatus']['doPracticaExist'])) {
        
-       // get a DB connection to work with:
-        $pdo = DB::getDBHandle();
+       if (Praxis::getPracticaAmount() > 0)
+           $_SESSION['DBStatus']['doPracticaExist'] = true;
+       
+//       // get a DB connection to work with:
+//        $pdo = DB::getDBHandle();
+//
+//       $queryString = <<<QUERY
+//SELECT COUNT(*)
+//FROM `myX`.`practica`
+//WHERE `user` = :userID
+//QUERY;
+//
+//        $statement = $pdo->prepare($queryString);
+//        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
+//        $statement->execute();
+//        
+//        $practicaAmount = intval($statement->fetchColumn());
+//        
+//        if ($practicaAmount === 0)
+//            unset($_SESSION['DBStatus']['doPracticaExist']);
+//        else
+//            $_SESSION['DBStatus']['doPracticaExist'] = true;
 
-       $queryString = <<<QUERY
-SELECT COUNT(*)
-FROM `myX`.`practica`
-WHERE `user` = :userID
-QUERY;
-
-        $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
-        $statement->execute();
-        $_SESSION['DBStatus']['doPracticaExist'] =
-            intval($statement->fetchColumn()) > 0 ? true : false;
-
+    } else {
+        
+        if (Praxis::getPracticaAmount() === 0)
+            unset($_SESSION['DBStatus']['doPracticaExist']);
+        
     }
             
 } else { // user not logged in, use defaults
@@ -126,6 +140,31 @@ if (isset($js))
 
 if (isset($mapAPI))
     echo "\t\t<script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCzoiaEvQUJDVxv8f_7eA_IgbcO6cJnftc&sensor=false\"></script> <!-- Google Maps API -->\n";
+
+/*
+ * if current script is 'index.php' include additional bootstrap JS and CSS
+ * for the slider:
+ */
+
+if (end(explode('/', $_SERVER['PHP_SELF'])) === "index.php") {
+    // additional JS and stylesheets for the slider
+    echo <<<HTML
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <style>
+            .HTMLPreview {
+                position: absolute;
+                display: inline-block;
+                width: 90%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        </style>
+
+HTML;
+    
+}
 
 echo "\t\t<link rel=\"stylesheet\" type=\"text/css\"".
     " href=\"stylesheets/default.css\" />\n";

@@ -11,7 +11,7 @@
  * this script echoes a form whose fields correspond with those of the table
  * 'practica'.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-24
+ * last updated 2018-05-19
 */
 
 //require_once 'session.inc';
@@ -75,18 +75,17 @@ echo "\t\t\t<section> <!-- section {{ -->\n";
  * - field 'name'
  * - field 'rating'
  * - flag 'favorite'
- * - field 'locus' (place)
- * - time (including 'date' and 'ordinal'), . These fields
- * are specified directly and with call to the script 'locusEdit.php'
- * (in case the place is not yet registered).
- * - participants: Unlimited participants can be added. In case of a lover
- * not yet present in the DB script 'amorEdit.php' is called.
+ * - field 'locus' (place). in case of a lover
+ * not yet present in the DB, the script 'locusEdit.php' is called.
+ * - time (including 'date' and 'ordinal').
+ * - participants: unlimited participants can be added. in case of a lover
+ * not yet present in the DB, the script 'amorEdit.php' is called.
  * 
  * section ii) description:
  * this section is used exclusively to describe the experience
  * using the field 'description'.
  * this field, although not compulsory, is the most important in order to
- * get our goal of remembering the experience and feel glad with it.
+ * get our goal of remembering the experience feeling pleasure with it.
  * 
  * section iii) other data: in this tab are located the following fields:
  * - 'tq'
@@ -94,7 +93,7 @@ echo "\t\t\t<section> <!-- section {{ -->\n";
  */
 
 echo "\t\t\t\t<form id=\"praxisEditForm\" action=\"praxisEditProcess.php\"".
-    " method=\"POST\" accept-charset=\"utf-8\">\n";
+    " method=\"GET\" accept-charset=\"utf-8\">\n";
 
 /*
  * section i) general data.
@@ -105,7 +104,8 @@ echo "\t\t\t\t\t\t<fieldset>\n";
 echo "\t\t\t\t\t\t\t<legend>"._("General data")."</legend>\n";
 
 // achtung:
-echo "\t\t\t\t\t\t\t<label for=\"achtung\" style=\"visibility: hidden;\">"._("Achtung").":</label>\n";
+echo "\t\t\t\t\t\t\t<label for=\"achtung\" style=\"visibility: hidden;\">".
+    _("Achtung").":</label>\n";
 echo "\t\t\t\t\t\t\t<input id=\"achtung\" type=\"text\" name=\"achtung\" value=\"";
 if ($praxisEdit)
     echo $praxis->getAchtung();
@@ -118,7 +118,7 @@ echo "\t\t\t\t\t\t\t<label for=\"name\">"._("Name")."</label>\n";
 echo "\t\t\t\t\t\t\t<input id=\"name\" type=\"text\" name=\"name\" value=\"";
 if ($praxisEdit)
     echo $praxis->getName();
-else if ($tempPraxis)
+else if ($tempPraxis && isset($_SESSION['tempPraxisData']['name']))
     echo $_SESSION['tempPraxisData']['name'];
 echo "\" style=\"width: 80%\" /><br />\n";
 
@@ -189,8 +189,9 @@ echo "\t\t\t\t\t\t\t\t<input id=\"locusOriginExisting\" type=\"radio\"".
  */
 
 if ($praxisEdit ||
-    (!$praxisEdit && $_SESSION['DBStatus']['doPracticaExist'] && !$tempPraxis))
+    (!$praxisEdit && $_SESSION['DBStatus']['doPracticaExist']))
         echo " checked=\"checked\"";
+
 echo " />\n";
 echo "\t\t\t\t\t\t\t\t<label for=\"locusOriginExisting\">"._("Existing place").
     "</label>\n";
@@ -201,7 +202,7 @@ echo "\t\t\t\t\t\t\t\t<select name=\"locusID\" id=\"locusID\">\n";
 $queryString = <<<QUERY
 SELECT `locusID`, `name`
 FROM `myX`.`loca`
-WHERE 1=-1 and `user` = :userID
+WHERE `user` = :userID
 ORDER BY `name`
 QUERY;
 
@@ -229,7 +230,7 @@ echo "\t\t\t\t\t\t\t\t<input id=\"locusOriginNew\" type=\"radio\"".
  */
 
 if ((!$praxisEdit && !$_SESSION['DBStatus']['doPracticaExist']) ||
-    $tempPraxis)
+    ($tempPraxis && isset($_SESSION['tempLocusData'])))
     echo " checked=\"checked\"";
 
 echo " />\n";
@@ -270,11 +271,15 @@ echo "\t\t\t\t\t\t\t</fieldset>\n";
 
 echo "\t\t\t\t\t\t\t<fieldset>\n";
 echo "\t\t\t\t\t\t\t\t<legend>"._("Participant(s)")."</legend>\n";
-echo "\t\t\t\t\t\t\t\t<table id=\"amoresTable\" style=\"border: solid thin black;\">\n";
+//echo "<style>td {border: solid thin black;}</style>\n";
+echo "\t\t\t\t\t\t\t\t<table id=\"amoresTable\">\n";
 echo "\t\t\t\t\t\t\t\t\t<tr>\n";
 echo "\t\t\t\t\t\t\t\t\t\t<td>\n";
-echo "\t\t\t\t\t\t\t\t\t\t\t<input id=\"amorOriginExisting\" type=\"radio\"".
-    " name=\"amorOrigin\"";
+echo "\t\t\t\t\t\t\t\t\t\t\t<p>1.</p>\n";
+echo "\t\t\t\t\t\t\t\t\t\t</td>\n";
+echo "\t\t\t\t\t\t\t\t\t\t<td>\n";
+echo "\t\t\t\t\t\t\t\t\t\t\t<input type=\"radio\" id=\"amorOriginExisting[0]\"".
+    " name=\"amorOrigin[0]\"";
 
 /*
  * amorOriginExisting is checked by default in two cases:
@@ -287,18 +292,18 @@ if ($praxisEdit ||
         echo " checked=\"checked\"";
 
 echo " />\n";
-echo "\t\t\t\t\t\t\t\t\t\t\t<label for=\"amorOriginExisting\">".
+echo "\t\t\t\t\t\t\t\t\t\t\t<label for=\"amorOriginExisting[0]\">".
     _("Existing lover(s)")." </label><br />\n";
 
 // TODO: loop Praxis::getAmoresAmount, if there are more than one
-echo "\t\t\t\t\t\t\t\t\t\t\t<select id=\"amorID\" name=\"amorID[0]\"".
-    " style=\"size: 80%;\">\n"; // TODO: size does not work
+echo "\t\t\t\t\t\t\t\t\t\t\t<select id=\"amorID[0]\" name=\"amorID[0]\"".
+    " style=\"width: 80%;\">\n";
 
 // the existing lovers are retrieved from the DB:
 $queryString = <<<QUERY
 SELECT `amorID`, `alias`
 FROM `myX`.`amores`
-WHERE 1=-1 and `user` = :userID
+WHERE `user` = :userID
 ORDER BY `alias`
 QUERY;
 
@@ -317,29 +322,31 @@ foreach ($statement as $row) {
 
 echo "\t\t\t\t\t\t\t\t\t\t\t</select><br />\n";
 
-echo "\t\t\t\t\t\t\t\t\t\t\t<input id=\"amorOriginNew\" type=\"radio\"".
-    " name=\"amorOrigin\"";
+echo "\t\t\t\t\t\t\t\t\t\t\t<input type=\"radio\" id=\"amorOriginNew[0]\"".
+    " name=\"amorOrigin[0]\"";
 
 /*
- * amorOriginNew checked by default only when
- * new experience and doPracticaExist is false:
+ * amorOriginNew checked by default when:
+ * i) new experience and doPracticaExist are false
+ * ii) new experience and $_SESSION['tempAmorData']:
  */
 
-if (!$praxisEdit && !$_SESSION['DBStatus']['doPracticaExist'])
+if ((!$praxisEdit && !$_SESSION['DBStatus']['doPracticaExist']) ||
+    ($tempPraxis && isset($_SESSION['tempAmorData'][0])))
     echo " checked=\"checked\"";
 
 echo " />\n";
-echo "\t\t\t\t\t\t\t\t\t\t\t<label for=\"amorOriginNew\">"._("New lover");
+echo "\t\t\t\t\t\t\t\t\t\t\t<label for=\"amorOriginNew[0]\">"._("New lover");
 if (isset($_SESSION['tempAmorData']))
-    echo " (".$_SESSION['tempAmorData']['alias'].")";
+    echo " (".$_SESSION['tempAmorData'][0]['alias'].")";
 echo "</label>\n";
-echo "\t\t\t\t\t\t\t\t\t\t\t<button id=\"amorNew\" type=\"button\">";
-echo isset($_SESSION['tempAmorData']) ?
+echo "\t\t\t\t\t\t\t\t\t\t\t<button id=\"amorNew[0]\" type=\"button\">";
+echo isset($_SESSION['tempAmorData'][0]) ?
     _("Edit lover...") :
     _("Add lover...");
 echo "</button>\n";
 echo "\t\t\t\t\t\t\t\t\t\t</td>\n";
-echo "\t\t\t\t\t\t\t\t\t\t<td>\n";
+echo "\t\t\t\t\t\t\t\t\t\t<td style=\"width: 85px;\">\n";
 echo "\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"addAmor[0]\">+</button>\n";
 echo "\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"removeAmor[0]\">-</button>\n";
 echo "\t\t\t\t\t\t\t\t\t\t</td>\n";

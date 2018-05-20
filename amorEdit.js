@@ -3,7 +3,7 @@
  * 
  * XXX
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-24
+ * last updated 2018-05-17
 */
 
 window.onload = function() {
@@ -76,33 +76,33 @@ window.onload = function() {
  * the data input so far is JSON codified and stored in PHP's session,
  * making an asynchronous call to microscript 'sessionFromJS.php'.
  */
-function storeTempAmorData() {
-
-    var tempAmorData = JSON.stringify({
-            achtung: document.getElementById('achtung').value,
-            alias: document.getElementById('alias').value,
-            rating: parseInt(document.getElementById('rating').value),
-            genre: parseInt(document.getElementById('genre').value),
-            descr1: document.getElementById('descr1').value,
-            descr2: document.getElementById('descr2').value,
-            descr3: document.getElementById('descr3').value,
-            descr4: document.getElementById('descr4').value,
-            web: document.getElementById('web').value,
-            name: document.getElementById('name').value,
-            photo: document.getElementById('photo').checked ? 1 : 0,
-            email: document.getElementById('email').value,
-            other: document.getElementById('other').value
-        });
-    
-    var request = new XMLHttpRequest(); // TODO: make it cross browser
-    request.open('POST', 'sessionFromJS.php', true);
-    request.setRequestHeader("Content-type",
-        "application/x-www-form-urlencoded");
-    request.send('tempAmorData=' + tempAmorData);
-    
-    return;
-    
-}
+//function storeTempAmorData() {
+//
+//    var tempAmorData = JSON.stringify({
+//            achtung: document.getElementById('achtung').value,
+//            alias: document.getElementById('alias').value,
+//            rating: parseInt(document.getElementById('rating').value),
+//            genre: parseInt(document.getElementById('genre').value),
+//            descr1: document.getElementById('descr1').value,
+//            descr2: document.getElementById('descr2').value,
+//            descr3: document.getElementById('descr3').value,
+//            descr4: document.getElementById('descr4').value,
+//            web: document.getElementById('web').value,
+//            name: document.getElementById('name').value,
+//            photo: document.getElementById('photo').checked ? 1 : 0,
+//            email: document.getElementById('email').value,
+//            other: document.getElementById('other').value
+//        });
+//    
+//    var request = new XMLHttpRequest(); // TODO: make it cross browser
+//    request.open('POST', 'sessionFromJS.php', false); // non asynchonous call
+//    request.setRequestHeader("Content-type",
+//        'application/x-www-form-urlencoded');
+//    request.send('tempAmorData=' + tempAmorData);
+//    
+//    return;
+//    
+//}
 
 function submitForm(evt) { // TODO: validate form
     
@@ -121,7 +121,29 @@ function submitForm(evt) { // TODO: validate form
         
     } else { // save and continue
         
-        storeTempAmorData();
+        // codify document data:
+        var tempAmorData = JSON.stringify({
+            achtung: document.getElementById('achtung').value,
+            alias: document.getElementById('alias').value,
+            rating: parseInt(document.getElementById('rating').value),
+            genre: parseInt(document.getElementById('genre').value),
+            descr1: document.getElementById('descr1').value,
+            descr2: document.getElementById('descr2').value,
+            descr3: document.getElementById('descr3').value,
+            descr4: document.getElementById('descr4').value,
+            web: document.getElementById('web').value,
+            name: document.getElementById('name').value,
+            photo: document.getElementById('photo').checked ? 1 : 0,
+            email: document.getElementById('email').value,
+            other: document.getElementById('other').value
+        });
+        
+        // store codified JSON in the session:
+        var request = new XMLHttpRequest(); // TODO: make it cross browser
+        request.open('POST', 'sessionFromJS.php', false); // non asynchonous
+        request.setRequestHeader("Content-type",
+            'application/x-www-form-urlencoded');
+        request.send('tempAmorData=' + tempAmorData);
 
         // redirect to 'praxisEdit.php' passing in the URL an argument (GET method):
         window.location = 'praxisEdit.php?tempAmor=1';

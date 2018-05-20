@@ -80,7 +80,7 @@ CREATE TABLE `myX`.`practica` (
     `praxisID`  INTEGER NOT NULL,
     `achtung`   VARCHAR(765),
     `name`      VARCHAR(255) NOT NULL,
-    `rating`    INTEGER NOT NULL,
+    `rating`    INTEGER,
     `favorite`  INTEGER,
     `locus`     INTEGER NOT NULL,
     `date`      DATE NOT NULL,
