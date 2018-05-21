@@ -44,8 +44,33 @@ INSERT INTO `myX`.`countries` VALUES (19, "Grecia", 2);
 INSERT INTO `myX`.`countries` VALUES (20, "Italia", 2);
 /* values 1..17 reserved by Sarkodeiktes */
 
-INSERT INTO `myX`.`kinds` VALUES (11, "(generic)", 2);
-/* values 1..10 reserved by Sarkodeiktes */
+/*
+ * sample data for tabla 'kinds'
+ * (values 1..10 reserved by Sarkodeiktes).
+ */
+INSERT INTO `myX`.`kinds` VALUES (
+    11,
+    "(genérico)",
+    2
+);
+
+INSERT INTO `myX`.`kinds` VALUES (
+    12,
+    "casa particular",
+    2
+);
+
+INSERT INTO `myX`.`kinds` VALUES (
+    13,
+    "hotel",
+    2
+);
+
+INSERT INTO `myX`.`kinds` VALUES (
+    14,
+    "naturaleza",
+    2
+);
 
 /*
  * sample data for tabla 'loca'
@@ -471,10 +496,10 @@ INSERT INTO `myX`.`amores` VALUES (
     "Calíope",
     3,
     2,
-    "Calíope es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Calíope es la de los acantilados",
+    "mujer española de 25 años de buena presencia, rubia de pelo largo y ojos color miel",
+    "de estatura mediana, complexión delgada y cuerpo terso",
+    "pechos no muy grandes, pero firmes y esbeltos",
+    "muy cariñosa y sensual",
     "Skype: caliope1973; Badoo: caliope1973; Instagram: caliope1973",
     "Calíope María Pérez Pérez",
     0,
@@ -488,12 +513,12 @@ INSERT INTO `myX`.`amores` VALUES (
     5870,
     "",
     "Clío",
-    3,
+    4,
     2,
-    "Clío es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Clío es la de los acantilados",
+    "mujer española de 32 años de muy buena apariencia, muy guapa y con una deliciosa <i>Kussmond</i>",
+    "de estatura normal y un cuerpo algo rechoncho",
+    "pechos grandes y prominentes",
+    "Clío es simpática y muy fogosa",
     "Skype: clio1973; Badoo: clio1973; Instagram: clio1973",
     "Clío María Pérez Pérez",
     0,
@@ -509,10 +534,10 @@ INSERT INTO `myX`.`amores` VALUES (
     "Erato",
     3,
     2,
-    "Érato es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Érato es la de los acantilados",
+    "chica francesa de 19 años, no demasiado agraciada de cara",
+    "cuerpecillo esbelto con cinturita de avispa y piernas delgadas",
+    "pechos pequeños con prominentes pezones, lleva el vello púbico graciosamente recortado",
+    "muy morbosa y muy mandona",
     "Skype: erato1973; Badoo: erato1973; Instagram: erato1973",
     "Érato María Pérez Pérez",
     0,
@@ -528,10 +553,10 @@ INSERT INTO `myX`.`amores` VALUES (
     "Euterpe",
     3,
     2,
-    "Euterpe es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Euterpe es la de los acantilados",
+    "mujer española de 32 años de buena apariencia, cuatroojos",
+    "cuerpo algo en carnes, piel muy pálida",
+    "pechos grandes y algo caidos",
+    "aparentemente modosita y recatada, en la cama es una auténtica bomba",
     "Skype: euterpe1973; Badoo: euterpe1973; Instagram: euterpe1973",
     "Euterpe María Pérez Pérez",
     0,
@@ -547,10 +572,10 @@ INSERT INTO `myX`.`amores` VALUES (
     "Melpómene",
     3,
     2,
-    "Melpómene es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Melpómene es la de los acantilados",
+    "mujer francesa de 25 años, de buen ver",
+    "alta y delgada, de piel pálida",
+    "pechos de tamaño mediano",
+    "muy graciosa y chistosa, algo recatada en asuntos sexuales (extraño para ser francesa)",
     "Skype: melpomene1973; Badoo: melpomene1973; Instagram: melpomene1973",
     "Melpómene María Pérez Pérez",
     0,
@@ -564,12 +589,12 @@ INSERT INTO `myX`.`amores` VALUES (
     5874,
     "",
     "Polimnia",
-    3,
     2,
-    "Polimnia es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Polimnia es la de los acantilados",
+    2,
+    "mujer española de 30 años, de apariencia normal aun no siendo muy agraciada de cara",
+    "de complexión gruesa, cuerpo algo rollizo",
+    "pechos de tamaño mediano-grande, quizá no tan grandes como cabría esperar",
+    "bastante viciosilla",
     "Skype: polimnia1973; Badoo: polimnia1973; Instagram: polimnia1973",
     "Polimnia María Pérez Pérez",
     0,
@@ -583,12 +608,12 @@ INSERT INTO `myX`.`amores` VALUES (
     5875,
     "",
     "Talía",
-    3,
+    4,
     2,
-    "Talía es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Talía es la de los acantilados",
+    "mujer cubana de 39 años, exótica mulata",
+    "cuerpo delicioso, delgado y terso, color de ébano",
+    "maravillosos pechos de tamaño mediano-grande, firmes",
+    "muy experimentada y muy viciosa",
     "Skype: talia1973; Badoo: talia1973; Instagram: talia1973",
     "Talía María Pérez Pérez",
     0,
@@ -604,10 +629,10 @@ INSERT INTO `myX`.`amores` VALUES (
     "Terpsícore",
     3,
     2,
-    "Terpsícore es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Terpsícore es la de los acantilados",
+    "mujer española de 29 años, de buena apariencia aun no siendo demasiado guapa",
+    "cuerpo regularcillo, algo fofo",
+    "impresionantes pechos, si bien no muy firmes",
+    "algo modosita y muy púdica en el sexo",
     "Skype: terpsicore1973; Badoo: terpsicore1973; Instagram: terpsicore1973",
     "Terpsícore María Pérez Pérez",
     0,
@@ -621,12 +646,12 @@ INSERT INTO `myX`.`amores` VALUES (
     5877,
     "",
     "Urania",
-    3,
+    4,
     2,
-    "Urania es así y asao",
-    "Tiene un cuerpo tal y tal",
-    "Tiene un pecho tal y tal",
-    "Urania es la de los acantilados",
+    "chica española (19 años), de muy buen ver y muy guapa",
+    "buen cuerpo, delgadito y fibrado",
+    "pechos algo pequeños, muy firmes",
+    "muy viciosilla para lo joven que es",
     "Skype: urania1973; Badoo: urania1973; Instagram: urania1973",
     "Urania María Pérez Pérez",
     0,
