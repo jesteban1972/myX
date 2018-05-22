@@ -5,13 +5,20 @@
  * this script contains the implementation of class 'Locus',
  * the class which represents the abstraction of a place.
  * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-05-10
+ * last update: 2018-05-22
 */
 
 require_once 'DB.inc';
 
 /**
- * class Locus
+ * class 'Locus'.
+ * 
+ * this class represents the abstraction of a place entity, i.e. the physical
+ * location where one or more experiences happen(s).
+ * a place is always linked to every experience.
+ * among a place data, we can specify the country and the kind of place it is
+ * (the database can be queried against these data).
+ * in the DB every place is linked with the user propietary of the information.
 */
 class Locus {
 
@@ -49,59 +56,60 @@ class Locus {
     public function getWeb() {return $this->web;}
     
     /**
-     * method Locus::getCountryName
+     * method 'Locus::getCountryName'.
+     * 
+     * this method returns the name of the country associated with the place
+     * from which the method is called.
     */
     public function getCountryName() {
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // query the tables 'loca' and 'kinds':
-        
+        // the tables 'countries' and 'loca' are queried:
         $queryString = <<<QUERY
 SELECT `countries`.`name`
 FROM `myX`.`loca` INNER JOIN `myX`.`countries`
 ON `myX`.`loca`.`country` = `myX`.`countries`.`countryID`                
 WHERE `loca`.`locusID` = :locusID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":locusID", $this->getLocusID(), PDO::PARAM_INT);
         $statement->execute();
         
-        // the retrieved name is returned:
-        return ($statement->fetchColumn());
+        // the retrieved name is fetched and returned:
+        return $statement->fetchColumn();
         
-    } // method Locus::getCountryName
+    } // method 'Locus::getCountryName'
 		
     /**
-     * method Locus::__constructor
-     * class constructor: initiates an instance of the class,
-     * and sets its member variables from the DB
-     * @$amorID
+     * method 'Locus::__constructor'.
+     * 
+     * this method is the constructor of the class. it initializes an instance
+     * of the class, having its values taken from the DB.
+     * @param int locusID the identifier of the place being constructed.
     */
     public function __construct($locusID) {
                 
         // get a DB connection to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'practica'. only one row expected.
-        
+        // the table 'practica' is queried (only one row expected):
         $queryString = <<<QUERY
 SELECT *
 FROM `myX`.`loca`
 WHERE `locusID` = :locusID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":locusID", $locusID);
+        $statement->bindParam(":locusID", $locusID, PDO::PARAM_INT);
         $statement->execute();
         
-        // 3. the data is fetched:
+        // the data are fetched:
         $row = $statement->fetch();
         
         // the propierties of the current object are taken from the query:
         $this->locusID = intval($locusID);
+        $this->achtung = $row['achtung'];
         $this->name = $row['name'];
         $this->rating = intval($row['rating']);
         $this->address = $row['address'];
@@ -112,32 +120,27 @@ QUERY;
         $this->coordGeneric = $row['coordGeneric'];
         $this->web = $row['web'];
 
-    } // method Locus::__construct
+    } // method 'Locus::__construct'
     
     /**
-     * method Locus::getAllLoca
-     * returns an array of lover ID's from all places.
+     * method 'Locus::getAllLoca'.
+     * 
+     * this method returns an array with the identifiers of all places
+     * of the current logged in user.
      */
-
     public function getAllLoca() {
 
-        /*
-         * $loca is the array to be returned.
-         * it will be filled up with the IDs of all places.
-         */
-
-        $loca = array(); // the array to be returned. it will be filled
+        $loca = array(); // the array to be returned
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'loca':
+        // the table 'loca' is queried:
         $queryString = <<<QRY
 SELECT `locusID`
 FROM `myX`.`loca`
 WHERE `user` = :userID
 QRY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
@@ -149,9 +152,10 @@ QRY;
             
         }
         
+        // the array is returned:
         return $amores;
         
-    } // method Locus::getAllLoca
+    } // method 'Locus::getAllLoca'
 
     /**
      * method Locus::getDifferentDatesAmount
@@ -234,12 +238,17 @@ QUERY;
     } // method Locus::getLocaAmount
 	
    /**
-    * method Locus::getMapCenter
+    * method 'Locus::getMapCenter'.
+    * 
+    * this static method retrieves all the existing coordinates from the places
+    * in the table 'loca', calculates with them the geographic center, and sets
+    * the variable $_SESSION['DBStatus']['mapCenter']. this value will be read
+    * from the script 'locaMapFetchXML.php' to display the map's center.
     */
     public static function getMapCenter() {
         
-        $longs = array();
-        $lats = array();
+        $longs = array(); // array to store longitudes
+        $lats = array(); // array to store latitudes
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
@@ -278,10 +287,11 @@ QUERY;
         
         foreach ($statement as $row) {
             
-            if ($row['coordExact'] === "" &&
-                $row['coordGeneric'] === "")
+            // loop when there are not any coordinates in the current place:
+            if ($row['coordExact'] === "" && $row['coordGeneric'] === "")
                 break;
             
+            // the coordinates -either exact or generic- are retrieved:
             $coordinates =
                 ($row['coordExact'] !== "") ?
                 $row['coordExact'] :
@@ -290,6 +300,7 @@ QUERY;
 //            $long = explode(", ", $coordinates)[0];
 //            $lat = explode(", ", $coordinates)[1];
             
+            // the numeric values are extracted and stored:
             $longs[] = explode(", ", $coordinates)[0]/*$long*/;
             $lats[] = explode(", ", $coordinates)[1]/*$lat*/;
              
@@ -306,6 +317,12 @@ QUERY;
  * maxLatDiff: 55.957570 - 31.757469 = ...
  */
         
+/*
+ * the coordinates of the geographic center are calculated using the maximal
+ * and minimal values of longitude and latitude.
+ * with the calculated values a string is composed and stored in
+ * $_SESSION['DBStatus']['mapCenter'].
+ */
         $maxLong = max($longs);
         $minLong = min($longs);
         $maxLat = max($lats);
@@ -313,36 +330,40 @@ QUERY;
         $centerLong = ($maxLong - abs($minLong)) / 2;
         $centerLat = ($maxLat - abs($minLat)) / 2;
 
-        $mapCenter = strval($centerLong).", ".strval($centerLat);
+//        $mapCenter = strval($centerLong).", ".strval($centerLat);
 //                strval($minLong + (($maxLong - abs($minLong)) / 2)).
 //                ", ".
 //                strval($minLat + (($maxLat - abs($minLat)) / 2));
         
-        $_SESSION['DBStatus']['mapCenter'] = $mapCenter;
+        $_SESSION['DBStatus']['mapCenter'] =
+            strval($centerLong).", ".strval($centerLat);//$mapCenter;
         
         return;
 
     } // method Locus::getMapCenter
     
     /**
-     * method Locus::getPractica
+     * method 'Locus::getPractica'.
+     * 
+     * this public method queries the table 'practica' and returns an array
+     * with the identifiers of all the experiences, ordered chronologically
+     * and by ordinal.
+     * this method is used by the Synchroton.
     */
     public function getPractica() {
         
-        $practica = array(); // the array to be returned
+        $practica = array(); // array to be returned
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'practica':
-
+        // the table 'practica' is queried:
         $queryString = <<<QRY
 SELECT `praxisID`
 FROM `myX`.`practica`
-WHERE `locus`=:locusID
+WHERE `locus` = :locusID
 ORDER BY `date`, `ordinal`
 QRY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":locusID", $this->getLocusID(), PDO::PARAM_INT);
         $statement->execute();
@@ -354,35 +375,36 @@ QRY;
             
         }
 
+        // the array is returned:
         return $practica;
 	
     } // method Locus::getPractica
 
     /**
-     * method Locus::getPracticaAmount
+     * method 'Locus::getPracticaAmount'.
+     * 
+     * this method returns the amount of the experiences which happened in the
+     * place from which the method is called.
     */
     public function getPracticaAmount() {
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'practica':
-        
+        // the table 'practica' is queried:
         $queryString = <<<QUERY
 SELECT COUNT(*)
 FROM `myX`.`practica`
-WHERE `locus`=:locusID
+WHERE `locus` = :locusID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":locusID", $this->locusID, PDO::PARAM_INT);
         $statement->execute();
         
-        // 3. the fetched row is returned (intval needed):
+        // the data is fetched and returned (intval needed):
         return intval($statement->fetchColumn());
-
-
-    } // method Locus::getPracticaAmount
+        
+    } // method 'Locus::getPracticaAmount'
 
     /**
      * method Locus::HTMLAsidePreview
@@ -441,50 +463,56 @@ QUERY;
     } // method Praxis::HTMLAsidePreviewLoca
     
     /**
-     * method Locus::HTMLPreview
+     * method 'Locus::HTMLPreview'.
      * 
-     * displays a preview of the place
+     * this method builds and displays HTML code representing the preview of
+     * the place from which the method is called.
+     * the preview of a place is very simple and consist of two lines:
+     * - the first line (headline) contains an ordinal number, the place name
+     * (which is an hyperlink to the place detail page), and the amount of
+     * experiences happened in the place.
+     * - the second line contains, if any, the description of the place,
+     * the address, and the URL.
      * 
-     * parameters:
-     *  $ordinalNr: page's ordinal number to be represented at the beginning
+     * param int $ordinalNr page's ordinal number, to be represented at the
+     * beginning of the preview when presented in a list.
     */
     function HTMLPreview($ordinalNr) {
 		
         echo "\t\t\t\t\t\t<div class=\"HTMLPreview\">\n";
 	
-        //////////////////////////////////////////////////////////////////////////////////
-        // first line (headline): ordinal, designation with hyperlink and xperiences amount
-
-        // 1. ordinal number
+        ////////////////////////////////////////////////////////////////////////
+        // first line
+        
         echo "\t\t\t\t\t\t\t<p class=\"medium\">";
+
+        // ordinal number:
         if ($ordinalNr !== 0)
             echo $ordinalNr.". "; // ordinal number is 1-based
 
         if (DEBUG)
-            echo " <span class=\"debug\">[locusID <b>".
-                $this->getLocusID().
+            echo " <span class=\"debug\">[locusID <b>".$this->getLocusID().
                 "</b>]</span> ";
         
-        // 2. designation with hyperlink
-        echo "<b><a href=\"locus.php?locusID=";
-        echo $this->getLocusID();
-        echo "\">";
-        echo $this->getName();
-        echo "</a></b>";
+        // name with hyperlink:
+        echo "<b><a href=\"locus.php?locusID=".$this->getLocusID()."\">".
+            $this->getName()."</a></b>";
 
-        // 3. xperiences amount
+        // amount of experiences:
         $practicaAmount = $this->getPracticaAmount();
         echo " (";
         echo writtenNumber($practicaAmount, FEMENINE);
         echo " ";
         echo $practicaAmount > 1 ? _("experiences") : _("experience");
-        echo ")</p>\n";
+        echo ")";
+        
+        echo"</p>\n";
 
-        //////////////////////////////////////////////////////////////////////////
-        // second line: description, address, www
-        if ($this->getName() !== "" ||
-            $this->getAddress() !== "" ||
+        ////////////////////////////////////////////////////////////////////////
+        // second line
+        if ($this->getName() !== "" || $this->getAddress() !== "" ||
             $this->getWeb() !== "") {
+            
             echo "\t\t\t\t\t\t\t<p>";
             if ($this->getName() !== "")                
                 echo $this->getName().".";
@@ -493,12 +521,13 @@ QUERY;
             if ($this->getWeb() !== "")                
                 echo " ".$this->getWeb().".";
             echo "</p>\n";
+            
         }
 		
         echo "</div>\n";		
 		
-    } // method Locus::HTMLPreview
+    } // method 'Locus::HTMLPreview'
 		
-} // class Locus
+} // class 'Locus'
 
 ?>
