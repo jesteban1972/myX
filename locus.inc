@@ -234,9 +234,9 @@ QUERY;
     } // method Locus::getLocaAmount
 	
    /**
-     * method Locus::getMapCenter
+    * method Locus::getMapCenter
     */
-    public function getMapCenter() {
+    public static function getMapCenter() {
         
         $longs = array();
         $lats = array();
@@ -244,8 +244,11 @@ QUERY;
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // verify that there are some places:
-        // TODO: check or use $_SESSION['DBStatus']['doPracticaExist']
+/*
+ * we first verify that there are some places
+ * '$_SESSION['DBStatus']['doPracticaExist']'.
+ */
+        
         $queryString = <<<QUERY
 SELECT COUNT(*)
 FROM `myX`.`loca`
@@ -255,8 +258,14 @@ QUERY;
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         if ($statement->fetchColumn() === 0)
             return;
-        else $_SESSION['DBStatus']['doPracticaExist'] = true;
+        //else $_SESSION['DBStatus']['doPracticaExist'] = true;
+        // flag '$_SESSION['DBStatus']['doPracticaExist']' already set
+        // queriyng Praxis::doPracticaExist.
 
+/*
+ * all coordenates are retrieved and their values, whether exact of generic,
+ * stored in both arrays '$longs' and '$lats'.
+ */
         $queryString = <<<QUERY
 SELECT `coordExact`, `coordGeneric`
 FROM `myX`.`loca`
@@ -274,35 +283,41 @@ QUERY;
                 break;
             
             $coordinates =
-                $row['coordExact'] !== "" ?
+                ($row['coordExact'] !== "") ?
                 $row['coordExact'] :
                 $row['coordGeneric'];
             
-            $long = explode(", ", $coordinates)[0];
-            $lat = explode(", ", $coordinates)[1];
+//            $long = explode(", ", $coordinates)[0];
+//            $lat = explode(", ", $coordinates)[1];
             
-            $longs[] = $long;
-            $lats[] = $lat;
+            $longs[] = explode(", ", $coordinates)[0]/*$long*/;
+            $lats[] = explode(", ", $coordinates)[1]/*$lat*/;
              
         }
+        
+/*
+ * jesteban1972:
+ * N boundary: 55.957570, -3.192459 (Edinburgh/UK)
+ * S boundary: 31.757469, 35.208082 (Jerusalem/Israel)
+ * W boundary: 37.374629, -5.990226 (Seville/Spain)
+ * E boundary: 31.952229, 35.939134 (Amman/Jordan)
+ * 
+ * maxLongDiff: 35.939134 - (-5.990226) = ...
+ * maxLatDiff: 55.957570 - 31.757469 = ...
+ */
         
         $maxLong = max($longs);
         $minLong = min($longs);
         $maxLat = max($lats);
         $minLat = min($lats);
-        $centerLong = strval(($maxLong - $minLong) / 2);
-        $centerLat = strval(($maxLat - $minLat) / 2);
+        $centerLong = ($maxLong - abs($minLong)) / 2;
+        $centerLat = ($maxLat - abs($minLat)) / 2;
+
+        $mapCenter = strval($centerLong).", ".strval($centerLat);
+//                strval($minLong + (($maxLong - abs($minLong)) / 2)).
+//                ", ".
+//                strval($minLat + (($maxLat - abs($minLat)) / 2));
         
-//        $mapBoundaries["longMax"] = strval($maxLong);
-//        $mapBoundaries["longMin"] = $minLong;
-//        $mapBoundaries["latMax"] = $maxLat;
-//        $mapBoundaries["latMin"] = $minLat;
-        $mapCenter =
-                strval($minLong + (($maxLong - $minLong) / 2)).
-                ", ".
-                strval($minLat + (($maxLat - $minLat) / 2));
-        
-        //$_SESSION['mapCenter'] = $mapCenter;
         $_SESSION['DBStatus']['mapCenter'] = $mapCenter;
         
         return;

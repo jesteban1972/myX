@@ -81,7 +81,7 @@ if ((isset($_SESSION['userID']) && ($_SESSION['userID'] !== -1))) { // user logg
 
     } else {
         
-        if (Praxis::getPracticaAmount() === 0)
+        if (Praxis::getPracticaAmount() === 0) 
             unset($_SESSION['DBStatus']['doPracticaExist']);
         
     }
