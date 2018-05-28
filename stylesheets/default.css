@@ -1,7 +1,7 @@
 /* default.css
-    CSS default file
-    (c) Joaquin Javier ESTEBAN MARTINEZ
-    last update: 2018-01-20
+ * CSS default file
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-05-27
 */
 
 :root {
@@ -295,6 +295,19 @@ p.description {
     height: 25px;
     background-image: url('../images/filter-small.png');
     background-color: transparent;
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+
+.floppy {
+    /*position: absolute;
+    bottom: 10px;
+    right: 35px;*/
+    width: 25px;
+    height: 25px;
+    /*background-image: url('../images/floppy-small.png');
+    background-color: transparent;*/
     border: none;
     margin: 0;
     padding: 0;

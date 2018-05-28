@@ -3,7 +3,7 @@
 /* 
  * userSignUp.php
  * sign up PHP file of myX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-04-10
  */
 

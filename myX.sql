@@ -1,7 +1,7 @@
 /* myX.sql
  * myX DB schema
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-04-18
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-05-27
  */
 
 CREATE DATABASE myX
@@ -25,7 +25,7 @@ CREATE TABLE `myX`.`users` (
     `listsOrder`    INTEGER DEFAULT 1,
     `userKind`      INTEGER DEFAULT 2,
     CONSTRAINT users_pk PRIMARY KEY (userID)
-) ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 /* table 'usersLoggedIn' */
 CREATE TABLE `myX`.`usersLoggedIn` (
@@ -34,7 +34,7 @@ CREATE TABLE `myX`.`usersLoggedIn` (
     `lastUpdate`    DATETIME NOT NULL,
     CONSTRAINT usersLoggedIn_pk PRIMARY KEY (sessionID),
     CONSTRAINT usersLoggedIn_user_fk FOREIGN KEY (userID) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 /* table 'countries' */
 CREATE TABLE `myX`.`countries` (
@@ -43,7 +43,7 @@ CREATE TABLE `myX`.`countries` (
     `user`      INTEGER NOT NULL,
     CONSTRAINT countries_pk PRIMARY KEY (countryID),
     CONSTRAINT countries_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 /* table 'kinds' */
 CREATE TABLE `myX`.`kinds` (
@@ -52,7 +52,7 @@ CREATE TABLE `myX`.`kinds` (
     `user`      INTEGER NOT NULL,
     CONSTRAINT kinds_pk PRIMARY KEY (kindID),
     CONSTRAINT kinds_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 
 /* table 'loca' */
 CREATE TABLE `myX`.`loca` (
@@ -73,7 +73,18 @@ CREATE TABLE `myX`.`loca` (
     CONSTRAINT loca_country_fk FOREIGN KEY (country) REFERENCES `myX`.`countries` (countryID) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT loca_kind_fk FOREIGN KEY (kind) REFERENCES `myX`.`kinds` (kindID) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT loca_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+/* CHECK constraint not implemented in mySQL, using a trigger instead*/
+DELIMITER //
+CREATE TRIGGER `loca_rating_ck`
+BEFORE INSERT ON `myX`.`loca` FOR EACH ROW
+BEGIN
+    IF NEW.rating < 0 OR NEW.rating > 5 THEN
+       SIGNAL SQLSTATE '45000'
+       SET MESSAGE_TEXT = 'Cannot add or update row: values not in range';
+    END IF;
+END;
+// DELIMITER ;
 
 /* table 'practica' */
 CREATE TABLE `myX`.`practica` (
@@ -92,10 +103,19 @@ CREATE TABLE `myX`.`practica` (
     INDEX (date, ordinal),
     CONSTRAINT practica_pk PRIMARY KEY (praxisID),
     CONSTRAINT practica_locus_fk FOREIGN KEY (locus) REFERENCES `myX`.`loca` (locusID) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT practica_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT practica_rating_ck CHECK (rating BETWEEN 0 AND 5)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/* CHECK constraint is not implemented in mySQL, use a trigger instead */
+    CONSTRAINT practica_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+/* CHECK constraint not implemented in mySQL, using a trigger instead*/
+DELIMITER //
+CREATE TRIGGER `practica_rating_ck`
+BEFORE INSERT ON `myX`.`practica` FOR EACH ROW
+BEGIN
+    IF NEW.rating < 0 OR NEW.rating > 5 THEN
+       SIGNAL SQLSTATE '45000'
+       SET MESSAGE_TEXT = 'Cannot add or update row: values not in range';
+    END IF;
+END;
+// DELIMITER ;
 
 /* table 'amores' */
 CREATE TABLE `myX`.`amores` (
@@ -117,10 +137,19 @@ CREATE TABLE `myX`.`amores` (
     `user`      INTEGER NOT NULL,
     INDEX (alias),
     CONSTRAINT amores_pk PRIMARY KEY (amorID),
-    CONSTRAINT amores_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE,
-    CONSTRAINT amores_rating_ck CHECK (rating BETWEEN 0 AND 5)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-/* CHECK constraint is not implemented in mySQL, use a trigger instead */
+    CONSTRAINT amores_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;
+/* CHECK constraint not implemented in mySQL, using a trigger instead*/
+DELIMITER //
+CREATE TRIGGER `amores_rating_ck`
+BEFORE INSERT ON `myX`.`amores` FOR EACH ROW
+BEGIN
+    IF NEW.rating < 0 OR NEW.rating > 5 THEN
+       SIGNAL SQLSTATE '45000'
+       SET MESSAGE_TEXT = 'Cannot add or update row: values not in range';
+    END IF;
+END;
+// DELIMITER ;
 
 /* table 'assignations' */
 CREATE TABLE `myX`.`assignations` (
@@ -128,14 +157,15 @@ CREATE TABLE `myX`.`assignations` (
     `amor`      INTEGER NOT NULL,
     CONSTRAINT assignations_praxis_fk FOREIGN KEY (praxis) REFERENCES `myX`.`practica` (praxisID) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT assignations_amor_fk FOREIGN KEY (amor) REFERENCES `myX`.`amores` (amorID) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB;
+) ENGINE = InnoDB;
 
 /* table 'queries' */
 CREATE TABLE `myX`.`queries` (
-    `queryID`   INTEGER NOT NULL,
-    `name`      VARCHAR(255),
-    `descr`     VARCHAR(510),
-    `user`      INTEGER NOT NULL,
+    `queryID`       INTEGER NOT NULL,
+    `name`          VARCHAR(255) NOT NULL,
+    `descr`         VARCHAR(510),
+    `queryString`   VARCHAR(510),
+    `user`          INTEGER NOT NULL,
     CONSTRAINT queries_pk PRIMARY KEY (queryID),
     CONSTRAINT queries_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE = InnoDB DEFAULT CHARSET = utf8;

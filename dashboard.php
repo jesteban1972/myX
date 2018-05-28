@@ -3,7 +3,7 @@
  * script 'dashboard.php'.
  * 
  * this file is conceived for exclusive use from developer(s)
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-12
 */
 

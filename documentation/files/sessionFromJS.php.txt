@@ -4,7 +4,7 @@
  * 
  * this microscript is used to store a variable in the session
  * interactuating asynchronously with a JS script.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-26
 */
 

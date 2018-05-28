@@ -10,7 +10,7 @@
  * otherwise $locusEdit is set to false.
  * this script echoes a form whose fields correspond with those of the table
  * 'loca'.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-24
 */
 

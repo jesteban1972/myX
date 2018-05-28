@@ -4,7 +4,7 @@
  * 
  * this script contains the implementation of class 'Amor',
  * the class which represents the abstraction of a lover.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-10.
 */
 
@@ -68,9 +68,10 @@ class Amor {
     
     /**
      * Amor::__construct
-     * constructor
-     * initiates an instance of the class, and sets its member variables from the DB
-     * @$loverID
+     * class constructor: initiates an instance of the class,
+     * and sets its properties from the DB.
+     * 
+     * @param int $amorID the identifier of the lover being constructed.
     */
     public function __construct($amorID) {
         
@@ -283,7 +284,7 @@ QRY;
                 $limits = explode("..", $_SESSION['asideItem']);
                 echo "\t\t\t\t\t<p>".
             sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"),
-    $_SESSION['navigationOptions']['resultsPerPage'], $limits[0], $limits[1]).
+    $_SESSION['navOptions']['resultsPerPage'], $limits[0], $limits[1]).
                     "</p>\n";
         }
 

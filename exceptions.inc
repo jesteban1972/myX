@@ -5,7 +5,7 @@
  * script with the implementation of
  * i) exception classes (...)
  * ii) myX's own exception handler
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-11
  */
 

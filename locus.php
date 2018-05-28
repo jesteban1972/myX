@@ -7,7 +7,7 @@
  * using this lover identificator an object of class 'Locus' is created,
  * whose data are read from database.
  * the page´s parts will be created using this object.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-10
 */
 
@@ -31,7 +31,7 @@ $title = "myX - Place";
 include 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
-echo "\t\t\t\t<p class=\"large\">"."<img src=\"".getImage("locus","small").
+echo "\t\t\t\t<p class=\"large\">"."<img src=\"".getImage("locus", "small").
     "\" alt=\""._("(Image of a compass)")."\" />";
 echo " <b>".$locus->getName()."</b></p>\n";
 
@@ -182,8 +182,8 @@ $pagesAmount = $pageSettings['numPages'];
 $ordinal = $pageSettings['ordinal'];
 $ordinalZeroBased = $ordinal - 1;
 
-if ($pageSettings['navigationBar'])
-    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+if ($pageSettings['navBar'])
+    navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 // page contents (experiences catalogue)
 $queryString = <<<QRY
@@ -198,8 +198,7 @@ $statement = $pdo->prepare($queryString);
 $statement->bindParam(":locusID", $locus->getlocusID());
 $statement->bindParam(":ordinalZeroBased", $ordinalZeroBased, PDO::PARAM_INT);
 $statement->bindParam(":resultsPerPage",
-    intval($_SESSION['navOptions']['resultsPerPage']),
-    PDO::PARAM_INT);
+    intval($_SESSION['navOptions']['resultsPerPage']), PDO::PARAM_INT);
 $statement->execute();
 
 foreach ($statement as $row) {
@@ -217,8 +216,8 @@ foreach ($statement as $row) {
 }
 
 // displays bottom navigation bar
-if ($pageSettings['navigationBar'])
-    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+if ($pageSettings['navBar'])
+    navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 // link to top of the page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
@@ -265,7 +264,7 @@ if ($coordSet) {
     echo "\t\t\t\t\t<p>"._("Map:")."</p>\n";
     echo "\t\t\t\t\t<div style=\"text-align: center;\">\n";
 
-    // map 1 (zoom 5):
+    // map 1 (zoom 5, national):
     $mapURL =
         "https://maps.googleapis.com/maps/api/staticmap".
         "?center=".$coord.
@@ -275,7 +274,7 @@ if ($coordSet) {
     echo "\t\t\t\t\t\t<img src=\"".$mapURL.
         "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
     
-    // map 2 (zoom 10):
+    // map 2 (zoom 10, regional):
     $mapURL =
         "https://maps.googleapis.com/maps/api/staticmap".
         "?center=".$coord.
@@ -285,7 +284,7 @@ if ($coordSet) {
     echo "\t\t\t\t\t\t<img src=\"".$mapURL.
         "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
     
-    // map 3 (zoom 15):
+    // map 3 (zoom 15, local):
     $mapURL =
         "https://maps.googleapis.com/maps/api/staticmap".
         "?center=".$coord.

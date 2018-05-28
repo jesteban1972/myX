@@ -16,7 +16,7 @@
  * this constraint guarranties referencial integrity, avoiding that,
  * when lovers get deleted, no unassociate experiences
  * remain in the DB.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-10
 */
 

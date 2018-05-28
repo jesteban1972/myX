@@ -3,7 +3,7 @@
  * script 'queries.php'.
  * 
  * displays XXXa list of experiences based in an instance of class 'PracticaList'XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-06
 */
 

@@ -1,6 +1,6 @@
 /* myXData.sql
  * myX sample data
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-21
  */
 
@@ -80,7 +80,7 @@ INSERT INTO `myX`.`kinds` VALUES (
 INSERT INTO `myX`.`loca` VALUES (
     734,
     "",
-    "Hotel NH Campo de Cartagena",
+    "Cartagena: Hotel NH Campo de Cartagena",
     3,
     "Calle Ciudadela, 24, 30203 Cartagena, Murcia",
     18,
@@ -684,3 +684,30 @@ INSERT INTO `myX`.`assignations` VALUES (8290, 5875);
 INSERT INTO `myX`.`assignations` VALUES (8291, 5876);
 INSERT INTO `myX`.`assignations` VALUES (8292, 5877);
 INSERT INTO `myX`.`assignations` VALUES (8293, 5877);
+
+/*
+ * sample data for tabla 'queries'.
+ */
+INSERT INTO `myX`.`queries` VALUES (
+    2,
+    "todas las experiencias",
+    "lista no filtrada de experiencias",
+    "SELECT * FROM `myX`.`practica` WHERE `user` = 2",
+    2
+);
+
+INSERT INTO `myX`.`queries` VALUES (
+    3,
+    "todos los amantes",
+    "lista no filtrada de amantes",
+    "SELECT * FROM `myX`.`amores` WHERE `user` = 2",
+    2
+);
+
+INSERT INTO `myX`.`queries` VALUES (
+    4,
+    "todos los lugares",
+    "lista no filtrada de lugares",
+    "SELECT * FROM `myX`.`loca` WHERE `user` = 2",
+    2
+);

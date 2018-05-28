@@ -2,7 +2,7 @@
 /**
  * script amores.php
  * displays a list of lovers
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-03-24
 */
 
@@ -157,7 +157,7 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     $queryString .= " LIMIT ".
         $ordinalZeroBased.
         ", ".
-        $_SESSION['navigationOptions']['resultsPerPage'];
+        $_SESSION['navOptions']['resultsPerPage'];
 
     if (DEBUG)
         echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
@@ -180,12 +180,12 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
         $amor->HTMLPreview($ordinal, $preview_options);
 
         // names of the first and last lovers are stored to be shown in the sidebar
-        if ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
+        if ($ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
             
             $firstAmor = $row['alias'];
             
-        } elseif ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage']) * $currentPage ||
-            $ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
+        } elseif ($ordinal === ($_SESSION['navOptions']['resultsPerPage']) * $currentPage ||
+            $ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
             
             $lastAmor = $row['alias'];
         }

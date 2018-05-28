@@ -4,7 +4,7 @@
  * 
  * this script contains the implementation of class 'Praxis',
  * the class which represents the abstraction of an experience.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-04-17
  */
 
@@ -15,7 +15,7 @@ require_once 'session.inc';
 require_once 'locus.inc';
 
 /**
- * class Praxis
+ * class 'Praxis'
  */
 class Praxis {
 
@@ -40,10 +40,12 @@ class Praxis {
 
     // III. methods
     // getters
+    
     /**
-     * method getPraxisID.
+     * method 'Praxis::getPraxisID'.
+     * 
      * returns the value of property 'praxisID' (getter method).
-     * @return type
+     * @return int returns the experience identifier.
      */
     public function getPraxisID() {
         
@@ -51,34 +53,71 @@ class Praxis {
         
     }
 
+    /**
+     * method 'Praxis::getAchtung'.
+     * 
+     * returns the value of property 'achtung' (getter method).
+     * @return string returns the experience achtung property.
+     */
     public function getAchtung() {
         
         return $this->achtung;
         
     }
     
+    /**
+     * method 'Praxis::getName'.
+     * 
+     * returns the value of property 'name' (getter method).
+     * @return string returns the experience name property.
+     */
     public function getName() {
         
         return $this->name;
         
     }
     
+    /**
+     * method 'Praxis::getLocus'.
+     * returns the value of property 'place' (getter method).
+     * @return int returns the experience place property
+     */
     public function getLocus() {
         
         return (int)$this->locus;
         
     }
 
+    /**
+     * method 'Praxis::getDate'.
+     * 
+     * returns the value of property 'date' (getter method).
+     * @return string returns the experience date property.
+     */
     public function getDate() {
+        
         return $this->date;
+        
     }
 
+    /**
+     * method 'Praxis::getOrdinal'.
+     * 
+     * returns the value of property 'ordinal' (getter method).
+     * @return string returns the experience ordinal property.
+     */
     public function getOrdinal() {
+        
         return $this->ordinal;
+        
     }
 
-    
-
+    /**
+     * method 'Praxis::getRating'.
+     * 
+     * returns the value of property 'rating' (getter method).
+     * @return int returns the experience rating property.
+     */
     public function getRating() {
         
         return (int)$this->rating;
@@ -86,9 +125,10 @@ class Praxis {
     }
 
     /**
-     * method getDescription.
+     * method 'Praxis::getDescription'.
+     * 
      * returns the value of property 'descr' (getter method).
-     * @return type
+     * @return string returns the experience descr property.
      */
     public function getDescr() {
         
@@ -96,18 +136,36 @@ class Praxis {
         
     }
 
+    /**
+     * method 'Praxis::getTQ'.
+     * 
+     * returns the value of property 'tq' (getter method).
+     * @return int returns the experience tq property.
+     */
     public function getTQ() {
         
         return (int)$this->tq;
         
     }
 
+    /**
+     * method 'Praxis::getTL'.
+     * 
+     * returns the value of property 'tl' (getter method).
+     * @return int returns the experience tl property.
+     */
     public function getTL() {
         
         return (int)$this->tl;
         
     }
 
+    /**
+     * method 'Praxis::isFavorite'.
+     * 
+     * returns the value of property 'favorite' (getter method).
+     * @return boolean returns the experience favorite property
+     */
     public function isFavorite() {
 	
         return (bool)$this->favorite;
@@ -115,18 +173,19 @@ class Praxis {
     }
 
     /**
-     * method Praxis::__constructor
+     * method 'Praxis::__construct'.
+     * 
      * class constructor: initiates an instance of the class,
-     * and sets its member variables from the DB
-     * @$praxisID
+     * and sets its properties from the DB.
+     * 
+     * @param int $praxisID the identifier of the experience being constructed.
      */
     public function __construct($praxisID) {
 
         // get a DB connection to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'practica'. only one row expected.
-
+        // the table 'practica' is queried. only one row expected.
         $queryString = <<<QUERY
 SELECT *
 FROM `myX`.`practica`
@@ -136,7 +195,7 @@ QUERY;
         $statement->bindParam(":praxisID", $praxisID, PDO::PARAM_INT);
         $statement->execute();
 
-        // 3. the data is fetched:
+        // the data are fetched:
         $row = $statement->fetch();
 
         // the propierties of the current object are taken from the query:
@@ -152,32 +211,28 @@ QUERY;
         $this->tq = $row['tq'];
         $this->tl = $row['tl'];
         
-    } // method Praxis::__construct
+    } // method 'Praxis::__construct'
     
     /**
-     * method Praxis::getAllPractica
+     * method 'Praxis::getAllPractica'
      * returns an array of experiences ID's from all the practica.
+     * @return an array of experience identifiers
      */
 
     public function getAllPractica() {
 
-        /*
-         * $practica is the array to be returned.
-         * it will be filled up with the IDs of all the experiences.
-         */
-
-        $practica = array(); // the array to be returned. it will be filled
+        $practica = array(); // the array to be returned
+        
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'practica':
+        // the table 'practica' is queried:
         $queryString = <<<QRY
 SELECT `praxisID`
 FROM `myX`.`practica`
 WHERE `user` = :userID
 ORDER BY `date`, `ordinal`
 QRY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
@@ -190,78 +245,98 @@ QRY;
         }
         
         return $practica;
-    } // method Praxis::getAllPractica
+        
+    } // method 'Praxis::getAllPractica'
     
     /**
-     * method Praxis::getAmores
-     * returns an array of lover ID's of all the lovers
-     * who participate in the experience
+     * method 'Praxis::getAmores'.
+     * 
+     * this method returns an array of lover IDs of all the lovers
+     * who participate in the experience.
+     * @return an array with the identifiers of the lovers participating in the
+     * experience.
      */
 
     public function getAmores() {
+        
         $amores = array(); // the array to be returned
+        //
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'assignations':
-        $queryString = <<<QRY
+        // query the table 'assignations':
+        $queryString = <<<QUERY
 SELECT amorID
 FROM `myX`.`amores`
 INNER JOIN `myX`.`assignations`
 ON `myX`.`amores`.amorID = `myX`.`assignations`.amor
-WHERE praxis=:praxisID
-QRY;
+WHERE praxis = :praxisID
+QUERY;
 // posible hacerlo simplemente en assignations?
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":praxisID", $this->getPraxisID());
+        $statement->
+            bindParam(":praxisID", $this->getPraxisID(), PDO::PARAM_INT);
         $statement->execute();
 
         foreach ($statement as $row) {
 
-            // add a new element in the array
-            $amores[] = intval($row['amorID']); // comprobar la necesidad de intval
+            // add a new element in the array (intval needed):
+            $amores[] = intval($row['amorID']);
         }
+        
         return $amores;
     }
 
-// method Praxis::getAmores
+// method 'Praxis::getAmores'
 
     /**
-     * method Praxis::getAmoresAmount
+     * method 'Praxis::getAmoresAmount'.
+     * 
+     * this method returns the amount of lovers who participated in the
+     * experience.
+     * @return int the amount of lovers who participated in the experience.
      */
     public function getAmoresAmount() {
 
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'assignations':        
+        // the table 'assignations' is queried:        
         $queryString = <<<QRY
 SELECT COUNT(*)
 FROM `myX`.`amores`
 INNER JOIN `myX`.`assignations`
 ON `myX`.`amores`.`amorID` = `myX`.`assignations`.`amor`
-WHERE praxis=:praxisID
+WHERE praxis = :praxisID
 QRY;
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":praxisID", $this->getPraxisID());
         $statement->execute();
 
-        // fetch the result (intval needed):
+        // the result is fetched and returned (intval needed):
         return intval($statement->fetchColumn());
-    } // method Praxis::getAmoresAmount
+        
+    } // method 'Praxis::getAmoresAmount'
     
     /**
-     * method Praxis::getParticipantsString
+     * method 'Praxis::getParticipantsString'.
      * 
-     * TODO: test: p.221(?)
+     * this method returns a formatted string with the aliases of the lovers
+     * who participated in the experience. if the amount of participants is
+     * bigger than 1, an ordinal number is placed in front of them (e.g.
+     * 1/ John 2/ Jack).
+     * 
+     * @return a formatted string with the aliases of the participants in the
+     * experience.
      */
     public function getParticipantsString() {
         
-        $participantsString = "";
+        $participantsString = ""; // the string to be returned
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
+        // the table 'amores' is queried:
         $queryString = <<<QRY
 SELECT `alias`
 FROM `myX`.`amores`
@@ -283,15 +358,15 @@ QRY;
         
         foreach ($statement as $row) {
             
-            // if multiple participants an ordinal number is inserted:
+            // when multiple participants an ordinal number is inserted:
             if ($participantsAmount > 1)
                 $participantsString .= "<b>".strval($currentParticipant).
                     "/</b> ";
             
             $participantsString .= $row['alias'];
             
-            // if multiple participants a comma is inserted
-            // when the current participant is not the last one,
+            // when multiple participants a comma is inserted
+            // (only the current participant is not the last one),
             // and $currentParticipant is increased by one:
             if ($participantsAmount > 1) {
 
@@ -308,19 +383,21 @@ QRY;
             
         return $participantsString;
         
-    }
+    } // method 'Praxis::getParticipantsString'
 
     /**
-     * method Praxis::getPracticaAmount
-     * returns the amount of experiences. this is a static method
+     * method 'Praxis::getPracticaAmount'.
+     * 
+     * this static method returns the amount of experiences of a given user.
+     * 
+     * @return the amount of experiences of a given user.
      */
     public static function getPracticaAmount() {
 
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'practica':
-
+        // the table 'practica' is queried:
         $queryString = <<<QUERY
 SELECT COUNT(*)
 FROM `myX`.`practica`
@@ -330,14 +407,17 @@ QUERY;
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
 
-        // 3. the number of rows is retrieved and returned (intval needed):      
+        // the result is retrieved and returned (intval needed):      
         return intval($statement->fetchColumn());
         
-    } // method Praxis::getPracticaAmount
+    } // method 'Praxis::getPracticaAmount'
 
     /**
-     * method Praxis::HTMLAsidePreview
-     * displays a sommary of the experience in the sidebar
+     * method 'Praxis::HTMLAsidePreview'.
+     * 
+     * this method displays a summary of the experience in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
      */
     public function HTMLAsidePreview() {
         
@@ -356,7 +436,7 @@ QUERY;
             ".</p>\n";
         
         echo "\t\t\t\t\t<p>".
-            $this->getDate();//$dateString;
+            $this->getDate(); //$dateString;
 
         if ($this->getOrdinal() !== "")
             echo $this->getOrdinal();
@@ -366,18 +446,18 @@ QUERY;
         echo "\t\t\t\t\t<p><b>".$this->getName()."</b></p>\n";
         echo "\t\t\t\t\t<p>".writtenRate($this->getRating(), false)."</p>\n";
         echo "\t\t\t\t\t<p><img src=\"".getImage("amor","small")."\" alt=\"".
-            _("(Image of a cycladic idol)").
-            "\" /> ".
-            $this->getParticipantsString().
-            "</p>\n";
+            _("(Image of a cycladic idol)")."\" /> ".
+            $this->getParticipantsString()."</p>\n";
         echo "\t\t\t\t</div>\n";
         
-    } // method Praxis::HTMLAsidePreview
+    } // method 'Praxis::HTMLAsidePreview'
     
     /**
      * method 'Praxis::HTMLAsidePreviewPractica'.
      * 
-     * displays a summary of the experiences in the sidebar
+     * this method displays a summary of the experiences in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
      */
     public function HTMLAsidePreviewPractica() {
         
@@ -415,13 +495,17 @@ QUERY;
 
         echo "\t\t\t\t</div>\n";
         
-    } // method Praxis::HTMLAsidePreviewPractica
+    } // method 'Praxis::HTMLAsidePreviewPractica'
     
     /**
-     * method Praxis::HTMLPreview
-     * displays a preview of the experience
-     * @param int ordinalNr: experience ordinal
-     * @param int options: bitwise combination of options (v.gr. EXPERIENCE_RATE & EXPERIENCE_DATE & EXCEPTR_MED)
+     * method 'Praxis::HTMLPreview'.
+     * 
+     * this method displays a preview of the experience, depending on certain
+     * conditions.
+     * @param int $ordinalNr experience ordinal in a given list.
+     * @param array $options: bitwise combination of options (e.g.
+     * EXPERIENCE_RATE & EXPERIENCE_DATE & EXCEPTR_MED).
+     * @return nothing, taken into account that the method echoes HTML code.
      */
     public function HTMLPreview($ordinalNr, $options = "") {
 
@@ -429,12 +513,14 @@ QUERY;
         $pdo = DB::getDBHandle();
         
         echo "\t\t\t\t\t<div class=\"HTMLPreview\">\n";
-        /*
-         *  first line of the preview (headline):
-         *  1/ ordinal
-         *  2/ designation (with hyperlink)
-         *  3/ evaluation
-         */
+        
+/*
+ *  first line of the preview (headline):
+ *  1/ ordinal
+ *  2/ name (with hyperlink)
+ *  3/ evaluation
+ */
+        
         // 1. ordinal number:
         echo "\t\t\t\t\t\t<p class=\"medium\"> ";
         if ($ordinalNr !== 0)
@@ -459,19 +545,16 @@ QUERY;
         }
         echo "</p>\n";
         
-        //////////////////////////////////////////////////////////////////////////////////
-        // second line of the preview (complementary information):
-        // 1. time (date + time ordinal)
-        // 2. place
-        // 3. participants
-        // 4. description or excerpt
-        // TODO: displays only the specified infos passed to the function with an argument (ex. XPERIENCE_DATE & XPERIENCE_PARTICIPANTS & ...)
-        // 1. time
-        // TODO: $year_span = $current_year - $date ['year'];
-        echo "\t\t\t\t\t\t<p><b>".
-            _("QVANDO").
-            "</b> ".
-            $this->getDate();
+/*
+ * second line of the preview (complementary information):
+ * 1. time (date + ordinal)
+ * 2. place
+ * 3. participants
+ * 4. description or excerpt
+ * possible addition: $yearSpan = $currentYear - $date['year']
+ * 
+ */
+        echo "\t\t\t\t\t\t<p><b>"._("QVANDO")."</b> ".$this->getDate();
         if (!empty($this->getOrdinal())) {
             echo " ";
             echo writtenOrdinal($this->getOrdinal());
@@ -484,7 +567,7 @@ QUERY;
             
             echo "<b>" . _("VBI") . "</b> ";
 
-            // the place name is queried from the table 'places':
+            // the table 'places' is queried after the place name:
             $queryString = <<<QRY
 SELECT `name`
 FROM `myX`.`loca`
@@ -556,22 +639,27 @@ QRY;
         
         echo "\t\t\t\t\t</div>\n";
 
-    } // method Praxis::HTMLPreview
+    } // method 'Praxis::HTMLPreview'
 
     /**
      * method 'Praxis::HTMLSynchroton'.
      * 
-     * displays the Synchroton, a tool to navigate through the experiences
-     * forwards or backwards in time, according to different criteria:
+     * this method displays the Synchroton, a tool to navigate through the
+     * experience set forwards or backwards in time, according to different
+     * criteria:
      * i) with the same lover
      * ii) chronologically, or
-     * iii) locally
-     * @param int praxisID the identifier of the current experience
-     * @param int loverID the identifier of the only participant in the current experience
-     * @param int placeID the identifier of the place where the current experience happened
+     * iii) locally.
+     * possible change: rewrite the method without parameters (i.e.
+     * $praxis->HTMLSynchoton()).
+     * @param int $praxisID the identifier of the current experience.
+     * @param int $amorID the identifier of the (only) participant in the
+     * current experience.
+     * @param int $locusID the identifier of the place where the current
+     * experience happened.
+     * @return nothing, taken into account that the method echoes HTML code.
      */
     public function HTMLSynchroton($praxisID, $amorID, $locusID) {
-        // TODO: rewrite without passed parameters: $praxis->HTMLSynchoton()
         
         /*
          * row 1: previous and next experiences with this lover
@@ -896,9 +984,7 @@ HTML;
             
         echo "\t\t\t\t\t</div><!-- }} Synchroton -->\n";
         
-        // }} rewritten Synchoton
-        
-    } // method Praxis::HTMLSynchroton
+    } // method 'Praxis::HTMLSynchroton'
 
     
-} // class Praxis
+} // class 'Praxis'

@@ -3,7 +3,7 @@
  * script 'userSignUpProcess.php'.
  * 
  * script to process the sign up of a new user of the application.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-11
  */
 

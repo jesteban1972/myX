@@ -2,9 +2,9 @@
 /**
  * script 'loca.php'.
  * 
- * displays a list of places based in an instance of class 'LocaQuery'
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-24
+ * this script displays a list of places using an instance of class 'LocaQuery'.
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-05-26
 */
 
 require_once 'core.inc';
@@ -31,8 +31,8 @@ if (!isset($_SESSION['locaQuery'])) {
     
 }
 
-$designation = $locaQuery->getDesignation();
-$description = $locaQuery->getDescription();
+$name = $locaQuery->getName();
+$descr = $locaQuery->getDescr();
 $queryString = $locaQuery->getQueryString();
 
 // map center: the coordinates are stored in the session to be read from JS
@@ -53,19 +53,17 @@ HTML;
 
 // list designation and description:
 
-echo "\t\t\t\t\t<p class=\"medium\">".
-    "<img src=\"".
-    getImage("locus","small")."\" alt=\"".
-    _("(Image of a compass)").
+echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".
+    getImage("locus","small")."\" alt=\""._("(Image of a compass)").
     "\" /> <b>".
-    _($designation).
+    _($name).
     "</b>: ".
-    _($description).
+    _($descr).
     " ";
 
 /*
  * places amount.
- * a first query of locaList::queryString is performed
+ * a first query of 'locaQuery::queryString' is performed
  * just to retrieve the amount of places.
  * Locus::getLocaAmount() would retrieve the amount of all places,
  * but locaList might be filtered.
@@ -154,9 +152,7 @@ HTML;
      * retrieves the parameter list and composes the string
      * $dataString (without page) that will be passed to navigationBar()
      */
-    //del $uri = $_SERVER['REQUEST_URI'];
-    //del $uriQuery = parse_url($uri)['query'];
-    // parse_url: parse a URL, and return its components
+    
     $uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
 
     $data = explode("&", $uriQuery);
@@ -176,8 +172,8 @@ HTML;
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -220,8 +216,8 @@ HTML;
     } //foreach
 
     // displays bottom navigation bar:
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     echo <<<HTML
                     <p class="quote">«Cuando emprendas tu viaje a Ítaca<br />
@@ -249,7 +245,7 @@ echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
 echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
     ._("Remove filter").
     "\" ";
-if ($locaQuery->getDesignation() === "all places")
+if ($locaQuery->getName() === "all places")
     echo "disabled=\"disabled\" ";
 echo "/>\n";
 echo "\t\t\t\t\t</form>\n";

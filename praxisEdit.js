@@ -2,8 +2,8 @@
  * script 'praxisEdit.js'.
  * 
  * XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-05-20
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-05-22
 */
 
 window.onload = function() {
@@ -71,11 +71,11 @@ window.onload = function() {
     // event listeners are added to 'addAmor[0]' and 'removeAmor[0]':
     document.getElementById('addAmor[0]').
         addEventListener('click', addAmor, true);
-    document.getElementById('removeAmor[0]').
-        addEventListener('click', removeAmor, true);
+//    document.getElementById('removeAmor[0]').
+//        addEventListener('click', removeAmor, true);
     
     // button removeAmor[0] is not shown on page load:
-    document.getElementById('removeAmor[0]').style.visibility = 'hidden';
+    //document.getElementById('removeAmor[0]').style.visibility = 'hidden';
     
 }
 
@@ -89,7 +89,7 @@ window.onload = function() {
  */
 function addAmor(evt) {
     
-    var hr, select, att, /*option,*/ label, /*br,*/ txt, input, button;
+    var br, hr, select, att, /*option,*/ label, txt, input, button;
     
     // amoresAmount is retrieved from the already existing 'amorID' fields:
     var amoresAmount =
@@ -102,15 +102,15 @@ function addAmor(evt) {
     
    if (amoresAmount === 1) { 
 /*
- * a row is inserted to display a separation line.
+ * a row is inserted to display a separation line after the first lover.
  */
         row = amoresTable.insertRow(-1);
         cell1 = row.insertCell(0);
         att = document.createAttribute('colspan');
         att.value = '3';
         cell1.setAttributeNode(att);
-        br = document.createElement('hr');
-        cell1.appendChild(br);
+        hr = document.createElement('hr');
+        cell1.appendChild(hr);
     
     }
     
@@ -125,7 +125,7 @@ function addAmor(evt) {
  * first column: ordinal.
  */
     
-    txt = document.createTextNode('1.');
+    txt = document.createTextNode((amoresAmount) + '.');
     cell1.appendChild(txt);
     
 /*
@@ -155,10 +155,11 @@ function addAmor(evt) {
     label.appendChild(txt);
     cell2.appendChild(label);
     
-    br = document.createElement('br');
-    cell2.appendChild(br);
-    
-    select = document.createElement('select');
+    // the dropbox is cloned to avoid a new query to the DB:
+    var selectExisting = document.getElementById('amorID[0]');
+    select = selectExisting.cloneNode(true);
+//    cell2.appendChild(select);
+//    select = document.createElement('select');
     att = document.createAttribute('id');
     att.value = 'amorID[' + (amoresAmount - 1) + ']'; // array 0-based;
     select.setAttributeNode(att);
@@ -169,9 +170,8 @@ function addAmor(evt) {
     att.value = 'width: 80%'; // array 0-based;
     select.setAttributeNode(att);
     cell2.appendChild(select);
-    
-//    br = document.createElement('br');
-//    cell2.appendChild(br);
+    br = document.createElement('br');
+    cell2.appendChild(br);
     
     input = document.createElement('input');
     att = document.createAttribute('type');
@@ -202,17 +202,8 @@ function addAmor(evt) {
     button.setAttributeNode(att);
     txt = document.createTextNode('Add lover...');
     button.appendChild(txt);
+    button.addEventListener('click', newAmor, true);
     cell2.appendChild(button);
-    
-    
-    
-
-    // insert an horizontal rule and a DOM comment to separate rules:
-//    hr = document.createElement('hr');
-//    att = document.createAttribute('id');
-//    att.value = 'hrRule' + (rulesAmount - 1);
-//    hr.setAttributeNode(att);
-//    rules.appendChild(hr);
 
 /*
  * third column: plus and minus buttons.
@@ -249,10 +240,10 @@ function addAmor(evt) {
     button.addEventListener('click', removeAmor, true);
     
     // button removeAmor[0] shown when amoresAmount > 1:
-    if (amoresAmount > 1)
-        document.getElementById('removeAmor[0]').style.visibility = 'visible';
-    else
-        document.getElementById('removeAmor[0]').style.visibility = 'hidden';
+//    if (amoresAmount > 1)
+//        document.getElementById('removeAmor[0]').style.visibility = 'visible';
+//    else
+//        document.getElementById('removeAmor[0]').style.visibility = 'hidden';
     
 /*
  * another row is inserted to display a the separation line.
@@ -455,14 +446,14 @@ function removeAmor(evt) {
 /*
  * amoresAmount is calculated only AFTER deletion commands.
  */    
-    var amoresAmount =
-        (document.querySelectorAll("select[name^='amorOrigin[']").length / 2);
+//    var amoresAmount =
+//        (document.querySelectorAll("select[name^='amorOrigin[']").length / 2);
     
     // button removeAmor[0] shown only  when amoresAmount > 1:
-    if (amoresAmount > 1)
-        document.getElementById('removeAmor[0]').style.visibility = 'visible';
-    else
-        document.getElementById('removeAmor[0]').style.visibility = 'hidden';
+//    if (amoresAmount > 1)
+//        document.getElementById('removeAmor[0]').style.visibility = 'visible';
+//    else
+//        document.getElementById('removeAmor[0]').style.visibility = 'hidden';
     
     return;
     

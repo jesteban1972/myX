@@ -2,7 +2,7 @@
 /** script 'core.inc'.
  * 
  * this file contains core definitions for the web application myX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-03-28
 */
 
@@ -257,16 +257,17 @@ function moonPhase($year, $month, $day) {
 } // function moonPhase
 
 /**
- * function 'navigationBar'.
+ * global function 'navBar'.
  * 
- * this function displays a navigation bar using in long lists (i.e. those
- * having more items than $_SESSION['navigationOptions']['resultsPerPage']).
+ * this function displays a navigation bar used in long lists, i.e. those
+ * having more items than $_SESSION['navOptions']['resultsPerPage'].
+ * 
  * @param string $targetScript script to jump to
  * @param string $dataString XXXarguments list (except page)XXX
  * @param int $page current part ('page'), (1-based)
  * @param int $pagesAmount amount of parts ('pages')
  */
-function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
+function navBar($targetScript, $dataString, $currentPage, $pagesAmount) {
 
     echo "\t\t\t\t\t\t<table align=\"center\" border=\"0\">\n";
     echo "\t\t\t\t\t\t\t<tr>\n";
@@ -393,7 +394,7 @@ function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
 
     return;
 
-} // function navigationBar
+} // function 'navBar'
 
 /**
  * global function 'pageSettings'.
@@ -414,7 +415,7 @@ function navigationBar($targetScript, $dataString, $currentPage, $pagesAmount) {
  */
 function pageSettings($amount, $page) {
 
-    $navigationBar = FALSE; // default return value (navigatioBar not needed)
+    $navBar = FALSE; // default return value (navigatioBar not needed)
 
     // calculates total number of pages
     $numPages =
@@ -422,7 +423,7 @@ function pageSettings($amount, $page) {
 
     // determines if navigation bar is necessary:
     if ($amount > $_SESSION['navOptions']['resultsPerPage'])            
-        $navigationBar = TRUE;
+        $navBar = TRUE;
 
     // etablishes the initial ordinal of the page
     // $ordinal is 1-based
@@ -430,7 +431,7 @@ function pageSettings($amount, $page) {
         (($page - 1) * $_SESSION['navOptions']['resultsPerPage'] + 1);
 
     return array('numPages' => $numPages,
-        'navigationBar' => $navigationBar,
+        'navBar' => $navBar,
         'ordinal' => $ordinal);
 
 } // function pageSettings

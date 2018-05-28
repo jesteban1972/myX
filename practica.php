@@ -2,9 +2,10 @@
 /**
  * script 'practica.php'.
  * 
- * displays a list of experiences based in an instance of class 'PracticaList'
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-05-11
+ * this script displays a list of experiences using an instance of class
+ * 'PracticaList'.
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-05-26
 */
 
 require_once 'core.inc';
@@ -16,9 +17,9 @@ require_once 'praxis.inc';
 $pdo = DB::getDBHandle();
 
 /*
- * initializes $practicaList, and retrieves its components
- * if already storage in $_SESSION, retrieve list;
- * otherwise create an unfiltered list 
+ * initializes $practicaQuery, and retrieves its components
+ * if already storage in $_SESSION;
+ * otherwise create an unfiltered query 
  */
 if (!isset($_SESSION['practicaQuery'])) {
     
@@ -31,8 +32,8 @@ if (!isset($_SESSION['practicaQuery'])) {
     
 }
 
-$designation = $practicaQuery->getDesignation();
-$description = $practicaQuery->getDescription();
+$name = $practicaQuery->getName();
+$descr = $practicaQuery->getDescr();
 $queryString = $practicaQuery->getQueryString();
 
 // page header:
@@ -50,8 +51,8 @@ HTML;
 // list designation and description:
 
 echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("praxis", "small").
-    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>"._($designation).
-    "</b>: "._($description)." ";
+    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>"._($name).
+    "</b>: "._($descr)." ";
 
 
 /*
@@ -99,7 +100,7 @@ echo "</p>\n";
 //echo "\t\t\t\t\t</form>\n";
 
 echo "\t\t\t\t\t<form action=\"practicaQuery.php\" method=\"POST\">\n";
-if ($practicaQuery->getDesignation() === "all experiences") {
+if ($practicaQuery->getName() === "all experiences") {
     
     echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Apply filter").
     "\" />\n"; //name=\"applyFilter\"
@@ -108,25 +109,33 @@ if ($practicaQuery->getDesignation() === "all experiences") {
     
 } else {
 
+    // filter button:
     echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
     ._("Remove filter").
     "\" />\n";
     echo "\t\t\t\t\t\t<a href=\"practicaQuery.php\">".
     "<img src=\"images/filterStrikethrough-small.png\" /></a>\n";
     
+    // save query button:
+    echo "\t\t\t\t\t\t<div class=\"floppy\">\n";
+    echo "\t\t\t\t\t\t\t<a href=\"queryEdit.php?queryString=".
+        urlencode($queryString)."\">\n";
+    echo "\t\t\t\t\t\t\t\t<img src=\"images/floppy-small.png\" />\n";
+    echo "\t\t\t\t\t\t\t</a>\n";
+    echo "\t\t\t\t\t\t</div>\n";
+    
 }
 
 echo "\t\t\t\t\t</form>\n";
 
 if (DEBUG)
-    echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString."]</span>\n";
+    echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString.
+        "]</span>\n";
     
 // links to page sections:
 echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
-    _("List of experiences").
-    "</a></li>\n".
-    "\t\t\t\t\t\t<li><a href=\"#actions\">".
-    _("Actions").
+    _("List of experiences")."</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#actions\">"._("Actions").
     "</a></li>\n\t\t\t\t\t</ul>\n";
 
 if ($practicaAmount > 0) {
@@ -168,7 +177,7 @@ HTML;
      * to the current part of the list ('page'),
      * depending of $practicaAmount and $currentPage:
      * (numPages: the amount of parts ('pages'),
-     * navigationBar: if a navigation bar is needed or not,
+     * navBar: if a navigation bar is needed or not,
      * ordinal: the current part ('page') of the list).
      * - $ordinalZeroBased: the current part ('page') of the list, 0-based
      * 
@@ -194,14 +203,14 @@ HTML;
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
     
 /*
- * a new query of practicaList::queryString is performed
+ * a new query of practicaQuery::queryString is performed
  * including ORDER BY and LIMIT criteria
  * to display the appropiate segment of the whole list.
  */
@@ -248,14 +257,14 @@ HTML;
         $praxis->HTMLPreview($ordinal, $previewOptions); // $previewOptions???
 
         // names of the first and last lovers are stored to be shown in the sidebar
-        if ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
+        if ($ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
             
             $firstPraxis = $row['date'];
             if ($row['ordinal'] !== "")
                 $firstPraxis .= $row['ordinal'];
             
-        } elseif ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage']) * $currentPage ||
-            $ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
+        } elseif ($ordinal === ($_SESSION['navOptions']['resultsPerPage']) * $currentPage ||
+            $ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
             
             $lastPraxis = $row['date'];
             if ($row['ordinal'] !== "")
@@ -267,8 +276,8 @@ HTML;
     } //foreach
 
     // displays bottom navigation bar:
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
 
 //    echo <<<HTML
 //                    <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />

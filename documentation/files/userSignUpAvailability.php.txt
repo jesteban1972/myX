@@ -5,7 +5,7 @@
  * this microscript is used to interactuate asynchronously with the page
  * 'userSignUp.js'. a query to the DB is performed to determinate
  * whether a given username already exists or not.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-10
 */
 

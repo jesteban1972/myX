@@ -1,9 +1,11 @@
 <?php
 /**
- * script amores.php
- * displays a list of lovers
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-03-24
+ * script 'amores.php'.
+ * 
+ * this script displays a list of lovers using an instance of class
+ * 'amoresQuery'.
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-05-26
 */
 
 require_once 'core.inc';
@@ -30,8 +32,8 @@ if (!isset($_SESSION['amoresQuery'])) {
     
 }
 
-$designation = $amoresQuery->getDesignation();
-$description = $amoresQuery->getDescription();
+$name = $amoresQuery->getName();
+$descr = $amoresQuery->getDescr();
 $queryString = $amoresQuery->getQueryString();
 
 // page header:
@@ -48,15 +50,15 @@ HTML;
 // list designation and description:
 
 echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("amor", "small").
-    "\" alt=\""._("(Image of a cycladic idol)")."\" /> <b>"._($designation).
-    "</b>: "._($description)." ";
+    "\" alt=\""._("(Image of a cycladic idol)")."\" /> <b>"._($name).
+    "</b>: "._($descr)." ";
 
 /*
  * lovers amount.
- * a first query of amoresList::queryString is performed
+ * a first query of amoresQuery::queryString is performed
  * just to retrieve the amount of lovers
- * Amor::getAmoresAmount() would retrieve the amount of all experiences,
- * but amoresList might be filtered.
+ * Amor::getAmoresAmount() would retrieve the amount of all lovers,
+ * but amoresQuery might be filtered.
  */
 
 $statement = $pdo->prepare($queryString);
@@ -142,8 +144,8 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -195,9 +197,10 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 
 
    // displays bottom navigation bar
-   if ($pageSettings['navigationBar'])
-       navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+   if ($pageSettings['navBar'])
+       navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
+    // cita alternativa 1 original:
 //   echo <<<HTML
 //                        <p class="quote">«<i>Χαρὰ καὶ μύρο τῆς ζωῆς μου ἡ μνήμη τῶν ὡρῶν<br />
 //                                           ποὺ ηὗρα καὶ ποὺ κράτηξα τὴν ἡδονὴ ὡς τὴν ἤθελα.<br />
@@ -207,14 +210,42 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 //
 //HTML;
    
+    //cita alternativa 2 original:
    echo <<<HTML
-                        <p class="quote">«<i>Esencia y perfume de mi vida, la memoria de las horas<br />
-                                             que hallé y retuve el placer tal como anhelaba.<br/>
-                                             Esencia y perfume de mi vida, para mí, que me alejé<br />
-                                             de cada placer de amores rutinarios</i>»<br />
-                                            (Kavafis)</p>
+                        <p class="quote">«<i>V'han fra queste contadine,<br />
+                            Cameriere, cittadine,<br />
+                            V'han contesse, baronesse,<br />
+                            Marchesine, principesse.<br />
+                            E v'han donne d'ogni grado,<br />
+                            D'ogni forma, d'ogni età.<br />
+                            Nella bionda egli ha l'usanza<br />
+                            Di lodar la gentilezza,<br />
+                            Nella bruna la costanza,<br />
+                            Nella bianca la dolcezza.<br />
+                            Vuol d'inverno la grassotta,<br />
+                            Vuol d'estate la magrotta;<br />
+                            È la grande maestosa,<br />
+                            La piccina e ognor vezzosa.<br />
+                            Delle vecchie fa conquista<br />
+                            Pel piacer di porle in lista;<br />
+                            Sua passion predominante<br />
+                            È la giovin principiante.<br />
+                            Non si picca - se sia ricca,<br />
+                            Se sia brutta, se sia bella;<br />
+                            Purché porti la gonnella,<br />
+                            Voi sapete quel che fa.</i>»<br />
+                            (Lorenzo da Ponte/W. A. Mozart:<br />«Don Giovanni» 1787, atto I, scena quinta)</p>
 
 HTML;
+   
+//   echo <<<HTML
+//                        <p class="quote">«<i>Esencia y perfume de mi vida, la memoria de las horas<br />
+//                                             que hallé y retuve el placer tal como anhelaba.<br/>
+//                                             Esencia y perfume de mi vida, para mí, que me alejé<br />
+//                                             de cada placer de amores rutinarios</i>»<br />
+//                                            (Kavafis)</p>
+//
+//HTML;
 
 // link to top of the page:
 echo "\t\t\t\t\t\t<p style=\"text-align: center;\">".
@@ -241,7 +272,7 @@ echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
 echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
     ._("Remove filter").
     "\" ";
-if ($amoresQuery->getDesignation() === "all lovers")
+if ($amoresQuery->getName() === "all lovers")
     echo "disabled=\"disabled\" ";
 echo "/>\n";
 echo "\t\t\t\t\t</form>\n";

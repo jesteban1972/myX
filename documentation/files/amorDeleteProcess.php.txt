@@ -3,7 +3,7 @@
 /* 
  * amorDeleteProcess.php
  * script to process the deletion of a lover
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-01-23
  */
 

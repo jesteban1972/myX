@@ -2,7 +2,7 @@
  * script 'index.js'.
  * 
  * XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-16
 */
 

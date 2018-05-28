@@ -3,7 +3,7 @@
 /**
  * script locusDelete.php
  * contains the form to confirm the deletion of a place
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-01-23
 */
 

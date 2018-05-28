@@ -10,7 +10,7 @@
  * otherwise $praxisEdit is set to false.
  * this script echoes a form whose fields correspond with those of the table
  * 'practica'.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-19
 */
 
@@ -272,7 +272,7 @@ echo "\t\t\t\t\t\t\t</fieldset>\n";
 echo "\t\t\t\t\t\t\t<fieldset>\n";
 echo "\t\t\t\t\t\t\t\t<legend>"._("Participant(s)")."</legend>\n";
 //echo "<style>td {border: solid thin black;}</style>\n";
-echo "\t\t\t\t\t\t\t\t<table id=\"amoresTable\">\n";
+echo "\t\t\t\t\t\t\t\t<table id=\"amoresTable\" style=\"width: 100%\">\n";
 echo "\t\t\t\t\t\t\t\t\t<tr>\n";
 echo "\t\t\t\t\t\t\t\t\t\t<td>\n";
 echo "\t\t\t\t\t\t\t\t\t\t\t<p>1.</p>\n";
@@ -293,20 +293,24 @@ if ($praxisEdit ||
 
 echo " />\n";
 echo "\t\t\t\t\t\t\t\t\t\t\t<label for=\"amorOriginExisting[0]\">".
-    _("Existing lover(s)")." </label><br />\n";
+    _("Existing lover")." </label>\n";
 
-// TODO: loop Praxis::getAmoresAmount, if there are more than one
+/*
+ * multiple lovers can be specified participating in one experience.
+ * at this point only the first one is displayed, the others will be
+ * dynamically added (or deleted) using JavaScript.
+ */
+
 echo "\t\t\t\t\t\t\t\t\t\t\t<select id=\"amorID[0]\" name=\"amorID[0]\"".
-    " style=\"width: 80%;\">\n";
+    " style=\"width: 70%;\">\n";
 
-// the existing lovers are retrieved from the DB:
+// the table 'amores' is queried to retrieve the existing lovers:
 $queryString = <<<QUERY
 SELECT `amorID`, `alias`
 FROM `myX`.`amores`
 WHERE `user` = :userID
 ORDER BY `alias`
 QUERY;
-
 $statement = $pdo->prepare($queryString);
 $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
 $statement->execute();
@@ -348,7 +352,7 @@ echo "</button>\n";
 echo "\t\t\t\t\t\t\t\t\t\t</td>\n";
 echo "\t\t\t\t\t\t\t\t\t\t<td style=\"width: 85px;\">\n";
 echo "\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"addAmor[0]\">+</button>\n";
-echo "\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"removeAmor[0]\">-</button>\n";
+echo "<!--\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"removeAmor[0]\">-</button>-->\n";
 echo "\t\t\t\t\t\t\t\t\t\t</td>\n";
 echo "\t\t\t\t\t\t\t\t\t</tr>\n";
 echo "\t\t\t\t\t\t\t\t</table>\n";

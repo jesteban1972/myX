@@ -7,7 +7,7 @@
  * using this lover identificator an object of class 'Amor' is created,
  * whose data are read from database.
  * the page´s parts will be created using this object.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-05
 */
 
@@ -231,7 +231,7 @@ $ordinalZeroBased = $ordinal - 1;
 
 // displays top navigation bar
 if ($pageSettings['navigationBar'])
-    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // experiences list
@@ -294,7 +294,7 @@ foreach ($statement as $row) {
 
 // displays bottom navigation bar:
 if ($pageSettings['navigationBar'])
-    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 // link to top of the page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".

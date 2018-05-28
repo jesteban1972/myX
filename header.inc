@@ -3,7 +3,7 @@
  * script 'header.inc'.
  * 
  * script with the header of all pages
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-04-21
  */
 

@@ -2,7 +2,7 @@
  * script 'locaMap.php'.
  * 
  * JavaScript code for displaying places map
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-21
 */
 
@@ -93,9 +93,12 @@ function initializeMap() {
 
             // compose the content string for the infowindow:
             contentString[i] = name;
-            contentString[i] += " (" + practicaAmount + ")";
+            if (practicaAmount > 1)
+                contentString[i] += ' (' + practicaAmount + ' experiences)';
+            else
+                contentString[i] += ' (' + practicaAmount + ' experience)';
             if (descr) {
-                contentString[i] += "<br />" + descr;
+                contentString[i] += '<br />' + descr + '.';
             }
             contentString[i] += "<br /><a href=\"locus.php?locusID=" +
                 locusID + "\">Go to place ></a>";

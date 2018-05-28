@@ -2,9 +2,9 @@
 /**
  * script 'locus.inc'.
  * 
- * this script contains the implementation of class 'Locus',
- * the class which represents the abstraction of a place.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * this script contains the implementation of class 'Locus'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-22
 */
 
@@ -14,11 +14,14 @@ require_once 'DB.inc';
  * class 'Locus'.
  * 
  * this class represents the abstraction of a place entity, i.e. the physical
- * location where one or more experiences happen(s).
- * a place is always linked to every experience.
+ * location where one or more experiences happened.
+ * 
+ * a place is always linked to, at least, one experience.
+ * 
  * among a place data, we can specify the country and the kind of place it is
  * (the database can be queried against these data).
- * in the DB every place is linked with the user propietary of the information.
+ * 
+ * in the DB every place is linked with the user proprietary of the information.
 */
 class Locus {
 
@@ -39,55 +42,147 @@ class Locus {
     
     // getters:
     
+    /**
+     * method 'Locus::getLocusID'.
+     * 
+     * returns the value of property 'locusID' (getter method).
+     * @return int returns the place identifier.
+     */
     public function getLocusID() {
         
-        return $this->locusID;
+        return (int)$this->locusID;
         
     }
-    public function getAchtung() {return $this->achtung;}
-    public function getName() {return $this->name;}
-    public function getRating() {return $this->rating;}
-    public function getAddress() {return $this->address;}
-    public function getCountry() {return $this->country;}
-    public function getKind() {return $this->kind;}
-    public function getDescr() {return $this->descr;}
-    public function getCoordExact() {return $this->coordExact;}
-    public function getCoordGeneric() {return $this->coordGeneric;}
-    public function getWeb() {return $this->web;}
     
     /**
-     * method 'Locus::getCountryName'.
+     * method 'Locus::getAchtung'.
      * 
-     * this method returns the name of the country associated with the place
-     * from which the method is called.
-    */
-    public function getCountryName() {
+     * returns the value of property 'achtung' (getter method).
+     * @return string returns the place achtung property.
+     */
+    public function getAchtung() {
         
-        // get a DB handle to work with:
-        $pdo = DB::getDBHandle();
+        return $this->achtung;
         
-        // the tables 'countries' and 'loca' are queried:
-        $queryString = <<<QUERY
-SELECT `countries`.`name`
-FROM `myX`.`loca` INNER JOIN `myX`.`countries`
-ON `myX`.`loca`.`country` = `myX`.`countries`.`countryID`                
-WHERE `loca`.`locusID` = :locusID
-QUERY;
-        $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":locusID", $this->getLocusID(), PDO::PARAM_INT);
-        $statement->execute();
+    }
+    
+    /**
+     * method 'Locus::getName'.
+     * 
+     * returns the value of property 'name' (getter method).
+     * @return string returns the place name property.
+     */
+    public function getName() {
         
-        // the retrieved name is fetched and returned:
-        return $statement->fetchColumn();
+        return $this->name;
         
-    } // method 'Locus::getCountryName'
+    }
+    
+    /**
+     * method 'Locus::getRating'.
+     * 
+     * returns the value of property 'rating' (getter method).
+     * @return int returns the place rating property.
+     */
+    public function getRating() {
+        
+        return (int)$this->rating;
+        
+    }
+    
+    /**
+     * method 'Locus::getAddress'.
+     * 
+     * returns the value of property 'address' (getter method).
+     * @return string returns the place address property.
+     */
+    public function getAddress() {
+        
+        return $this->address;
+        
+    }
+    
+    /**
+     * method 'Locus::getCountry'.
+     * 
+     * returns the value of property 'country' (getter method).
+     * @return int returns the place country property.
+     */
+    public function getCountry() {
+        
+        return (int)$this->country;
+        
+    }
+    
+    /**
+     * method 'Locus::getKind'.
+     * 
+     * returns the value of property 'kind' (getter method).
+     * @return int returns the place kind property.
+     */
+    public function getKind() {
+        
+        return (int)$this->kind;
+        
+    }
+    
+    /**
+     * method 'Locus::getDescr'.
+     * 
+     * returns the value of property 'descr' (getter method).
+     * @return string returns the place description property.
+     */
+    public function getDescr() {
+        
+        return $this->descr;
+        
+    }
+    
+    /**
+     * method 'Locus::getCoordExact'.
+     * 
+     * returns the value of property 'coordExact' (getter method).
+     * @return string returns the place exact coordinates property.
+     */
+    public function getCoordExact() {
+        
+        return $this->coordExact;
+        
+    }
+    
+    /**
+     * method 'Locus::getCoordGeneric'.
+     * 
+     * returns the value of property 'coordGeneric' (getter method).
+     * @return string returns the place generic coordinates property.
+     */
+    public function getCoordGeneric() {
+        
+        return $this->coordGeneric;
+        
+    }
+    
+    /**
+     * method 'Locus::getWeb'.
+     * 
+     * returns the value of property 'web' (getter method).
+     * @return string returns the place web property.
+     */
+    public function getWeb() {
+        
+        return $this->web;
+        
+    }
+    
+    // constructor:
 		
     /**
-     * method 'Locus::__constructor'.
+     * method 'Locus::__construct'.
      * 
-     * this method is the constructor of the class. it initializes an instance
-     * of the class, having its values taken from the DB.
-     * @param int locusID the identifier of the place being constructed.
+     * class constructor: initiates an instance of the class,
+     * and sets its properties from the DB.
+     * 
+     * @param int $locusID the identifier of the place being constructed.
     */
     public function __construct($locusID) {
                 
@@ -121,6 +216,8 @@ QUERY;
         $this->web = $row['web'];
 
     } // method 'Locus::__construct'
+    
+    // other methods:
     
     /**
      * method 'Locus::getAllLoca'.
@@ -156,22 +253,59 @@ QRY;
         return $amores;
         
     } // method 'Locus::getAllLoca'
+        
+    /**
+     * method 'Locus::getCountryName'.
+     * 
+     * this method returns the name of the country associated with the place
+     * from which the method is called.
+     * 
+     * @return string the country name of the place from where the method is
+     * called.
+    */
+    public function getCountryName() {
+        
+        // get a DB handle to work with:
+        $pdo = DB::getDBHandle();
+        
+        // the tables 'countries' and 'loca' are queried:
+        $queryString = <<<QUERY
+SELECT `countries`.`name`
+FROM `myX`.`loca` INNER JOIN `myX`.`countries`
+ON `myX`.`loca`.`country` = `myX`.`countries`.`countryID`                
+WHERE `loca`.`locusID` = :locusID
+QUERY;
+        $statement = $pdo->prepare($queryString);
+        $statement->bindParam(":locusID", $this->getLocusID(), PDO::PARAM_INT);
+        $statement->execute();
+        
+        // the retrieved name is fetched and returned:
+        return $statement->fetchColumn();
+        
+    } // method 'Locus::getCountryName'
 
     /**
-     * method Locus::getDifferentDatesAmount
-     * returns the number of different dates where experiences are documented in this place
+     * method 'Locus::getDifferentDatesAmount'.
+     * 
+     * this method returns the number of different dates when experiences
+     * happened in the place from which the method is called.
+     * 
+     * note that in the SQL query the modifier 'DISTINCT' should be used.
+     * 
+     * @return int the number of different dates when experiences happened in
+     * the place from which the method is called.
     */
     public function getDifferentDatesAmount() {
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'practica':
+        // the table 'practica' is queried:
 
         $queryString = <<<QUERY
 SELECT COUNT(DISTINCT date)
 FROM `myX`.`practica`
-WHERE `locus`=:locusID
+WHERE `locus` = :locusID
 QUERY;
         
         // " AND user=:userID" not needed; each user has his/her own places
@@ -225,7 +359,7 @@ QUERY;
         $queryString = <<<QUERY
 SELECT COUNT(*)
 FROM `myX`.`loca`
-WHERE `user`=:userID
+WHERE `user` = :userID
 QUERY;
 
         $statement = $pdo->prepare($queryString);
@@ -242,8 +376,12 @@ QUERY;
     * 
     * this static method retrieves all the existing coordinates from the places
     * in the table 'loca', calculates with them the geographic center, and sets
-    * the variable $_SESSION['DBStatus']['mapCenter']. this value will be read
-    * from the script 'locaMapFetchXML.php' to display the map's center.
+    * the variable '$_SESSION['DBStatus']['mapCenter']'.
+    * 
+    * the value of '$_SESSION['DBStatus']['mapCenter']' is read in the script
+    * 'locaMapFetchXML.php' to display the map's center.
+    * 
+    * @return nothing, having into account that the method sets a session var.
     */
     public static function getMapCenter() {
         
@@ -348,7 +486,11 @@ QUERY;
      * this public method queries the table 'practica' and returns an array
      * with the identifiers of all the experiences, ordered chronologically
      * and by ordinal.
+     * 
      * this method is used by the Synchroton.
+     * 
+     * @return array an array with the identifiers of all experiences, ordered
+     * chronologically and by ordinal.
     */
     public function getPractica() {
         
@@ -378,7 +520,7 @@ QRY;
         // the array is returned:
         return $practica;
 	
-    } // method Locus::getPractica
+    } // method 'Locus::getPractica'
 
     /**
      * method 'Locus::getPracticaAmount'.

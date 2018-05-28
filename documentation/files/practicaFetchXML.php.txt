@@ -3,7 +3,7 @@
 /* 
  * practicaFetchXML.php
  * script to fetch the experiences from the DB into a XML file
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-03-10
  */
 

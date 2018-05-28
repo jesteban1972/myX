@@ -3,7 +3,7 @@
 /* 
  * DB.inc
  * implementation of class DB
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2017-11-04
  */
 

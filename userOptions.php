@@ -3,7 +3,7 @@
 /* 
  * userOptions.php
  * script to process user options
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-03-24
  */
 

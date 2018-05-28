@@ -1,10 +1,10 @@
 <?php
-
-/* 
- * locaMapFetchXML.php
+/**
+ * script 'locaMapFetchXML.php'.
+ * 
  * script to fetch the places from the DB into a XML file
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-01-21
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-05-22
  */
 
 require_once 'session.inc';
@@ -72,9 +72,9 @@ foreach ($statement as $row) {
     //$newnode->setAttribute('country', $tuple['name']);
     //$newnode->setAttribute('kind', $tuple['denomination']);
 
-    if ($row["description"] !== "") {
+    if ($row["descr"] !== "") {
 
-        $newnode->setAttribute("description", $row['description']);
+        $newnode->setAttribute("descr", $row['descr']);
 
     }
     
@@ -94,9 +94,9 @@ foreach ($statement as $row) {
         
     }
 
-    if ($row['www'] !== "") {
+    if ($row['web'] !== "") {
 
-        $newnode->setAttribute("www", $row['www']);
+        $newnode->setAttribute("web", $row['web']);
 
     }
 

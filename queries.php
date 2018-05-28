@@ -2,9 +2,11 @@
 /**
  * script 'queries.php'.
  * 
- * displays XXXa list of experiences based in an instance of class 'PracticaList'XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-05-06
+ * this script displays a list of experiences using an instance of class
+ * 'Query'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-05-27
 */
 
 require_once 'core.inc';
@@ -22,7 +24,7 @@ $pdo = DB::getDBHandle();
  */
 //if (!isset($_SESSION['practicaQuery'])) {
 //    
-//    $practicaQuery = new PracticaQuery();
+//$query = new Query();
 //    $_SESSION['practicaQuery'] = $practicaQuery;
 //    
 //} else {
@@ -31,14 +33,8 @@ $pdo = DB::getDBHandle();
 //    
 //}
 //
-//$designation = $practicaQuery->getDesignation();
-//$description = $practicaQuery->getDescription();
-//$queryString = $practicaQuery->getQueryString();
-$queryString = <<<QUERY
-SELECT COUNT(*)
-FROM `myX`.`queries`
-WHERE `user` = :userID
-QUERY;
+$name = "all queries"/*$query->getName()*/;
+//$descr = $query->getDescr();
 
 // page header:
 $title = "myX - Queries";
@@ -55,22 +51,27 @@ HTML;
 // list designation and description:
 
 echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("praxis", "small").
-    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>"._($designation).
-    "</b>: "._($description)." ";
+    "\" alt=\""._("(Image of a gold coin)")."\" /> <b>"._("Saved queries").
+    "</b> ";
 
 
 /*
- * experiences list.
- * a first query of practicaList::queryString is performed
- * just to retrieve the amount of experiences.
- * Praxis::getPracticaAmount() would retrieve the amount of all experiences,
+ * queries list.
+ * a first query of queryList::queryString is performed
+ * just to retrieve the amount of queries.
+ * XXXPraxis::getPracticaAmount() would retrieve the amount of all experiences,
  * but practicaList might be filtered.
  */
+$queryString2 = <<<QUERY
+SELECT COUNT(*)
+FROM `myX`.`queries`
+WHERE `user` = :userID
+QUERY;
 
-$statement = $pdo->prepare($queryString);
+$statement = $pdo->prepare($queryString2);
 $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
 $statement->execute();
-$queriesAmount = $statement->rowCount();
+$queriesAmount = intval($statement->fetchColumn());
 //echo "\t\t\t\t\t\t<p class=\"medium\">";
 switch ($queriesAmount) {
 
@@ -94,11 +95,6 @@ echo "</p>\n";
 if (DEBUG)
     echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString."]</span>\n";
 
-
-// filter icon:
-        //if ($this->isFavorite())            
-echo "\t\t\t\t\t\t<div class=\"filter\"></div>\n";
-//echo "\t\t\t\t\t</div>\n";
     
 // links to page sections:
 echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
@@ -154,81 +150,52 @@ HTML;
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
     
 /*
- * a new query of practicaList::queryString is performed
+ * a query against the DB is performed
  * including ORDER BY and LIMIT criteria
  * to display the appropiate segment of the whole list.
  */
 
-//    switch ($_SESSION['navigationOptions']['listsOrder']) {
-//        
-//        case OLDEST_TO_NEWEST:
-//            
-//            $queryString .= " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
-//            break;
-//        
-//        case NEWEST_TO_OLDEST:
-//            
-//            $queryString .= " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
-//            break;
-//        
-//    }
-//    
-//    $queryString .= " LIMIT ".
-//        $ordinalZeroBased.
-//        ", ".
-//        $_SESSION['navigationOptions']['resultsPerPage'];
-//
-//    if (DEBUG)
-//        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".$queryString."]</span></p>";
-//
-//    $statement = $pdo->prepare($queryString);
-//    $statement->execute();
-//    $numRows = $statement->rowCount(); // used?
-//
-///*
-// * the results of the query are fetched withing a foreach-as loop.
-// */
-//    foreach ($statement as $row) {
-//
-//        // creates an instance of class 'Praxis' (intval needed):
-//        $praxis = new Praxis(intval($row['praxisID']));
-//
-//        /*
-//         * call the method Praxis::XHTMLPreview
-//         * to display a brief preview of the experience
-//         */
-//        $praxis->HTMLPreview($ordinal, $previewOptions); // $previewOptions???
-//
-//        // names of the first and last lovers are stored to be shown in the sidebar
-//        if ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
-//            
-//            $firstPraxis = $row['date'];
-//            if ($row['ordinal'] !== "")
-//                $firstPraxis .= $row['ordinal'];
-//            
-//        } elseif ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage']) * $currentPage ||
-//            $ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
-//            
-//            $lastPraxis = $row['date'];
-//            if ($row['ordinal'] !== "")
-//                $lastPraxis .= $row['ordinal'];
-//            
-//        }
-//        $ordinal++;
-//
-//    } //foreach
+    $queryString = "SELECT * FROM `myX`.`queries` WHERE `user` = ".
+        $_SESSION['userID']." ORDER BY `name`"." LIMIT ".$ordinalZeroBased.", ".
+        $_SESSION['navOptions']['resultsPerPage'];
+
+    if (DEBUG)
+        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
+            $queryString."]</span></p>";
+
+    $statement = $pdo->prepare($queryString);
+    $statement->execute();
+    
+/*
+ * the results of the query are fetched withing a foreach-as loop.
+ */
+    foreach ($statement as $row) {
+
+        // creates an instance of class 'Query' (intval needed):
+        $query = new Query(intval($row['queryID']));
+
+        /*
+         * call the method 'Query::HTMLPreview'
+         * to display a brief preview of the query.
+         */
+        $query->HTMLPreview($ordinal, $previewOptions); // $previewOptions???
+
+        $ordinal++;
+
+    } //foreach
 
     // displays bottom navigation bar:
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
+    // cita (original text):
 //    echo <<<HTML
 //                    <p class="quote">«Αἰτεῖτε καὶ δοθήσεται ὑμῖν,<br />
 //                    ζητεῖτε καὶ εὑρήσετε,<br />
@@ -237,17 +204,17 @@ HTML;
 //                        <br />(N.T. Mt. 7.7)</p>
 //    
 //HTML;
+    
     echo <<<HTML
                     <p class="quote">«Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá.<br />
                     Porque todo el que pide, recibe; y el que busca, halla; y al que llama, se le abrirá»<br />
                         <br />(Evangelio según Mateo)</p>
     
 HTML;
-    //Pedid, y se os dará; buscad, y hallaréis; llamad, y se os abrirá. Porque todo el que pide, recibe; y el que busca, halla; y al que llama, se le abrirá
     
 // link to top of the page:
-echo "\t\t\t\t<p style=\"text-align: center;\"><img src=\"images/arrow_top.gif\" /> <a href=\"#start\">".
-    _("Back to top").
+echo "\t\t\t\t<p style=\"text-align: center;\">".
+    "<img src=\"images/arrow_top.gif\" /> <a href=\"#start\">"._("Back to top").
     "</a></p>\n";
 
 echo <<<HTML
