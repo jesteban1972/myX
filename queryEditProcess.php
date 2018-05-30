@@ -42,8 +42,7 @@ $queryID = ($maxQueryID === null) ? 1 : intval($maxQueryID) + 1;
 // the values are retrieved from $_POST:
 $name = $_POST['name'];
 $descr = $_POST['descr'];
-$queryString = urldecode($_POST['queryString']);
-    
+$queryString = $_POST['queryString'];    
 
 // insertion query:
 $insertionQueryString = <<<QUERY
@@ -64,15 +63,7 @@ $statement->bindParam(":queryString", $queryString, PDO::PARAM_STR);
 $statement->bindParam(":user", $_SESSION['userID'], PDO::PARAM_INT);
 $statement->execute();
 
-// redirect the user to the page 'amor.php' or 'amores.php':
-//if ($amorEdit) {
-//
-//    header ("Location: amor.php?amorID=".$amorID);
-//
-//} else {
-//
-//    header ("Location: amores.php");
-//}
+// TODO redirect the user to the page 'queries.php' or 'practica.php'?
 header ("Location: queries.php");
 
 ?>

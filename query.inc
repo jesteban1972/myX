@@ -106,65 +106,63 @@ class Query {
             $descr = "",
             $queryString = ""*/) {
         
-     $args = func_get_args(); 
+        $args = func_get_args(); 
 
-    switch(sizeof(func_get_args())) {
-        
-        case 1: // one argument, queryID
-            
-            $queryID = $args[0];
-            
-            // get a DB connection to work with:
-            $pdo = DB::getDBHandle();
+        switch(sizeof(func_get_args())) {
 
-            // the table 'queries' is queried. only one row expected.
-            $queryString = <<<QUERY
+            case 1: // one argument, queryID
+
+                $queryID = $args[0];
+
+                // get a DB connection to work with:
+                $pdo = DB::getDBHandle();
+
+                // the table 'queries' is queried. only one row expected.
+                $queryString = <<<QUERY
 SELECT *
 FROM `myX`.`queries`
 WHERE queryID = :queryID
 QUERY;
-            $statement = $pdo->prepare($queryString);
-            $statement->bindParam(":queryID", $queryID, PDO::PARAM_INT);
-            $statement->execute();
+                $statement = $pdo->prepare($queryString);
+                $statement->bindParam(":queryID", $queryID, PDO::PARAM_INT);
+                $statement->execute();
 
-            // the data are fetched:
-            $row = $statement->fetch();
+                // the data are fetched:
+                $row = $statement->fetch();
 
-            // the propierties of the current object are taken from the query:
-            $this->queryID = $queryID;
-            $this->name = $row['name'];
-            $this->descr = $row['descr'];
-            $this->queryString = $row['queryString'];
-            
-            //$this->do_something($args[0]); 
-            break;              
-        
-        case 3:  // three arguments, name, descr and queryString
-            
-            $name = $args[0];
-            $descr = $args[1];
-            $queryString = $args[2];
-            
-            if ($name === "" || $descr === "" || $queryString === "") {
-            // empty args, full list
-            
-                $this->name = "all queries";
-                $this->descr = "unfiltered list of queries";
-                $this->queryString = "SELECT * FROM `myX`.`queries`";
-                $this->queryString .= " WHERE `user` = ".$_SESSION['userID'];
-                        
-            } else {
-            
-                $this->name = $name;
-                $this->descr = $descr;
-                $this->queryString = $queryString;
-            
-            }
-            
-            //$this->do_something_else($args[0], $args[1], $args[2]); 
-            break;            
-        
-       }
+                // the propierties of the current object are taken from the query:
+                $this->queryID = $queryID;
+                $this->name = $row['name'];
+                $this->descr = $row['descr'];
+                $this->queryString = $row['queryString'];
+
+                break;              
+
+            case 3:  // three arguments, name, descr and queryString
+
+                $name = $args[0];
+                $descr = $args[1];
+                $queryString = $args[2];
+
+                if ($name === "" && $descr === "" && $queryString === "") {
+                // empty args, full list
+
+                    $this->name = "all queries";
+                    $this->descr = "unfiltered list of queries";
+                    $this->queryString = "SELECT * FROM `myX`.`queries`";
+                    $this->queryString .= " WHERE `user` = ".$_SESSION['userID'];
+
+                } else {
+
+                    $this->name = $name;
+                    $this->descr = $descr;
+                    $this->queryString = $queryString;
+
+                }
+
+                break;            
+
+        }
             
     } // method 'Query::__construct'
     
@@ -204,8 +202,8 @@ QUERY;
     /**
      * method 'Query::HTMLPreview'.
      * 
-     * this method displays a preview of the query.
-     * XXX, depending on certain conditions.XXX
+     * this method displays a preview of the query with a link which redirects
+     * to 'practica.php' passing the query ID as parameter.
      * 
      * @param int $ordinalNr experience ordinal in a given list.
      * @return nothing, taken into account that the method echoes HTML code.
@@ -229,9 +227,8 @@ QUERY;
                 $this->getQueryString()."</b>]</span> ";
         
         // 2. name (with hyperlink):
-        echo "<b><a href=\"practica.php?queryString=".
-            urlencode($this->getQueryString())."\">".$this->getName().
-            "</a></b>";
+        echo "<b><a href=\"practica.php?query=".$this->queryID."\">".
+            $this->getName()."</a></b>";
         
         echo "</p>\n";
         
@@ -269,7 +266,7 @@ class PracticaQuery extends Query {
      */
     public function __construct($name = "", $descr = "", $queryString = "") {
 
-        if ($name === "" || $descr === "" || $queryString === "") {
+        if ($name === "" && $descr === "" && $queryString === "") {
             // empty args, full list
             
             $this->name = "all experiences";

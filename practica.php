@@ -4,8 +4,9 @@
  * 
  * this script displays a list of experiences using an instance of class
  * 'PracticaList'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last updated 2018-05-26
+ * last updated 2018-05-29
 */
 
 require_once 'core.inc';
@@ -21,7 +22,17 @@ $pdo = DB::getDBHandle();
  * if already storage in $_SESSION;
  * otherwise create an unfiltered query 
  */
-if (!isset($_SESSION['practicaQuery'])) {
+
+if (isset($_GET['query'])) {
+    
+    $query = new Query($_GET['query']);
+    $descr = ($query->getDescr() !== "") ?
+        $query->getDescr() :
+        "";
+    $practicaQuery = new PracticaQuery($query->getName(), $descr,
+        $query->getQueryString());
+    
+} else if (!isset($_SESSION['practicaQuery'])) {
     
     $practicaQuery = new PracticaQuery();
     $_SESSION['practicaQuery'] = $practicaQuery;
@@ -86,47 +97,59 @@ switch ($practicaAmount) {
 }
 echo "</p>\n";
 
-// query experiences:
-//echo "\t\t\t\t\t<form action=\"practicaQuery.php\" method=\"POST\">\n";
-//echo "\t\t\t\t\t\t<input type=\"submit\" value=\""
-//    ._("Apply filter").
-//    "\" />\n"; //name=\"applyFilter\"
-//echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-//    ._("Remove filter").
-//    "\" ";
-//if ($practicaQuery->getDesignation() === "all experiences")
-//    echo "disabled=\"disabled\" ";
-//echo "/>\n";
-//echo "\t\t\t\t\t</form>\n";
+// filter experiences:
 
-echo "\t\t\t\t\t<form action=\"practicaQuery.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<div class=\"filter\">\n";
+echo "\t\t\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
 if ($practicaQuery->getName() === "all experiences") {
     
-    echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Apply filter").
-    "\" />\n"; //name=\"applyFilter\"
-    echo "\t\t\t\t\t\t<a href=\"practicaQuery.php\">".
-    "<img src=\"images/filter-small.png\" /></a>\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/filter-small.png\" />\n";
     
 } else {
-
-    // filter button:
-    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-    ._("Remove filter").
-    "\" />\n";
-    echo "\t\t\t\t\t\t<a href=\"practicaQuery.php\">".
-    "<img src=\"images/filterStrikethrough-small.png\" /></a>\n";
     
-    // save query button:
-    echo "\t\t\t\t\t\t<div class=\"floppy\">\n";
-    echo "\t\t\t\t\t\t\t<a href=\"queryEdit.php?queryString=".
-        urlencode($queryString)."\">\n";
-    echo "\t\t\t\t\t\t\t\t<img src=\"images/floppy-small.png\" />\n";
-    echo "\t\t\t\t\t\t\t</a>\n";
-    echo "\t\t\t\t\t\t</div>\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/filterStrikethrough-small.png\" />\n";
     
 }
 
-echo "\t\t\t\t\t</form>\n";
+echo "\t\t\t\t\t\t\t</form>\n";
+echo "\t\t\t\t\t\t</div>\n";
+    
+
+//echo "\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
+//echo "\t\t\t\t\t</form>\n";
+//
+//if ($practicaQuery->getName() === "all experiences") {
+//    
+//    echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Apply filter").
+//    "\" />\n"; //name=\"applyFilter\"
+//    echo "\t\t\t\t\t\t<a href=\"practicaQuery.php\">".
+//    "<img src=\"images/filter-small.png\" /></a>\n";
+//    
+//} else {
+//
+//    // filter button:
+//    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+//    ._("Remove filter").
+//    "\" />\n";
+//    echo "\t\t\t\t\t\t<a href=\"practicaFilter.php\">".
+//    "<img src=\"images/filterStrikethrough-small.png\" /></a>\n";
+//    
+//    
+//}
+
+if ($practicaQuery->getName() !== "all experiences") {
+    
+    // save query div/form:
+    echo "\t\t\t\t\t\t<div class=\"floppy\">\n";
+    echo "\t\t\t\t\t\t\t<form action=\"queryEdit.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"queryString\"".
+        " value=\"".$queryString."\" />\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/floppy-small.png\" />\n";
+    echo "\t\t\t\t\t\t\t</form>\n";
+    echo "\t\t\t\t\t\t</div>\n";
+    
+}
+    
 
 if (DEBUG)
     echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString.
@@ -311,6 +334,19 @@ echo <<<HTML
 HTML;
 
 echo "\t\t\t\t\t<h1>"._("Actions")."</h1>\n";
+
+// filter experiences:
+echo "\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
+    ._("Apply filter").
+    "\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+    ._("Remove filter").
+    "\" ";
+if ($practicaQuery->getName() === "all experiences")
+    echo "disabled=\"disabled\" ";
+echo "/>\n";
+echo "\t\t\t\t\t</form>\n";
 
 // new experience:
 echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"GET\">\n";
