@@ -230,7 +230,7 @@ $ordinal = $pageSettings['ordinal']; // $ordinal is 1-based
 $ordinalZeroBased = $ordinal - 1;
 
 // displays top navigation bar
-if ($pageSettings['navigationBar'])
+if ($pageSettings['navBar'])
     navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 //////////////////////////////////////////////////////////////////////////////////////////
@@ -251,7 +251,7 @@ ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
 WHERE `myX`.`assignations`.`amor` = :amorID
 QRY;
 
-switch ($_SESSION['navigationOptions']['listsOrder']) {
+switch ($_SESSION['navOptions']['listsOrder']) {
         
     case OLDEST_TO_NEWEST:
 
@@ -293,7 +293,7 @@ foreach ($statement as $row) {
 }
 
 // displays bottom navigation bar:
-if ($pageSettings['navigationBar'])
+if ($pageSettings['navBar'])
     navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
 // link to top of the page:

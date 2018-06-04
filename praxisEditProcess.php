@@ -4,8 +4,9 @@
  * 
  * script to process the edition of an already existing experience
  * or the insertion of a new one.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-05-18
+ * last update: 2018-06-02
  */
 
 require_once 'core.inc';
@@ -34,11 +35,11 @@ $pdo = DB::getDBHandle();
  * the insertion of another new data, such as a place and/or lover(s).
  */
 
-if (isset($_GET['praxisID'])) {
+if (isset($_POST['praxisID'])) {
 // script called form praxis.php': edition of an already existing experience.
 
     $praxisEdit = true;
-    $praxisID = intval($_GET['praxisID']);
+    $praxisID = intval($_POST['praxisID']);
 
 } else {
 // called from 'index.php' or 'practica.php': insertion of a new experience.
@@ -56,8 +57,10 @@ QUERY;
 }
 
 /*
+ * insertion process of a new experience:
+ * 
  * within this script, unlike 'amorEditProcess.php' or 'locusEditProcess.php',
- * data are not to be taken from $_POST but from $_SESSION, from the variables
+ * part of the data are taken from $_SESSION, from the variables
  * $_SESSION['tempPraxisData], $_SESSION[tempLocusData] (includiyng also
  * $_SESSION['tempCountryData'] and $_SESSION['tempKindData]) and, finally,
  * $_SESSION['tempAmorData'][].
@@ -180,43 +183,107 @@ $praxisDescr = $_SESSION['tempPraxisData']['descr'];
 $tq = $_SESSION['tempPraxisData']['tq'];
 $tl = $_SESSION['tempPraxisData']['tl'];
 
-// lover(s) data (if any) are verified and retrieved:
-// the following should be performed for each one of the temporary lovers:
-if (isset($_SESSION['tempAmorData'][0])) {
+/*
+ * lover(s) data are verified and retrieved. the process is performed for each
+ * one of the participating lovers.
+ * 
+ * two sets of lovers should be distinguish:
+ * i) already existing lovers: processing their data is trivial, because they
+ * are already in the DB. only the identifier is needed, and its value is taken
+ * from the $_POST array.
+ * ii) new lovers: this lovers should be inserted in the DB. to process their
+ * data the array $_SESSION['tempAmorData'] is used.
+ * 
+ * it is important to consider the treatement order:
+ * already existing lovers will be processed first, after them the new ones.
+ */
+
+/* 
+ * $amoresAmount is the amount of lovers participating in the experience.
+ * its value is the sum of:
+ * i) the already existing lovers, sizeof($_POST['amorID']), and
+ * ii) the amount of new lovers, sizeof($_SESSION['tempAmorData'])
+ */
+
+$amores = array();
+$amoresAmount = sizeof($_POST['amorID']) + sizeof($_SESSION['tempAmorData']);
+$amorExistingLastIndex = sizeof($_POST['amorID']) - 1; // zero based
+
+// existing lovers are processed:
+for ($i = 0; $i < ($amorExistingLastIndex + 1); $i++) {
     
-    // only field 'alias' is compulsory:
-    if (trim($_SESSION['tempAmorData'][0]['alias']) === "")
-        throw new Exception();
+    $amores[$i] = array("amorID" => $_POST['amorID'][$i]);
     
-    // amorID is calculated:
-    $queryString = <<<QUERY
+    //$amorID[$i] = $_POST['amorID'][$i];
+    
+}
+
+// new lovers are processed:
+$amorNewIndex = 0;
+for ($i = ($amorExistingLastIndex + 1); $i < $amoresAmount; $i++) {
+
+//for ($i = 0; $i < $amoresAmount; $i++) {
+    
+    //if (isset($_SESSION['tempAmorData'][$i])) {
+        // new lover, data read from $_SESSION['tempAmorData']
+    
+        // only field 'alias' is compulsory:
+        if (trim($_SESSION['tempAmorData'][$amorNewIndex]['alias']) === "")
+            throw new Exception();
+
+        // amorID is calculated:
+        $queryString = <<<QUERY
 SELECT MAX(`amorID`)
 FROM `amores`      
 QUERY;
-    $maxAmorID = $pdo->query($queryString)->fetchColumn();
-    $amorID[0] = ($maxAmorID === null) ? 1 : intval($maxAmorID) + 1;
-    
-    // data are retrieved:
-    $amorAchtung[0] = $_SESSION['tempAmorData'][0]['achtung'];
-    $alias[0] = $_SESSION['tempAmorData'][0]['alias'];
-    $amorRating[0] = $_SESSION['tempAmorData'][0]['rating'];
-    $genre[0] = $_SESSION['tempAmorData'][0]['genre'];
-    $descr1[0] = $_SESSION['tempAmorData'][0]['descr1'];
-    $descr2[0] = $_SESSION['tempAmorData'][0]['descr2'];
-    $descr3[0] = $_SESSION['tempAmorData'][0]['descr3'];
-    $descr4[0] = $_SESSION['tempAmorData'][0]['descr4'];
-    $amorWeb[0] = $_SESSION['tempAmorData'][0]['web'];
-    $amorName[0] = $_SESSION['tempAmorData'][0]['name'];
-    $photo[0] = $_SESSION['tempAmorData'][0]['photo'];
-    $phone[0] = $_SESSION['tempAmorData'][0]['phone'];
-    $email[0] = $_SESSION['tempAmorData'][0]['email'];
-    $other[0] = $_SESSION['tempAmorData'][0]['other'];
-    
-} else { // already existing lover(s)
-    
-    $amor[0] = ($_SESSION['tempPraxisData']['amor'] !== -1) ?
-        $_SESSION['tempPraxisData']['amor'] :
-        $amorID[0]; //!!! check
+        $maxAmorID = $pdo->query($queryString)->fetchColumn();
+        $amores[$i] = array(
+            "amorID" => ($maxAmorID === null) ? 1 : intval($maxAmorID) + 1,
+            "amorAchtung" => $_SESSION['tempAmorData'][$amorNewIndex]['achtung'],
+            "alias" => $_SESSION['tempAmorData'][$amorNewIndex]['alias'],
+            "rating" => $_SESSION['tempAmorData'][$amorNewIndex]['rating'],
+            "genre" => $_SESSION['tempAmorData'][$amorNewIndex]['genre'],
+            "descr1" => $_SESSION['tempAmorData'][$amorNewIndex]['descr1'],
+            "descr2" => $_SESSION['tempAmorData'][$amorNewIndex]['descr2'],
+            "descr3" => $_SESSION['tempAmorData'][$amorNewIndex]['descr3'],
+            "descr4" => $_SESSION['tempAmorData'][$amorNewIndex]['descr4'],
+            "web" => $_SESSION['tempAmorData'][$amorNewIndex]['web'],
+            "name" => $_SESSION['tempAmorData'][$amorNewIndex]['name'],
+            "photo" => $_SESSION['tempAmorData'][$amorNewIndex]['photo'],
+            "phone" => $_SESSION['tempAmorData'][$amorNewIndex]['phone'],
+            "email" => $_SESSION['tempAmorData'][$amorNewIndex]['email'],
+            "other" => $_SESSION['tempAmorData'][$amorNewIndex]['other']
+        );
+        
+        $amorNewIndex++;
+        
+//        $amorID[$amorNewIndex] = ($maxAmorID === null) ? 1 : intval($maxAmorID) + 1;
+//
+//        // data are retrieved:
+//        $amorAchtung[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['achtung'];
+//        $alias[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['alias'];
+//        $amorRating[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['rating'];
+//        $genre[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['genre'];
+//        $descr1[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['descr1'];
+//        $descr2[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['descr2'];
+//        $descr3[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['descr3'];
+//        $descr4[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['descr4'];
+//        $amorWeb[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['web'];
+//        $amorName[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['name'];
+//        $photo[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['photo'];
+//        $phone[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['phone'];
+//        $email[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['email'];
+//        $other[$amorNewIndex] = $_SESSION['tempAmorData'][$amorNewIndex]['other'];
+
+//    } else { // already existing lover(s), data read from $_POST
+//
+//        $amorID[$i] = /*($_SESSION['tempPraxisData']['amor'] !== -1) ?
+//            $_SESSION['tempPraxisData']['amor'] :*/
+//            $_POST['amorID'][$i];
+        
+        //$amorExistingLastIndex++;
+
+    //}
     
 }
 
@@ -373,9 +440,10 @@ QUERY;
     
     // new lover(s) (if any) are inserted:
     
-    //foreach... {{
-    if (isset($_SESSION['tempAmorData'][0])) {
-    
+    for ($i = ($amorExistingLastIndex + 1); $i < $amoresAmount; $i++) {
+        
+        //if (isset($_SESSION['tempAmorData'][$i])) {
+
         $queryString = <<<QUERY
 INSERT
 INTO `amores`
@@ -399,53 +467,56 @@ QUERY;
 
         $statement = $pdo->prepare($queryString);
 
-        $statement->bindParam(":amorID", $amorID[0], PDO::PARAM_INT);
-        $statement->bindParam(":achtung", $amorAchtung[0], PDO::PARAM_STR);
-        $statement->bindParam(":alias", $alias[0], PDO::PARAM_STR);
-        $statement->bindParam(":rating", $amorRating[0], PDO::PARAM_INT);
-        $statement->bindParam(":genre", $genre[0], PDO::PARAM_INT);
-        $statement->bindParam(":descr1", $descr1[0], PDO::PARAM_STR);
-        $statement->bindParam(":descr2", $descr2[0], PDO::PARAM_STR);
-        $statement->bindParam(":descr3", $descr3[0], PDO::PARAM_STR);
-        $statement->bindParam(":descr4", $descr4[0], PDO::PARAM_STR);
-        $statement->bindParam(":web", $amorWeb[0], PDO::PARAM_STR);
-        $statement->bindParam(":name", $amorName[0], PDO::PARAM_STR);
-        $statement->bindParam(":photo", $photo[0], PDO::PARAM_INT);
-        $statement->bindParam(":phone", $phone[0], PDO::PARAM_STR);
-        $statement->bindParam(":email", $email[0], PDO::PARAM_STR);
-        $statement->bindParam(":other", $other[0], PDO::PARAM_STR);
+        $statement->bindParam(":amorID", $amores[$i]['amorID'], PDO::PARAM_INT);
+        $statement->
+            bindParam(":achtung", $amores[$i]['achtung'], PDO::PARAM_STR);
+        $statement->bindParam(":alias", $amores[$i]['alias'], PDO::PARAM_STR);
+        $statement->bindParam(":rating", $amores[$i]['rating'], PDO::PARAM_INT);
+        $statement->bindParam(":genre", $amores[$i]['genre'], PDO::PARAM_INT);
+        $statement->bindParam(":descr1", $amores[$i]['descr1'], PDO::PARAM_STR);
+        $statement->bindParam(":descr2", $amores[$i]['descr2'], PDO::PARAM_STR);
+        $statement->bindParam(":descr3", $amores[$i]['descr3'], PDO::PARAM_STR);
+        $statement->bindParam(":descr4", $amores[$i]['descr4'], PDO::PARAM_STR);
+        $statement->bindParam(":web", $amores[$i]['web'], PDO::PARAM_STR);
+        $statement->bindParam(":name", $amores[$i]['name'], PDO::PARAM_STR);
+        $statement->bindParam(":photo", $amores[$i]['photo'], PDO::PARAM_INT);
+        $statement->bindParam(":phone", $amores[$i]['phone'], PDO::PARAM_STR);
+        $statement->bindParam(":email", $amores[$i]['email'], PDO::PARAM_STR);
+        $statement->bindParam(":other", $amores[$i]['other'], PDO::PARAM_STR);
         $statement->bindParam(":user", $_SESSION['userID'], PDO::PARAM_INT);
 
         $statement->execute();
+
+        //}
     
     }
-    
-    // {{ foreach...
     
     // assignations:
     
 /*
  * one row is inserted for every lover who participates in the experience.
  */
-    //foreach...{{
-    if (!$praxisEdit) {
+    for($i = 0; $i < $amoresAmount; $i++) {
         
-        $queryString = <<<QUERY
+        if (!$praxisEdit) {
+
+            $queryString = <<<QUERY
 INSERT
 INTO `assignations`
 VALUES (:praxis,
     :amor)
 QUERY;
         
-        $statement = $pdo->prepare($queryString);
-        
-        $statement->bindParam(":praxis", $praxisID, PDO::PARAM_INT);
-        $statement->bindParam(":amor", $amorID[0], PDO::PARAM_INT); // should be array
-        
-        $statement->execute();
-        
+            $statement = $pdo->prepare($queryString);
+
+            $statement->bindParam(":praxis", $praxisID, PDO::PARAM_INT);
+            $statement->
+                bindParam(":amor", $amores[$i]['amorID'], PDO::PARAM_INT);
+
+            $statement->execute();
+
+        }
     }
-    //{{foreach...
     
     // commit transaction:
     $pdo->commit();

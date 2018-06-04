@@ -211,7 +211,27 @@ QUERY;
     public function HTMLPreview($ordinalNr) {
 
         // get a DB connection to work with:
-        $pdo = DB::getDBHandle();
+        //$pdo = DB::getDBHandle();
+
+/*
+ * $this->queryString is queried to distinguish which kind of query is it
+ * (experiences, lovers or places).
+ * 
+ * $queryKind is set by reading the table from the query.
+ * 
+ * $targetScript is the script to which the user should be redirected.
+ * 
+ * the format of all queries is:
+ * SELECT * FROM `myX`.`{queriedTable}` ...
+ * 0123456789012345678901
+ *           1         2              backtick4Pos
+ * (start position: 21; end position: 4th backtick occurrence)
+ */
+        
+        $backtick4Pos = strpos($this->queryString, "`", 21);
+        $queriedTable = substr($this->queryString, 21, $backtick4Pos - 21);
+        
+        $targetScript = $queriedTable.".php";
         
         echo "\t\t\t\t\t<div class=\"HTMLPreview\">\n";
         
@@ -224,11 +244,11 @@ QUERY;
         
         if (DEBUG)
             echo " <span class=\"debug\">[queryString <b>".
-                $this->getQueryString()."</b>]</span> ";
+                $this->queryString."</b>]</span> ";
         
         // 2. name (with hyperlink):
-        echo "<b><a href=\"practica.php?query=".$this->queryID."\">".
-            $this->getName()."</a></b>";
+        echo "<b><a href=\"".$targetScript."?query=".$this->queryID."\">".
+            $this->name."</a></b>";
         
         echo "</p>\n";
         

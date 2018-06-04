@@ -93,7 +93,7 @@ echo "\t\t\t<section> <!-- section {{ -->\n";
  */
 
 echo "\t\t\t\t<form id=\"praxisEditForm\" action=\"praxisEditProcess.php\"".
-    " method=\"GET\" accept-charset=\"utf-8\">\n";
+    " method=\"POST\" accept-charset=\"utf-8\">\n";
 
 /*
  * section i) general data.
@@ -267,14 +267,22 @@ else if ($tempPraxis)
 echo "\" /><br />\n";
 echo "\t\t\t\t\t\t\t</fieldset>\n";
 
-// participant(s) (whether existing or new):
+/*
+ * participant(s) (whether existing or new).
+ * the participans in the experience are presented as a numbered list, in which
+ * each item has three parts:
+ * i) an ordinal number.
+ * ii) two radio buttons with the choice of select an already existing lover
+ * or to insert a new one.
+ * iii) two plus and minus buttons (in the first lover the minus button is
+ * absent), to add or remove lovers from the list.
+ */
 
 echo "\t\t\t\t\t\t\t<fieldset>\n";
 echo "\t\t\t\t\t\t\t\t<legend>"._("Participant(s)")."</legend>\n";
-//echo "<style>td {border: solid thin black;}</style>\n";
 echo "\t\t\t\t\t\t\t\t<table id=\"amoresTable\" style=\"width: 100%\">\n";
-echo "\t\t\t\t\t\t\t\t\t<tr>\n";
-echo "\t\t\t\t\t\t\t\t\t\t<td>\n";
+echo "\t\t\t\t\t\t\t\t\t<tr id=\"amor1\">\n";
+echo "\t\t\t\t\t\t\t\t\t\t<td id=\"amorOrdinal1\">\n";
 echo "\t\t\t\t\t\t\t\t\t\t\t<p>1.</p>\n";
 echo "\t\t\t\t\t\t\t\t\t\t</td>\n";
 echo "\t\t\t\t\t\t\t\t\t\t<td>\n";
@@ -352,7 +360,7 @@ echo "</button>\n";
 echo "\t\t\t\t\t\t\t\t\t\t</td>\n";
 echo "\t\t\t\t\t\t\t\t\t\t<td style=\"width: 85px;\">\n";
 echo "\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"addAmor[0]\">+</button>\n";
-echo "<!--\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"removeAmor[0]\">-</button>-->\n";
+//echo "<!--\t\t\t\t\t\t\t\t\t\t\t<button type=\"button\" id=\"removeAmor[0]\">-</button>-->\n";
 echo "\t\t\t\t\t\t\t\t\t\t</td>\n";
 echo "\t\t\t\t\t\t\t\t\t</tr>\n";
 echo "\t\t\t\t\t\t\t\t</table>\n";

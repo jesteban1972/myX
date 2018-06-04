@@ -148,8 +148,7 @@ if ($practicaQuery->getName() !== "all experiences") {
     echo "\t\t\t\t\t\t\t</form>\n";
     echo "\t\t\t\t\t\t</div>\n";
     
-}
-    
+}    
 
 if (DEBUG)
     echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString.

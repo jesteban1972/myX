@@ -6,7 +6,7 @@
  * 'Query'.
  * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last updated 2018-05-27
+ * last updated 2018-06-03
 */
 
 require_once 'core.inc';
@@ -17,22 +17,6 @@ require_once 'DB.inc';
 // get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
-/*
- * initializes $practicaList, and retrieves its components
- * if already storage in $_SESSION, retrieve list;
- * otherwise create an unfiltered list 
- */
-//if (!isset($_SESSION['practicaQuery'])) {
-//    
-//$query = new Query();
-//    $_SESSION['practicaQuery'] = $practicaQuery;
-//    
-//} else {
-//    
-//    $practicaQuery = $_SESSION['practicaQuery'];
-//    
-//}
-//
 $name = "all queries"/*$query->getName()*/;
 //$descr = $query->getDescr();
 
@@ -43,7 +27,7 @@ require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
 echo <<<HTML
-                <!-- Script queries.php. Part 0: XXXDescription of the listXXX -->
+                <!-- Script queries.php. part 0: description of the list -->
                 <article id="start">
 
 HTML;
@@ -93,7 +77,8 @@ switch ($queriesAmount) {
 echo "</p>\n";
 
 if (DEBUG)
-    echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString."]</span>\n";
+    echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString.
+        "]</span>\n";
 
     
 // links to page sections:
@@ -195,7 +180,7 @@ HTML;
     if ($pageSettings['navBar'])
         navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
-    // cita (original text):
+    // cite (original text):
 //    echo <<<HTML
 //                    <p class="quote">«Αἰτεῖτε καὶ δοθήσεται ὑμῖν,<br />
 //                    ζητεῖτε καὶ εὑρήσετε,<br />

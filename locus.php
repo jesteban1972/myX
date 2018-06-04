@@ -7,6 +7,7 @@
  * using this lover identificator an object of class 'Locus' is created,
  * whose data are read from database.
  * the page´s parts will be created using this object.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-10
 */

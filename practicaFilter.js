@@ -370,7 +370,7 @@ function addRule(evt) {
 
 function changeRuleField(evt) {
     
-    // get the current rule ordinal:
+    // get the index of the rule being changed:
     var ruleIndex = parseInt(evt.target.name.match(/\d+/g));
     
     var select = evt.target;

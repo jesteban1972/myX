@@ -1,7 +1,7 @@
 /* myXData.sql
  * myX sample data
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-05-21
+ * last update: 2018-06-04
  */
 
 INSERT INTO `myX`.`users` VALUES (
@@ -16,11 +16,12 @@ INSERT INTO `myX`.`users` VALUES (
     "Descripción genital: Pecho, vagina, culete...",
     "Descripción de carácter: Rasgos de personalidad, manías...",
     2,                  /* GUILang */
-    25,                 /* resultsPerPage */
+    10,                 /* resultsPerPage */
     1,                  /* listsOrder */
     2                   /* userKind */
 );
 
+/*
 INSERT INTO `myX`.`users` VALUES (
     3,
     "Pepita",
@@ -37,11 +38,14 @@ INSERT INTO `myX`.`users` VALUES (
     1,
     2
 );
+*/
 
 
 INSERT INTO `myX`.`countries` VALUES (18, "España", 2);
-INSERT INTO `myX`.`countries` VALUES (19, "Grecia", 2);
-INSERT INTO `myX`.`countries` VALUES (20, "Italia", 2);
+INSERT INTO `myX`.`countries` VALUES (19, "Francia", 2);
+INSERT INTO `myX`.`countries` VALUES (20, "UK", 2);
+INSERT INTO `myX`.`countries` VALUES (21, "Israel", 2);
+INSERT INTO `myX`.`countries` VALUES (22, "Jordania", 2);
 /* values 1..17 reserved by Sarkodeiktes */
 
 /*
@@ -80,14 +84,14 @@ INSERT INTO `myX`.`kinds` VALUES (
 INSERT INTO `myX`.`loca` VALUES (
     734,
     "",
-    "Cartagena: Hotel NH Campo de Cartagena",
+    "Cartagena: hotel NH Campo de Cartagena",
     3,
     "Calle Ciudadela, 24, 30203 Cartagena, Murcia",
     18,
     13,
-    "hotel de precio asequible situado en un lugar tranquilo",
+    "hotel de precio asequible situado en un lugar tranquilo si bien no muy céntrico",
     "37.612314, -0.976620",
-    "37.599019, -0.985648",
+    "",
     "www.nh-hotels.com/Cartagena/Campo-Cartagena",
     2
 );
@@ -98,8 +102,8 @@ INSERT INTO `myX`.`loca` VALUES (
     "Cartagena: Apartamento de Calíope",
     3,
     "Calle Carlos III, 33, 30201 Cartagena, Murcia",
-    19,
-    11,
+    18,
+    12,
     "",
     "37.605995, -0.983976",
     "37.599019, -0.985648",
@@ -110,89 +114,89 @@ INSERT INTO `myX`.`loca` VALUES (
 INSERT INTO `myX`.`loca` VALUES (
     736,
     "",
-    "Éfeso: Templo de Artemisa",
+    "Sevilla: hostal Atenas",
     3,
-    "",
+    "Calle Caballerizas 1, 41003 Sevilla",
     18,
-    11,
-    "El templo de Artemisa en Éfeso era una de las siete maravillas del mundo antiguo",
-    "37.949887, 27.363383",
+    13,
+    "hostal en el centro de la ciudad, cerca de la Casa de Pilatos, a precios asequibles",
+    "37.390535, -5.987844",
     "",
-    "",
+    "www.hostal-atenas.com",
     2
 );
 
 INSERT INTO `myX`.`loca` VALUES (
     737,
     "",
-    "Atenas: Partenón",
+    "Granada: hotel Granada Center",
     3,
+    "Avenida Fuente Nueva s/n, 18002 Granada",
+    18,
+    13,
+    "hotel muy convenientemente situado, que dispone de unas habitaciones muy confortables y multitud de servicios",
+    "37.179142, -3.607931",
     "",
-    19,
-    11,
-    "El Partenón de Atenas era una de las siete maravillas del mundo antiguo",
-    "37.971482, 23.726625",
-    "",
-    "",
+    "www.hotelescenter.es/hotel-granada-center/",
     2
 );
 
 INSERT INTO `myX`.`loca` VALUES (
     738,
     "",
-    "Aphrodisias: Templo de Afrodita",
+    "Montpelier: apartamento de Melpómene",
     3,
-    "Geyre Mahallesi, Kuyucak Tavas Yolu, 09385 Karacasu/Aydın, Turkey",
-    18,
-    11,
-    "El templo de Afrodita es y sigue siendo el punto principal del sitio, pero el carácter del edificio se alteró cuando se convirtió en una basílica cristiana. Los escultores de Afrodisias eran célebres y se beneficiaron de una gran abundancia de mármol en las montañas cercanas. La escuela de escultura de la ciudad produjo bastantes obras, muchas de las cuales todavía se pueden apreciar en el sitio y en el museo de la ciudad. Durante las excavaciones se encontraron muchas estatuas completas en el área del ágora y estatuas sin terminar en un área que señala el sitio de una escuela de escultura. También se han hallado sarcófagos en varios puntos de la ciudad, la mayor parte de ellos con diseños que constan de guirnaldas y columnas, al igual que pilares con diseños descritos como «manuscritos humanos» o «vivientes», representando personas, pájaros y animales envueltos en hojas de acanto.<br />En el sitio arqueológico alrededor del templo se pueden encontrar rincones ideales para mantener sexo.",
-    "37.710071, 28.725108",
+    "12 Bvd Victor Hugo, 34000 Montpellier",
+    19,
+    12,
+    "apartamento situado en el centro de la ciudad, muy cercano a la plaza Comédie",
+    "43.606759, 3.878278",
+    "43.608464, 3.879502",
     "",
-    "www.muze.gov.tr/aphrodisias",
     2
 );
 
 INSERT INTO `myX`.`loca` VALUES (
     739,
     "",
-    "Sunio: Templo de Poseidón",
+    "Montpelier: hotel St-Roch Centre",
     3,
-    "Cape Sounio, Sounio 195 00",
+    "14 rue Jules Ferry	Montpellier	34000",
     19,
-    11,
-    "El templo de Poseidón de Sunio era lo primero que veían los navegantes cuando se aproximaban al Ática",
-    "37.650153, 24.024572",
+    13,
+    "hotel muy convenientemente situado frente a la estación Montpellier Saint-Roch",
+    "43.604597, 3.879670",
     "",
-    "",
+    "hotel-montpellier-gare.fr",
     2
 );
 
 INSERT INTO `myX`.`loca` VALUES (
     740,
     "",
-    "Monte Cyllene: Templo de Hermes",
+    "Edimburgo: hostal Princes Street East Backpackers",
     3,
     "",
-    19,
-    11,
-    "El templo de Hermes en el Monte Cyllene se construyó en el lugar en que, según la tradición, nació el dios",
-    "37.939785, 22.395832",
+    20,
+    13,
+    "hostal low cost pero muy bien situado en el centro de Edinburgo, cerca de la estación Edinburgh Waverley",
+    "55.953651, -3.190262",
     "",
-    "",
+    "edinburghbackpackers.com",
     2
 );
 
 INSERT INTO `myX`.`loca` VALUES (
     741,
     "",
-    "Argos: Templo de Hera",
+    "Jerusalén: apartamento de Terpsícore",
     3,
-    "",
-    19,
-    11,
-    "El templo de Hera en Argos bla bla bla",
-    "37.691998, 22.775001",
-    "",
+    "Meir Shaham 37, Jerusalem",
+    21,
+    12,
+    "la casa de Terpsícore está situada junto al pintoresco barrio de Nachalat Shiv'a, en el centro de Jerusalén",
+    "31.779427, 35.216079",
+    "31.777645, 35.234488",
     "" ,
     2
 );
@@ -200,58 +204,28 @@ INSERT INTO `myX`.`loca` VALUES (
 INSERT INTO `myX`.`loca` VALUES (
     742,
     "",
-    "Roma: Templo de Marte Ultore",
+    "Ammán: hotel Zamzam Towers",
     3,
+    "Wasfi Altal St., Amman (Khalda-Wasfi Al-Tal), Jordan",
+    22,
+    13,
+    "el hotel se halla al norte de la ciudad, a unos 45 minutos del aeropuerto",
+    "31.997080, 35.853016",
     "",
-    20,
-    11,
-    "El templo de Marte Ultore en Roma bla bla bla",
-    "41.894396, 12.486927",
-    "",
-    "",
+    "www.zamzamtowershotel.com",
     2
 );
 
 INSERT INTO `myX`.`loca` VALUES (
     743,
     "",
-    "Atenas: Templo de Hefesto (aka Thisio)",
+    "Cabo de Agde: playa naturista en torno al chiringuito «Paralia»",
     3,
-    "Athens 105 55, Greece",
+    "playa naturista «La Baie des Cochons», al este del complejo hotelero, junto a las dunas",
     19,
-    11,
-    "El templo de Hefesto en Atenas, erróneamente llamado Thisio, bla bla bla",
-    "37.975588, 23.721417",
-    "",
-    "",
-    2
-);
-
-INSERT INTO `myX`.`loca` VALUES (
-    744,
-    "",
-    "Naxos: Templo de Démeter",
-    3,
-    "",
-    19,
-    11,
-    "El templo de Démeter en Naxos bla bla bla..",
-    "37.029108, 25.431321",
-    "",
-    "",
-    2
-);
-
-INSERT INTO `myX`.`loca` VALUES (
-    745,
-    "",
-    "Naxos: Templo de Dionisio",
-    3,
-    "",
-    19,
-    11,
-    "El templo de Dionisio en Naxos bla bla bla..",
-    "37.077697, 25.380779",
+    14,
+    "el Cabo de Agde es un lugar recreacional en el que se juntan libertinos de toda Europa para disfrutar del sol, de la playa... y del sexo",
+    "43.300325, 3.535978",
     "",
     "",
     2
@@ -268,9 +242,9 @@ INSERT INTO `myX`.`practica` VALUES (
     4,
     0,
     735,
-    "2018-01-01",
+    "2018-05-01",
     "",
-    "Primera experiencia, «ἐν πορνείῳ». Con Actea (Proto?), una hieródula del templo de Afrodita en Corinto, llegó el estreno.<br />aconteció que, tras verla en la estoa del templo y seducido por su buen aspecto no dudé en ir tras ella y abordarle, antes de que alguna otra «rapaz» me quitase la presa. fue fácil; no dudó mucho en venirse conmigo. fuimos al fornix que ella frecuenta, y echamos un polvo «de película». a causa de la calidad del género que tenía entre manos, yo estaba excitadísimo, y ella respondía muy, pero que muy bien. besaba como nadie y también felaba muy bien.<br />lo mejor fue cuando copulamos: ella estaba tumbada boca arriba. se abrió de piernas y sin ningún esfuerzo se lo introduje. una vez con el miembro dentro de su vagina no me importó follarla un poco, aunque sin eyacular dentro. y así lo hice. con lo abierta que estaba, no tuve ninguna dificultad en metérsela hasta los testículos, haciéndole estremecerse de placer.<br />yo daba sacudidas salvajes contra su vagina muriéndome de gusto, y ella disfrutaba «como una perra», aunque la muy «cabrona» ni se tocaba; me tocaba a mí, y a veces me tocaba los testículos y la raíz del miembro para cerciorarse de que lo tenía dentro.<br />me dio mucha pena tener que sacarla cuando estaba cerca de eyacular. me masturbé salvajemente, hasta «descargar» envuelto en un inmenso placer. ella tardó bastante tiempo más en llegar al orgasmo. al principio le estimulaba yo el clítoris, y al ver que no se acababa nunca le dije que lo hiciese ella misma, y mientras tanto yo le besaba, le acariciaba los pechos y le introducía un dedo por el ano. al final llegó al orgasmo entre espasmos de placer.",
+    "primerísima experiencia, con Calíope, en su casa: después de haber pasado la tarde juntos me llevó a su apartamento. rápidamente afloró la pasión, y pasionalmente nos amamos.<br />la experiencia fue totalmente satisfactoria y muy, muy excitante. disfrutamos mucho con nuestros cuerpos. los preliminares, que duraron una eternidad, incluyeron múltiples felaciones y cunnilingus amén de largas rondas de pasionales besos y caricias. a continuación copulamos, y en sucesivas ocasiones y diferentes posturas la penetré dinámicamente durante no poco tiempo.<br />finalmente, en el cénit de la excitación, ambos llegamos al orgasmo, de forma sincronizada. fue perfecto. quedamos ambos exhaustos pero muy satisfechos.<br />siguió un largo lapsus de ternura, con múltiples besos y caricias.<br />Calíope es muy cariñosa y sensual, y desde el primer momento hubo mucho <i>feeling</i> entre nosotros. al marcharme de su casa quedé totalmente prendado. tanto, que pocos días más tarde volveríamos a quedar para un nuevo encuentro sexual.",
     4,
     1,
     2
@@ -283,9 +257,9 @@ INSERT INTO `myX`.`practica` VALUES (
     3,
     0,
     735,
-    "2018-01-02",
-    "",
-    "esta es la experiencia número dos, experiencia vivida con XXX.<br />el sexo fué de lo más gratificante. cómodos y límpios, en una cama grande, me trató con delicadeza y dulzura. nos besamos, nos acariciamos tiérnamente. todo fué muy tierno aunque eso no quitó de disfrutar de lo más duro y placentero del sexo.<br />me propuso que la penetrase, y yo acepté nervioso. me puse timidamente el preservativo y, afortunadamente, debido a su experiencia, todo fué «sobre ruedas». se la metí de golpe, y ella se estremeció de placer. fué superexcitante.<br />no eyaculé dentro -eso hubiera sido perfecto-, pero disfrute como nunca lo habría imaginado.<br />cuando se fué me quedé completamente colado por ella.",
+    "2018-05-06",
+    "a",
+    "nuevamente nos encontramos y, tras tomar una cena romántica, nos amamos en su casa.<br />la experiencia no tuvo que envidiar en nada a la que habíamos mantenido tan sólo unos días antes, y con mucho placer disfrutamos de nuestros cuerpos y del sexo.<br />los preeliminares duraron no poco rato, y acto seguido pasamos a la acción copulatoria en una sucesión de penetraciones y otros juegos sexuales.<br />por descontado, la experiencia terminó en el orgasmo por ambas partes, si bien la sincronización no fue perfecta, y mi eyaculación no llegó sino hasta sólo algunos instantes después de haber acabado ella.<br />en la conversación post coito, Calíope propuso para mi sorpresa hacer un trío con una amiga suya, Clío, que estaba de visita en la ciudad. me sorprendió esta proposición libertina que no esperaba de una chica convencional como Calíope, aunque no dudé en aceptar. así, organizamos para vernos esa misma noche en el hotel donde se alojaba esta última.",
     4,
     1,
     2
@@ -298,9 +272,9 @@ INSERT INTO `myX`.`practica` VALUES (
     3,
     0,
     734,
-    "2018-01-03",
-    "",
-    "trío con XXX1 y XXX2. fue fantástico: me lo ligué con la mirada en ... . XXX1 no estaba muy convencido de ella, aunque a mí me gustaba bastante. «llevárnosla» fue muy fácil, pues en la puerta de ... le propusimos venirse con nosotros, y ella aceptó sin pensárselo.<br />fuimos con el coche a una calle sin salida, justo detrás de... . paré con el coche mirando hacia la salida, y puse el quitasol en el parabrisas. acto seguido nos pasamos a la parte de atrás, dejando a la chica en medio; me quité las botas, y no perdimos el tiempo:<br />comenzamos a besuquearnos y a acariciarnos a tres bandas, la chica respondía muy bien; nosotros dos también. nos fuimos desnudando gradualmente, y así pudimos contemplar su cuerpo en línea y su ... . una vez desnudos vimos que la chiquilla no se andaba con remilgos: a mí me felaba el miembro, mientras le daba el culo a XXX1. primero me la chupó a mí. después se dio la vuelta y ... a XXX1, y XXX1 le hizo un cunnilingus. siguió XXX2 chupando a XXX1...<br />entonces yo aproveché para ir trabajándole el clítoris. cuando pasó un rato XXX1 me vio las intenciones y le dijo: «<cite>¿Quieres que mi novio te meta la punta?</cite>», a lo que ella respondió: «<cite>Sin condón, no</cite>». entonces le dijimos: «<cite>Tenemos condones de sobra</cite>», mientras yo ya estaba cogiendo uno de mi pantalón.<br />me lo puse en el miembro, y empecé con las maniobras de penetración, aunque enseguida me di cuenta de que no iba a ser demasiado fácil. entonces me escurrí por debajo suya y empecé a lamer su culete, lo que parece que le dio mucho gusto a juzgar por los gemidos que daba. yo pensaba: «<cite>¡Cuando te meta el miembro te va a gustar todavía más!</cite>» enseguida me incorporé y retomé las maniobras, justo donde las había dejado, alcanzando con éxito la penetración anal completa en pocos segundos.<br />su cuerpo empezó a destensarse, y comenzamos a gozar. le fui dando sacudidas profundas, pero no muy fuertes, pues lo que yo quería era preparar esa conducto estrecho para que todos sintiéramos placer. la chavala emitía unos sonidos lastimeros, mezcla de placer y, al principio, de dolor; pero todo el dolor se transformó rápidamente en placer, y mi miembro entraba y salía de su culete con facilidad. XXX2 daba entonces profundos suspiros, envuelta en placer. XXX1 se masturbaba mientras la acariciaba y, a veces, ... .<br />... al tener la boca libre nos hizo notar aún más lo bien que lo estaba pasando, pues sus gemidos y suspiros eran continuos...",
+    "2018-05-06",
+    "b",
+    "trío con Calíope y Clío, siguiendo la propuesta de aquella durante la visita de ésta a nuestra ciudad. nos tomamos algo en la cafetería del hotel para romper el hielo, y al poco nos subimos a la habitación, donde nos amamos pasional y satisfactoriamente.<br />con mucho placer nos amamos los tres, si bien yo no podía evitar estar algo nervioso al ser éste mi primer trío. ellas, en cambio, estaban mas que curtidas en estas lides y condujeron la situación. a pesar de los nervios lo pasamos estupendamente.<br />XXX",
     4,
     1,
     2
@@ -313,9 +287,9 @@ INSERT INTO `myX`.`practica` VALUES (
     3,
     0,
     734,
-    "2018-01-04",
+    "2018-05-07",
     "",
-    "no tuve que trabajar mucho para beneficiármela, fue un regalo del cielo. al contrario, me pilló casi por sorpresa. a ella le bastó echar un ojo al interior de mi fornix, donde estaba yo tendido desnudo, para quedarse atento a mi reacción, la cual no se hizo de esperar.<br />entró inmediatamente, y yo empecé a comerle los pezones y a deleitarme del tamaño y la dureza de su pecho. simultáneamente, comencé a explorar lo que había mas abajo de la cintura, bajo la toalla, y descubrí con mucho gusto ...<br />πὼ πώ, ¡Dios qué tiaza! me la comí viva por todas partes, intentando disfrutar lo más posible de esos momentos que normalmente no se presentan cada día. ella se mostró más fría, y no sólo no me comió en el cuerpo, sino que evitó incluso el besarme; eso no quita que disfrutase también ella como un enano de mi cuerpo serrano.<br />al poco rato de «marraneo» me di cuenta de que se dejaba trabajar el culo más de lo normal. por supuesto ella ya había reparado en el tamaño y la dureza de mi miembro, y me hizo ver claramente que quería que le metiese «caña de España». se me dio la vuelta, me puso su culo en pompa y me largó un condón (que había traído consigo).<br />se la clavé profundamente. me la follé durante un buen rato, y mientras la follaba recorría con mis manos y mi boca su cuerpo de Venus. ella se sometía sumisamente a los viajes de mi pene erecto, y comprobaba de cuando en cuando la placentera presencia de mi miembro en su ojete. cambiamos dos veces de postura, y acabamos finalmente la cópula estando ella tumbada boca arriba, lo cual me dio la oportunidad de disfrutar plenamente de la contemplación de su cuerpazo mientras la follaba, y aún deleitarme de la caricia fogaz de su pecho terso.<br />en estas condiciones hubiera sido difícil no eyacular, lo cual hice encantado haciéndole ver abiertamente de qué modo gozaba. al momento me estaba haciendo un gesto de dolor para que se la sacara del culo, tan fría como ella misma lo había sido durante todo el rato.<br />fue apoteósico. magnífico. maravilloso. un polvo para no olvidar.<br />ella se comportó como una «cabrona» folladora, tan fría, tan bien equipada, tan sumisa... yo me comporté como un «cabrón» follador, tan sintabúes, tan dominante, tan «<i>yo me corro; tú haz lo que quieras</i>». comprensión total. disfrute pleno.<br />me pedía después del polvo que encendiese la luz: «<cite>Es ist ein Bisschen dunkel hier, oder?</cite>» quería ver con detalle al toro que se la había follado. la impresión debió resultar -espero- positiva. sin embargo, para no variar, siguió comportándose tan fríamente como lo había hecho todo el rato, y se largó al momento con un simple «<i>Tschüß</i>».<br />no importa. el disfrute que tuve con la cópula me había dejado totalmente satisfecho... y casi exhausto.",
+    "segundo trío con Calíope y Clío, antes de que esta última marchase para su tierra. al despertarnos por la mañana de nuevo nos excitamos y consumamos.<br />la experiencia no fue tan satisfactoria como la de la noche anterior, lo cual era previsible porque ya no se trataba de ninguna novedad. a pesar de ello XXX",
     4,
     1,
     2
@@ -324,13 +298,13 @@ INSERT INTO `myX`.`practica` VALUES (
 INSERT INTO `myX`.`practica` VALUES (
     8283,
     "",
-    "coito activo en trío con eyaculación",
+    "coito activo con eyaculación",
     3,
     0,
     735,
-    "2018-01-05",
+    "2018-05-08",
     "",
-    "se lo estaban montando con mucha calma a la espera de un tercer vértice para el triángulo. entonces aparecí yo.<br />después de un rato no corto de «marraneo» inicial copulé con ambas; empecé por la que parecía más joven, y durante un rato bastante grande le penetré con fuerza y ganas.<br />después la otra, envidiosa, le dijo que ella también quería, por lo que cambiaron, y me follé a la otra con la fuerza de un toro salvaje. la «cabrona» disfrutó como una «puta perra», y los gritos que daban no parecían ser humanos.<br />después del polvo (ambas se corrieron, yo no), «flipaban» entre ellas de ver cómo me las había follado. me miraban y sonreían. yo estaba bañado en sudor.",
+    "con Calíope, en su piso. nos excitamos pensando en nuestras aventuras con su amiga el pasado fin de semana, y acto seguido nos amamos pasionalmente.<br />me dio la impresión de que Calíope pretendía de alguna manera demostrar que ella sola se bastaba y se sobraba para complacerme, como el día anterior(?) me habían complacido conjuntamente con su amiga. así, se entregó a fondo en cualquiera de sus acciones, y con mucha maestría XXX",
     4,
     1,
     2
@@ -339,13 +313,13 @@ INSERT INTO `myX`.`practica` VALUES (
 INSERT INTO `myX`.`practica` VALUES (
     8284,
     "",
-    "coito activo con eyaculación",
-    3,
-    0,
-    735,
-    "2018-01-06",
+    "excitante coito activo con eyaculación",
+    4,
+    1,
+    736,
+    "2018-05-11",
     "",
-    "la segunda vez con ella -por cierto, ella no me reconoció-, no hizo falta demasiado flirteo para comprender nuestras intenciones: nos deseábamos.<br />entré en ... ; me siguió; nos enrollamos de inmediato. con mucho frenesí nos comimos la boca, nos estrujamos, «nos dimos caña». la manoseé viva, y ella hizo lo mismo conmigo. me feló el miembro (en bastantes ocasiones) haciéndome un «<i>deep-throat</i>» tan regular y bien hecho que llegó a asombrarme. le trabajé el clítoris a base de bien. πὼ πώ, ¡qué bueno!<br />después de un rato de trajineo en ese «agujero del placer» me la follé viva un montón de ocasiones, utilizando para ello nada menos que cuatro condones diferentes. y entre clavada y clavada «marraneábamos», nos comíamos las bocas.<br />asumo que acabé eyaculando.",
+    "en la capital hispalense, durante un viaje de recreo por Sevilla y Granada, coincidí con Talía en un bar de copas. ligamos, y acabamos la noche en mi hostal del centro.<br />con la exuberante cubana tuve una excitante experiencia que duró muchísimo rato y que tuvo varias réplicas a lo largo de la noche. disfruté de cada milimetro de su piel de ébano, así como ella disfrutó de cada detalle de mi anatomía, demostrando ser, entre otras cosas, una experta feladora. efectivamente, era ésta muy experimentada y muy viciosa. ¡y qué no me hizo!... ¡y cómo me lo hizo! :) igualmente supo darse plenamente por delante y por detrás.<br />como fruto de nuestra perfecta sincronización y armonía, en el cénit de la excitación alcanzamos el orgasmo simultaneamente. acabó dejandome exhausto. la experiencia fue apoteósica y de lo más gratificante, y merece, sin duda alguna, ser apuntada y recordada.",
     4,
     1,
     2
@@ -357,10 +331,10 @@ INSERT INTO `myX`.`practica` VALUES (
     "coito activo con eyaculación",
     3,
     0,
-    736,
-    "2018-01-07",
+    737,
+    "2018-05-13",
     "",
-    "nos enrollamos en un rincón oscuro; luego fuimos a un fornix.<br />se puso hecha una «zorra», me manoseó y me comió vivo. se mediodesnudó, se arrodilló ante mí, y me la comió enteretita.<br />mientras, yo ya le había estado palpando el ano: follastible. seguí durante un rato «trabajándole» el culete; ella con la <i>fellatio</i>. así que, al poco rato, se ofreció a ser follada. ante mi respuesta afirmativa, se terminó de desnudar, se colocó en el <i>sling</i>, se abrió de piernas.<br />le clavé la punta de mi miembro en su ano abierto y, en lugar de follarlo, hice balancear muy despacito el <i>sling</i> de modo que mi pene le entraba y salía muy, muy despacio, disfrutando al máximo su culete en cada milímetro de mi miembro tieso. πὼ πώ, ¡fué totalmente «<i>geil</i>»! entonces le pregunté si le gustaba más de esa manera o de... «<cite>¡Ésta!</cite>», dije, mientras se la clavava con la fuerza de un toro salvaje. le encantó, a la «zorra». me dijo que era un buen follador. le estuve metiendo embestidas un buen rato...<br />me había pedido que eyaculase en sus pechos, y había llegado el momento. se la saqué, rodeé el <i>sling</i> y se la metí en la boca, que la tenía abierta con la cabeza girada hacia atrás. <i>deep throat</i>. tanto, que hasta me dolía.<br />al ratito se la saqué y, masturbándome frenéticamente, eyaculé descargando toda mi virilidad en su barbilla, cuello y pechos. entonces llegó ella al orgasmo, masturbándose.<br />le encantó, a la «perra». se quedó flipando. no paró de elogiarme.<br /><i>intermission...</i>",
+    "en Granada nuevamente ligué, esta vez con Euterpe, una chica regordita, aparentemente modosita y recatada, pero que en la cama es una auténtica bomba.<br />después de conocernos y de tomar algunas copas (alguna de más), se vino conmigo a mi habitación de hotel, donde con mucha satisfacción nos amamos largo y tendido. XXX",
     4,
     1,
     2
@@ -369,13 +343,13 @@ INSERT INTO `myX`.`practica` VALUES (
 INSERT INTO `myX`.`practica` VALUES (
     8286,
     "",
-    "Juego carnal con eyaculación",
-    3,
+    "juego carnal sin eyaculación",
+    2,
     0,
-    737,
-    "2018-03-26",
+    735,
+    "2018-05-14",
     "",
-    "Lorem ipsum",
+    "último encuentro con Calíope, en su casa. la experiencia no resultó particularmente satisfactoria, como demuestra el hecho que ni copulamos, ni siquiera hubo eyaculación.<br />en efecto, había cierta tensión entre nosotros.<br />XXX<br />en cierta manera ambos supimos que este habría sido nuestro último encuentro: mi agitado modo de vida, viajando incesantemente por motivos laborales, suponía un obstáculo infranqueable para una relación estable, que es lo que ella estaba buscando. esto provocó que, inevitablemente, nuestra relación se enfriara hasta el punto de su extinción.",
     3,
     1,
     2
@@ -388,9 +362,9 @@ INSERT INTO `myX`.`practica` VALUES (
     3,
     0,
     738,
-    "2018-04-03",
+    "2018-05-16",
     "",
-    "nada más acercame a ella en la puerta del local se abalanzó sobre mí como un loco, con una pasión desenfrenada. nos comimos vivos, me la estuvo chupando un buen rato, y disfrutamos bastante de nuestros cuerpos.<br />cuando me decidí a «trajinarle» el culete, casi al momento me di cuenta de que la «cabrona» estaba más que abierta. entonces, viendo ella la dureza de mi miembro, se me puso «superperra», se dio la vuelta y quiso que se la clavase así, sin más, y allí mismo. tuve que pararla para colocar profilaxis, pero al momento se la estaba clavando en el culete con toda la facilidad del mundo mientras ella, doblada como una bisagra, disfrutaba de mi polla dura.<br />me la follé viva. incluso esnifé <i>poppers</i> de mi primera flamante botella que había comprado. ella me agarraba frenéticamente y me empujaba hacia sí, para clavársela más profundamente.<br />durante un buen rato estuvimos follando. revoloteaban «moscones» que teníamos que apartar. a mí se me bajó un poco la dureza. decidí sacársela y, mientras me masturbaba, seguí «trabajándole» el ano con un dedo. se me volvió a poner superdura, y pensé en volver a clavársela. pero en estas la «cabrona» se corrió, y ahí quedó la cosa.",
+    "Melpómene y yo nos conocimos en un bar de Montpelier. era ésta muy graciosa y chistosa. cuando ya habíamos bebido bastante nos marchamos, y acabamos amándonos en su piso del centro de la ciudad.<br />Melpómene era algo recatada en asuntos sexuales, lo cual no deja de ser extraño siendo ésta francesa. por ejemplo: se negó rotundamente a practicar sexo anal, llegando incluso a contrariarse cuando de cuando en cuando pretendía jugar un poquitín con su prieto culete. aún así disfrutamos bastante de nuestros cuerpos y del sexo. XXX<br />antes de marcharme Melpómene me sugirió habernos visto unos días más tarde en Cabo de Agde para amarnos sin inhibiciones. yo en principio decliné la oferta, pero finalmente esta idea se hizo realidad.",
     4,
     1,
     2
@@ -399,13 +373,13 @@ INSERT INTO `myX`.`practica` VALUES (
 INSERT INTO `myX`.`practica` VALUES (
     8288,
     "",
-    "coito activo en trío con eyaculación",
+    "coito activo con eyaculación",
     3,
     0,
     739,
-    "2018-03-25",
+    "2018-05-17",
     "",
-    "sin grandes preámbulos nos enrollamos con la chica sin inhibiciones, y nos chupamos y «marraneamos» bastante.<br />cuando observamos la apertura de su esfinter anal, y comprendimos que estaba pidiendo «pija» a gritos, nos retiramos a un lugar más apartado, e íntimamente, sin interrupciones por fortuna, nos la follamos repetidas veces, y alternadamente, Mario y yo, todo entre fellatio y cunnilingus.<br />en una de estas Mario se corrió en su culito. yo prohibí a XXX que se corriera, con el deseo <i>expresis verbis</i> de follarle también yo, e inundar su culo de leche.<br />dicho y hecho: relevé a Mario, que exhausto se retiraba a observar, y arremetí contra la abierta vagina de XXX, a la cual propicié varios viajes que nos hacían corrernos placenteramente al unísono.",
+    "con Erato en mi hotel, la última noche antes de dejar Montpelier para dirigirme al norte de Francia. ligamos por las apps, le propuse venir a mi habitación de hotel, y ésta se plantó allí al cabo de no mucho rato.<br />Erato resultó ser muy morbosa (aunque algo mandona de más) XXX<br />hubo mucho feeling con esta chica y, de hecho, le propuse volver a vernos a la semana siguiente (tenía previsto volver a la zona por motivos laborales). además, haciéndome el desinhibido le propuse vernos en Cabo de Agde, lugar conocido por los libertinos de toda Europa. cual fue mi sorpresa cuando aceptó.",
     4,
     1,
     2
@@ -418,9 +392,9 @@ INSERT INTO `myX`.`practica` VALUES (
     3,
     0,
     740,
-    "2018-03-23",
+    "2018-05-20",
     "",
-    "Lorem ipsum",
+    "con Polímnia en mi hotel en Edinburgo. hallándome en la capital escocesa, en una escala-interludio entre mis viajes de negocios por Francia y Oriente Próximo, me propuse a mí mismo de conocer el producto local. Polímnia, una <i>bussineswoman</i> escocesa algo gordita y no muy agraciada de cara, se dejó conquistar con relativa facilidad en un bar de copas, y después accedió a acompañarme al hostal.<br />ésta resultó ser bastante viciosilla. XXX",
     3,
     1,
     2
@@ -432,10 +406,10 @@ INSERT INTO `myX`.`practica` VALUES (
     "coito anal activo con eyaculación",
     3,
     0,
-    740,
-    "2018-03-19",
+    741,
+    "2018-05-26",
     "",
-    "como tenía ganas de «beneficiármela» (más que nada para satisfacer mi curiosidad), esa noche me la trabajé un poco -no demasiado-, y me la llevé a la cama.<br />después de los preámbulos (¡una forma ridícula de besar!), que con el «derroche» de <i>sex-appeal</i> suyo no se realizaron demasiado satisfactoriamente, me la manejé hasta ponérmelo «a tiro», y me la «trinqué» por detrás. a pesar de las lógicas dificultades iniciales, con la ayuda de crema lubricante al poco ratito entraba con facilidad. intenté follármela salvajemente para dejarla satisfecho, que no quedase decepcionada del «producto nacional».<br />y aunque un ratito muy satisfactoriamente la porculeé, al rato me di cuenta de que no la tenía todo lo dura que debiese, con lo que decidí acabar con la porculada (recuerdo a la pobre con el culo «en pompa» y, esperando una nueva embestida, darse cuenta que la «inyección» había acabado).<br />se supone que el polvo acabó en corrida.",
+    "con Terpsícore en Jerusalén: después de una noche de copas en el <i>Tmol Shilshon</i>, un garito-cultureta del hierosolimitano barrio retro Nachalat Shiv'a, ésta me invito a ir a su apartamento. y yo no dudé en aceptar, a pesar de que ésta no era ninguna <i>Barbie</i>, sino más bien algo feílla y con un cuerpo algo fofo. igualmente tenía unos pechos impresionantes aunque no muy firmes.<br />en su casa nos amamos con placer, si bien ésta resultó ser algo modosita y muy púdica en el sexo, por lo que no hubo derroche de pasión. XXX",
     4,
     1,
     2
@@ -447,10 +421,10 @@ INSERT INTO `myX`.`practica` VALUES (
     "coito activo sin eyaculación",
     3,
     0,
-    741,
-    "2018-03-16",
+    742,
+    "2018-05-27",
     "",
-    "fue muy, muy «puta»: nada más percatarse que iba a por ella, al entrar yo en la cabina, sin mediar palabra ni gestos, comenzó a desnudarse. se quitó todo lo de abajo, dejándose la camiseta, y a continuación se tumbó en el <i>sling</i>. yo había aprovechado para manosearla mientras se desnudaba, pero ella no quería «marraneo», sino sólo follada.<br />así que, tumbado de patas abiertas, esnifó <i>poppers</i> y me dijo: «<cite>¡Fóllame!</cite>». aproveche para tomar de su <i>poppers</i>, me puse caliente, y la penetré sin dificultad alguna. aproveché para «manosear» lo que pude su cuerpo, y le estrujé sus pechos. πὼ πώ, ¡estaba buena, la «cabrona»!<br />le gustó, a la «perra». al cabo de un rato me dijo que no podía mas, así que se la saqué y le hice que me la felase durante un buen rato. me dijo que podía eyacular en su boca; estaba deseando que lo hiciera. me masturbaba frenéticamente la raíz del miembro mientras que con la lengua fuera de la boca chupaba el glande.<br />me puse muy caliente. tanto, que sentí la necesidad de volver a «clavársela»… lo cual hice, proporcionándole a ella y a mí mismo nuevos placeres «chechuales». más cópula, más pellizcos en los pezones, más «trajineo» de los pechos...<br />me incitó nuevamente a que me corriese, lo cual *NO* deseaba hacer.<br />al final, habiendo visto ella que yo no estaba dispuesto a acabar, me dijo que de verdad no podía mas, por lo que lo acabamos dejando.<br /><i>intermission...</i>",
+    "en mi último día del viaje de negocios por Oriente Próximo acaeció que conocí y copulé con Urania, una estudiante alemana, en mi hotel de Ammán. nos conocimos en el bar del hotel, y ante una evidente atracción mutua ésta me propuso subir a su habitación, lo cual indudablemente hize.<br />desde el minuto cero la pasión afloró por ambas partes, y pasionalmente disfrutamos de nuestros cuerpos con una miriada de preliminares, sucesiva cópula y orgasmo final. tenía ésta un cuerpecito delgadito y fibrado del que disfruté bastante, amén de unos pechos algo pequeños pero muy firmes, una maravilla al tacto y al gusto. Urania además resultó ser muy viciosilla, teniendo en cuenta lo joven que es.<br />por supuesto tras los preliminares de rigor consumamos la experiencia copulando con gran placer durante no poco rato. no obstante no llegamos a XXX",
     4,
     1,
     2
@@ -459,13 +433,13 @@ INSERT INTO `myX`.`practica` VALUES (
 INSERT INTO `myX`.`practica` VALUES (
     8292,
     "",
-    "coito activo con eyaculación",
+    "felación pasiva en trío públicamente sin eyaculación",
     3,
     0,
-    742,
-    "2018-03-12",
-    "",
-    "la conquisté con la táctica de la hormiga león, y al momento le estaba dando «caña de España».<br />casi inmediatamente empecé a trabajarle el chochete, cerciorándome de que lo tenía accesible. le di entonces la vuelta, la doblé y se la clavé sin apenas dificultades. le trajiné el culete bastante bien, y mis salvajes sacudidas debieron de gustarle.<br />a mí me dio tanto placer ese «ojete de XXX», que al poco rato me estaba corriendo en mis últimos «viajes». una vez hube acabado y se la hube sacado del culo se largó, satisfecha, sin mediar palabra.<br /><i>intermission...</i>",
+    743,
+    "2018-05-28",
+    "a",
+    "con Erato y Melpómene en la playa de Cabo de Agde, durante la mañana, estuvimos jugando carnalmente durante no poco rato, sin pasar a mayores.<br />tomábamos el sol en la playa, e inevitablemente nos calentamos, bien por la radiación del astro rey, bien por la fricción de nuestras manos al aplicarnos protector solar, bien al observar con el rabillo del ojo algunos juegos sexuales que se producían entre personas de nuestro entorno. así, comenzamos también nosotros a deleitarnos con nuestros cuerpos serranos.<br />disfruté mucho con mis dos francesasitas, así como de la situación morbosa. sin embargo, había demasiados mirones y, más allá del juego carnal, no hubiera sido prudente realizar algo más serio.<br />así, el juego duró no poco rato, y entre calentón y calentón nos dábamos un refrescante baño en el mar.",
     4,
     1,
     2
@@ -474,13 +448,13 @@ INSERT INTO `myX`.`practica` VALUES (
 INSERT INTO `myX`.`practica` VALUES (
     8293,
     "",
-    "coito activo con eyaculación",
-    3,
-    0,
+    "excitante coito activo en trío con eyaculación",
+    4,
+    1,
     743,
-    "2018-03-07",
-    "",
-    "después del «marraneo» inicial, y viendo que se dejaba «trajinar» bien, me la follé con relativa facilidad. se puso muy «puta»; se doblaba cual bisagra, y se abría los labios vaginales para que le entrase más adentro. yo no quería correrme todavía, por lo cual al ratito se la saqué.<br />sin embargo la «cabrona» consiguió mantenerme caliente con sus calientes felaciones, y al rato se la estaba metiendo de nuevo en las mismas condiciones de antes. pasado un rato decidí dejarlo estar.<br />ella, sin embargo, no se resistía a acabar con el asunto, así que me la chupaba una y otra vez. comprendí sus intenciones inmediatamente. le agarré la cabeza y le follé la boca durante un ratito, hasta que eyaculé dentro.<br />la «cabrona», en cambio, no se corrió. fue más lista que yo.",
+    "2018-05-28",
+    "b",
+    "con Erato y Melpómene en Cabo de Agde (2/2). más tarde, siendo la situación mucho más íntima, volvimos a deleitarnos de nuestros cuerpos llegando incluso a copular en plena playa, siendo observados -pero no molestados- por algunos de los allí presentes.<br />hacia el final de la tarde la situación era mucho más tranquila, aunque no por ello menos excitante. de hecho, algunas parejas estaban en plena acción algunos metros más allá. nos calentamos de nuevo y nos enrolamos en un largo juego sexual a tres bandas, juego que resultó ser completo con cópula y eyaculación incluidos.<br />XXX",
     4,
     1,
     2
@@ -501,11 +475,11 @@ INSERT INTO `myX`.`amores` VALUES (
     "pechos no muy grandes, pero firmes y esbeltos",
     "muy cariñosa y sensual",
     "Skype: caliope1973; Badoo: caliope1973; Instagram: caliope1973",
-    "Calíope María Pérez Pérez",
-    0,
+    "Calíope María González Giménez",
+    1,
     "(+34) 661 662 663",
     "caliope@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "fecha de nacimiento: 1993-12-30. color favorito: verde. horóscopo: aries",
     2
 );
 
@@ -519,12 +493,12 @@ INSERT INTO `myX`.`amores` VALUES (
     "de estatura normal y un cuerpo algo rechoncho",
     "pechos grandes y prominentes",
     "Clío es simpática y muy fogosa",
-    "Skype: clio1973; Badoo: clio1973; Instagram: clio1973",
-    "Clío María Pérez Pérez",
-    0,
+    "Instagram: clio_asturias",
+    "",
+    1,
     "(+34) 661 662 663",
-    "clio@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "clio@yahoo.com",
+    "fecha de nacimiento: 1986-10-25",
     2
 );
 
@@ -534,16 +508,16 @@ INSERT INTO `myX`.`amores` VALUES (
     "Erato",
     3,
     2,
-    "chica francesa de 19 años, no demasiado agraciada de cara",
-    "cuerpecillo esbelto con cinturita de avispa y piernas delgadas",
+    "chica francesa de 24 años, no demasiado agraciada de cara",
+    "cuerpecillo esbelto, con cinturita de avispa y piernas delgadas",
     "pechos pequeños con prominentes pezones, lleva el vello púbico graciosamente recortado",
     "muy morbosa y muy mandona",
     "Skype: erato1973; Badoo: erato1973; Instagram: erato1973",
-    "Érato María Pérez Pérez",
+    "Érato María Pérez Giménez",
     0,
-    "(+34) 661 662 663",
-    "erato@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "(+33) 661 662 663",
+    "erato@me.com",
+    "fecha de nacimiento: 1994-08-20. color favorito: verde turquesa",
     2
 );
 
@@ -557,12 +531,12 @@ INSERT INTO `myX`.`amores` VALUES (
     "cuerpo algo en carnes, piel muy pálida",
     "pechos grandes y algo caidos",
     "aparentemente modosita y recatada, en la cama es una auténtica bomba",
-    "Skype: euterpe1973; Badoo: euterpe1973; Instagram: euterpe1973",
-    "Euterpe María Pérez Pérez",
+    "",
+    "Euterpe María Gómez Fernández",
     0,
     "(+34) 661 662 663",
     "euterpe@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "",
     2
 );
 
@@ -577,11 +551,11 @@ INSERT INTO `myX`.`amores` VALUES (
     "pechos de tamaño mediano",
     "muy graciosa y chistosa, algo recatada en asuntos sexuales (extraño para ser francesa)",
     "Skype: melpomene1973; Badoo: melpomene1973; Instagram: melpomene1973",
-    "Melpómene María Pérez Pérez",
+    "Melpómene María López Sánchez",
     0,
     "(+34) 661 662 663",
     "melpomene@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "fecha de nacimiento: 1993-06-15",
     2
 );
 
@@ -591,16 +565,16 @@ INSERT INTO `myX`.`amores` VALUES (
     "Polimnia",
     2,
     2,
-    "mujer española de 30 años, de apariencia normal aun no siendo muy agraciada de cara",
+    "mujer escocesa de 35 años, de apariencia normal aun no siendo muy agraciada de cara",
     "de complexión gruesa, cuerpo algo rollizo",
     "pechos de tamaño mediano-grande, quizá no tan grandes como cabría esperar",
     "bastante viciosilla",
-    "Skype: polimnia1973; Badoo: polimnia1973; Instagram: polimnia1973",
-    "Polimnia María Pérez Pérez",
+    "",
+    "Polimnia Evans",
     0,
-    "(+34) 661 662 663",
-    "polimnia@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "(+44) 754 616 11 89",
+    "",
+    "",
     2
 );
 
@@ -615,11 +589,11 @@ INSERT INTO `myX`.`amores` VALUES (
     "maravillosos pechos de tamaño mediano-grande, firmes",
     "muy experimentada y muy viciosa",
     "Skype: talia1973; Badoo: talia1973; Instagram: talia1973",
-    "Talía María Pérez Pérez",
+    "",
     0,
     "(+34) 661 662 663",
     "talia@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "fecha de nacimiento: 1973-04-10. color favorito: rojo pasión",
     2
 );
 
@@ -629,16 +603,16 @@ INSERT INTO `myX`.`amores` VALUES (
     "Terpsícore",
     3,
     2,
-    "mujer española de 29 años, de buena apariencia aun no siendo demasiado guapa",
+    "mujer israelita de 29 años, de buena apariencia aun no siendo demasiado guapa",
     "cuerpo regularcillo, algo fofo",
     "impresionantes pechos, si bien no muy firmes",
     "algo modosita y muy púdica en el sexo",
     "Skype: terpsicore1973; Badoo: terpsicore1973; Instagram: terpsicore1973",
-    "Terpsícore María Pérez Pérez",
+    "",
     0,
-    "(+34) 661 662 663",
+    "(+972) 50 62 03 082",
     "terpsicore@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "número de la suerte: 15",
     2
 );
 
@@ -648,16 +622,16 @@ INSERT INTO `myX`.`amores` VALUES (
     "Urania",
     4,
     2,
-    "chica española (19 años), de muy buen ver y muy guapa",
+    "chica alemana (19 años), de muy buen ver y muy guapa",
     "buen cuerpo, delgadito y fibrado",
     "pechos algo pequeños, muy firmes",
     "muy viciosilla para lo joven que es",
-    "Skype: urania1973; Badoo: urania1973; Instagram: urania1973",
-    "Urania María Pérez Pérez",
+    "Badoo: koeniginUrania",
+    "Urania Schmidt",
     0,
-    "(+34) 661 662 663",
-    "urania@gmail.com",
-    "fecha de nacimiento: 1973-01-01",
+    "(+49) 160 17 37 946",
+    "urania_schmidt@gmail.com",
+    "fecha de nacimiento: 1999-02-05",
     2
 );
 
@@ -669,21 +643,23 @@ INSERT INTO `myX`.`amores` VALUES (
 
 INSERT INTO `myX`.`assignations` VALUES (8279, 5869);
 INSERT INTO `myX`.`assignations` VALUES (8280, 5869);
-INSERT INTO `myX`.`assignations` VALUES (8281, 5869); /* trio 1/2 */
+INSERT INTO `myX`.`assignations` VALUES (8281, 5869); /* trio 1/4 */
 INSERT INTO `myX`.`assignations` VALUES (8281, 5870);
-INSERT INTO `myX`.`assignations` VALUES (8282, 5869); /* trio 2/2 */
+INSERT INTO `myX`.`assignations` VALUES (8282, 5869); /* trio 2/4 */
 INSERT INTO `myX`.`assignations` VALUES (8282, 5870);
-INSERT INTO `myX`.`assignations` VALUES (8283, 5870);
-INSERT INTO `myX`.`assignations` VALUES (8284, 5871);
+INSERT INTO `myX`.`assignations` VALUES (8283, 5869);
+INSERT INTO `myX`.`assignations` VALUES (8284, 5875);
 INSERT INTO `myX`.`assignations` VALUES (8285, 5872);
-INSERT INTO `myX`.`assignations` VALUES (8286, 5873);
-INSERT INTO `myX`.`assignations` VALUES (8287, 5874);
-INSERT INTO `myX`.`assignations` VALUES (8288, 5874);
+INSERT INTO `myX`.`assignations` VALUES (8286, 5869);
+INSERT INTO `myX`.`assignations` VALUES (8287, 5873);
+INSERT INTO `myX`.`assignations` VALUES (8288, 5871);
 INSERT INTO `myX`.`assignations` VALUES (8289, 5874);
-INSERT INTO `myX`.`assignations` VALUES (8290, 5875);
-INSERT INTO `myX`.`assignations` VALUES (8291, 5876);
-INSERT INTO `myX`.`assignations` VALUES (8292, 5877);
-INSERT INTO `myX`.`assignations` VALUES (8293, 5877);
+INSERT INTO `myX`.`assignations` VALUES (8290, 5876);
+INSERT INTO `myX`.`assignations` VALUES (8291, 5877);
+INSERT INTO `myX`.`assignations` VALUES (8292, 5871); /* trio 3/4 */
+INSERT INTO `myX`.`assignations` VALUES (8292, 5873);
+INSERT INTO `myX`.`assignations` VALUES (8293, 5871); /* trio 4/4 */
+INSERT INTO `myX`.`assignations` VALUES (8293, 5873);
 
 /*
  * sample data for tabla 'queries'.
@@ -709,5 +685,13 @@ INSERT INTO `myX`.`queries` VALUES (
     "todos los lugares",
     "lista no filtrada de lugares",
     "SELECT * FROM `myX`.`loca` WHERE `user` = 2",
+    2
+);
+
+INSERT INTO `myX`.`queries` VALUES (
+    5,
+    "hoteles españoles",
+    "lista de hoteles españoles en los que han habido experiencias sexuales",
+    "SELECT * FROM `myX`.`loca` INNER JOIN `myX`.`countries` ON `myX`.`loca`.`country` = `myX`.`countries`.`countryID` INNER JOIN `myX`.`kinds` ON `myX`.`loca`.`kind` = `myX`.`kinds`.`kindID` WHERE (`countries`.`name` LIKE '%españa%' AND `kinds`.`name` LIKE '%hotel%') AND `loca`.`user` = 2",
     2
 );

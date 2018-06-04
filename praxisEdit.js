@@ -105,6 +105,9 @@ function addAmor(evt) {
  * a row is inserted to display a separation line after the first lover.
  */
         row = amoresTable.insertRow(-1);
+        att = document.createAttribute('id');
+        att.value = 'hrAfterAmor1';
+        row.setAttributeNode(att);
         cell1 = row.insertCell(0);
         att = document.createAttribute('colspan');
         att.value = '3';
@@ -117,19 +120,25 @@ function addAmor(evt) {
     amoresAmount++;
     
     row = amoresTable.insertRow(-1); // insert row at the end of the table
+    att = document.createAttribute('id');
+    att.value = 'amor' + amoresAmount;
+    row.setAttributeNode(att);
     cell1 = row.insertCell(0);
     cell2 = row.insertCell(1);
     cell3 = row.insertCell(2);
     
 /*
- * first column: ordinal.
+ * first column (cell1): ordinal.
  */
     
-    txt = document.createTextNode((amoresAmount) + '.');
+    att = document.createAttribute('id');
+    att.value = 'amorOrdinal' + amoresAmount;
+    cell1.setAttributeNode(att);
+    txt = document.createTextNode(amoresAmount + '.');
     cell1.appendChild(txt);
     
 /*
- * second column: radio buttons.
+ * second column (cell2): radio buttons.
  */
 
     input = document.createElement('input');
@@ -147,6 +156,10 @@ function addAmor(evt) {
     input.setAttributeNode(att);
     cell2.appendChild(input);
     
+    // event listener is added to the newly created radio button:
+    document.getElementById('amorOriginExisting[' + (amoresAmount - 1) + ']').
+        addEventListener('change', changeAmorOrigin, true);
+    
     label = document.createElement('label');
     att = document.createAttribute('for');
     att.value = 'amorOriginExisting[' + (amoresAmount - 1) + ']'; // array 0-based;
@@ -158,8 +171,7 @@ function addAmor(evt) {
     // the dropbox is cloned to avoid a new query to the DB:
     var selectExisting = document.getElementById('amorID[0]');
     select = selectExisting.cloneNode(true);
-//    cell2.appendChild(select);
-//    select = document.createElement('select');
+    
     att = document.createAttribute('id');
     att.value = 'amorID[' + (amoresAmount - 1) + ']'; // array 0-based;
     select.setAttributeNode(att);
@@ -185,6 +197,10 @@ function addAmor(evt) {
     input.setAttributeNode(att);
     cell2.appendChild(input);
     
+    // event listener is added to the newly created radio button:
+    document.getElementById('amorOriginNew[' + (amoresAmount - 1) + ']').
+        addEventListener('change', changeAmorOrigin, true);
+    
     label = document.createElement('label');
     att = document.createAttribute('for');
     att.value = 'amorOriginNew[' + (amoresAmount - 1) + ']'; // array 0-based;
@@ -206,7 +222,7 @@ function addAmor(evt) {
     cell2.appendChild(button);
 
 /*
- * third column: plus and minus buttons.
+ * third column (cell3): plus and minus buttons.
  */
     
     // button 'addAmor':
@@ -249,10 +265,14 @@ function addAmor(evt) {
  * another row is inserted to display a the separation line.
  */
     row = amoresTable.insertRow(-1);
+    att = document.createAttribute('id');
+    att.value = 'hrAfterAmor' + amoresAmount;
+    row.setAttributeNode(att);
     cell1 = row.insertCell(0);
     att = document.createAttribute('colspan');
     att.value = '3';
     cell1.setAttributeNode(att);
+    
     br = document.createElement('hr');
     cell1.appendChild(br);
     
@@ -293,10 +313,15 @@ function changeLocusOrigin (evt) {
 
 function changeAmorOrigin (evt) {
     
-    var amorOriginExisting = document.getElementById('amorOriginExisting[0]');
-    var amorOriginNew = document.getElementById('amorOriginNew[0]');
-    var amorID = document.getElementById('amorID[0]');
-    var amorNew = document.getElementById('amorNew[0]');
+    // get the index of the lover whose origin is being changed:
+    var amorIndex = parseInt(evt.target.name.match(/\d+/g));
+    
+    var amorOriginExisting =
+        document.getElementById('amorOriginExisting[' + amorIndex + ']');
+    var amorOriginNew =
+        document.getElementById('amorOriginNew[' + amorIndex + ']');
+    var amorID = document.getElementById('amorID[' + amorIndex + ']');
+    var amorNew = document.getElementById('amorNew[' + amorIndex + ']');
     
     switch (evt.target) {
         
@@ -358,85 +383,66 @@ function removeAmor(evt) {
     // get the current lover index from minus button (id="removeAmor[XXX]"):
     var amorIndex = parseInt(evt.target.id.match(/\d+/g));
     
-    amoresTable.deleteRow(amorIndex);
+    // the separation line with the next lover is deleted:
+    var hrAfterAmor = document.getElementById('hrAfterAmor' + (amorIndex + 1));
+    hrAfterAmor.parentNode.removeChild(hrAfterAmor);
     
+    // the row is deleted:
+    var amor = document.getElementById('amor' + (amorIndex + 1));
+    amor.parentNode.removeChild(amor);
+    //amoresTable.deleteRow(amorIndex);
     
-//    select =
-//        document.querySelectorAll("select[name^='ruleFields[']")[ruleIndex];
-//    select.parentNode.removeChild(select);
-//    
-//    select =
-//        document.querySelectorAll("select[name^='ruleCriteria[']")[ruleIndex];
-//    select.parentNode.removeChild(select);
-//    
-//    input =
-//        document.querySelectorAll("input[name^='ruleStrings[']")[ruleIndex];
-//    input.parentNode.removeChild(input);
-//    
-//    button = document.querySelectorAll("button[id^='addRule[']")[ruleIndex];
-//    button.parentNode.removeChild(button);
-//    
-//    button = document.querySelectorAll("button[id^='removeRule[']")[ruleIndex];
-//    button.parentNode.removeChild(button);
-//    
-//    if (ruleIndex !== 0) {
-//        
-//        hr = document.getElementById('hrRule' + ruleIndex);
-//        hr.parentNode.removeChild(hr);
-//    
-//    } else {
-//        
-//        hr = document.getElementById('hrRule1');
-//        hr.parentNode.removeChild(hr);
-//        
-//    }
+    // if only amor1 remains, delete the hr after his/her row:
+    var amoresAmount =
+        document.querySelectorAll("select[name^='amorID[']").length;
+    if (amoresAmount === 1) {
+        
+        hrAfterAmor = document.getElementById('hrAfterAmor1');
+        hrAfterAmor.parentNode.removeChild(hrAfterAmor);
+        
+    }
    
 /*
  * indexes are rearranged:
  * when a lover is removed (e.g. lover #3),
  * the indexes of the remaining lovers (0, 1, 3...)
  * are to be rearranged (0, 1, 2...)
- * so that the values sent are in a coherent sequence so that
- * they can be succesfully processed.
+ * so that the values sent are in a coherent sequence in order the can be
+ * succesfully processed.
  */
 
     var currentIndex;
-    //var ruleFields = document.querySelectorAll("select[name^='ruleFields[']");
     var amorOrigin = document.querySelectorAll("input[name^='amorOrigin[']");
     var amorID = document.querySelectorAll("select[id^='amorID[']");
     var amorNew = document.querySelectorAll("button[id^='amorNew[']");
-//    var ruleCriteria =
-//        document.querySelectorAll("select[name^='ruleCriteria[']");
-//    var ruleStrings = document.querySelectorAll("input[name^='ruleStrings[']");
+    var amor, hrAfterAmor, amorOrdinal;
 
     for (var i = 0; i < (amorOrigin.length / 2); i ++) { // 2 entries/lover
 
-        //currentIndex = parseInt(ruleFields[i].name.match(/\d+/g));
-        //currentIndex = parseInt(amorOrigin[i].name.match(/\d+/g));//check
-        currentIndex = parseInt(amorID[i].id.match(/\d+/g));
+        currentIndex = parseInt(amorID[i].id.match(/\d+/g)); // 0-based
         
         if (currentIndex !== i) {
             
-//            ruleFields[i].name = 'ruleFields[' + i + ']';
+            // update tr id and hr:
+            // fix!
+            amor = document.getElementById('amor' + (currentIndex + 1));
+            amor.id = 'amor' + (i + 1);
+            hrAfterAmor = document.getElementById('hrAfterAmor' + (currentIndex + 1));
+            hrAfterAmor.id = 'hrAfterAmor' + (i + 1);
+
+            // update the ordinal number:
+            amorOrdinal = document.getElementById('amorOrdinal' + (currentIndex + 1));
+            amorOrdinal.innerHTML = '<p>' + (i + 1) + '.</p>';
+            
             amorOrigin[i].name = 'amorOrigin[' + i + ']';
-//            ruleCriteria[i].name = 'ruleCriteria[' + i + ']';
-//            ruleStrings[i].name = 'ruleStrings[' + i + ']';
             amorID[i].id = 'amorID[' + i + ']';
             amorNew[i].id = 'amorNew[' + i + ']';
             
-//            document.getElementById('addRule[' + currentIndex + ']').id =
-//                'addRule[' + i + ']';
-//            document.getElementById('removeRule[' + currentIndex + ']').id =
-//                'removeRule[' + i + ']';
             document.getElementById('addAmor[' + currentIndex + ']').id =
                 'addAmor[' + i + ']';
             document.getElementById('removeAmor[' + currentIndex + ']').id =
                 'removeAmor[' + i + ']';
-        
-//            if (document.getElementById('hrRule' + currentIndex) !== null)
-//                document.getElementById('hrRule' + currentIndex).id = 'hrRule'
-//                    + i;
-            
+                    
             i = 0;
             
         }

@@ -4,8 +4,9 @@
  * 
  * this script displays a list of lovers using an instance of class
  * 'amoresQuery'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last updated 2018-05-26
+ * last updated 2018-06-03
 */
 
 require_once 'core.inc';
@@ -17,11 +18,24 @@ require_once 'amor.inc';
 $pdo = DB::getDBHandle();
 
 /*
- * initializes $amoresList, and retrieves its components
- * if already storage in $_SESSION, retrieve list;
- * otherwise create an unfiltered list 
+ * as first step $amoresList gets initialized, and its components retrieved.
+ * 
+ * possible scenaria:
+ * i) if GET parameter 'query' is set... 
+ * ii) if already storage in $_SESSION, retrieve list;
+ * iii) otherwise create an unfiltered list 
  */
-if (!isset($_SESSION['amoresQuery'])) {
+
+if (isset($_GET['query'])) {
+    
+    $query = new Query($_GET['query']);
+    $descr = ($query->getDescr() !== "") ?
+        $query->getDescr() :
+        "";
+    $amoresQuery = new AmoresQuery($query->getName(), $descr,
+        $query->getQueryString());
+    
+} else if (!isset($_SESSION['amoresQuery'])) {
     
     $amoresQuery = new AmoresQuery();
     $_SESSION['amoresQuery'] = $amoresQuery;
@@ -82,6 +96,19 @@ switch ($amoresAmount) {
             
 }
 echo "</p>\n";
+
+if ($amoresQuery->getName() !== "all lovers") {
+    
+    // save query div/form:
+    echo "\t\t\t\t\t\t<div class=\"floppy\">\n";
+    echo "\t\t\t\t\t\t\t<form action=\"queryEdit.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"queryString\"".
+        " value=\"".$queryString."\" />\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/floppy-small.png\" />\n";
+    echo "\t\t\t\t\t\t\t</form>\n";
+    echo "\t\t\t\t\t\t</div>\n";
+    
+}
 
 if (DEBUG)
     echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
@@ -265,7 +292,7 @@ echo <<<HTML
 HTML;
 
 // filter lovers:
-echo "\t\t\t\t\t<form action=\"amoresQuery.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t<form action=\"amoresFilter.php\" method=\"POST\">\n";
 echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
     ._("Apply filter").
     "\" />\n";

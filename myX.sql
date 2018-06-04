@@ -76,7 +76,7 @@ CREATE TABLE `myX`.`loca` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /* CHECK constraint not implemented in mySQL, using a trigger instead*/
 DELIMITER //
-CREATE TRIGGER `loca_rating_ck`
+CREATE TRIGGER `myX`.`loca_rating_ck`
 BEFORE INSERT ON `myX`.`loca` FOR EACH ROW
 BEGIN
     IF NEW.rating < 0 OR NEW.rating > 5 THEN
@@ -107,7 +107,7 @@ CREATE TABLE `myX`.`practica` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /* CHECK constraint not implemented in mySQL, using a trigger instead*/
 DELIMITER //
-CREATE TRIGGER `practica_rating_ck`
+CREATE TRIGGER `myX`.`practica_rating_ck`
 BEFORE INSERT ON `myX`.`practica` FOR EACH ROW
 BEGIN
     IF NEW.rating < 0 OR NEW.rating > 5 THEN
@@ -141,7 +141,7 @@ CREATE TABLE `myX`.`amores` (
 ) ENGINE = InnoDB DEFAULT CHARSET = utf8;
 /* CHECK constraint not implemented in mySQL, using a trigger instead*/
 DELIMITER //
-CREATE TRIGGER `amores_rating_ck`
+CREATE TRIGGER `myX`.`amores_rating_ck`
 BEFORE INSERT ON `myX`.`amores` FOR EACH ROW
 BEGIN
     IF NEW.rating < 0 OR NEW.rating > 5 THEN

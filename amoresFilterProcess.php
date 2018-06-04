@@ -1,6 +1,6 @@
 <?php
 /**
- * script amoresQueryProcess.php
+ * script amoresFilterProcess.php
  * XXX
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-06
@@ -34,27 +34,6 @@ if (isset($_POST['sent']) && intval($_POST['sent']) === 1) { // form already sen
         }
         
         $queryString .= "`".$_POST['ruleFields'][$i]."`";        
-//        switch ($_POST['ruleFields'][$i]) {
-//            
-//            case 'locus':
-//                
-//                $queryString .= "`loca`.`name`";
-//                break;
-//                
-//            case 'achtung': // unused    
-//            case 'rating':
-//            case 'name':
-//            case 'rating':
-//            case 'description':
-//                
-//                $queryString .= "`practica`.`".$_POST['ruleFields'][$i]."`";
-//                break;
-//            
-//            default:
-//                
-//                $queryString .= "`".$_POST['ruleFields'][$i]."`";
-//                
-//        }
 
         switch ($_POST['ruleCriteria'][$i]) {
 /*

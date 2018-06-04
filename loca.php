@@ -20,7 +20,17 @@ $pdo = DB::getDBHandle();
  * if already storage in $_SESSION, retrieve the list;
  * otherwise create an unfiltered list 
  */
-if (!isset($_SESSION['locaQuery'])) {
+
+if (isset($_GET['query'])) {
+    
+    $query = new Query($_GET['query']);
+    $descr = ($query->getDescr() !== "") ?
+        $query->getDescr() :
+        "";
+    $locaQuery = new LocaQuery($query->getName(), $descr,
+        $query->getQueryString());
+    
+} else if (!isset($_SESSION['locaQuery'])) {
     
     $locaQuery = new LocaQuery();
     $_SESSION['locaQuery'] = $locaQuery;
@@ -91,6 +101,19 @@ switch ($locaAmount) {
             
 }
 echo "</p>\n";
+
+if ($locaQuery->getName() !== "all places") {
+    
+    // save query div/form:
+    echo "\t\t\t\t\t\t<div class=\"floppy\">\n";
+    echo "\t\t\t\t\t\t\t<form action=\"queryEdit.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"queryString\"".
+        " value=\"".$queryString."\" />\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/floppy-small.png\" />\n";
+    echo "\t\t\t\t\t\t\t</form>\n";
+    echo "\t\t\t\t\t\t</div>\n";
+    
+}
 
 if (DEBUG)
     echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
@@ -238,7 +261,7 @@ echo <<<HTML
 HTML;
 
 // filter places:
-echo "\t\t\t\t\t<form action=\"locaQuery.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t<form action=\"locaFilter.php\" method=\"POST\">\n";
 echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
     ._("Apply filter").
     "\" />\n";
