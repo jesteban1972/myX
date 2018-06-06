@@ -17,7 +17,8 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
         _("Atention!").
         "</h1>\n";
     echo "\t\t\t\t<p class=\"medium\">".
-        _("Are you sure you want to delete the current experience?").
+        _("Are you sure you want to delete the current experience?")." ".
+        _("(you might want to edit its data instead).").
         "</p>\n";
     echo "\t\t\t\t<p class=\"medium\">".
         _("Experience details and its associated data will be erased").

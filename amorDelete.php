@@ -13,9 +13,10 @@
  * please note that the deletion of a lover implies also
  * the deletion of all its associated data (i.e. experiences, places...)
  * because of the constraint 'ON DELETE CASCADE' of the table 'amores'.
- * this constraint guarranties referencial integrity, avoiding that,
- * when lovers get deleted, no unassociate experiences
+ * this constraint guarranties referential integrity, avoiding that,
+ * when lovers get deleted, no unassociated experiences
  * remain in the DB.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-10
 */
@@ -29,10 +30,10 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     echo "\t\t\t\t<h1>".
         _("Atention!").
         "</h1>\n";
-    echo "\t\t\t\t<p>".
-        _("Are you sure you want to delete the current lover?").
-        "</p>\n";
-    echo "\t\t\t\t<p>".
+    echo "\t\t\t\t<p class=\"medium\">".
+        _("Are you sure you want to delete the current lover?")." ".
+        _("(you might want to edit his/her data instead).")."</p>\n";
+    echo "\t\t\t\t<p class=\"medium\">".
         _("Lover details and its associated data will be erased").
         ". ".
         _("This action cannot be undone").

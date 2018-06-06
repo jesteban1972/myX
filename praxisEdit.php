@@ -4,12 +4,14 @@
  * 
  * this is the script used for both adding a new experience
  * or to edit an existing one.
- * the value of $_POST['praxisID'] is used to differentiate both scenarios:
+ * 
+ * the value of $_GET['praxisID'] is used to differentiate both scenarios:
  * if the variable is set, the flag $praxisEdit is set to true
  * and a Praxis object is instantiated to work with;
  * otherwise $praxisEdit is set to false.
  * this script echoes a form whose fields correspond with those of the table
  * 'practica'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-19
 */
@@ -34,7 +36,6 @@ if ($_SERVER['REQUEST_METHOD'] !== "GET") {
  * have been received from $_GET.
  * if yes, the data are taken from $_SESSION to populate the fields.
  */
-//var_dump($_GET);
 
 // praxisEdit is set and eventually an object of class 'Praxis' instantiated:
 if (isset($_GET['praxisID'])) { // script called from 'praxis.php'
@@ -70,7 +71,7 @@ echo "\t\t\t<section> <!-- section {{ -->\n";
  * (TODO: which should be presented as tabs),
  * following the same order in which they will be shown:
  * 
- * section i) general Data: In this sections the fields:
+ * section i) general Data: in this sections the fields:
  * - 'achtung' (hidden)
  * - field 'name'
  * - field 'rating'
@@ -88,8 +89,8 @@ echo "\t\t\t<section> <!-- section {{ -->\n";
  * get our goal of remembering the experience feeling pleasure with it.
  * 
  * section iii) other data: in this tab are located the following fields:
- * - 'tq'
- * - 'tl'
+ * - 'tq' (not used in the current context)
+ * - 'tl' (not used in the current context)
  */
 
 echo "\t\t\t\t<form id=\"praxisEditForm\" action=\"praxisEditProcess.php\"".

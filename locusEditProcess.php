@@ -2,9 +2,10 @@
 /** 
  * script 'locusEditProcess.php'.
  * 
- * script to process the edition or insertion of a new place
+ * script to process the edition or insertion of a new place.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-04-24
+ * last update: 2018-06-06
  */
 
 require_once 'session.inc';
@@ -24,19 +25,19 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
 // get a DB connection to work with:
 $pdo = DB::getDBHandle();
     
-// the input is verified:
+// the input is verified (name is the only compulsory field):
 if (
     !isset($_POST['locusID']) || (trim($_POST['locusID']) === "") ||
-    !isset($_POST['achtung']) /*|| /*(trim($_POST['achtung']) === "")*/ ||
+    !isset($_POST['achtung']) ||
     !isset($_POST['name']) || (trim($_POST['name']) === "") ||
-    !isset($_POST['rating']) || (trim($_POST['rating']) === "") ||
-    !isset($_POST['address']) || (trim($_POST['address']) === "") ||
-    !isset($_POST['country']) || (trim($_POST['country']) === "") ||
-    !isset($_POST['kind']) || (trim($_POST['kind']) === "") ||
-    !isset($_POST['descr']) || (trim($_POST['descr']) === "") ||
-    !isset($_POST['coordExact']) || (trim($_POST['coordExact']) === "") ||
-    !isset($_POST['coordGeneric']) || (trim($_POST['coordGeneric']) === "") ||
-    !isset($_POST['web']) /*|| (trim($_POST['web']) === "")*/
+    !isset($_POST['rating']) ||
+    !isset($_POST['address']) ||
+    !isset($_POST['country']) ||
+    !isset($_POST['kind']) ||
+    !isset($_POST['descr']) ||
+    !isset($_POST['coordExact']) ||
+    !isset($_POST['coordGeneric']) ||
+    !isset($_POST['web'])
     )
         throw new Exception();
 

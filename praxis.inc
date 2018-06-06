@@ -15,7 +15,15 @@ require_once 'session.inc';
 require_once 'locus.inc';
 
 /**
- * class 'Praxis'
+ * class 'Praxis'.
+ * 
+ * this class represents the abstraction of an experience entity, i.e. the
+ * sexual activity which is being recorded so that it can be remembered.
+ * 
+ * the experience is the entity of...
+ * 
+ * in the DB every experience is linked with the user proprietary of the
+ * information.
  */
 class Praxis {
 
@@ -45,7 +53,7 @@ class Praxis {
      * method 'Praxis::getPraxisID'.
      * 
      * returns the value of property 'praxisID' (getter method).
-     * @return int returns the experience identifier.
+     * @return int the experience identifier.
      */
     public function getPraxisID() {
         
@@ -75,6 +83,30 @@ class Praxis {
         
         return $this->name;
         
+    }
+    
+    /**
+     * method 'Praxis::getRating'.
+     * 
+     * returns the value of property 'rating' (getter method).
+     * @return int returns the experience rating property.
+     */
+    public function getRating() {
+        
+        return (int)$this->rating;
+        
+    }
+    
+    /**
+     * method 'Praxis::isFavorite'.
+     * 
+     * returns the value of property 'favorite' (getter method).
+     * @return boolean returns the experience favorite property
+     */
+    public function isFavorite() {
+	
+        return (bool)$this->favorite;
+
     }
     
     /**
@@ -113,18 +145,6 @@ class Praxis {
     }
 
     /**
-     * method 'Praxis::getRating'.
-     * 
-     * returns the value of property 'rating' (getter method).
-     * @return int returns the experience rating property.
-     */
-    public function getRating() {
-        
-        return (int)$this->rating;
-        
-    }
-
-    /**
      * method 'Praxis::getDescription'.
      * 
      * returns the value of property 'descr' (getter method).
@@ -135,7 +155,7 @@ class Praxis {
         return $this->descr;
         
     }
-
+    
     /**
      * method 'Praxis::getTQ'.
      * 
@@ -159,18 +179,8 @@ class Praxis {
         return (int)$this->tl;
         
     }
-
-    /**
-     * method 'Praxis::isFavorite'.
-     * 
-     * returns the value of property 'favorite' (getter method).
-     * @return boolean returns the experience favorite property
-     */
-    public function isFavorite() {
-	
-        return (bool)$this->favorite;
-
-    }
+    
+    // other methods:
 
     /**
      * method 'Praxis::__construct'.
@@ -179,6 +189,7 @@ class Praxis {
      * and sets its properties from the DB.
      * 
      * @param int $praxisID the identifier of the experience being constructed.
+     * @return Praxis the instantiated experience object.
      */
     public function __construct($praxisID) {
 
@@ -208,15 +219,19 @@ QUERY;
         $this->date = $row['date'];
         $this->ordinal = $row['ordinal'];
         $this->descr = $row['descr'];
-        $this->tq = $row['tq'];
-        $this->tl = $row['tl'];
+        $this->tq = intval($row['tq']);
+        $this->tl = intval($row['tl']);
         
     } // method 'Praxis::__construct'
     
     /**
-     * method 'Praxis::getAllPractica'
-     * returns an array of experiences ID's from all the practica.
-     * @return an array of experience identifiers
+     * method 'Praxis::getAllPractica'.
+     * 
+     * this method returns an array with the identifiers of all experiences
+     * of the given user.
+     * 
+     * @return array an array with the identifiers of all experiences of the
+     * given user.
      */
 
     public function getAllPractica() {
@@ -244,6 +259,7 @@ QRY;
             
         }
         
+        // the array is returned:
         return $practica;
         
     } // method 'Praxis::getAllPractica'
@@ -388,9 +404,10 @@ QRY;
     /**
      * method 'Praxis::getPracticaAmount'.
      * 
-     * this static method returns the amount of experiences of a given user.
+     * this static method retireves the total amount of experiences of the
+     * given user.
      * 
-     * @return the amount of experiences of a given user.
+     * @return int the amount of experiences of a given user.
      */
     public static function getPracticaAmount() {
 
@@ -422,32 +439,32 @@ QUERY;
     public function HTMLAsidePreview() {
         
         echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
-        echo "\t\t\t\t\t<img src=\"".getImage("praxis", "small")."\" alt=\"".
-            _("(Image of a gold coin)").
-            "\" />\n";
         
-        // place:
+        // image of a gold coin:
+        echo "\t\t\t\t\t<img src=\"".getImage("praxis", "small")."\" alt=\"".
+            _("(Image of a gold coin)")."\" />\n";
+        
+        // place name:
         $locus = new Locus($this->getLocus());
         
         echo "\t\t\t\t\t<p><img src=\"".getImage("locus", "small")."\" alt=\"".
-            _("(Image of a compass)").
-            "\" /> ".
-            $locus->getName().
-            ".</p>\n";
+            _("(Image of a compass)")."\" /> ".$locus->getName().".</p>\n";
         
-        echo "\t\t\t\t\t<p>".
-            $this->getDate(); //$dateString;
-
+        // time (date + ordinal):
+        echo "\t\t\t\t\t<p>".$this->getDate();
         if ($this->getOrdinal() !== "")
             echo $this->getOrdinal();
-
         echo "</p>\n";
 
+        // name and rating:
         echo "\t\t\t\t\t<p><b>".$this->getName()."</b></p>\n";
         echo "\t\t\t\t\t<p>".writtenRate($this->getRating(), false)."</p>\n";
+        
+        // participants:
         echo "\t\t\t\t\t<p><img src=\"".getImage("amor","small")."\" alt=\"".
             _("(Image of a cycladic idol)")."\" /> ".
             $this->getParticipantsString()."</p>\n";
+        
         echo "\t\t\t\t</div>\n";
         
     } // method 'Praxis::HTMLAsidePreview'
@@ -455,7 +472,7 @@ QUERY;
     /**
      * method 'Praxis::HTMLAsidePreviewPractica'.
      * 
-     * this method displays a summary of the experiences in the sidebar.
+     * this method displays a summary of all the experiences in the sidebar.
      * 
      * @return nothing, taken into account that the method echoes HTML code.
      */
@@ -502,6 +519,7 @@ QUERY;
      * 
      * this method displays a preview of the experience, depending on certain
      * conditions.
+     * 
      * @param int $ordinalNr experience ordinal in a given list.
      * @param array $options: bitwise combination of options (e.g.
      * EXPERIENCE_RATE & EXPERIENCE_DATE & EXCEPTR_MED).
@@ -514,12 +532,12 @@ QUERY;
         
         echo "\t\t\t\t\t<div class=\"HTMLPreview\">\n";
         
-/*
- *  first line of the preview (headline):
- *  1/ ordinal
- *  2/ name (with hyperlink)
- *  3/ evaluation
- */
+        /*
+         *  first line of the preview (headline):
+         *  1/ ordinal
+         *  2/ name (with hyperlink)
+         *  3/ evaluation
+         */
         
         // 1. ordinal number:
         echo "\t\t\t\t\t\t<p class=\"medium\"> ";
@@ -545,15 +563,15 @@ QUERY;
         }
         echo "</p>\n";
         
-/*
- * second line of the preview (complementary information):
- * 1. time (date + ordinal)
- * 2. place
- * 3. participants
- * 4. description or excerpt
- * possible addition: $yearSpan = $currentYear - $date['year']
- * 
- */
+        /*
+         * second line of the preview (complementary information):
+         * 1. time (date + ordinal).
+         * 2. place.
+         * 3. participants.
+         * 4. description or excerpt.
+         * possible addition: $yearSpan = $currentYear - $date['year'].
+         */
+        
         echo "\t\t\t\t\t\t<p><b>"._("QVANDO")."</b> ".$this->getDate();
         if (!empty($this->getOrdinal())) {
             echo " ";

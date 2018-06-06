@@ -271,7 +271,7 @@ if ($coordSet) {
         "?center=".$coord.
         "&zoom=5&size=640x480".
         "&markers=color:".$markerColor."%7C".$coord.
-        "&key= AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
+        "&key=AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
     echo "\t\t\t\t\t\t<img src=\"".$mapURL.
         "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
     
@@ -281,7 +281,7 @@ if ($coordSet) {
         "?center=".$coord.
         "&zoom=10&size=640x480".
         "&markers=color:".$markerColor."%7C".$coord.
-        "&key= AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
+        "&key=AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
     echo "\t\t\t\t\t\t<img src=\"".$mapURL.
         "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
     
@@ -291,7 +291,7 @@ if ($coordSet) {
         "?center=".$coord.
         "&zoom=15&size=640x480".
         "&markers=color:".$markerColor."%7C".$coord.
-        "&key= AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
+        "&key=AIzaSyC53MmLcDNNRxf-Lw05fPHXuj6DIcUnhlo";
     echo "\t\t\t\t\t\t<img src=\"".$mapURL.
         "\" width=\"640\" height=\"480\" style=\"border: solid thin black;\" />\n";
 

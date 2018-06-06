@@ -9,7 +9,7 @@ INSERT INTO `myX`.`users` VALUES (
     "Fulano",           /* username */
     "8fa14cdd754f91cc6554c9e71929cce7", /* password (encrypted) */
     "fulano@gmail.com", /* email */
-    "2000-01-01",       /* birthdate */
+    "1990-01-01",       /* birthdate */
     2,                  /* defaultGenre */
     "Descripción general: nacionalidad, edad, apariencia...",
     "Descripción física: estatura, complexión, color de la piel...",
@@ -86,7 +86,7 @@ INSERT INTO `myX`.`loca` VALUES (
     "",
     "Cartagena: hotel NH Campo de Cartagena",
     3,
-    "Calle Ciudadela, 24, 30203 Cartagena, Murcia",
+    "Calle Ciudadela 24, 30203 Cartagena, Murcia",
     18,
     13,
     "hotel de precio asequible situado en un lugar tranquilo si bien no muy céntrico",
@@ -101,7 +101,7 @@ INSERT INTO `myX`.`loca` VALUES (
     "",
     "Cartagena: Apartamento de Calíope",
     3,
-    "Calle Carlos III, 33, 30201 Cartagena, Murcia",
+    "Calle Carlos III 33, 30201 Cartagena, Murcia",
     18,
     12,
     "",
@@ -146,7 +146,7 @@ INSERT INTO `myX`.`loca` VALUES (
     "",
     "Montpelier: apartamento de Melpómene",
     3,
-    "12 Bvd Victor Hugo, 34000 Montpellier",
+    "12 Bvd Victor Hugo, Montpellier 34000",
     19,
     12,
     "apartamento situado en el centro de la ciudad, muy cercano a la plaza Comédie",
@@ -161,7 +161,7 @@ INSERT INTO `myX`.`loca` VALUES (
     "",
     "Montpelier: hotel St-Roch Centre",
     3,
-    "14 rue Jules Ferry	Montpellier	34000",
+    "14 rue Jules Ferry, Montpellier 34000",
     19,
     13,
     "hotel muy convenientemente situado frente a la estación Montpellier Saint-Roch",
@@ -206,7 +206,7 @@ INSERT INTO `myX`.`loca` VALUES (
     "",
     "Ammán: hotel Zamzam Towers",
     3,
-    "Wasfi Altal St., Amman (Khalda-Wasfi Al-Tal), Jordan",
+    "Wasfi Altal St., Amman (Khalda-Wasfi Al-Tal)",
     22,
     13,
     "el hotel se halla al norte de la ciudad, a unos 45 minutos del aeropuerto",
@@ -274,7 +274,7 @@ INSERT INTO `myX`.`practica` VALUES (
     734,
     "2018-05-06",
     "b",
-    "trío con Calíope y Clío, siguiendo la propuesta de aquella durante la visita de ésta a nuestra ciudad. nos tomamos algo en la cafetería del hotel para romper el hielo, y al poco nos subimos a la habitación, donde nos amamos pasional y satisfactoriamente.<br />con mucho placer nos amamos los tres, si bien yo no podía evitar estar algo nervioso al ser éste mi primer trío. ellas, en cambio, estaban mas que curtidas en estas lides y condujeron la situación. a pesar de los nervios lo pasamos estupendamente.<br />XXX",
+    "trío con Calíope y Clío, siguiendo la propuesta de aquella durante la visita de ésta a nuestra ciudad. nos tomamos algo en la cafetería del hotel para romper el hielo, y al poco nos subimos a la habitación, donde nos amamos pasional y satisfactoriamente.<br />con mucho placer nos amamos los tres, si bien yo no podía evitar estar algo nervioso al ser éste mi primer trío. ellas, en cambio, estaban mas que curtidas en estas lides y condujeron la situación. a pesar de los nervios lo pasamos estupendamente.<br />hubo los preliminares habituales, ahora en una combinación de cuerpos para mí desconocida. pero ambas se ocuparon diestramente de mi anatomía, y yo me ocupé de la de ellas. ellas entré sí no se hicieron demasiado caso pues, aparentemente, la «estrella» del grupo resultaba ser yo mismo. después culminamos con repetidas penetraciones, se sobreentiende yo a ellas, y mientras copulaba con una seguía un pasional juego carnal con la otra. fue muy excitante.<br />tuvimos mucho éxito con los tiempos y así, finalmente, todos alcanzamos el orgasmo, de forma casi sincronizada.",
     4,
     1,
     2
@@ -289,7 +289,7 @@ INSERT INTO `myX`.`practica` VALUES (
     734,
     "2018-05-07",
     "",
-    "segundo trío con Calíope y Clío, antes de que esta última marchase para su tierra. al despertarnos por la mañana de nuevo nos excitamos y consumamos.<br />la experiencia no fue tan satisfactoria como la de la noche anterior, lo cual era previsible porque ya no se trataba de ninguna novedad. a pesar de ello XXX",
+    "segundo trío con Calíope y Clío, antes de que esta última marchase para su tierra. al despertarnos por la mañana de nuevo nos excitamos y consumamos.<br />la experiencia no fue tan satisfactoria como la de la noche anterior, lo cual era previsible porque ya no se trataba de ninguna novedad. a pesar de ello disfrutamos mucho con nuestros cuerpos y la inusitada «combinación carnal».<br />esta vez todo fue más lento, primeramente porque ya no estaba la inevitable ansiedad del primer encuentro, y además porque el sexo se produjo en un estado de calentamiento progresivo según nos despertábamos. así, yo tomé conciencia de la realidad cuando encontré a Clío felando mi miembro, ya erecto. seguidamente ambos hicimos porque Calíope saliera del letargo y se uniera a la «fiesta», lo cual conseguimos sin dificultad alguna. a continuación, ya todos con plena consciencia de nuestros actos, nos ocupamos de nuestros cuerpos con excitación y ternura, y los preliminares se sucedieron durante un rato grandísimo.<br />siguieron las penetraciones. yo al principio lo tuve fácil, puesto que permanecí inmovil mientras ambas, por turnos, me «cabalgaron» placenteramente. a continuación tuve yo que poner de mi parte, y de nuevo por turnos copulé con una y con otra con gran placer.<br />el encuentro culminó en orgasmo por parte de ellas y mía, si bien esta vez la sincronización no fue tan perfecta como la del día anterior, y hubo un pequeño lapso entre que yo acabé y ellas acabaron. a pesar de ello la experiencia fue totalmente satisfactoria, quiero creer para los tres.",
     4,
     1,
     2
@@ -319,7 +319,7 @@ INSERT INTO `myX`.`practica` VALUES (
     736,
     "2018-05-11",
     "",
-    "en la capital hispalense, durante un viaje de recreo por Sevilla y Granada, coincidí con Talía en un bar de copas. ligamos, y acabamos la noche en mi hostal del centro.<br />con la exuberante cubana tuve una excitante experiencia que duró muchísimo rato y que tuvo varias réplicas a lo largo de la noche. disfruté de cada milimetro de su piel de ébano, así como ella disfrutó de cada detalle de mi anatomía, demostrando ser, entre otras cosas, una experta feladora. efectivamente, era ésta muy experimentada y muy viciosa. ¡y qué no me hizo!... ¡y cómo me lo hizo! :) igualmente supo darse plenamente por delante y por detrás.<br />como fruto de nuestra perfecta sincronización y armonía, en el cénit de la excitación alcanzamos el orgasmo simultaneamente. acabó dejandome exhausto. la experiencia fue apoteósica y de lo más gratificante, y merece, sin duda alguna, ser apuntada y recordada.",
+    "en la capital hispalense, durante un viaje de recreo por Sevilla y Granada, coincidí con Talía en un bar de copas. ligamos, y acabamos la noche en mi hostal del centro.<br />con la exuberante cubana tuve una excitante experiencia que duró muchísimo rato y que tuvo varias «réplicas» a lo largo de la noche. disfruté de cada milimetro de su piel de ébano, así como ella disfrutó de cada detalle de mi anatomía, demostrando ser, entre otras cosas, una experta feladora. efectivamente, era ésta muy experimentada y muy viciosilla. ¡y qué no me hizo!... ¡y cómo no me lo hizo! :) igualmente supo darse plenamente por delante y por detrás.<br />como fruto de nuestra perfecta sincronización y armonía, en el cénit de la excitación alcanzamos el orgasmo simultaneamente. acabó dejandome exhausto. la experiencia fue apoteósica y de lo más gratificante, y merece, sin duda alguna, ser apuntada y recordada.",
     4,
     1,
     2
@@ -379,7 +379,7 @@ INSERT INTO `myX`.`practica` VALUES (
     739,
     "2018-05-17",
     "",
-    "con Erato en mi hotel, la última noche antes de dejar Montpelier para dirigirme al norte de Francia. ligamos por las apps, le propuse venir a mi habitación de hotel, y ésta se plantó allí al cabo de no mucho rato.<br />Erato resultó ser muy morbosa (aunque algo mandona de más) XXX<br />hubo mucho feeling con esta chica y, de hecho, le propuse volver a vernos a la semana siguiente (tenía previsto volver a la zona por motivos laborales). además, haciéndome el desinhibido le propuse vernos en Cabo de Agde, lugar conocido por los libertinos de toda Europa. cual fue mi sorpresa cuando aceptó.",
+    "con Erato en mi hotel, la última noche antes de dejar Montpelier para dirigirme al norte de Francia. ligamos por las <i>apps</i>, le propuse venir a mi habitación de hotel, y ésta se plantó allí al cabo de no mucho rato.<br />Erato resultó ser muy morbosa (aunque algo mandona de más). además resultó ser fetichista de los pies, por lo que se ocupó largamente de ellos mientras yo me ocupaba de otras partes de su anatomía. por descontado, entre los preliminares se sucedieron las prácticas normales de esos menesteres.<br />a continuación copulamos largamente, en varias posturas y con ambas «trayectorias». alcanzamos ambos el orgasmo de forma casi sincronizada.<br />hubo mucho feeling con esta chica y, de hecho, le propuse volver a vernos a la semana siguiente (tenía previsto volver a la zona por motivos laborales). además, haciéndome el desinhibido le propuse vernos en Cabo de Agde, lugar conocido por los libertinos de toda Europa. cual fue mi sorpresa cuando aceptó.",
     4,
     1,
     2
@@ -439,7 +439,7 @@ INSERT INTO `myX`.`practica` VALUES (
     743,
     "2018-05-28",
     "a",
-    "con Erato y Melpómene en la playa de Cabo de Agde, durante la mañana, estuvimos jugando carnalmente durante no poco rato, sin pasar a mayores.<br />tomábamos el sol en la playa, e inevitablemente nos calentamos, bien por la radiación del astro rey, bien por la fricción de nuestras manos al aplicarnos protector solar, bien al observar con el rabillo del ojo algunos juegos sexuales que se producían entre personas de nuestro entorno. así, comenzamos también nosotros a deleitarnos con nuestros cuerpos serranos.<br />disfruté mucho con mis dos francesasitas, así como de la situación morbosa. sin embargo, había demasiados mirones y, más allá del juego carnal, no hubiera sido prudente realizar algo más serio.<br />así, el juego duró no poco rato, y entre calentón y calentón nos dábamos un refrescante baño en el mar.",
+    "con Erato y Melpómene en la playa de Cabo de Agde, durante la mañana, estuvimos jugando carnalmente durante no poco rato, sin pasar a mayores.<br />tomábamos el sol en la playa, e inevitablemente nos calentamos, bien por la radiación del astro rey, bien por la fricción de nuestras manos al aplicarnos protector solar, bien al observar con el rabillo del ojo algunos juegos sexuales que se producían entre personas de nuestro entorno. así, comenzamos también nosotros a deleitarnos con nuestros cuerpos serranos (Erato disfrutó especialmente de nuestros pies).<br />disfruté mucho con mis dos francesitas, así como de la situación morbosa. sin embargo, había demasiados mirones y, más allá del juego carnal, no hubiera sido prudente realizar algo más serio.<br />así, el juego duró no poco rato, y entre calentón y calentón nos dábamos un refrescante baño en el mar.",
     4,
     1,
     2
@@ -454,7 +454,7 @@ INSERT INTO `myX`.`practica` VALUES (
     743,
     "2018-05-28",
     "b",
-    "con Erato y Melpómene en Cabo de Agde (2/2). más tarde, siendo la situación mucho más íntima, volvimos a deleitarnos de nuestros cuerpos llegando incluso a copular en plena playa, siendo observados -pero no molestados- por algunos de los allí presentes.<br />hacia el final de la tarde la situación era mucho más tranquila, aunque no por ello menos excitante. de hecho, algunas parejas estaban en plena acción algunos metros más allá. nos calentamos de nuevo y nos enrolamos en un largo juego sexual a tres bandas, juego que resultó ser completo con cópula y eyaculación incluidos.<br />XXX",
+    "con Erato y Melpómene en Cabo de Agde (2/2). más tarde, siendo la situación mucho más íntima, volvimos a deleitarnos de nuestros cuerpos llegando incluso a copular en plena playa, siendo observados -pero no molestados- por algunos de los allí presentes.<br />hacia el final de la tarde la situación era mucho más tranquila, aunque no por ello menos excitante. de hecho, algunas parejas estaban en plena acción algunos metros más allá. nos calentamos de nuevo y nos enrolamos en un largo juego sexual a tres bandas, juego que resultó ser completo con cópula y eyaculación incluidos.<br />se sobreentiende, previo al coito hubo largos preliminares incluyendo chupeteo de pies por parte de Erato. ahora, por ser el ambiente más íntimo, no escatimamos en ruidosas felaciones ni cunnilingus.<br />a continuación copulamos en una curiosa combinación de tres cuerpos, diríase que se trataba de un espectáculo de contorsionismo, y no sexual.<br />por último, las chicas por turnos alcanzaron el orgasmo casi al unísono, y yo poco despues cuando, levantandome sobre ellas, eyaculé estrepitosamente sobre sus cuerpos calientes.",
     4,
     1,
     2
@@ -505,13 +505,13 @@ INSERT INTO `myX`.`amores` VALUES (
 INSERT INTO `myX`.`amores` VALUES (
     5871,
     "",
-    "Erato",
+    "Erato, la fetichista de los pies",
     3,
     2,
     "chica francesa de 24 años, no demasiado agraciada de cara",
     "cuerpecillo esbelto, con cinturita de avispa y piernas delgadas",
     "pechos pequeños con prominentes pezones, lleva el vello púbico graciosamente recortado",
-    "muy morbosa y muy mandona",
+    "muy morbosa y muy mandona. fetichista de los pies",
     "Skype: erato1973; Badoo: erato1973; Instagram: erato1973",
     "Érato María Pérez Giménez",
     0,
@@ -581,14 +581,14 @@ INSERT INTO `myX`.`amores` VALUES (
 INSERT INTO `myX`.`amores` VALUES (
     5875,
     "",
-    "Talía",
+    "Talía, la exótica mulata",
     4,
     2,
     "mujer cubana de 39 años, exótica mulata",
     "cuerpo delicioso, delgado y terso, color de ébano",
     "maravillosos pechos de tamaño mediano-grande, firmes",
-    "muy experimentada y muy viciosa",
-    "Skype: talia1973; Badoo: talia1973; Instagram: talia1973",
+    "muy experimentada y muy viciosilla",
+    "Badoo: talia1973",
     "",
     0,
     "(+34) 661 662 663",

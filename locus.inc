@@ -5,7 +5,7 @@
  * this script contains the implementation of class 'Locus'.
  * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-05-22
+ * last update: 2018-06-06
 */
 
 require_once 'DB.inc';
@@ -46,7 +46,7 @@ class Locus {
      * method 'Locus::getLocusID'.
      * 
      * returns the value of property 'locusID' (getter method).
-     * @return int returns the place identifier.
+     * @return int the place identifier.
      */
     public function getLocusID() {
         
@@ -174,7 +174,7 @@ class Locus {
         
     }
     
-    // constructor:
+    // other methods:
 		
     /**
      * method 'Locus::__construct'.
@@ -183,6 +183,7 @@ class Locus {
      * and sets its properties from the DB.
      * 
      * @param int $locusID the identifier of the place being constructed.
+     * @return Locus the instantiated place object.
     */
     public function __construct($locusID) {
                 
@@ -222,10 +223,12 @@ QUERY;
     /**
      * method 'Locus::getAllLoca'.
      * 
-     * this method returns an array with the identifiers of all places
-     * of the current logged in user.
+     * this static method returns an array with the identifiers of all places
+     * of the given user.
+     * 
+     * @return array array with the identifiers of all places of the given user.
      */
-    public function getAllLoca() {
+    public static function getAllLoca() {
 
         $loca = array(); // the array to be returned
         
@@ -346,8 +349,12 @@ QUERY;
     } // method Locus::getKindName
     
     /**
-     * method Locus::getLocaAmount
-     * retrieves from the DB the total amount of lovers. this function is a class method, no instance needed
+     * method 'Locus::getLocaAmount'.
+     * 
+     * this static method retrieves the total amount of lovers of the given
+     * user.
+     * 
+     * @return int the total amount of places of the given user.
     */
     public static function getLocaAmount() {
         
@@ -369,7 +376,7 @@ QUERY;
         // 3. the number of rows is retrieved and returned (intval needed):      
         return intval($statement->fetchColumn());
         
-    } // method Locus::getLocaAmount
+    } // method 'Locus::getLocaAmount'
 	
    /**
     * method 'Locus::getMapCenter'.
@@ -392,8 +399,8 @@ QUERY;
         $pdo = DB::getDBHandle();
         
 /*
- * we first verify that there are some places
- * '$_SESSION['DBStatus']['doPracticaExist']'.
+ * we first verify that there are some places querying the table 'loca'.
+ * if no places are found, the method returns.
  */
         
         $queryString = <<<QUERY
@@ -403,11 +410,8 @@ WHERE `user` = :userID
 QUERY;
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
-        if ($statement->fetchColumn() === 0)
+        if (intval($statement->fetchColumn()) === 0)
             return;
-        //else $_SESSION['DBStatus']['doPracticaExist'] = true;
-        // flag '$_SESSION['DBStatus']['doPracticaExist']' already set
-        // queriyng Praxis::doPracticaExist.
 
 /*
  * all coordenates are retrieved and their values, whether exact of generic,
@@ -434,9 +438,6 @@ QUERY;
                 ($row['coordExact'] !== "") ?
                 $row['coordExact'] :
                 $row['coordGeneric'];
-            
-//            $long = explode(", ", $coordinates)[0];
-//            $lat = explode(", ", $coordinates)[1];
             
             // the numeric values are extracted and stored:
             $longs[] = explode(", ", $coordinates)[0]/*$long*/;
@@ -549,16 +550,21 @@ QUERY;
     } // method 'Locus::getPracticaAmount'
 
     /**
-     * method Locus::HTMLAsidePreview
+     * method 'Locus::HTMLAsidePreview'.
+     * 
+     * this method displays a summary of the place in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
     */
     function HTMLAsidePreview() {
 
         echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
         
-        echo "\t\t\t\t\t<img src=\"". getImage("locus", "small")."\" alt=\"".
-            _("(Image of a compass)").
-            "\" />\n";
+        // image of a compass:
+        echo "\t\t\t\t\t<img src=\"".getImage("locus", "small")."\" alt=\"".
+            _("(Image of a compass)")."\" />\n";
         
+        // name and rating:
         echo "\t\t\t\t\t<p><b>".$this->getName()."</b></p>\n";
         echo "\t\t\t\t\t".writtenRate($this->getRating(), false)."\n";
         
@@ -570,11 +576,14 @@ QUERY;
         
         echo "\t\t\t\t</div>\n";
 
-    } // method Locus::HTMLAsidePreview
+    } // method 'Locus::HTMLAsidePreview'
     
     /**
-     * method Praxis::HTMLAsidePreviewLoca
-     * displays a sommary of the places in the sidebar
+     * method 'Locus::HTMLAsidePreviewLoca'.
+     * 
+     * this method displays a sommary of all the places in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
      */
     public function HTMLAsidePreviewLoca() {
         
@@ -602,7 +611,7 @@ QUERY;
 
         echo "\t\t\t\t</div>\n";
         
-    } // method Praxis::HTMLAsidePreviewLoca
+    } // method 'Locus::HTMLAsidePreviewLoca'
     
     /**
      * method 'Locus::HTMLPreview'.
@@ -616,15 +625,17 @@ QUERY;
      * - the second line contains, if any, the description of the place,
      * the address, and the URL.
      * 
-     * param int $ordinalNr page's ordinal number, to be represented at the
+     * @param int $ordinalNr page's ordinal number, to be represented at the
      * beginning of the preview when presented in a list.
+     * @return nothing, taken into account that the method echoes HTML code.
     */
     function HTMLPreview($ordinalNr) {
 		
         echo "\t\t\t\t\t\t<div class=\"HTMLPreview\">\n";
 	
-        ////////////////////////////////////////////////////////////////////////
-        // first line
+        /*
+         * first line
+         */
         
         echo "\t\t\t\t\t\t\t<p class=\"medium\">";
 
@@ -642,16 +653,17 @@ QUERY;
 
         // amount of experiences:
         $practicaAmount = $this->getPracticaAmount();
-        echo " (";
-        echo writtenNumber($practicaAmount, FEMENINE);
-        echo " ";
-        echo $practicaAmount > 1 ? _("experiences") : _("experience");
+        echo " (".writtenNumber($practicaAmount, FEMENINE)." ";
+        echo ($practicaAmount > 1) ?
+            _("experiences") : _("experience");
         echo ")";
         
-        echo"</p>\n";
+        echo "</p>\n";
 
-        ////////////////////////////////////////////////////////////////////////
-        // second line
+        /*
+         * second line
+         */
+        
         if ($this->getName() !== "" || $this->getAddress() !== "" ||
             $this->getWeb() !== "") {
             

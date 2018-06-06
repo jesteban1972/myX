@@ -7,6 +7,7 @@
  * using this lover identificator an object of class 'Amor' is created,
  * whose data are read from database.
  * the page´s parts will be created using this object.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-05
 */
@@ -65,13 +66,13 @@ HTML;
 echo "\t\t\t\t\t<p class=\"medium\">";
 
 if (DEBUG)
-    echo " <span class=\"debug\">[amorID <b>".$amor->getAmorID().
-        "</b> ".$amor->getAlias()."]</span> ";
+    echo " <span class=\"debug\">[amorID <b>".$amor->getAmorID()."</b> ".
+        $amor->getAlias()."]</span> ";
 
 echo _("Alias").": <b>".$amor->getAlias()."</b>.</p>\n";
 
 // rating:
-echo "\t\t\t\t\t<p class=\"medium\">"._("Subjective rating").": <b>".
+echo "\t\t\t\t\t<p class=\"medium\">"._("Rating").": <b>".
     writtenRate($amor->getRating(), TRUE)."</b>.</p>\n";
 
 // genre:

@@ -152,6 +152,6 @@ HTML;
 } // function exceptionHandler
 
 // function exceptionHandler is set:
-//set_exception_handler("exceptionHandler");
+set_exception_handler("exceptionHandler");
 
 ?>

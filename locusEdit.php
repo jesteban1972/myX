@@ -10,6 +10,7 @@
  * otherwise $locusEdit is set to false.
  * this script echoes a form whose fields correspond with those of the table
  * 'loca'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-24
 */
@@ -331,9 +332,17 @@ echo "\t\t\t\t\t</fieldset>\n";
 
 // form footer:
 
-if ($locusEdit)
+if ($locusEdit) {
+    
     echo "\t\t\t\t\t<input type=\"hidden\" name=\"locusID\" value=\"".
         $locus->getLocusID()."\" />\n";
+    echo "\t\t\t\t\t<input type=\"hidden\" name=\"country\" value=\"".
+        $locus->getCountry()."\" />\n";
+    echo "\t\t\t\t\t<input type=\"hidden\" name=\"kind\" value=\"".
+        $locus->getKind()."\" />\n";
+    
+}
+    
 if ($tempPraxis)
     echo "\t\t\t\t\t<input id=\"tempPraxis\" type=\"hidden\" />\n";
 

@@ -5,7 +5,7 @@
  * this script contains the implementation of class 'User',
  * the class which represents the abstraction of a user of the application.
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-05-10
+ * last update: 2018-06-06
  */
 
 require_once 'core.inc';
@@ -15,13 +15,11 @@ require_once 'exceptions.inc';
 /**
  * class 'User'.
  * 
- * this class manages the core interactions with the users of the app.
- * it manages both users and user logins;
- * users using the table 'users' of the DB,
+ * this class manages implements the abstraction of a user entity, along with
+ * the core interactions with the users of the app.
+ * 
+ * it manages both users and user logins; users using the table 'users',
  * and logins using the table 'loggedInUsers'.
- * it is also used for verification purposes:
- * to check if a user exists,
- * if a user is logged in, etc.
  */
 class User {
     
@@ -67,30 +65,63 @@ class User {
     
     // III. methods
     
-    public function getUserID() {return $this->userID;}
-    public function getUserName() {return $this->username;}
+    /**
+     * method 'User::getUserID'.
+     * 
+     * returns the value of property 'userID' (getter method).
+     * @return int the user identifier.
+     */
+    public function getUserID() {
+        
+        return (int)$this->userID;
+        
+    }
+    
+    /**
+     * method 'User::getUsername'.
+     * 
+     * returns the value of property 'username' (getter method).
+     * @return string returns the user username property.
+     */
+    public function getUsername() {
+        
+        return $this->username;
+        
+    }
+    
+    /**
+     * method 'User::getEmail'.
+     * 
+     * returns the value of property 'email' (getter method).
+     * @return string the user email property.
+     */
     public function getEmail() {return $this->email;}
     
     /**
      * method 'User::getUserKind'.
      * 
-     * this method returns the attribute 'userKind'.
+     * this method returns the attribute 'userKind' (getter method).
+     * @return int the user kind.
      */
     public function getUserKind() {
         
-        return $this->userKind;
+        return (int)$this->userKind;
         
     }
     
     /**
-     * method User::__construct
+     * method 'User::__construct'.
      * 
-     * this method creates an instance of the class 'User'.
+     * class constructor: initiates an instance of the class,
+     * and sets its properties from the DB.
+     * 
      * we can instantiate an object 'User' in two different ways:
      * i) passing the default value -1 to the constructor:
      * a new user is created with empty fields.
      * ii) passing a userID of an existing user:
      * XXX (?)
+     * 
+     * @return User the instantiated user object.
      */
     function __construct($userID = -1) {
 
@@ -123,7 +154,7 @@ class User {
         // get a DB connection to work with:
         $pdo = DB::getDBHandle();
          
-        // 2. get the record with the given userID:
+        // the table 'users' is queried (only one row expected):
         
         $queryString = <<<QUERY
 SELECT `username`, `password`, `email`, `userKind`
@@ -134,45 +165,28 @@ QUERY;
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
-        
-        // 3. the data are fetched:
         $row = $statement->fetch();
         
-        // 4. check that only one record was fetched:
-        $amount = $statement->rowCount();
-        //var_dump($amount);
-//        $amount = ?
-//        if ($amount === 0) {
-//            
-//            throw new Exception;
-//            
-//        } elseif ($amount > 1) {
-//            
-//            throw new Exception;
-//            
-//        }
-        
-        // 4. the attributes of the class are assigned
-        // with the values read from the DB:
+        // the properties of the class are assigned with the values from the DB:
         $this->username = $row['username'];
         $this->password = $row['password'];
         $this->email = $row['email'];
         $this->userKind = intval($row['userKind']);
         
-    } // method User::__construct
+    } // method 'User::__construct'
     
     /**
-     * method User::clearLoginEntriesForUser
+     * method 'User::clearLoginEntriesForUser'
      * 
-     * this method removes any existing entries in the table 'usersLoggedIn'
-     * for the given userID.
+     * this static method removes any existing entries in the table
+     * 'usersLoggedIn' for the given userID.
      * 
-     * parameters:
-     *  userID
+     * @param int $userID the user identifier whose entry is to be deleted.
      * 
-     * TODO: make this method private?
+     * @return nothing, having into account that the corresponding table in the
+     * DB is updated.
      */
-    static public function clearLoginEntriesForUser($userID) {
+    public static function clearLoginEntriesForUser($userID) {
         
         // 0. check internal arguments:
         if (!is_integer($userID)) {
@@ -184,7 +198,7 @@ QUERY;
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. delete any rows for this userID in the table 'usersLoggedIn':
+        // delete any rows for this userID in the table 'usersLoggedIn':
 
         $queryString = <<<QUERY
 DELETE
@@ -198,30 +212,25 @@ QUERY;
         
         return;
         
-    } // method User::clearLoginEntriesForUser
+    } // method 'User::clearLoginEntriesForUser'
     
     /**
-     * method User::confirmUsernamePassword
+     * method 'User::confirmUsernamePassword'.
      * 
-     * this method looks in the table 'users'
-     * for a user with the given username.
-     * if found, it makes sure that the passwords are the same,
-     * (and then returns the user ID on success?).
-     * otherwise it throws an LoginException
-     * indicating that the information is invalid.
-     * note that we will not help foil attackers learn
-     * whatever it was the username or the password
-     * that was the problem failure.
+     * this method looks in the table 'users' for a user with the given
+     * username. if found, it makes sure that the passwords are the same,
+     * (and then returns the user ID on success?). otherwise it throws a
+     * LoginException indicating that the information is invalid.
      * 
-     * parameters:
-     *  username
-     *  password
+     * note that we will not help foil attackers learn whatever it was the
+     * username or the password that was the problem failure.
      * 
-     * returns:
-     *  TRUE if username and password match
-     *  FALSE otherwise
-     * 
-     * TODO: make this method private?
+     * @param string $username the username of the user whose login credentials
+     * are being confirmed.
+     * @param string $password the password of the user whose login credentials
+     * are being confirmed.
+     * @return bool boolean value indicating whether username and password match
+     * or not.
      */
     public function confirmUsernamePassword($username, $password) {
         
@@ -237,7 +246,7 @@ QUERY;
         $pdo = DB::getDBHandle();
         
         
-        // 3. get the record with the given username:
+        // 3. get the record with the given username (only one row expected):
         
         // 3.1 the SELECT statement is prepared:
         $queryString = <<<QUERY
@@ -256,7 +265,7 @@ QUERY;
         
         // 4. check that only one record was returned:
         $amount = $statement->rowCount();
-        //var_dump($amount);
+        
         // if...
         //        if ($amount === 0) {
 //            
@@ -278,28 +287,32 @@ QUERY;
             
         }
         
-        return $returnValue;// TODO: check
+        return $returnValue;
         
-    } // method User::confirmUsernamePassword
+    } // method 'User::confirmUsernamePassword'
     
     /**
-     * method User::createUserAccount
+     * method 'User::createUserAccount'
      * 
-     * this method creates a user account
-     * using the given username, password and email.
-     * the userID will be calculated by increasing the highest used ID.
+     * this method creates a user account using the given username, password
+     * and email.
      * 
-     * parameters:
-     *  username
-     *  password
-     *  email
+     * the user identifier, primary key in the table 'users', is calculated
+     * by increasing the highest used ID.
      * 
-     * returns:
-     *  userID
+     * @param string $username the username of the user whose account is being
+     * created.
+     * @param string $password the password of the user whose account is being
+     * created.
+     * @param string $email the email of the user whose account is being
+     * created.
+     * @param string $birthdate the birthdate of the user whose account is being
+     * created.
+     * @return int the identifier of the newly created user.
      */
     static public function createUserAccount($username, $password, $email, $birthdate) {
         
-        $userKind = 1; // default userKind value for all users
+        $userKind = 2; // default value for all 'regular' users
         
         // 0. ckeck internal parameters
         // and validate input:
@@ -357,29 +370,24 @@ QUERY;
         // 5.3. the statement is executed
         $statement->execute();
         
-    } // method User::createUserAccount
+    } // method 'User::createUserAccount'
     
     /**
-     * method doesUsernameExist
+     * method 'User::doesUsernameExist'.
      * 
      * this method checks whether a user with the given username
      * already exists in the table 'users'.
      * 
-     * parameters:
-     *  username
+     * @param string $username the username of the user being checked.
      * 
-     * returns:
-     *  TRUE if the username already exists
-     *  FALSE otherwise
-     * 
-     * TODO: make this method private?
+     * @return bool boolean value indicating whether username exists or not.
      */
-    static public function doesUsernameExist($username) { // private???
+    static public function doesUsernameExist($username) {
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'users':
+        // the table 'users' is queried:
         
         $queryString = <<<QUERY
 SELECT COUNT(`username`)
@@ -399,10 +407,14 @@ QUERY;
         else
             return false;
         
-    } // method User::doesUsernameExist
+    } // method 'User::doesUsernameExist'
     
     /**
-     * method User::getAge
+     * method 'User::getAge'.
+     * 
+     * this method calculates the age of the user at a given date (when one
+     * experience happened).
+     * 
      * calculation algorithm:
      * having i) the date in which the experience happened
      * and ii) the birthdate of the user (read from the DB),
@@ -410,11 +422,17 @@ QUERY;
      * the age is the integer value of their difference
      * divided by 86400 (i.e. 60 x 60 x 24, number of seconds in a day)
      * and by 365.25 (i.e. number of days in a year)
+     * 
+     * @param string $date the date in where the experience happened.
+     * 
+     * @return int the age of the user at the given date.
      */
     public function getAge($date) {
         
+        // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
+        // the table 'users' is queried to get the user's birthdate:
         $queryString = <<<QUERY
 SELECT `birthdate`
 FROM `myX`.`users`
@@ -434,15 +452,14 @@ QUERY;
 	
     
     /**
-     * method User::getUserIDFromUsername
+     * method 'User::getUserIDFromUsername'.
      * 
-     * this method retrieves the userID from a given username.
+     * this private method retrieves the identifier of a given username.
      * 
-     * parameters:
-     *  username
+     * @param string $username the username of the user whose ID is being
+     * retrieved.
      * 
-     * returns:
-     *  userID
+     * @return int the userID of the given username.
      */
     private function getUserIDFromUsername($username) {
         
@@ -472,19 +489,18 @@ QUERY;
         // and returned:
         return intval($statement->fetchColumn());
         
-    } // method User::getUserIDFromUsername
+    } // method 'User::getUserIDFromUsername'
     
     /**
-     * method User::getUsernameFromUserID
+     * method 'User::getUsernameFromUserID'.
      * 
-     * this method queries the table 'users'
-     * and gets the username from a given userID.
+     * this method queries the table 'users' and gets the username of the user
+     * whith the given identifier.
      * 
-     * parameters:
-     *  userID
+     * @param int $userID the identifier of the user whose username is being
+     * retrieved.
      * 
-     * returns:
-     *  username
+     * @return string the username of the user with the given identifier.
      */
     static public function getUsernameFromUserID($userID) {
         
@@ -498,7 +514,7 @@ QUERY;
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'users' to find the corresponding usename:
+        // the table 'users' is queried to retieve the corresponding usename:
         
         $queryString = <<<QUERY
 SELECT `username`
@@ -513,20 +529,25 @@ QUERY;
         // 3. the username is fetched and returned:
         return $statement->fetchColumn();
         
-    } // method User::getUsernameFromUserID
+    } // method 'User::getUsernameFromUserID'
     
     /**
      * method 'User::getNavOptions'.
      * 
-     * this method returns an associative array containing the navigation options,
+     * this method returns an associative array containing the navigation
+     * optionsfor the user from which the method is called,
      * values which have been taken from the DB (if set).
-     * the considered user options are the following fields
-     * of the table 'users':
+     * 
+     * the considered user options are the following fields of the table
+     * 'users':
      * i) 'GUILang', the language of the GUI.
-     * ii) 'resultsPerPage' the number of elements wich will be considered.
-     * in lists scripts ('practica.php', 'amores.php' and 'loca.php'.
+     * ii) 'resultsPerPage' the number of elements wich will be displayed i
+     * each part of a list in listing scripts ('practica.php', 'amores.php' and
+     * 'loca.php').
      * iii) the order for lists: ascending or descending
      * (i.e., from oldest to newest or from newest to oldest).
+     * 
+     * @return array an associative array containing the navigation options.
      */
     public static function getNavOptions () {
         
@@ -556,22 +577,26 @@ QUERY;
                 intval($row['resultsPerPage']);
         if ($row['listsOrder'] !== "")
             $navigationOptions['listsOrder'] = intval($row['listsOrder']);
-        
-        
+       
         //return:
         return $navigationOptions;
         
-    } // method User::getNavOptions
+    } // method 'User::getNavOptions'
     
     /**
-     * method User::getUserOptions
+     * method 'User::getUserOptions'
      * 
-     * this method returns an associative array containing the user options,
+     * this method returns an associative array containing the user options
+     * for the user from which the method is called,
      * values which have been taken from the DB (if set).
+     * 
      * the considered user options are the following fields
      * of the table 'users':
      * i) 'defaultGenre', the default genre for lovers;
      * ii-v) 'descr1' .. 'descr4', the custom meaning of a lover's description.
+     * 
+     * @return array associative array containing the user options for the user
+     * from which the method is called.
      */
     public static function getUserOptions () {
         
@@ -608,19 +633,20 @@ QUERY;
         //return:
         return $userOptions;
         
-    } // method User::getUserOptions
+    } // method 'User::getUserOptions'
     
     /**
-     * method User::isValidUsername
+     * method 'User::isValidUsername'.
      * 
      * this method checks if a given username is valid or not.
      * 
-     * parameters:
-     *  username
+     * the PHP function preg_match is used to verify that the given username:
+     * i) contains only letters, space, underscore of hyphen.
+     * ii) is not empty.
      * 
-     * returns:
-     *  TRUE if username is valid
-     *  FALSE otherwise
+     * @param string $username the username being checked.
+     * 
+     * @return bool boolean value indicating whether username is valid or not.
      */
     static public function isValidUsername($username) {
         
@@ -642,10 +668,10 @@ QUERY;
         
         }
         
-    } // method User::isValidUsername
+    } // method 'User::isValidUsername'
     
     /**
-     * method User::loginProcess
+     * method 'User::loginProcess'.
      * 
      * this method performs system logins following a two-step mechanism:
      * i) firstly it clears out any existing login information for the user
@@ -654,18 +680,17 @@ QUERY;
      * but an entry for him may still exists in the table 'usersLoggedIn').
      * ii) secondly this method adds the username and session ID to the table
      * 'usersLoggedIn'. the session ID associated with the user is also stored.
+     * 
      * the method sets the time when the login was performed for two reasons:
-     * stale logins can be eliminated and,
+     * stale logins can be eliminated (not implemented) and,
      * if we receive a page request from this user
      * and there is already an entry for him/her in the table 'usersLoggedIn'
      * we will not make him/her go through the login process again.
      * 
-     * parameters:
-     *  username
-     *  password
+     * @param string $username the username of the user being logged in.
+     * @param string $password the password of the user being logged in.
      * 
-     * returns:
-     *  userID
+     * @return int userID the identifier of the user who has been logged in.
      */
     static public function loginProcess($username, $password) {
         
@@ -680,16 +705,16 @@ QUERY;
         // with the values stored in the table 'users':
         //$this->confirmUsernamePassword($username, $password);
         
-        // 3. the userID is retrieved:
+        // the userID is retrieved:
         $userID = User::getUserIDFromUsername($username);
         
-        // 4. clear out existing entries in the table 'usersLoggedIn'
+        // clear out existing entries in the table 'usersLoggedIn':
         User::clearLoginEntriesForUser($userID);
         
-        // 5. get a DB handle to work with:
+        // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 6. insert data in the 'usersLoggedIn' table:
+        // insert data in the 'usersLoggedIn' table:
        
         $queryString = <<<QUERY
 INSERT
@@ -702,21 +727,20 @@ QUERY;
         $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
                 
-        // 99. return userID:
+        // return userID:
         return $userID;
         
-    } // method User::loginProcess
+    } // method 'User::loginProcess'
     
     /**
-     * method User::logoutProcess
+     * method 'User::logoutProcess'
      * 
      * this method deletes all the entries in the table 'usersLoggedIn'
      * with the current session ID.
      * 
      * no parameters are needed, because the current session ID is used.
      * 
-     * returns:
-     *  nothing
+     * @return nothing
      */
     static public function logoutProcess() {
         
@@ -735,22 +759,17 @@ QUERY;
         $statement->bindParam(":sessionID", session_id(), PDO::PARAM_STR);
         $statement->execute();       
         
-    } // method User::logoutProcess
+    } // method 'User::logoutProcess'
     
     /**
-     * method User::sessionLoggedIn
+     * method 'User::sessionLoggedIn'
      * 
      * this method searches records in the table 'usersLoggedIn'
      * with the current session ID.
      * if found -i.e. user is active- updates last access time;
      * if not found, it returns -1.
      * 
-     * parameters:
-     *  none
-     * 
-     * returns:
-     *  userID if user is logged
-     *  -1 otherwise
+     * @return int user identifier if user is logged in, -1 otherwise.
      */
     static public function sessionLoggedIn() {
         
@@ -792,17 +811,22 @@ QUERY;
 //            
 //        }
         
-        
-        
         // userID is returned:
         return $userID;
         
-    } // method User::sessionLoggedIn
+    } // method 'User::sessionLoggedIn'
     
     /**
      * method 'User::setNavOptions'.
      * 
-     * XXX
+     * this method insert in the DB the user navigation options.
+     * 
+     * @param int $GUILang the language of the GUI.
+     * @param int $resultsPerPage the amount of items in the lists.
+     * @para int $listsOrder the ordination of the lists.
+     * 
+     * @return nothing, having into account that the corresponding table in the
+     * DB is updated.
      */
     public static function setNavOptions ($GUILang, $resultsPerPage,
             $listsOrder) {
@@ -831,12 +855,21 @@ QUERY;
         //return:
         return;
         
-    } // method User::setNavOptions
+    } // method 'User::setNavOptions'
     
     /**
-     * method User::setUserOptions
+     * method 'User::setUserOptions'
      * 
-     * XXX
+     * this method insert in the DB the user options.
+     * 
+     * @param int $defaultGenre the default genre for lovers.
+     * @param string $descr1 the custom meaning for field descr1.
+     * @param string $descr2 the custom meaning for field descr2.
+     * @param string $descr3 the custom meaning for field descr3.
+     * @param string $descr4 the custom meaning for field descr4.
+     * 
+     * @return nothing, having into account that the corresponding table in the
+     * DB is updated.
      */
     public static function setUserOptions ($defaultGenre,
         $descr1, $descr2, $descr3, $descr4) {
@@ -868,7 +901,7 @@ QUERY;
         //return:
         return;
         
-    } // method User::setUserOptions
+    } // method 'User::setUserOptions'
     
 } // class User
 

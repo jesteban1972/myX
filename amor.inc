@@ -2,10 +2,10 @@
 /**
  * script 'amor.inc'.
  * 
- * this script contains the implementation of class 'Amor',
- * the class which represents the abstraction of a lover.
+ * this script contains the implementation of class 'Amor'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-05-10.
+ * last update: 2018-06-06.
 */
 
 require_once 'core.inc';
@@ -14,7 +14,17 @@ require_once 'DB.inc';
 //session_start();
 
 /**
- * class Amor
+ * class ᾽Amor'.
+ * 
+ * this class represents the abstraction of a lover entity, i.e. the person
+ * who has participated in one or more experiences.
+ * 
+ * a lover is always linked to, at least, one experience.
+ * 
+ * up to four fields are used to describe a lover, whore meaning will have a
+ * customized meaning for each user.
+ * 
+ * in the DB every lover is linked with the user proprietary of the information.
 */
 class Amor {
 
@@ -22,12 +32,12 @@ class Amor {
     protected $amorID;  // amor ID
     protected $achtung; // achtung
     protected $alias;   // alias
+    protected $rating;  // rating
     protected $genre;   // genre
     protected $descr1;  // description 1
     protected $descr2;  // description 2
     protected $descr3;  // description 3
     protected $descr4;  // description 4
-    protected $rating;  // rating
     protected $web;     // web
     protected $name;    // name
     protected $photo;   // photo
@@ -37,48 +47,213 @@ class Amor {
 
     // II. member constants
     const RATING = 1;
-    //const PLACE = 2;
-    //const PARTICIPANTS = 3;
     
     const GENRE_MASCULINE = 1;
     const GENRE_FEMININE = 2;
     // ...
     //const GENRES = Array("dummy", _("man"), _("woman"));
 
-    // III. methods
-	
+    // III. implementation methods
+    
     // getters:
-    public function getAmorID() {return $this->amorID;}
-    public function getAchtung() {return $this->achtung;}
-    public function getAlias() {return $this->alias;}
-    public function getRating() {return $this->rating;}
-    public function getGenre() {return $this->genre;}
-    public function getDescr1() {return $this->descr1;}
-    public function getDescr2() {return $this->descr2;}
-    public function getDescr3() {return $this->descr3;}
-    public function getDescr4() {return $this->descr4;}
-    public function getWeb() {return $this->web;}
-    public function getName() {return $this->name;}
-    public function getPhoto() {return $this->photo;}
-    public function getPhone() {return $this->phone;}
-    public function getEmail() {return $this->email;}
-    public function getOther() {return $this->other;}
+    
+    /**
+     * method 'Amor::getAmorID'.
+     * 
+     * returns the value of property 'amorID' (getter method).
+     * @return int the lover identifier.
+     */
+    public function getAmorID() {
+        
+        return $this->amorID;
+        
+    }
+    
+    /**
+     * method 'Amor::getAchtung'.
+     * 
+     * returns the value of property 'achtung' (getter method).
+     * @return string returns the lover achtung property.
+     */
+    public function getAchtung() {
+        
+        return $this->achtung;
+    
+    }
+    
+    /**
+     * method 'Amor::getAlias'.
+     * 
+     * returns the value of property 'alias' (getter method).
+     * @return string returns the lover alias property.
+     */
+    public function getAlias() {
+        
+        return $this->alias;
+        
+    }
+    
+    /**
+     * method 'Amor::getRating'.
+     * 
+     * returns the value of property 'rating' (getter method).
+     * @return int returns the lover rating property.
+     */
+    public function getRating() {
+        
+        return (int)$this->rating;
+        
+    }
+    
+    /**
+     * method 'Amor::getGenre'.
+     * 
+     * returns the value of property 'genre' (getter method).
+     * @return int returns the lover genre property.
+     */
+    public function getGenre() {
+        
+        return (int)$this->genre;
+        
+    }
+    
+    /**
+     * method 'Amor::getDescr1'.
+     * 
+     * returns the value of property 'descr1' (getter method).
+     * @return string returns the lover description 1 property.
+     */
+    public function getDescr1() {
+        
+        return $this->descr1;
+        
+    }
+    
+    /**
+     * method 'Amor::getDescr2'.
+     * 
+     * returns the value of property 'descr2' (getter method).
+     * @return string returns the lover description 2 property.
+     */
+    public function getDescr2() {
+        
+        return $this->descr2;
+        
+    }
+    
+    /**
+     * method 'Amor::getDescr3'.
+     * 
+     * returns the value of property 'descr3' (getter method).
+     * @return string returns the lover description 3 property.
+     */
+    public function getDescr3() {
+        
+        return $this->descr3;
+        
+    }
+    
+    /**
+     * method 'Amor::getDescr4'.
+     * 
+     * returns the value of property 'descr4' (getter method).
+     * @return string returns the lover description 4 property.
+     */
+    public function getDescr4() {
+        
+        return $this->descr4;
+        
+    }
+    
+    /**
+     * method 'Amor::getWeb'.
+     * 
+     * returns the value of property 'web' (getter method).
+     * @return string returns the lover web property.
+     */
+    public function getWeb() {
+        
+        return $this->web;
+        
+    }
+    
+    /**
+     * method 'Amor::getName'.
+     * 
+     * returns the value of property 'name' (getter method).
+     * @return string returns the lover name property.
+     */
+    public function getName() {
+        
+        return $this->name;
+        
+    }
+    
+    /**
+     * method 'Amor::getPhoto'.
+     * 
+     * returns the value of property 'photo' (getter method).
+     * @return string returns the lover photo property.
+     */
+    public function getPhoto() {
+        
+        return (bool)$this->photo;
+        
+    }
+    
+    /**
+     * method 'Amor::getPhone'.
+     * 
+     * returns the value of property 'phone' (getter method).
+     * @return string returns the lover phone property.
+     */
+    public function getPhone() {
+        
+        return $this->phone;
+        
+    }
+    
+    /**
+     * method 'Amor::getEmail'.
+     * 
+     * returns the value of property 'email' (getter method).
+     * @return string returns the lover email property.
+     */
+    public function getEmail() {
+        
+        return $this->email;
+        
+    }
+    
+    /**
+     * method 'Amor::getOther'.
+     * 
+     * returns the value of property 'other' (getter method).
+     * @return string returns the lover other property.
+     */
+    public function getOther() {
+        
+        return $this->other;
+        
+    }
 	
     // other methods:
     
     /**
-     * Amor::__construct
+     * method 'Amor::__construct'.
+     * 
      * class constructor: initiates an instance of the class,
      * and sets its properties from the DB.
      * 
      * @param int $amorID the identifier of the lover being constructed.
+     * @return Amor the instantiated lover object.
     */
     public function __construct($amorID) {
         
         // get a DB connection to work with:
         $pdo = DB::getDBHandle();
         
-        // query the table 'amores'. only one row expected.
+        // the table 'amores' is queried. only one row expected:
         
         $queryString = <<<QUERY
 SELECT *
@@ -97,8 +272,8 @@ QUERY;
         $this->amorID = $amorID;
         $this->achtung = $row['achtung'];
         $this->alias = $row['alias'];
-        $this->rating = intval($row['rating']); // TODO: intval needed?
-        $this->genre = intval($row['genre']); // TODO: intval needed?
+        $this->rating = intval($row['rating']);
+        $this->genre = intval($row['genre']);
         $this->descr1 = $row['descr1'];
         $this->descr2 = $row['descr2'];
         $this->descr3 = $row['descr3'];
@@ -110,25 +285,25 @@ QUERY;
         $this->email = $row['email'];
         $this->other = $row['other'];
 
-    } // method Amor::__construct
+    } // method 'Amor::__construct'
     
     /**
-     * method Amor::getAllAmores
-     * returns an array of lover ID's from all lovers.
+     * method 'Amor::getAllAmores'.
+     * 
+     * this statid method returns an array with the identifiers of all lovers
+     * of the given user.
+     * 
+     * @return array array with the identifiers of all lovers of the given user.
      */
 
-    public function getAllAmores() {
+    public static function getAllAmores() {
 
-        /*
-         * $practica is the array to be returned.
-         * it will be filled up with the IDs of all lovers.
-         */
-
-        $amores = array(); // the array to be returned. it will be filled
+        $amores = array(); // the array to be returned
+        
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'amores':
+        // the table 'amores' is queried:
         $queryString = <<<QRY
 SELECT `amorID`
 FROM `myX`.`amores`
@@ -146,13 +321,18 @@ QRY;
             
         }
         
+        // the array is returned:
         return $amores;
         
-    } // method Amor::getAllAmores
+    } // method 'Amor::getAllAmores'
 	
     /**
-     * method Amor::getAmoresAmount
-     * retrieves from the DB the total amount of lovers. this function is a class method, no instance needed
+     * method 'Amor::getAmoresAmount'.
+     * 
+     * this static method retrieves the total amount of lovers of the given
+     * user.
+     * 
+     * @return int the total amount of lovers of the given user.
     */
     public static function getAmoresAmount() {
         
@@ -174,15 +354,19 @@ QUERY;
         // 3. the number of rows is retrieved (intval needed) and returned :
         return intval($statement->fetchColumn());
         
-    } // method Amor::getAmoresAmount
+    } // method 'Amor::getAmoresAmount'
     
     /**
      * method 'Amor::getAverageRating'.
      * 
      * this private method retrieves from the DB the average rating
-     * of the experiences lived with the lover ...
+     * of the experiences lived with the lover from which the method is called.
+     * 
      * note that only experiences having an effective ratting (i.e. > 0)
      * are taken into account.
+     * 
+     * @return int the average rating of the experiences lived with the lover
+     * from which the method is called.
     */
     private function getAverageRating() {
         
@@ -193,7 +377,7 @@ QUERY;
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // query the tables 'practica' and 'assignations':
+        // the tables 'practica' and 'assignations' are queried:
 
         $queryString = <<<QRY
 SELECT `rating`
@@ -230,20 +414,30 @@ QRY;
         // the average rating is returned:
         return $average;
         
-    } // method Amor::getAverageRating
+    } // method 'Amor::getAverageRating'
     
     /**
-     * method Amor::HTMLAsidePreview
+     * method 'Amor::HTMLAsidePreview'.
+     * 
+     * this method displays a summary of the lover in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
     */
     function HTMLAsidePreview() {
 
         echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
         
+        // image of a cycladic idol:
         echo "\t\t\t\t\t<img src=\"".getImage("amor","small")."\" alt=\"".
-    _("(Image of a cycladic idol)").
-    "\" />\n";
+            _("(Image of a cycladic idol)")."\" />\n";
+        
+        // alias:
         echo "\t\t\t\t\t<p><b>".$this->getAlias()."</b></p>\n";
+        
+        // combined description:
         echo "\t\t\t\t\t<p>".$this->getCombinedDescription()."</p>\n";
+        
+        // rating:
         echo "\t\t\t\t\t".writtenRate($this->getRating(), false)."\n";
         
         // experiences amount:
@@ -254,15 +448,20 @@ QRY;
         
         echo "\t\t\t\t</div>\n";
 
-    } // method Amor::HTMLAsidePreview
+    } // method 'Amor::HTMLAsidePreview'
     
     /**
-     * method Praxis::HTMLAsidePreviewAmores
-     * displays a sommary of the experiences in the sidebar
+     * method 'Amor::HTMLAsidePreviewAmores'.
+     * 
+     * this method displays a sommary of all the lovers in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
      */
     public function HTMLAsidePreviewAmores() {
         
         echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
+        
+        // image of a cycladic idol:
         echo "\t\t\t\t\t<img src=\"".getImage("amor", "medium")."\" alt=\"".
             _("(Image of a cycladic idol)").
             "\" />\n";
@@ -290,13 +489,18 @@ QRY;
 
         echo "\t\t\t\t</div>\n";
         
-    } // method Praxis::HTMLAsidePreviewAmores
+    } // method 'Amor::HTMLAsidePreviewAmores'
     
     /**
-     * method Amor::HTMLPreview
-     * displays an HTML preview of the lover
-     * @ordinalNr: page's ordinal to be represented at the beginning
-     * @options: bitwise combination of options
+     * method 'Amor::HTMLPreview'.
+     * 
+     * displays an HTML preview of the lover, depending on certain conditions.
+     * 
+     * @param int $ordinalNr page's ordinal to be represented at the beginning
+     * of the preview.
+     * @param int $options bitwise combination of options.
+     * @param string $script the script from which the method is called.
+     * @return nothing, taken into account that the method echoes HTML code.
     */
     function HTMLPreview($ordinalNr, $options = "", $script = "amores.php") {
 	
@@ -341,17 +545,17 @@ QRY;
 
         echo "</p>\n";
 
-        //////////////////////////////////////////////////////////////////////////
-        // 2nd line: combined description
+        /*
+         * 2nd line: combined description
+         */
 
-        echo "<p>";
-        echo $this->getCombinedDescription();
-        echo "</p>\n";
+        echo "<p>".$this->getCombinedDescription()."</p>\n";
 
-        //////////////////////////////////////////////////////////////////////////
-        // third line: experiences amount
-        // 1. experiences amount (when > 1)
-        // 2. evaluation (absolut or average)
+        /*
+         * third line: experiences amount.
+         * 1. experiences amount (when experiences amount > 1).
+         * 2. evaluation (absolut or average).
+         */
         
         if ($this->getPracticaAmount() > 1) {
             
@@ -363,11 +567,6 @@ QRY;
             
             $currentPraxis = array_search($praxisID, $practica) + 1;
             // currentPraxis is 1-based.
-            
-//            echo "<p>".writtenNumber($this->getPracticaAmount(), FEMENINE)." ".
-//                _("experiences").", this is the ".$currentPraxis.
-//                " - ".writtenRate($this->getAverageRating()).
-//                " ("._("as average").") -</p>\n";
             
             echo sprintf(_("<b>%s</b> experiences"),
                 writtenNumber($this->getPracticaAmount()));
@@ -381,11 +580,15 @@ QRY;
         
         echo "</div>\n";
 
-    } // method Amor::HTMLPreview
+    } // method 'Amor::HTMLPreview'
 
     /**
-     * method Amor::getCombinedDescription
-     * join all four partial descriptions in one string
+     * method 'Amor::getCombinedDescription'.
+     * 
+     * this method retrieves a combined description of the lover from who the
+     * method is called joining all four description fields.
+     * 
+     * @return string a combined description of the lover.
     */
     public function getCombinedDescription() {
 
@@ -404,18 +607,23 @@ QRY;
 
         return $combinedDescription;
 
-    } // method Amor::getCombinedDescription
+    } // method 'Amor::getCombinedDescription'
     
-        /**
-     * method Amor::getDifferentDatesAmount
-     * returns the number of different dates where experiences are documented with this lover
+    /**
+     * method 'Amor::getDifferentDatesAmount'.
+     * 
+     * this method returns the number of different dates where experiences
+     * with this lover happened.
+     * 
+     * @return int the number of different dates where experiences with this
+     * lover happened.
     */
     public function getDifferentDatesAmount() {
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'practica':
+        // the table 'practica' is queried:
 
         $queryString = <<<QUERY
 SELECT COUNT(DISTINCT date)
@@ -426,21 +634,27 @@ WHERE `amor`=:amorID
 QUERY;
         
         $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":amorID", $this->amorID, PDO::PARAM_INT);
+        $statement->bindParam(":amorID", $this->getAmorID(), PDO::PARAM_INT);
         $statement->execute();
         
         // 3. the number of rows is retrieved and returned (intval needed):      
         return intval($statement->fetchColumn());
 
-    } // method Amor::getDifferentDatesAmount
+    } // method 'Amor::getDifferentDatesAmount'
 	
     /**
-     * method Amor::getPractica
+     * method 'Amor::getPractica'.
      * 
-     * this method returns an array with the IDs of the experiences
-     * lived with this lover.
+     * this method returns an array with the identifiers of the experiences
+     * lived with the lover from which the method is called.
+     * 
      * the parameter $synchoton is used by the Synchroton and Amor::HTMLPreview
-     * to order the results alphabetically independently of listsOrders.
+     * to order the results alphabetically, independently of listsOrders.
+     * 
+     * @param bool $synchroton specifies whether the method is used in the
+     * Synchroton.
+     * @return array array with the identifiers of the experiences lived with
+     * the lover from which the method is called.
     */
     public function getPractica($synchroton = false) {
         
@@ -449,7 +663,7 @@ QUERY;
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // query the table 'assignations':
+        // the table 'assignations' is queried:
 
         $queryString = <<<QRY
 SELECT `praxisID`
@@ -469,7 +683,7 @@ QRY;
             
         } else {        
         
-            switch ($_SESSION['options']['listsOrder']) {
+            switch ($_SESSION['navOptions']['listsOrder']) {
 
                 case OLDEST_TO_NEWEST:
 
@@ -498,19 +712,27 @@ QRY;
 
         return $practica;
 	
-    } // method Amor::getPractica
+    } // method 'Amor::getPractica'
 
 
     /**
-     * method Amor::getPracticaAmount
-     * Achtung! this method is not to be confused with Praxis::getPracticaAmount
+     * method 'Amor::getPracticaAmount'.
+     * 
+     * this method return the amount of experiences lived with the lover from
+     * which the method is called.
+     * 
+     * Achtung! this method is not to be confused with the method
+     * 'Praxis::getPracticaAmount'.
+     * 
+     * @return int the amount of experiences lived with the lover from which
+     * the method is called.
     */
     public function getPracticaAmount() {
        
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // query the table 'assignations':
+        // the table 'assignations' is queried:
 
         $queryString = <<<QRY
 SELECT COUNT(*)
@@ -531,6 +753,6 @@ QRY;
         // fetch and return the result (intval needed):
         return intval($statement->fetchColumn());
 
-    } // method Amor::getPracticaAmount
+    } // method 'Amor::getPracticaAmount'
 				
 } // class Amor
