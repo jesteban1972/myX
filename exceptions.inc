@@ -132,8 +132,8 @@ function exceptionHandler($exception) {
     
     echo <<<HTML
                     <article>
-                        <p>We are sorry, but an error occured while executing the application. The retrived error follows.</p>
-                        <p style="color: red; text-align: center;">{$msg}</p>
+                        <p class="medium">We are sorry, but an error occured while executing the application. The retrived error follows.</p>
+                        <p class="medium" style="color: red; text-align: center;">{$msg}</p>
                         <p>Back to <a href="javascript: history.back()">previous page</a></p>
                         <p>Back to <a href="index.php">start page</a></p>
                     </article>

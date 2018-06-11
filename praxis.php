@@ -4,9 +4,10 @@
  * 
  * this script builds an experience´s detail page.
  * it is called using a parameter 'praxisID' within the URL.
- * using this lover identificator an object of class 'Praxis' is created,
+ * using this lover identifier an object of class 'Praxis' is created,
  * whose data are read from database.
  * the page´s parts will be created using this object.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-10
 */
@@ -19,6 +20,7 @@ require_once 'locus.inc';
 require_once 'user.inc';
 
 $title = "myX - Experience";
+$js = "praxis.js";
 include 'header.inc'; // header of all the pages of the app
 
 // get a DB connection to work with:
@@ -63,29 +65,25 @@ echo <<<HTML
 HTML;
 
 echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
-    _("GENERALIA i.e. general data").
-    "';\" onMouseOut=\"this.innerHTML='".
-    _("GENERALIA").
-    "';\">".
-    _("GENERALIA").
-    "</h1>\n";
+    _("GENERALIA i.e. general data")."';\" onMouseOut=\"this.innerHTML='".
+    _("GENERALIA")."';\">".
+    _("GENERALIA")."</h1>\n";
 
 HTML;
 
 // name:
-$praxisName = $praxis->getName(); // TODO: check (used also below in $xperienceSideview)
+$praxisName = $praxis->getName();
 echo "\t\t\t\t\t\t<p class=\"medium\">"._("Name").": <b>".$praxisName.
     "</b>.</p>\n";
 	
-// rating:	
-// displays rating with explication
-$praxisRating = $praxis->getRating(); // TODO: check (used also below in $xperienceSideview)
+// rating (with explication):
+$praxisRating = $praxis->getRating();
 echo "\t\t\t\t\t\t<p class=\"medium\">"._("Rating").": <b>".
     writtenRate($praxisRating, true)."</b>.</p>\n";
 
 // place:
 
-$locus = new Locus($praxis->getLocus()); // TODO: check (used also below in $xperienceSideview)
+$locus = new Locus($praxis->getLocus());
 
 // place string is echoed:
 echo "\t\t\t\t\t\t<p class=\"medium\">"._("Place:").
@@ -115,13 +113,18 @@ echo "</b> (";
 echo sprintf(_("the day was %s, "), _($weekDays[date("w", $date)]));
 
 // moon phase:
-$date_elems = explode("-", $dateString);
-echo sprintf(_("the moon was %s, "), _(moonPhase(intval($date_elems[0]), intval($date_elems[1]), intval($date_elems[2]))));
+$dateParts = explode("-", $dateString);
+echo sprintf(_("the moon was %s, "),
+        _(moonPhase(
+            intval($dateParts[0]), // year
+            intval($dateParts[1]), // month
+            intval($dateParts[2]) // day
+            )));
+
 $user = new User($_SESSION['userID']);
 
 // user age:
-echo sprintf(_("I was %d years old"), $user->getAge($date)).
-    ").</p>\n";
+echo sprintf(_("I was %d years old"), $user->getAge($date)).").</p>\n";
 
 echo <<<HTML
                     </article>
@@ -133,11 +136,8 @@ HTML;
 
 echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     _("CONFRATRES i.e. participants in the experience").
-    "';\" onMouseOut=\"this.innerHTML='".
-    _("CONFRATRES").
-    "';\">".
-    _("CONFRATRES").
-    "</h1>\n";
+    "';\" onMouseOut=\"this.innerHTML='"._("CONFRATRES")."';\">".
+    _("CONFRATRES")."</h1>\n";
 
 // 5. participants
 
@@ -195,11 +195,8 @@ HTML;
 
 echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     _("NARRATIO i.e. description of the facts").
-    "';\" onMouseOut=\"this.innerHTML='".
-    _("NARRATIO").
-    "';\">".
-    _("NARRATIO").
-    "</h1>\n";
+    "';\" onMouseOut=\"this.innerHTML='"._("NARRATIO").
+    "';\">"._("NARRATIO")."</h1>\n";
 		
 $description = $praxis->getDescr();
 
@@ -260,12 +257,8 @@ echo <<<HTML
 HTML;
 
 echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
-    _("ACTIONS i.e. XXX").
-    "';\" onMouseOut=\"this.innerHTML='".
-    _("ACTIONS").
-    "';\">".
-    _("ACTIONS").
-    "</h1>\n";
+    _("ACTIONS i.e. XXX")."';\" onMouseOut=\"this.innerHTML='"._("ACTIONS").
+    "';\">"._("ACTIONS")."</h1>\n";
 
 // edit experience form:
 echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"GET\">\n";
@@ -278,18 +271,15 @@ echo "\t\t\t\t\t</form>\n";
 // delete experience form:
 echo "\t\t\t\t\t<form action=\"praxisDelete.php\" method=\"POST\">\n";
 echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"praxisID\" value=\"".
-    $praxis->getPraxisID().
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\"".
-    _("Delete experience").
+    $praxis->getPraxisID()."\" />\n";
+echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Delete experience").
     "\" />\n";
 echo "\t\t\t\t\t</form>\n";
 
 // link to previous page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
     "<img src=\"images/arrow_back.gif\" />".
-    " <a href=\"javascript: history.back();\">".
-    _("Back to previous").
+    " <a href=\"javascript: history.back();\">"._("Back to previous").
     "</a></p>\n";
 
 echo "\t\t\t\t</article>\n";

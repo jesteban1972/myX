@@ -4,13 +4,13 @@
  * 
  * this script contains the implementation of class 'Praxis',
  * the class which represents the abstraction of an experience.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-04-17
+ * last update: 2018-06-07
  */
 
 require_once 'core.inc';
 require_once 'DB.inc';
-//require_once 'amor.inc';
 require_once 'session.inc';
 require_once 'locus.inc';
 
@@ -288,7 +288,6 @@ INNER JOIN `myX`.`assignations`
 ON `myX`.`amores`.amorID = `myX`.`assignations`.amor
 WHERE praxis = :praxisID
 QUERY;
-// posible hacerlo simplemente en assignations?
         $statement = $pdo->prepare($queryString);
         $statement->
             bindParam(":praxisID", $this->getPraxisID(), PDO::PARAM_INT);
@@ -302,8 +301,6 @@ QUERY;
         
         return $amores;
     }
-
-// method 'Praxis::getAmores'
 
     /**
      * method 'Praxis::getAmoresAmount'.
@@ -335,7 +332,7 @@ QRY;
     } // method 'Praxis::getAmoresAmount'
     
     /**
-     * method 'Praxis::getParticipantsString'.
+     * method 'Praxis::getAmoresString'.
      * 
      * this method returns a formatted string with the aliases of the lovers
      * who participated in the experience. if the amount of participants is
@@ -345,7 +342,7 @@ QRY;
      * @return a formatted string with the aliases of the participants in the
      * experience.
      */
-    public function getParticipantsString() {
+    public function getAmoresString() {
         
         $participantsString = ""; // the string to be returned
         
@@ -369,15 +366,21 @@ QRY;
         // participants amount:
         $participantsAmount = $statement->rowCount();
         
-        if ($participantsAmount > 1)
+        if ($participantsAmount > 1) {
+            
             $currentParticipant = 1; // $currentParticipant is 1-based
+            
+        }
         
         foreach ($statement as $row) {
             
             // when multiple participants an ordinal number is inserted:
-            if ($participantsAmount > 1)
+            if ($participantsAmount > 1) {
+                
                 $participantsString .= "<b>".strval($currentParticipant).
                     "/</b> ";
+                
+            }
             
             $participantsString .= $row['alias'];
             
@@ -386,8 +389,11 @@ QRY;
             // and $currentParticipant is increased by one:
             if ($participantsAmount > 1) {
 
-                if ($currentParticipant < $participantsAmount)
+                if ($currentParticipant < $participantsAmount) {
+                    
                     $participantsString .= ", ";
+                    
+                }
 
                 $currentParticipant++;
                 
@@ -399,12 +405,12 @@ QRY;
             
         return $participantsString;
         
-    } // method 'Praxis::getParticipantsString'
+    } // method 'Praxis::getAmoresString'
 
     /**
      * method 'Praxis::getPracticaAmount'.
      * 
-     * this static method retireves the total amount of experiences of the
+     * this static method retrieves the total amount of experiences of the
      * given user.
      * 
      * @return int the amount of experiences of a given user.
@@ -452,8 +458,11 @@ QUERY;
         
         // time (date + ordinal):
         echo "\t\t\t\t\t<p>".$this->getDate();
-        if ($this->getOrdinal() !== "")
+        if ($this->getOrdinal() !== "") {
+            
             echo $this->getOrdinal();
+            
+        }
         echo "</p>\n";
 
         // name and rating:
@@ -463,7 +472,7 @@ QUERY;
         // participants:
         echo "\t\t\t\t\t<p><img src=\"".getImage("amor","small")."\" alt=\"".
             _("(Image of a cycladic idol)")."\" /> ".
-            $this->getParticipantsString()."</p>\n";
+            $this->getAmoresString()."</p>\n";
         
         echo "\t\t\t\t</div>\n";
         
@@ -541,15 +550,19 @@ QUERY;
         
         // 1. ordinal number:
         echo "\t\t\t\t\t\t<p class=\"medium\"> ";
-        if ($ordinalNr !== 0)
+        if ($ordinalNr !== 0) {
+            
             echo $ordinalNr.". "; // ordinal number is 1-based
+            
+        }
         
-        if (DEBUG)
+        if (DEBUG) {
+            
             echo " <span class=\"debug\">[praxisID <b>".$this->getPraxisID().
-                "</b>; ".
-                "tq ".$this->getTQ()."; ".
-                "tl ".$this->getTL().
+                "</b>; "."tq ".$this->getTQ()."; "."tl ".$this->getTL().
                 "]</span> ";
+            
+        }
         
         // 2. name (with hyperlink):
         echo "<b><a href=\"praxis.php?praxisID=".$this->getPraxisID()."\">".
@@ -557,9 +570,11 @@ QUERY;
         
         // 3. evaluation:
         if ($options != self::RATING) { // not shown if in $filter evaluation
+            
             echo " - ";
             echo writtenRate($this->getRating());
             echo " - ";
+            
         }
         echo "</p>\n";
         
@@ -574,8 +589,10 @@ QUERY;
         
         echo "\t\t\t\t\t\t<p><b>"._("QVANDO")."</b> ".$this->getDate();
         if (!empty($this->getOrdinal())) {
+            
             echo " ";
             echo writtenOrdinal($this->getOrdinal());
+            
         }
 
         echo ". ";
@@ -604,8 +621,11 @@ QRY;
         }
 
         // 3. participants:
-        if ($options != self::PARTICIPANTS) // not shown if in amor.php
-            echo "<b>"._("CVM QVIBVS")."</b> ".$this->getParticipantsString();
+        if ($options != self::PARTICIPANTS) { // not shown if in 'amor.php'
+            
+            echo "<b>"._("CVM QVIBVS")."</b> ".$this->getAmoresString();
+            
+        }
         
         // 4. description (or excerpt):
         
@@ -617,25 +637,28 @@ QRY;
         // 
             // long narration: only a excerpt will be presented
             // a 510 char long string are treamed at it last whitespace
-            // TODO: excerpt's length configurable with a parametrer (ex. EXCEPTR_MED)
-            $excerpt = substr($this->getDescr(), 0, 510); // retrievess only the firs chars
+            // desideratum: excerpt's length configurable with a parametrer (ex. EXCEPTR_MED)
+            $excerpt = substr($this->getDescr(), 0, 510); // retrievess only the first chars
             $excerpt = substr($excerpt, 0, strrpos($excerpt, " ")); // trims the excerpt in an space
             
             // some substitutions are made:
+            // 
             // <br /> tags by whitespaces:
-             // TODO: check if it works ALWAYS
             $excerpt = str_replace("<br />", " ", $excerpt);
-            // <b>, </b>, <i>, </i> tags supressed
+            
+            // <b>, </b>, <i>, </i> tags get supressed:
             $excerpt = str_replace("<b>", "", $excerpt);
             $excerpt = str_replace("</b>", "", $excerpt);
             $excerpt = str_replace("<i>", "", $excerpt);
             $excerpt = str_replace("</i>", "", $excerpt);
+            
+            // display excerpt:
             echo $excerpt;
-            echo " [...] <input type=\"button\" value=\"> " .
-            _("See more...") .
-            "\" onclick=\"window.location.href='praxis.php?praxisID=";
-            echo $this->getPraxisID();
-            echo "#description'\" />";
+            
+            // display a 'See more...' button:
+            echo " [...] <input type=\"button\" value=\"> " ._("See more...") .
+            "\" onclick=\"window.location.href='praxis.php?praxisID=".
+            $this->getPraxisID()."#description'\" />";
             
         } else { // short description (less than 510 characters)
             
@@ -650,10 +673,15 @@ QRY;
             echo "<div class=\"favorite\"></div>\n";
         
         // ampelmaenchen icon:
-        if ($this->getTQ() > 3)            
+        if ($this->getTQ() > 3) {
+            
             echo "<div class=\"ampelmaenchenGruen\"></div>\n";
-        else
+            
+        } else {
+            
             echo "<div class=\"ampelmaenchenRot\"></div>\n";
+            
+        }
         
         echo "\t\t\t\t\t</div>\n";
 
@@ -670,6 +698,7 @@ QRY;
      * iii) locally.
      * possible change: rewrite the method without parameters (i.e.
      * $praxis->HTMLSynchoton()).
+     * 
      * @param int $praxisID the identifier of the current experience.
      * @param int $amorID the identifier of the (only) participant in the
      * current experience.
@@ -691,9 +720,11 @@ QRY;
             $practicaAmor = $amor->getPractica(true);
             $practicaAmorIndex = array_search($praxisID, $practicaAmor);
             
-            // determines previous and next xperience with this lover
-            $prevPraxisAmor = $practicaAmor[$practicaAmorIndex - 1]; // NULL when first xperience with this lover
-            $nextPraxisAmor = $practicaAmor[$practicaAmorIndex + 1]; // NULL when last xperience with this lover
+            // determines previous and next experience with this lover
+            $prevPraxisAmor = $practicaAmor[$practicaAmorIndex - 1];
+                // NULL when first experience with this lover
+            $nextPraxisAmor = $practicaAmor[$practicaAmorIndex + 1];
+                // NULL when last experience with this lover
 
         }
         
@@ -709,8 +740,10 @@ QRY;
         $praxisIndex = array_search($praxisID, $allPractica);
         
         // previous and next experience chronollogically:
-        $prevPraxis = $allPractica[$praxisIndex - 1]; // NULL when first xperience
-        $nextPraxis = $allPractica[$praxisIndex + 1]; // NULL when last xperience
+        $prevPraxis = $allPractica[$praxisIndex - 1];
+            // NULL when first experience
+        $nextPraxis = $allPractica[$praxisIndex + 1];
+            // NULL when last experience
         
         /*
          * row 3: experiences locally
@@ -724,8 +757,10 @@ QRY;
         $practicaLocusIndex = array_search($praxisID, $practicaLocus);
 
         // previous and next experience at this place:
-        $prevPraxisLocus = $practicaLocus[$practicaLocusIndex - 1]; // NULL when first xperience at this place
-        $nextPraxisLocus = $practicaLocus[$practicaLocusIndex + 1]; // NULL when last xperience at this place
+        $prevPraxisLocus = $practicaLocus[$practicaLocusIndex - 1];
+            // NULL when first experience at this place
+        $nextPraxisLocus = $practicaLocus[$practicaLocusIndex + 1];
+            // NULL when last experience at this place
         
         
         echo "\t\t\t\t\t<div id=\"synchroton\"><!-- Synchroton {{ -->\n";
@@ -760,10 +795,10 @@ HTML;
         echo "\n\t\t\t\t\t\t\t// prev experiences:\n";
         
         // layoutPrevEmpty:
-        if (!$prevPraxisAmor && !$prevPraxis && !$prevPraxisLocus) { 
+        if (!$prevPraxisAmor && !$prevPraxis && !$prevPraxisLocus) {
+            
             // first experience: layoutPrevEmpty (no buttons shown)
             echo "\t\t\t\t\t\t\t// (no buttons shown)\n";
-
             
         } elseif (($prevPraxis === $prevPraxisAmor) &&
             ($prevPraxis === $prevPraxisLocus)) {
@@ -881,6 +916,7 @@ HTML;
         // layoutNextEmpty:
         if (!$nextPraxisAmor && !$nextPraxis && !$nextPraxisLocus) { 
             // last experience: layoutNextEmpty (no buttons shown)
+            
             echo "\t\t\t\t\t\t\t// (no buttons shown)\n";
                         
         } elseif (($nextPraxis === $nextPraxisAmor) &&

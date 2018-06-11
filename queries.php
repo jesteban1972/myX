@@ -22,7 +22,7 @@ $name = "all queries"/*$query->getName()*/;
 
 // page header:
 $title = "myX - Queries";
-//$js = "practica.js";
+$js = "queries.js";
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
@@ -43,8 +43,6 @@ echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("praxis", "small").
  * queries list.
  * a first query of queryList::queryString is performed
  * just to retrieve the amount of queries.
- * XXXPraxis::getPracticaAmount() would retrieve the amount of all experiences,
- * but practicaList might be filtered.
  */
 $queryString2 = <<<QUERY
 SELECT COUNT(*)
@@ -76,17 +74,18 @@ switch ($queriesAmount) {
 }
 echo "</p>\n";
 
-if (DEBUG)
+if (DEBUG) {
+    
     echo "\t\t\t\t\t\t<span class=\"debug\">[query string: ".$queryString.
         "]</span>\n";
+    
+}
 
     
 // links to page sections:
 echo "\t\t\t\t\t<ul>\n\t\t\t\t\t\t<li><a href=\"#list\">".
-    _("List of saved queries").
-    "</a></li>\n".
-    "\t\t\t\t\t\t<li><a href=\"#actions\">".
-    _("Actions").
+    _("List of saved queries")."</a></li>\n";
+echo "\t\t\t\t\t\t<li><a href=\"#actions\">"._("Actions").
     "</a></li>\n\t\t\t\t\t</ul>\n";
 
 if ($queriesAmount > 0) {
@@ -100,13 +99,8 @@ if ($queriesAmount > 0) {
 HTML;
     
     echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
-        _("ELENCHUS i.e. list of queries").
-        "';\" onMouseOut=\"this.innerHTML='".
-        _("ELENCHUS").
-        "';\">".
-        _("ELENCHUS").
-        "</h1>\n";
-
+        _("ELENCHUS i.e. list of queries")."';\" onMouseOut=\"this.innerHTML='".
+        _("ELENCHUS")."';\">"._("ELENCHUS")."</h1>\n";
 
     /*
      * page settings
@@ -120,13 +114,19 @@ HTML;
 
     $data = explode("&", $uriQuery);
     $dataString = "";
-    foreach ($data as $value)
-        if (substr($value, 0, 5) != "page=")
+    foreach ($data as $value) {
+        
+        if (substr($value, 0, 5) != "page=") {
+            
             $dataString .= $value; // this is the current page number
+            
+        }
+        
+    }
 
-    // retrieves the current page (1 if not set)
-    $currentPage = ($_GET['page'] !== NULL) ?
-        intval($_GET['page']) :
+    // retrieves the current page, 1 if not set:
+    $currentPage = (isset($_GET['page'])) ?
+        filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT) :
         1; // $page is 1-based
 
     $pageSettings = pageSettings($queriesAmount, $currentPage);
@@ -135,8 +135,11 @@ HTML;
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navBar'])
+    if ($pageSettings['navBar']) {
+        
         navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+        
+    }
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -151,9 +154,12 @@ HTML;
         $_SESSION['userID']." ORDER BY `name`"." LIMIT ".$ordinalZeroBased.", ".
         $_SESSION['navOptions']['resultsPerPage'];
 
-    if (DEBUG)
+    if (DEBUG) {
+        
         echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
             $queryString."]</span></p>";
+        
+    }
 
     $statement = $pdo->prepare($queryString);
     $statement->execute();
@@ -170,17 +176,20 @@ HTML;
          * call the method 'Query::HTMLPreview'
          * to display a brief preview of the query.
          */
-        $query->HTMLPreview($ordinal, $previewOptions); // $previewOptions???
+        $query->HTMLPreview($ordinal, $previewOptions);
 
         $ordinal++;
 
     } //foreach
 
     // displays bottom navigation bar:
-    if ($pageSettings['navBar'])
+    if ($pageSettings['navBar']) {
+        
         navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+        
+    }
 
-    // cite (original text):
+    // quotation (original text):
 //    echo <<<HTML
 //                    <p class="quote">«Αἰτεῖτε καὶ δοθήσεται ὑμῖν,<br />
 //                    ζητεῖτε καὶ εὑρήσετε,<br />
@@ -216,39 +225,15 @@ echo <<<HTML
 
 HTML;
 
-// query experiences:
-//echo "\t\t\t\t\t<form action=\"practicaQuery.php\" method=\"POST\">\n";
-//echo "\t\t\t\t\t\t<input type=\"submit\" value=\""
-//    ._("Apply filter").
-//    "\" />\n"; //name=\"applyFilter\"
-//echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-//    ._("Remove filter").
-//    "\" ";
-//if ($practicaQuery->getDesignation() === "all experiences")
-//    echo "disabled=\"disabled\" ";
-//echo "/>\n";
-//echo "\t\t\t\t\t</form>\n";
-//
-//// new experience:
-//echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"GET\">\n";
-//echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New experience").
-//    "\" />\n";
-//echo "\t\t\t\t\t</form>\n";
-
 // link to previous page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
     "<img src=\"images/arrow_back.gif\" />".
-    " <a href=\"javascript: history.back();\">".
-    _("Back to previous").
+    " <a href=\"javascript: history.back();\">"._("Back to previous").
     "</a></p>\n";
 
 echo "\t\t\t\t</article>\n";
 
 echo "\t\t\t</section> <!-- }} section -->\n\n";
-
-// first and last experiences are stored in the session to be read in 'sidebar.inc':
-//$_SESSION['asideItem'] = $firstPraxis."..".$lastPraxis;
-
 require_once 'footer.inc'; // footer of all the pages of the app
 
 ?>

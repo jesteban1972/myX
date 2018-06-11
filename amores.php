@@ -6,7 +6,7 @@
  * 'amoresQuery'.
  * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last updated 2018-06-03
+ * last updated 2018-06-09
 */
 
 require_once 'core.inc';
@@ -18,12 +18,8 @@ require_once 'amor.inc';
 $pdo = DB::getDBHandle();
 
 /*
- * as first step $amoresList gets initialized, and its components retrieved.
- * 
- * possible scenaria:
- * i) if GET parameter 'query' is set... 
- * ii) if already storage in $_SESSION, retrieve list;
- * iii) otherwise create an unfiltered list 
+ * initializes '$amoresQuery' retrieving its components as a saved query
+ * or if stored in the session. otherwise an unfiltered query is created.
  */
 
 if (isset($_GET['query'])) {
@@ -35,14 +31,14 @@ if (isset($_GET['query'])) {
     $amoresQuery = new AmoresQuery($query->getName(), $descr,
         $query->getQueryString());
     
-} else if (!isset($_SESSION['amoresQuery'])) {
+} else if (isset($_SESSION['amoresQuery'])) {
     
-    $amoresQuery = new AmoresQuery();
-    $_SESSION['amoresQuery'] = $amoresQuery;
+    $amoresQuery = $_SESSION['amoresQuery'];
     
 } else {
     
-    $amoresQuery = $_SESSION['amoresQuery'];
+    $amoresQuery = new AmoresQuery();
+    $_SESSION['amoresQuery'] = $amoresQuery;
     
 }
 
@@ -52,6 +48,7 @@ $queryString = $amoresQuery->getQueryString();
 
 // page header:
 $title = "myX - Lovers";
+$js = "amores.js";
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
@@ -71,7 +68,7 @@ echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("amor", "small").
  * lovers amount.
  * a first query of amoresQuery::queryString is performed
  * just to retrieve the amount of lovers
- * Amor::getAmoresAmount() would retrieve the amount of all lovers,
+ * 'Amor::getAmoresAmount'' would retrieve the amount of all lovers,
  * but amoresQuery might be filtered.
  */
 
@@ -160,9 +157,9 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
         if (substr($value, 0, 5) != "page=")
             $dataString .= $value; // this is the current segment number
 
-    // retrieves the current page (1 if not set)
-    $currentPage = ($_GET['page'] !== NULL) ?
-        intval($_GET['page']) :
+    // retrieves the current page, 1 if not set:
+    $currentPage = (isset($_GET['page'])) ?
+        filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT) :
         1; // $page is 1-based
 
     $pageSettings = pageSettings($amoresAmount, $currentPage);
@@ -227,7 +224,7 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
    if ($pageSettings['navBar'])
        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
-    // cita alternativa 1 original:
+    // quotation alternative 1 (original):
 //   echo <<<HTML
 //                        <p class="quote">«<i>Χαρὰ καὶ μύρο τῆς ζωῆς μου ἡ μνήμη τῶν ὡρῶν<br />
 //                                           ποὺ ηὗρα καὶ ποὺ κράτηξα τὴν ἡδονὴ ὡς τὴν ἤθελα.<br />
@@ -237,42 +234,43 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 //
 //HTML;
    
-    //cita alternativa 2 original:
-   echo <<<HTML
-                        <p class="quote">«<i>V'han fra queste contadine,<br />
-                            Cameriere, cittadine,<br />
-                            V'han contesse, baronesse,<br />
-                            Marchesine, principesse.<br />
-                            E v'han donne d'ogni grado,<br />
-                            D'ogni forma, d'ogni età.<br />
-                            Nella bionda egli ha l'usanza<br />
-                            Di lodar la gentilezza,<br />
-                            Nella bruna la costanza,<br />
-                            Nella bianca la dolcezza.<br />
-                            Vuol d'inverno la grassotta,<br />
-                            Vuol d'estate la magrotta;<br />
-                            È la grande maestosa,<br />
-                            La piccina e ognor vezzosa.<br />
-                            Delle vecchie fa conquista<br />
-                            Pel piacer di porle in lista;<br />
-                            Sua passion predominante<br />
-                            È la giovin principiante.<br />
-                            Non si picca - se sia ricca,<br />
-                            Se sia brutta, se sia bella;<br />
-                            Purché porti la gonnella,<br />
-                            Voi sapete quel che fa.</i>»<br />
-                            (Lorenzo da Ponte/W. A. Mozart:<br />«Don Giovanni» 1787, atto I, scena quinta)</p>
-
-HTML;
-   
+    // quotation alternative 2 (original):
 //   echo <<<HTML
-//                        <p class="quote">«<i>Esencia y perfume de mi vida, la memoria de las horas<br />
-//                                             que hallé y retuve el placer tal como anhelaba.<br/>
-//                                             Esencia y perfume de mi vida, para mí, que me alejé<br />
-//                                             de cada placer de amores rutinarios</i>»<br />
-//                                            (Kavafis)</p>
+//                        <p class="quote">«<i>V'han fra queste contadine,<br />
+//                            Cameriere, cittadine,<br />
+//                            V'han contesse, baronesse,<br />
+//                            Marchesine, principesse.<br />
+//                            E v'han donne d'ogni grado,<br />
+//                            D'ogni forma, d'ogni età.<br />
+//                            Nella bionda egli ha l'usanza<br />
+//                            Di lodar la gentilezza,<br />
+//                            Nella bruna la costanza,<br />
+//                            Nella bianca la dolcezza.<br />
+//                            Vuol d'inverno la grassotta,<br />
+//                            Vuol d'estate la magrotta;<br />
+//                            È la grande maestosa,<br />
+//                            La piccina e ognor vezzosa.<br />
+//                            Delle vecchie fa conquista<br />
+//                            Pel piacer di porle in lista;<br />
+//                            Sua passion predominante<br />
+//                            È la giovin principiante.<br />
+//                            Non si picca - se sia ricca,<br />
+//                            Se sia brutta, se sia bella;<br />
+//                            Purché porti la gonnella,<br />
+//                            Voi sapete quel che fa.</i>»<br />
+//                            (Lorenzo da Ponte/W. A. Mozart:<br />«Don Giovanni» 1787, atto I, scena quinta)</p>
 //
 //HTML;
+   
+     // quote (selected option)
+   echo <<<HTML
+                        <p class="quote">«<i>Esencia y perfume de mi vida, la memoria de las horas<br />
+                                             que hallé y retuve el placer tal como anhelaba.<br/>
+                                             Esencia y perfume de mi vida, para mí, que me alejé<br />
+                                             de cada placer de amores rutinarios</i>»<br />
+                                            (Kavafis)</p>
+
+HTML;
 
 // link to top of the page:
 echo "\t\t\t\t\t\t<p style=\"text-align: center;\">".
@@ -291,23 +289,23 @@ echo <<<HTML
 
 HTML;
 
-// filter lovers:
-echo "\t\t\t\t\t<form action=\"amoresFilter.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
-    ._("Apply filter").
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-    ._("Remove filter").
-    "\" ";
-if ($amoresQuery->getName() === "all lovers")
-    echo "disabled=\"disabled\" ";
-echo "/>\n";
-echo "\t\t\t\t\t</form>\n";
+if ($_SESSION['DBStatus']['doPracticaExist']) {
+    
+    // filter lovers:
+    echo "\t\t\t\t\t<form action=\"amoresFilter.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
+        ._("Apply filter")."\" />\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+        ._("Remove filter")."\" ";
+    if ($amoresQuery->getName() === "all lovers") {
+        
+        echo "disabled=\"disabled\" ";
+        
+    }
+    echo "/>\n";
+    echo "\t\t\t\t\t</form>\n";
 
-// new lover:
-echo "\t\t\t\t\t<form action=\"amorEdit.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New lover")."\" />\n";
-echo "\t\t\t\t\t</form>\n";
+}
 
 echo "\t\t\t\t</article>\n";
 

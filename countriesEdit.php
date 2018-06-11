@@ -1,8 +1,9 @@
 <?php
-
-/* 
- * countriesEdit.php
- * script to edit the countries list
+/**
+ * script 'countriesEdit.php'.
+ * 
+ * script to edit the countries list.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-01-15
  */
@@ -10,14 +11,11 @@
 
 require_once 'session.inc';
 require_once 'DB.inc';
-//require_once 'core.inc';
-//require_once 'user.inc';
 
 // get a DB connection to work with:
 $pdo = DB::getDBHandle();
 
 $title = _("Edit countries list");
-$description = "XXX";
 
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
@@ -37,11 +35,11 @@ $statement = $pdo->prepare($queryString);
 $statement->bindParam(":userID", intval($_SESSION['userID']));
 $statement->execute();
 
-echo "\t\t\t\t<form action=\"countriesEditProcess\" method=\"POST\" accept-charset=\"utf-8\">\n";
+echo "\t\t\t\t<form action=\"countriesEditProcess\"". // it does not exist!
+    " method=\"POST\" accept-charset=\"utf-8\">\n";
 foreach ($statement as $row) {
     
-    echo "\t\t\t\t\t\t<input type=\"text\" value=\"".
-        $row['name'].
+    echo "\t\t\t\t\t\t<input type=\"text\" value=\"".$row['name'].
         "\" /><br />\n";
     
 }

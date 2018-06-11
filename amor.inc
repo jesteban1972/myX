@@ -11,8 +11,6 @@
 require_once 'core.inc';
 require_once 'DB.inc';
 
-//session_start();
-
 /**
  * class ᾽Amor'.
  * 
@@ -260,7 +258,6 @@ SELECT *
 FROM `myX`.`amores`
 WHERE `amorID` = :amorID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":amorID", $amorID, PDO::PARAM_INT);
         $statement->execute();
@@ -290,7 +287,7 @@ QUERY;
     /**
      * method 'Amor::getAllAmores'.
      * 
-     * this statid method returns an array with the identifiers of all lovers
+     * this static method returns an array with the identifiers of all lovers
      * of the given user.
      * 
      * @return array array with the identifiers of all lovers of the given user.
@@ -309,7 +306,6 @@ SELECT `amorID`
 FROM `myX`.`amores`
 WHERE `user` = :userID
 QRY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
@@ -346,7 +342,6 @@ SELECT COUNT(*)
 FROM `myX`.`amores`
 WHERE `user` = :userID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
@@ -386,7 +381,6 @@ INNER JOIN `myX`.`assignations`
 ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
 WHERE `amor` = :amorID
 QRY;
-        
         $statement = $pdo->prepare($queryString);
         $statement->bindparam(":amorID", $this->getAmorID());
         $statement->execute();
@@ -406,8 +400,11 @@ QRY;
             
         }
         
-        if ($countableRating === 0)
+        if ($countableRating === 0) {
+            
             $countableRating = 1; // prevents division by 0
+            
+        }
         
         $average = intval(round($cumulate / $countableRating));
         
@@ -416,172 +413,6 @@ QRY;
         
     } // method 'Amor::getAverageRating'
     
-    /**
-     * method 'Amor::HTMLAsidePreview'.
-     * 
-     * this method displays a summary of the lover in the sidebar.
-     * 
-     * @return nothing, taken into account that the method echoes HTML code.
-    */
-    function HTMLAsidePreview() {
-
-        echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
-        
-        // image of a cycladic idol:
-        echo "\t\t\t\t\t<img src=\"".getImage("amor","small")."\" alt=\"".
-            _("(Image of a cycladic idol)")."\" />\n";
-        
-        // alias:
-        echo "\t\t\t\t\t<p><b>".$this->getAlias()."</b></p>\n";
-        
-        // combined description:
-        echo "\t\t\t\t\t<p>".$this->getCombinedDescription()."</p>\n";
-        
-        // rating:
-        echo "\t\t\t\t\t".writtenRate($this->getRating(), false)."\n";
-        
-        // experiences amount:
-        echo "\t\t\t\t\t<p>".$this->getPracticaAmount()." ";
-        echo ($this->getPracticaAmount() > 1) ?
-            _("experiences") : _("experience");
-        echo "</p>\n";
-        
-        echo "\t\t\t\t</div>\n";
-
-    } // method 'Amor::HTMLAsidePreview'
-    
-    /**
-     * method 'Amor::HTMLAsidePreviewAmores'.
-     * 
-     * this method displays a sommary of all the lovers in the sidebar.
-     * 
-     * @return nothing, taken into account that the method echoes HTML code.
-     */
-    public function HTMLAsidePreviewAmores() {
-        
-        echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
-        
-        // image of a cycladic idol:
-        echo "\t\t\t\t\t<img src=\"".getImage("amor", "medium")."\" alt=\"".
-            _("(Image of a cycladic idol)").
-            "\" />\n";
-        
-        $amoresAmount = Amor::getAmoresAmount();
-        
-        switch ($amoresAmount) {
-            
-            case 0:
-                echo "\t\t\t\t\t<p>"._("Not any lovers yet")."</p>\n";
-                break;
-            case 1:
-                echo "\t\t\t\t\t<p>"._("Only one lover so far")."</p>\n";
-                break;
-            default:
-                echo "\t\t\t\t\t<p>".
-                    sprintf(_("%d lovers"), $amoresAmount).
-                    "</p>\n";
-                $limits = explode("..", $_SESSION['asideItem']);
-                echo "\t\t\t\t\t<p>".
-            sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"),
-    $_SESSION['navOptions']['resultsPerPage'], $limits[0], $limits[1]).
-                    "</p>\n";
-        }
-
-        echo "\t\t\t\t</div>\n";
-        
-    } // method 'Amor::HTMLAsidePreviewAmores'
-    
-    /**
-     * method 'Amor::HTMLPreview'.
-     * 
-     * displays an HTML preview of the lover, depending on certain conditions.
-     * 
-     * @param int $ordinalNr page's ordinal to be represented at the beginning
-     * of the preview.
-     * @param int $options bitwise combination of options.
-     * @param string $script the script from which the method is called.
-     * @return nothing, taken into account that the method echoes HTML code.
-    */
-    function HTMLPreview($ordinalNr, $options = "", $script = "amores.php") {
-	
-        // get a DB connection to work with:
-        $pdo = DB::getDBHandle();
-
-        echo "\t\t\t\t\t\t<div class=\"HTMLPreview\">\n";
-
-        /*
-         * first line (headline):
-         * 1/ ordinal number
-         * 2/ alias (with hyperlink)
-         * 3/ evaluation
-         * 4/ experiences amount
-         */
-
-        // 1. ordinal number:
-        echo "\t\t\t\t\t\t\t<p class=\"medium\"> ";
-        if ($ordinalNr !== 0)
-            echo $ordinalNr.". "; // ordinal number is 1-based
-
-        if (DEBUG)
-            echo " <span class=\"debug\">[amorID <b>".
-                $this->getAmorID().
-                "</b>]</span> ";
-
-        // 2. alias with hyperlink:
-        echo "<b><a href=\"amor.php?amorID=";
-        echo $this->getAmorID();
-        echo "\">";
-        echo $this->getAlias();
-        echo "</a></b>";
-
-        // 3. evaluation
-        if ($options != self::RATING) { // not shown if in $filter evaluation
-
-            echo " - ";
-            echo writtenRate($this->getRating());
-            echo " - ";
-
-        }
-
-        echo "</p>\n";
-
-        /*
-         * 2nd line: combined description
-         */
-
-        echo "<p>".$this->getCombinedDescription()."</p>\n";
-
-        /*
-         * third line: experiences amount.
-         * 1. experiences amount (when experiences amount > 1).
-         * 2. evaluation (absolut or average).
-         */
-        
-        if ($this->getPracticaAmount() > 1) {
-            
-            $praxisID = substr($script, 20);
-            // only praxisID (and not 'praxis.php?praxisID=') considered.
-            
-            $practica = $this->getPractica(true);
-            // flag 'true' needed for chronologically order.
-            
-            $currentPraxis = array_search($praxisID, $practica) + 1;
-            // currentPraxis is 1-based.
-            
-            echo sprintf(_("<b>%s</b> experiences"),
-                writtenNumber($this->getPracticaAmount()));
-            if ($script !== "amores.php")
-                echo sprintf(_(", this one #%s"),
-                    $currentPraxis);
-            echo " - ".writtenRate($this->getAverageRating())." (".
-                _("as average").") -</p>\n";
-            
-        }
-        
-        echo "</div>\n";
-
-    } // method 'Amor::HTMLPreview'
-
     /**
      * method 'Amor::getCombinedDescription'.
      * 
@@ -592,16 +423,25 @@ QRY;
     */
     public function getCombinedDescription() {
 
-        $combinedDescription = $this->getDescr1();
+        $combinedDescription = $this->getDescr1(); // only compulsory field
 
-        if ($this->getDescr2() !== "")
+        if ($this->getDescr2() !== "") {
+            
             $combinedDescription .= ". ".$this->getDescr2();
+            
+        }
 
-        if ($this->getDescr3() !== "")
+        if ($this->getDescr3() !== "") {
+            
             $combinedDescription .= ". ".$this->getDescr3();
+            
+        }
 
-        if ($this->getDescr4() !== "")
+        if ($this->getDescr4() !== "") {
+            
             $combinedDescription .= ". ".$this->getDescr4();
+            
+        }
         
         $combinedDescription .= ".";
 
@@ -632,7 +472,6 @@ INNER JOIN `myX`.`assignations`
 ON `assignations`.`praxis` = `practica`.`praxisID`
 WHERE `amor`=:amorID
 QUERY;
-        
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":amorID", $this->getAmorID(), PDO::PARAM_INT);
         $statement->execute();
@@ -671,7 +510,6 @@ FROM `myX`.`practica`
 INNER JOIN `myX`.`assignations`
 ON `myX`.`practica`.`praxisID` = `myX`.`assignations`.`praxis`
 WHERE `myX`.`assignations`.`amor` = :amorID
-
 QRY;
 // ORDER BY `date`, `ordinal`
 // ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`
@@ -687,12 +525,14 @@ QRY;
 
                 case OLDEST_TO_NEWEST:
 
-                    $queryString .= " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
+                    $queryString .=
+            " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
                     break;
 
                 case NEWEST_TO_OLDEST:
 
-                    $queryString .= " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
+                    $queryString .=
+    " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
                     break;
 
             }
@@ -745,7 +585,6 @@ QRY;
 //INNER JOIN `myX`.`assignations`
 //ON `myX`.`practica`.`praxisID` = `myX`.`assignations`.`praxis`
 //WHERE amor=:amorID
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":amorID", $this->getAmorID());
         $statement->execute();
@@ -754,5 +593,183 @@ QRY;
         return intval($statement->fetchColumn());
 
     } // method 'Amor::getPracticaAmount'
+    
+    /**
+     * method 'Amor::HTMLAsidePreview'.
+     * 
+     * this method displays a summary of the lover in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
+    */
+    function HTMLAsidePreview() {
+
+        echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
+        
+        // image of a cycladic idol:
+        echo "\t\t\t\t\t<img src=\"".getImage("amor","small")."\" alt=\"".
+            _("(Image of a cycladic idol)")."\" />\n";
+        
+        // alias:
+        echo "\t\t\t\t\t<p><b>".$this->getAlias()."</b></p>\n";
+        
+        // combined description:
+        echo "\t\t\t\t\t<p>".$this->getCombinedDescription()."</p>\n";
+        
+        // rating:
+        echo "\t\t\t\t\t".writtenRate($this->getRating(), false)."\n";
+        
+        // experiences amount:
+        echo "\t\t\t\t\t<p>".$this->getPracticaAmount()." ";
+        echo ($this->getPracticaAmount() > 1) ?
+            _("experiences") :
+            _("experience");
+        echo "</p>\n";
+        
+        echo "\t\t\t\t</div>\n";
+
+    } // method 'Amor::HTMLAsidePreview'
+    
+    /**
+     * method 'Amor::HTMLAsidePreviewAmores'.
+     * 
+     * this method displays a summary of all the lovers in the sidebar.
+     * 
+     * @return nothing, taken into account that the method echoes HTML code.
+     */
+    public function HTMLAsidePreviewAmores() {
+        
+        echo "\t\t\t\t<div class=\"HTMLAsidePreview\">\n";
+        
+        // image of a cycladic idol:
+        echo "\t\t\t\t\t<img src=\"".getImage("amor", "medium")."\" alt=\"".
+            _("(Image of a cycladic idol)").
+            "\" />\n";
+        
+        $amoresAmount = Amor::getAmoresAmount();
+        
+        switch ($amoresAmount) {
+            
+            case 0:
+                
+                echo "\t\t\t\t\t<p>"._("Not any lovers yet")."</p>\n";
+                break;
+            
+            case 1:
+                
+                echo "\t\t\t\t\t<p>"._("Only one lover so far")."</p>\n";
+                break;
+            
+            default:
+                
+                echo "\t\t\t\t\t<p>".sprintf(_("%d lovers"), $amoresAmount).
+                    "</p>\n";
+                $limits = explode("..", $_SESSION['asideItem']);
+                echo "\t\t\t\t\t<p>".
+            sprintf(_("Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"),
+    $_SESSION['navOptions']['resultsPerPage'], $limits[0], $limits[1]).
+                    "</p>\n";
+        }
+
+        echo "\t\t\t\t</div>\n";
+        
+    } // method 'Amor::HTMLAsidePreviewAmores'
+    
+    /**
+     * method 'Amor::HTMLPreview'.
+     * 
+     * displays an HTML preview of the lover, depending on certain conditions.
+     * 
+     * @param int $ordinalNr page's ordinal to be represented at the beginning
+     * of the preview.
+     * @param int $options bitwise combination of options.
+     * @param string $script the script from which the method is called.
+     * @return nothing, taken into account that the method echoes HTML code.
+    */
+    function HTMLPreview($ordinalNr, $options = "", $script = "amores.php") {
+	
+        // get a DB connection to work with:
+        $pdo = DB::getDBHandle();
+
+        echo "\t\t\t\t\t\t<div class=\"HTMLPreview\">\n";
+
+        /*
+         * first line (headline):
+         * 1/ ordinal number
+         * 2/ alias (with hyperlink)
+         * 3/ evaluation
+         * 4/ experiences amount
+         */
+
+        // 1. ordinal number:
+        echo "\t\t\t\t\t\t\t<p class=\"medium\"> ";
+        if ($ordinalNr !== 0) {
+            
+            echo $ordinalNr.". "; // ordinal number is 1-based
+            
+        }
+
+        if (DEBUG) {
+            
+            echo " <span class=\"debug\">[amorID <b>".$this->getAmorID().
+                "</b>]</span> ";
+            
+        }
+
+        // 2. alias with hyperlink:
+        echo "<b><a href=\"amor.php?amorID=";
+        echo $this->getAmorID();
+        echo "\">";
+        echo $this->getAlias();
+        echo "</a></b>";
+
+        // 3. evaluation
+        if ($options != self::RATING) { // not shown if in $filter evaluation
+
+            echo " - ";
+            echo writtenRate($this->getRating());
+            echo " - ";
+
+        }
+
+        echo "</p>\n";
+
+        /*
+         * 2nd line: combined description
+         */
+
+        echo "<p>".$this->getCombinedDescription()."</p>\n";
+
+        /*
+         * third line: experiences amount.
+         * 1. experiences amount (when experiences amount > 1).
+         * 2. evaluation (absolut or average).
+         */
+        
+        if ($this->getPracticaAmount() > 1) {
+            
+            $praxisID = substr($script, 20);
+            // only praxisID (and not 'praxis.php?praxisID=') considered.
+            
+            $practica = $this->getPractica(true);
+            // flag 'true' needed for chronologically order.
+            
+            $currentPraxis = array_search($praxisID, $practica) + 1;
+            // currentPraxis is 1-based.
+            
+            echo sprintf(_("<b>%s</b> experiences"),
+                writtenNumber($this->getPracticaAmount()));
+            if ($script !== "amores.php") {
+                
+                echo sprintf(_(", this one #%s"), $currentPraxis);
+                
+            }
+            echo " - ".writtenRate($this->getAverageRating())." (".
+                _("as average").") -</p>\n";
+            
+        }
+        
+        echo "</div>\n";
+
+    } // method 'Amor::HTMLPreview'
 				
 } // class Amor

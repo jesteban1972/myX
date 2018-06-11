@@ -244,7 +244,7 @@ INSERT INTO `myX`.`practica` VALUES (
     735,
     "2018-05-01",
     "",
-    "primerísima experiencia, con Calíope, en su casa: después de haber pasado la tarde juntos me llevó a su apartamento. rápidamente afloró la pasión, y pasionalmente nos amamos.<br />la experiencia fue totalmente satisfactoria y muy, muy excitante. disfrutamos mucho con nuestros cuerpos. los preliminares, que duraron una eternidad, incluyeron múltiples felaciones y cunnilingus amén de largas rondas de pasionales besos y caricias. a continuación copulamos, y en sucesivas ocasiones y diferentes posturas la penetré dinámicamente durante no poco tiempo.<br />finalmente, en el cénit de la excitación, ambos llegamos al orgasmo, de forma sincronizada. fue perfecto. quedamos ambos exhaustos pero muy satisfechos.<br />siguió un largo lapsus de ternura, con múltiples besos y caricias.<br />Calíope es muy cariñosa y sensual, y desde el primer momento hubo mucho <i>feeling</i> entre nosotros. al marcharme de su casa quedé totalmente prendado. tanto, que pocos días más tarde volveríamos a quedar para un nuevo encuentro sexual.",
+    "primerísima experiencia, con Calíope, en su casa: después de haber pasado la tarde juntos me llevó a su apartamento. rápidamente afloró la pasión, y pasionalmente nos amamos.<br />la experiencia fue totalmente satisfactoria y muy, muy excitante. disfrutamos mucho con nuestros cuerpos. los preliminares, que duraron una eternidad, incluyeron múltiples felaciones y cunnilingus amén de largas rondas de pasionales besos y caricias. a continuación copulamos, y en sucesivas ocasiones y diferentes posturas la penetré dinámicamente durante no poco tiempo.<br />finalmente, en el cénit de la excitación, ambos llegamos al orgasmo, de forma sincronizada. fue perfecto. quedamos ambos exhaustos pero muy satisfechos.<br />siguió un largo <i>lapsus</i> de ternura, con múltiples besos y caricias.<br />Calíope es muy cariñosa y sensual, y desde el primer momento hubo mucho <i>feeling</i> entre nosotros. al marcharme de su casa quedé totalmente prendado. tanto, que pocos días más tarde volveríamos a quedar para un nuevo encuentro sexual.",
     4,
     1,
     2
@@ -274,7 +274,7 @@ INSERT INTO `myX`.`practica` VALUES (
     734,
     "2018-05-06",
     "b",
-    "trío con Calíope y Clío, siguiendo la propuesta de aquella durante la visita de ésta a nuestra ciudad. nos tomamos algo en la cafetería del hotel para romper el hielo, y al poco nos subimos a la habitación, donde nos amamos pasional y satisfactoriamente.<br />con mucho placer nos amamos los tres, si bien yo no podía evitar estar algo nervioso al ser éste mi primer trío. ellas, en cambio, estaban mas que curtidas en estas lides y condujeron la situación. a pesar de los nervios lo pasamos estupendamente.<br />hubo los preliminares habituales, ahora en una combinación de cuerpos para mí desconocida. pero ambas se ocuparon diestramente de mi anatomía, y yo me ocupé de la de ellas. ellas entré sí no se hicieron demasiado caso pues, aparentemente, la «estrella» del grupo resultaba ser yo mismo. después culminamos con repetidas penetraciones, se sobreentiende yo a ellas, y mientras copulaba con una seguía un pasional juego carnal con la otra. fue muy excitante.<br />tuvimos mucho éxito con los tiempos y así, finalmente, todos alcanzamos el orgasmo, de forma casi sincronizada.",
+    "trío con Calíope y Clío, siguiendo la propuesta de aquella durante la visita de ésta a nuestra ciudad. nos tomamos algo en la cafetería del hotel para romper el hielo, y al poco nos subimos a la habitación, donde nos amamos pasional y satisfactoriamente.<br />con mucho placer nos amamos los tres, si bien yo no podía evitar estar algo nervioso al ser éste mi primer trío. ellas, en cambio, estaban mas que curtidas en estas lides y condujeron la situación. a pesar de los nervios lo pasamos estupendamente.<br />hubo los preliminares habituales, ahora en una combinación de cuerpos para mí desconocida. ambas se ocuparon diestramente de mi anatomía, y yo me ocupé de la de ellas. entre ellas no se hicieron demasiado caso pues, aparentemente, la «estrella» del grupo resultaba ser yo mismo. después culminamos con repetidas penetraciones, se sobreentiende yo a ellas, y mientras copulaba con una seguía un pasional juego carnal con la otra. fue muy excitante.<br />tuvimos mucho éxito con los tiempos y así, finalmente, todos alcanzamos el orgasmo, de forma casi sincronizada.",
     4,
     1,
     2
@@ -289,7 +289,7 @@ INSERT INTO `myX`.`practica` VALUES (
     734,
     "2018-05-07",
     "",
-    "segundo trío con Calíope y Clío, antes de que esta última marchase para su tierra. al despertarnos por la mañana de nuevo nos excitamos y consumamos.<br />la experiencia no fue tan satisfactoria como la de la noche anterior, lo cual era previsible porque ya no se trataba de ninguna novedad. a pesar de ello disfrutamos mucho con nuestros cuerpos y la inusitada «combinación carnal».<br />esta vez todo fue más lento, primeramente porque ya no estaba la inevitable ansiedad del primer encuentro, y además porque el sexo se produjo en un estado de calentamiento progresivo según nos despertábamos. así, yo tomé conciencia de la realidad cuando encontré a Clío felando mi miembro, ya erecto. seguidamente ambos hicimos porque Calíope saliera del letargo y se uniera a la «fiesta», lo cual conseguimos sin dificultad alguna. a continuación, ya todos con plena consciencia de nuestros actos, nos ocupamos de nuestros cuerpos con excitación y ternura, y los preliminares se sucedieron durante un rato grandísimo.<br />siguieron las penetraciones. yo al principio lo tuve fácil, puesto que permanecí inmovil mientras ambas, por turnos, me «cabalgaron» placenteramente. a continuación tuve yo que poner de mi parte, y de nuevo por turnos copulé con una y con otra con gran placer.<br />el encuentro culminó en orgasmo por parte de ellas y mía, si bien esta vez la sincronización no fue tan perfecta como la del día anterior, y hubo un pequeño lapso entre que yo acabé y ellas acabaron. a pesar de ello la experiencia fue totalmente satisfactoria, quiero creer para los tres.",
+    "segundo trío con Calíope y Clío, antes de que esta última marchase para su tierra. al despertarnos por la mañana de nuevo nos excitamos y consumamos.<br />la experiencia no fue tan satisfactoria como la de la noche anterior, lo cual era previsible porque ya no se trataba de ninguna novedad. a pesar de ello disfrutamos mucho con nuestros cuerpos y la inusitada «combinación carnal».<br />esta vez todo fue más lento, primeramente porque ya no había la inevitable ansiedad del primer encuentro, y además porque el sexo se produjo en un estado de calentamiento progresivo según nos despertábamos. así, yo tomé conciencia de la realidad cuando encontré a Clío felando mi miembro, ya erecto. seguidamente ambos hicimos porque Calíope saliera del letargo y se uniera a la «fiesta», lo cual conseguimos sin dificultad alguna. a continuación, ya todos con plena consciencia de nuestros actos, nos ocupamos de nuestros cuerpos con excitación y ternura, y los preliminares se sucedieron durante un rato grandísimo.<br />siguieron las penetraciones. yo al principio lo tuve fácil, puesto que permanecí inmovil mientras ambas, por turnos, me «cabalgaron» placenteramente. a continuación tuve yo que poner de mi parte, y de nuevo por turnos copulé con una y con otra con gran placer.<br />el encuentro culminó en orgasmo por parte de ellas y mía, si bien esta vez la sincronización no fue tan perfecta como la del día anterior, y hubo un pequeño lapso entre que yo acabé y ellas acabaron. a pesar de ello la experiencia fue totalmente satisfactoria, quiero creer para los tres.",
     4,
     1,
     2
@@ -304,7 +304,7 @@ INSERT INTO `myX`.`practica` VALUES (
     735,
     "2018-05-08",
     "",
-    "con Calíope, en su piso. nos excitamos pensando en nuestras aventuras con su amiga el pasado fin de semana, y acto seguido nos amamos pasionalmente.<br />me dio la impresión de que Calíope pretendía de alguna manera demostrar que ella sola se bastaba y se sobraba para complacerme, como el día anterior(?) me habían complacido conjuntamente con su amiga. así, se entregó a fondo en cualquiera de sus acciones, y con mucha maestría XXX",
+    "nos excitamos Calíope y yo evocando nuestras aventuras con su amiga el pasado fin de semana, y acto seguido nos amamos pasionalmente, comenzando en el sofá de su apartamento y concluyendo en su enorme cama.<br />me dio la impresión de que Calíope pretendía de alguna manera demostrar que ella sola se bastaba y se sobraba para complacerme, como el día anterior(?) me habían complacido conjuntamente con su amiga. así, se entregó a fondo en cualquiera de sus acciones, y con mucha maestría llevó la batuta en cuantos juegos preliminares ocurrieron, incluidos múltiples <i>fellatio</i> y cunnilingus.<br />a continuación copulamos, igualmente con gran satisfacción, y las penetraciones se sucedieron en varias posturas por diversos lugares de la casa: el sofá, donde comenzamos; el suelo frente a la chimenea, donde continuamos; su cama <i>king size</i>, donde culminamos.<br />se sobreentiende, el acto finalizó con un orgasmo mutuo y placentero.",
     4,
     1,
     2
@@ -334,7 +334,7 @@ INSERT INTO `myX`.`practica` VALUES (
     737,
     "2018-05-13",
     "",
-    "en Granada nuevamente ligué, esta vez con Euterpe, una chica regordita, aparentemente modosita y recatada, pero que en la cama es una auténtica bomba.<br />después de conocernos y de tomar algunas copas (alguna de más), se vino conmigo a mi habitación de hotel, donde con mucha satisfacción nos amamos largo y tendido. XXX",
+    "en Granada nuevamente ligué, esta vez con Euterpe, una chica regordita, aparentemente modosita y recatada, pero que en la cama es una auténtica bomba.<br />después de conocernos y de tomar algunas copas (alguna de más), se vino conmigo a mi habitación de hotel, donde con mucha satisfacción nos amamos largo y tendido.<br />ya desde el principio ésta demostró ser cañera y viciosilla, por lo que los preliminares fueron bastante excitantes y auguraban lo que habría de ser una experiencia satisfactoria. se sobreentiende, Euterpe no se contuvo lo más mínimo y dio rienda suelta a su gran experiencia y sabiduría en las artes amatorias.<br />después copulamos con gran satisfacción durante no poco rato y en una sucesión de posturas. Euterpe se daba muy bien, por adelante y por detrás, por lo que disfruté bastante del coito.<br />después de bastante rato de copulación no pude evitar llegar al orgasmo en el <i>summum</i> de la excitación, y ella necesitó algo más de tiempo, pero también acabó satisfactoriamente.",
     4,
     1,
     2
@@ -349,7 +349,7 @@ INSERT INTO `myX`.`practica` VALUES (
     735,
     "2018-05-14",
     "",
-    "último encuentro con Calíope, en su casa. la experiencia no resultó particularmente satisfactoria, como demuestra el hecho que ni copulamos, ni siquiera hubo eyaculación.<br />en efecto, había cierta tensión entre nosotros.<br />XXX<br />en cierta manera ambos supimos que este habría sido nuestro último encuentro: mi agitado modo de vida, viajando incesantemente por motivos laborales, suponía un obstáculo infranqueable para una relación estable, que es lo que ella estaba buscando. esto provocó que, inevitablemente, nuestra relación se enfriara hasta el punto de su extinción.",
+    "último encuentro con Calíope, en su casa. la experiencia no resultó satisfactoria, como demuestra el hecho que ni siquiera copulamos ni alcanzamos el orgasmo. en efecto, había cierta tensión entre nosotros a raíz de cosas que habían sucedido. <i>grosso modo</i> estaba molesta por mi agitado modo de vida, viajando incesantemente por motivos laborales, ya que ésto suponía un obstáculo infranqueable para una relación estable, que es lo que ella estaba buscando.<br />el encuentro se redujo a un simple juego carnal, el tiempo que éste duró. besos y caricias sin demasiado derroche de pasión fueron sucedidos por prácticas bucales. yo no me mostré demasiado interesado en penetrarla; ella, en cambio, sí me hizo ver que estaba reacia a ello, y no se me entregaba como en las anteriores ocasiones. así, la poca pasión con la que había empezado todo se fue desvaneciendo poco a poco y, al final, fue ella quien interrumpió el acto, preguntándome inquisitivamente qué era lo que me pasaba.<br />la brusca interrupción del sexo dio paso a una seria conversación en que volvimos a hablar de las dificultades que habían surgido entre nosotros. estas dificultades provocaron que, inevitablemente, nuestra relación se enfriara hasta el punto de su extinción. en cierta manera ambos supimos que este habría sido nuestro último encuentro",
     3,
     1,
     2
@@ -364,7 +364,7 @@ INSERT INTO `myX`.`practica` VALUES (
     738,
     "2018-05-16",
     "",
-    "Melpómene y yo nos conocimos en un bar de Montpelier. era ésta muy graciosa y chistosa. cuando ya habíamos bebido bastante nos marchamos, y acabamos amándonos en su piso del centro de la ciudad.<br />Melpómene era algo recatada en asuntos sexuales, lo cual no deja de ser extraño siendo ésta francesa. por ejemplo: se negó rotundamente a practicar sexo anal, llegando incluso a contrariarse cuando de cuando en cuando pretendía jugar un poquitín con su prieto culete. aún así disfrutamos bastante de nuestros cuerpos y del sexo. XXX<br />antes de marcharme Melpómene me sugirió habernos visto unos días más tarde en Cabo de Agde para amarnos sin inhibiciones. yo en principio decliné la oferta, pero finalmente esta idea se hizo realidad.",
+    "Melpómene y yo nos conocimos en un bar de Montpelier. era ésta muy graciosa y chistosa. cuando ya habíamos bebido bastante nos marchamos, y acabamos amándonos en su piso del centro de la ciudad.<br />Melpómene era algo recatada en asuntos sexuales, lo cual no deja de ser extraño siendo ésta francesa. por ejemplo: se negó rotundamente a practicar sexo anal, llegando incluso a contrariarse cuando de cuando en cuando pretendía jugar un poquitín con su prieto culete. aún así disfrutamos bastante de nuestros cuerpos y del sexo.<br />los preliminares se sucedieron con normalidad no obstante las restricciones mencionadas. a continuación copulamos satisfactoriamente, en una sucesión de posturas que culminó con un orgasmo sincronizado.<br />antes de marcharme Melpómene me sugirió habernos visto unos días más tarde en Cabo de Agde para amarnos sin inhibiciones. yo en principio decliné la oferta, pero finalmente esta idea se hizo realidad.",
     4,
     1,
     2
@@ -394,7 +394,7 @@ INSERT INTO `myX`.`practica` VALUES (
     740,
     "2018-05-20",
     "",
-    "con Polímnia en mi hotel en Edinburgo. hallándome en la capital escocesa, en una escala-interludio entre mis viajes de negocios por Francia y Oriente Próximo, me propuse a mí mismo de conocer el producto local. Polímnia, una <i>bussineswoman</i> escocesa algo gordita y no muy agraciada de cara, se dejó conquistar con relativa facilidad en un bar de copas, y después accedió a acompañarme al hostal.<br />ésta resultó ser bastante viciosilla. XXX",
+    "con Polímnia en mi hotel en Edinburgo. hallándome en la capital escocesa, en una escala-interludio entre mis viajes de negocios por Francia y Oriente Próximo, me propuse a mí mismo de conocer el «producto local». Polímnia, una <i>bussineswoman</i> escocesa algo gordita y no muy agraciada de cara, se dejó conquistar con relativa facilidad en un bar de copas, y después accedió a acompañarme al hostal.<br />ésta resultó ser bastante viciosilla, y los preliminares se sucedieron en un largo y excitante juego erótico. cuando nos hubimos ocupado largamente con nuestros cuerpos copulamos repetidamente en varias posturas.<br />hubo una perfecta compenetración, y culminamos el encuentro en el cénit de la excitación con un orgasmo casi sincronizado.",
     3,
     1,
     2
@@ -409,7 +409,7 @@ INSERT INTO `myX`.`practica` VALUES (
     741,
     "2018-05-26",
     "",
-    "con Terpsícore en Jerusalén: después de una noche de copas en el <i>Tmol Shilshon</i>, un garito-cultureta del hierosolimitano barrio retro Nachalat Shiv'a, ésta me invito a ir a su apartamento. y yo no dudé en aceptar, a pesar de que ésta no era ninguna <i>Barbie</i>, sino más bien algo feílla y con un cuerpo algo fofo. igualmente tenía unos pechos impresionantes aunque no muy firmes.<br />en su casa nos amamos con placer, si bien ésta resultó ser algo modosita y muy púdica en el sexo, por lo que no hubo derroche de pasión. XXX",
+    "con Terpsícore en Jerusalén: después de una noche de copas en el <i>Tmol Shilshon</i>, un garito-cultureta del hierosolimitano barrio retro Nachalat Shiv'a, ésta me invito a ir a su apartamento. y yo no dudé en aceptar, a pesar de que ella no era ninguna <i>Barbie</i>, sino más bien algo feílla y con un cuerpo algo fofo. igualmente tenía unos pechos impresionantes aunque no muy firmes.<br />en su casa nos amamos con placer, si bien ésta resultó ser algo modosita y muy púdica en el sexo, por lo que no hubo derroche de pasión. incluso los preliminares estuvieron bastante limitados, pues ésta ni hacía, ni dejaba hacer.<br />sin embargo me sorprendió sobremanera cuando dio a entender que estaba dispuesta a darse... por la «puerta trasera»(!).<br />por supuesto no dudé un instante en complacerla y complacerme a mí mismo. la penetración fue fácil pues disponíamos de lubricante de calidad. así, la penetré y copulamos largamente, mientras ella se estimulaba el clítoris a sí misma y yo sentía placer penetrando su prieto culete.<br />parece ser que ella llegó al orgasmo rápidamente. yo tardé algo más, pero al final eyaculé placenteramente.",
     4,
     1,
     2
@@ -424,7 +424,7 @@ INSERT INTO `myX`.`practica` VALUES (
     742,
     "2018-05-27",
     "",
-    "en mi último día del viaje de negocios por Oriente Próximo acaeció que conocí y copulé con Urania, una estudiante alemana, en mi hotel de Ammán. nos conocimos en el bar del hotel, y ante una evidente atracción mutua ésta me propuso subir a su habitación, lo cual indudablemente hize.<br />desde el minuto cero la pasión afloró por ambas partes, y pasionalmente disfrutamos de nuestros cuerpos con una miriada de preliminares, sucesiva cópula y orgasmo final. tenía ésta un cuerpecito delgadito y fibrado del que disfruté bastante, amén de unos pechos algo pequeños pero muy firmes, una maravilla al tacto y al gusto. Urania además resultó ser muy viciosilla, teniendo en cuenta lo joven que es.<br />por supuesto tras los preliminares de rigor consumamos la experiencia copulando con gran placer durante no poco rato. no obstante no llegamos a XXX",
+    "en mi último día del viaje de negocios por Oriente Próximo acaeció que conocí y copulé con Urania, una estudiante alemana, en mi hotel de Ammán. nos conocimos en el bar del hotel, y ante una evidente atracción mutua ésta me propuso subir a su habitación, lo cual indudablemente hize.<br />desde el minuto cero la pasión afloró por ambas partes, y pasionalmente disfrutamos de nuestros cuerpos con una miriada de preliminares, sucesiva cópula y orgasmo final. tenía ésta un cuerpecito delgadito y fibrado del que disfruté bastante, amén de unos pechos algo pequeños pero muy firmes, una maravilla al tacto y al gusto. Urania además resultó ser muy viciosilla, teniendo en cuenta lo joven que es.<br />comenzamos amándonos con mucha excitación y gran placer. nos deleitamos con nuestros cuerpos realizando todos los preliminares de rigor, y tras ellos consumamos la experiencia copulando con gran excitación durante no poco rato.<br />curiosamente y pese a la mucha excitación no llegué a culminar eyaculando: el calor se hizo poco a poco insoportable. tanto, que llegó un momento en que yo ya no daba más de mí. estábamos ambos bañados en sudor, e inevitablemente en un momento dado me tuve que salir para no sufrir un síncope. no obstante seguimos el juego carnal con pasionales besos. ella se estimuló a sí misma y, al rato, alcanzaba el orgasmo en pleno <i>summun</i> de excitación. yo también lo intenté, pero el calor me había hecho perder la erección, y acabé desistiendo. a pesar de éso lo había pasado muy bien con la estudiante alemana.",
     4,
     1,
     2
@@ -433,7 +433,7 @@ INSERT INTO `myX`.`practica` VALUES (
 INSERT INTO `myX`.`practica` VALUES (
     8292,
     "",
-    "felación pasiva en trío públicamente sin eyaculación",
+    "juego carnal en trío públicamente sin eyaculación",
     3,
     0,
     743,
@@ -454,7 +454,7 @@ INSERT INTO `myX`.`practica` VALUES (
     743,
     "2018-05-28",
     "b",
-    "con Erato y Melpómene en Cabo de Agde (2/2). más tarde, siendo la situación mucho más íntima, volvimos a deleitarnos de nuestros cuerpos llegando incluso a copular en plena playa, siendo observados -pero no molestados- por algunos de los allí presentes.<br />hacia el final de la tarde la situación era mucho más tranquila, aunque no por ello menos excitante. de hecho, algunas parejas estaban en plena acción algunos metros más allá. nos calentamos de nuevo y nos enrolamos en un largo juego sexual a tres bandas, juego que resultó ser completo con cópula y eyaculación incluidos.<br />se sobreentiende, previo al coito hubo largos preliminares incluyendo chupeteo de pies por parte de Erato. ahora, por ser el ambiente más íntimo, no escatimamos en ruidosas felaciones ni cunnilingus.<br />a continuación copulamos en una curiosa combinación de tres cuerpos, diríase que se trataba de un espectáculo de contorsionismo, y no sexual.<br />por último, las chicas por turnos alcanzaron el orgasmo casi al unísono, y yo poco despues cuando, levantandome sobre ellas, eyaculé estrepitosamente sobre sus cuerpos calientes.",
+    "bajo una impresionante luna llena, siendo la situación relativamente íntima, volvimos a deleitarnos Erato, Melpómene y yo con nuestros cuerpos, llegando incluso a copular en plena playa, siendo observados -pero no molestados- por algunos de los allí presentes.<br />después de unas cuantas copas en el chiringuito de la playa nos situamos en las cercanas tumbonas, donde la situación era mucho más tranquila... aunque no por ello menos excitante. de hecho, alguna gente estaba en plena acción algunos metros más allá. nos calentamos de nuevo y nos enrolamos en un largo juego sexual a tres bandas, juego que resultó ser completo con cópula y eyaculación incluidos.<br />se sobreentiende, previo al coito hubo largos preliminares incluyendo chupeteo de pies por parte de Erato. ahora, por ser el ambiente más íntimo, no escatimamos en ruidosas felaciones ni cunnilingus.<br />a continuación copulamos en una curiosa combinación de tres cuerpos sobre dos tumbonas de playa, diríase que se trataba de un espectáculo de contorsionismo, y no sexual.<br />por último, las chicas por turnos alcanzaron el orgasmo casi al unísono, y yo poco despues cuando, levantandome sobre ellas, eyaculé estrepitosamente sobre sus cuerpos calientes.",
     4,
     1,
     2
@@ -543,7 +543,7 @@ INSERT INTO `myX`.`amores` VALUES (
 INSERT INTO `myX`.`amores` VALUES (
     5873,
     "",
-    "Melpómene",
+    "Melpómene, la recatada",
     3,
     2,
     "mujer francesa de 25 años, de buen ver",
@@ -691,7 +691,23 @@ INSERT INTO `myX`.`queries` VALUES (
 INSERT INTO `myX`.`queries` VALUES (
     5,
     "hoteles españoles",
-    "lista de hoteles españoles en los que han habido experiencias sexuales",
+    "lista de hoteles españoles en los que han habido experiencias",
     "SELECT * FROM `myX`.`loca` INNER JOIN `myX`.`countries` ON `myX`.`loca`.`country` = `myX`.`countries`.`countryID` INNER JOIN `myX`.`kinds` ON `myX`.`loca`.`kind` = `myX`.`kinds`.`kindID` WHERE (`countries`.`name` LIKE '%españa%' AND `kinds`.`name` LIKE '%hotel%') AND `loca`.`user` = 2",
+    2
+);
+
+INSERT INTO `myX`.`queries` VALUES (
+    6,
+    "hoteles extranjeros",
+    "lista de hoteles extranjeros en los que han habido experiencias",
+    "SELECT * FROM `myX`.`loca` INNER JOIN `myX`.`countries` ON `myX`.`loca`.`country` = `myX`.`countries`.`countryID` INNER JOIN `myX`.`kinds` ON `myX`.`loca`.`kind` = `myX`.`kinds`.`kindID` WHERE (`countries`.`name` NOT LIKE '%españa%' AND `kinds`.`name` LIKE '%hotel%') AND `loca`.`user` = 2",
+    2
+);
+
+INSERT INTO `myX`.`queries` VALUES (
+    7,
+    "mis Marías",
+    "lista de amantes cuyo nombre contiene María, bien como nombre único o bien formando parte de un nombre compuesto",
+    "SELECT * FROM `myX`.`amores` WHERE (`name` LIKE '%María%') AND `amores`.`user` = 2",
     2
 );

@@ -1,9 +1,10 @@
 <?php
 /** script 'core.inc'.
  * 
- * this file contains core definitions for the web application myX
+ * this file contains core definitions for the web application myX.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-03-28
+ * last update: 2018-06-10
 */
 
 //require_once 'exceptions.inc'")';
@@ -13,7 +14,7 @@ require_once 'session.inc';
 
 // constants definition {{
 
-define("DEBUG", 1); // DEBUG: turn to 0 in production environment
+define("DEBUG", 0); // DEBUG: turn to 0 in production environment
 
 // genres
 define("GENRE_MASCULINE", 1);
@@ -201,60 +202,85 @@ function languageFlag($language, $size) {
 } // function languageFlag
 
 /**
- * function moonPhase
- * TODO: check for accuracy
+ * global function 'moonPhase'.
+ * 
+ * this function returns the moon phase of a given date. it calculates
+ * the moon phase (0-7), accurate to 1 segment (0: new moon; 4: full moon).
+ * 
+ * 
  * (algorithm taken from http://www.voidware.com/moon_phase.htm)
+ * 
+ * @param int $year the year of the date considered.
+ * @param int $month the month of the date considered.
+ * @param int $day the day of the date considered.
+ * 
+ * @return string name of the moon phase for the day given
  */
 function moonPhase($year, $month, $day) {
+    
+    $moonPhases = Array("new moon",
+        "waxing crescent",
+        "first quarter",
+        "waxing gibbous",
+        "full moon",
+        "waning gibbous",
+        "last quarter",
+        "waning crescent");
+    
+    if ($month < 3) {
 
-	/*
-    calculates the moon phase (0-7), accurate to 1 segment.
-    0: new moon.
-    4: full moon.
-    */
+        $year--;
+        $month += 12;
 
-	//int $c, $e;
-	//float $jd;
-	//int $b;
+    }
+    ++$month;
+    $c = intval(365.2498 * $year);
+    $e = intval(30.6 * $month);
+    $jd = floatval($c + $e + $day - 694039.09); // $jd is total days elapsed
+    $jd /= 29.53; // divide by the moon cycle (29.53 days)
+    $ret = intval($jd); // int($jd) -> $ret, take integer part of $jd
+    $jd -= $ret; // subtract integer part to leave fractional part of original $jd
+    $ret = ($jd * 8) + 0.5; // scale fraction from 0-8 and round by adding 0.5
+    $ret = $ret & 7; // 0 and 8 are the same, so turn 8 into 0
 
-	if ($month < 3) {
-            
-            $year--;
-            $month += 12;
-                
-	}
-	++$month;
-	$c = intval(365.2498 * $year);
-	$e = intval(30.6 * $month);
-	$jd = floatval($c + $e + $day - 694039.09); // $jd is total days elapsed
-	$jd /= 29.53;                               // divide by the moon cycle (29.53 days)
-	$ret = intval($jd);                         // int($jd) -> $ret, take integer part of $jd
-	$jd -= $ret;                                // subtract integer part to leave fractional part of original $jd
-	$ret = ($jd * 8) + 0.5;                     // scale fraction from 0-8 and round by adding 0.5
-	$ret = $ret & 7;                            // 0 and 8 are the same, so turn 8 into 0
+    return $moonPhases[$ret];
+//    switch ($ret) {
+//
+//            case 0:
+//
+//                return _("new moon");
+//
+//            case 1:
+//
+//                return _("waxing crescent");
+//
+//            case 2:
+//
+//                return _("first quarter");
+//
+//            case 3:
+//
+//                return _("waxing gibbous");
+//
+//            case 4:
+//
+//                return _("full moon");
+//
+//            case 5:
+//
+//                return _("waning gibbous");
+//
+//            case 6:
+//
+//                return _("last quarter");
+//
+//            case 7:
+//
+//                return _("waning crescent");
+//
+//    }
         
-	switch ($ret) {
-            
-		case 0:
-			return "new moon";
-		case 1:
-			return "waxing crescent";
-		case 2:
-			return "first quarter";
-		case 3:
-			return "waxing gibbous";
-		case 4:
-			return "full moon";
-		case 5:
-			return "waning gibbous";
-		case 6:
-			return "last quarter";
-		case 7:
-			return "waning crescent";
-                    
-	} // switch block
-        
-} // function moonPhase
+} // function 'moonPhase'
 
 /**
  * global function 'navBar'.

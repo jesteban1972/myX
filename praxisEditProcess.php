@@ -17,7 +17,7 @@ require_once 'DB.inc';
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     /*
-     * script called from outside the normal flush, throw exception
+     * script called from outside the normal flush, redirect to 'index.php'
      */
     header ("Location: index.php");
     
@@ -238,7 +238,7 @@ FROM `amores`
 QUERY;
         $maxAmorID = $pdo->query($queryString)->fetchColumn();
         $amores[$i] = array(
-            "amorID" => ($maxAmorID === null) ? 1 : intval($maxAmorID) + 1,
+            "amorID" => ($maxAmorID === null) ? 1 : intval($maxAmorID) + 1 + $i,
             "amorAchtung" => $_SESSION['tempAmorData'][$amorNewIndex]['achtung'],
             "alias" => $_SESSION['tempAmorData'][$amorNewIndex]['alias'],
             "rating" => $_SESSION['tempAmorData'][$amorNewIndex]['rating'],
@@ -520,10 +520,24 @@ QUERY;
     
     // commit transaction:
     $pdo->commit();
+    
+    // set success notification:
+    $_SESSION['notification'] = _("Experience inserted successfully");
+    
+    // unset session temp values:
+//    unset($_SESSION['tempPraxisData']);
+//    unset($_SESSION['tempLocusData']);
+//    unset($_SESSION['tempCountryData']);
+//    unset($_SESSION['tempKindData']);
+//    unset($_SESSION['tempAmorData']);
         
 } catch (Exception $e) {
     
     $pdo->rollback();
+    
+    // set failure notification:
+    $_SESSION['notification'] =
+        _("There was a problem inserting the experience");
 
 }
 

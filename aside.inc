@@ -97,6 +97,21 @@ HTML;
 }
 // }} login
 
+/*
+ * notification area: the following space is temporarily occupied by system
+ * notifications (e.g. "Experience inserted successfully"). these are retrieved
+ * from the variable '$_SESSION['notification'] and displayed in this area for
+ * three seconds. inmediatly after being displayed the session variable get
+ * unset to avoid being shown more than once.
+ */
+if (isset($_SESSION['notification'])) {
+    
+    echo "\t\t\t\t<div id=\"notification\"><p>"._($_SESSION['notification']).
+        "</p></div>\n";
+    unset($_SESSION['notification']);
+    
+}
+
 // sidebar content:
 
 switch ($fileName) {

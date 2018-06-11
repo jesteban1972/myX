@@ -43,6 +43,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     echo "\t\t\t</section> <!-- }} section -->\n";
     require_once 'footer.inc'; // footer of all the pages of the app
 
-} /*else script called from outside the normal flush, throw exception*/
+} /*else script called from outside the normal flush, redirect to 'index.php'*/
 
 ?>

@@ -1,7 +1,8 @@
 /**
  * script 'praxisEdit.js'.
  * 
- * XXX
+ * this script adds functionality to the page 'praxisEdit.php'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-05-22
 */
@@ -41,41 +42,53 @@ window.onload = function() {
     locusNew.addEventListener('click', newLocus, true);
     
     /*
-     * radio buttons 'amorOrigin' are initialized.
+     * radio buttons 'amorOrigin' are initialized. these can be an array, and
+     * its length is determined by the amount radio buttons 'amorOriginXXX'.
      */
+    var amoresAmount =
+            document.querySelectorAll("input[name^='amorOrigin[']").length / 2;
     
-    var amorOriginExisting = document.getElementById('amorOriginExisting[0]');
-    var amorOriginNew = document.getElementById('amorOriginNew[0]');
-    var amorID = document.getElementById('amorID[0]');
-    var amorNew = document.getElementById('amorNew[0]');
-    
-    if (amorOriginExisting.checked) { // there are some places yet. checked existing place
+    for (var i = 0; i < amoresAmount; i++) {
         
-        amorID.disabled = false;
-        amorNew.disabled = true;
-        
-    } else {
-        
-        amorID.disabled = true;
-        amorNew.disabled = false;
+        var amorOriginExisting =
+            document.getElementById('amorOriginExisting[' + i + ']');
+        var amorOriginNew =
+            document.getElementById('amorOriginNew[' + i + ']');
+        var amorID = document.getElementById('amorID[' + i + ']');
+        var amorNew = document.getElementById('amorNew[' + i + ']');
+
+        if (amorOriginExisting.checked) { // there are some lovers yet. checked existing lover
+
+            amorID.disabled = false;
+            amorNew.disabled = true;
+
+        } else {
+
+            amorID.disabled = true;
+            amorNew.disabled = false;
+
+        }
+
+        // add event listeners to the radio buttons 'amorOrigin':
+        amorOriginExisting.addEventListener('change', changeAmorOrigin, true);
+        amorOriginNew.addEventListener('change', changeAmorOrigin, true);
+
+        // add event listener to the button 'amorNew':
+        amorNew.addEventListener('click', newAmor, true);
+
+        // event listeners are added to the buttons 'addAmor[XXX]' and
+        // 'removeAmor[XXX]':
+        document.getElementById('addAmor[' + i + ']').
+        addEventListener('click', addAmor, true);
+
+        if (i > 0) {
+            
+            document.getElementById('removeAmor[' + i + ']').
+            addEventListener('click', removeAmor, true);
+            
+        }
         
     }
-    
-    // add event listeners to the radio buttons 'amorOrigin':
-    amorOriginExisting.addEventListener('change', changeAmorOrigin, true);
-    amorOriginNew.addEventListener('change', changeAmorOrigin, true);
-    
-    // add event listener to the button 'amorNew':
-    amorNew.addEventListener('click', newAmor, true);
-    
-    // event listeners are added to 'addAmor[0]' and 'removeAmor[0]':
-    document.getElementById('addAmor[0]').
-        addEventListener('click', addAmor, true);
-//    document.getElementById('removeAmor[0]').
-//        addEventListener('click', removeAmor, true);
-    
-    // button removeAmor[0] is not shown on page load:
-    //document.getElementById('removeAmor[0]').style.visibility = 'hidden';
     
 }
 
@@ -84,6 +97,7 @@ window.onload = function() {
  * 
  * this function dynamically add a row for a participant in the experience
  * using the DOM methods.
+ * 
  * @param {type} evt
  * @returns {undefined}
  */
@@ -518,20 +532,95 @@ function storeTempPraxisData() {
     
 }
 
-function validateForm(evt) { // TODO: validate
+function validateForm(evt) {
     
-//    // the fields are validated:
-//    var txt;
-//    txt = document.getElementById('achtung').value;
-//    txt = document.getElementById('name').value;
-   
+    evt.preventDefault();
+
 /*
- * the data input so far is stored in the session.
- * unlike 'amorEditProcess.php' or 'locusEditProcess.php',
- * data are not to be taken from $_POST but from $_SESSION
- * to be recovered in 'praxisEditProcess.php'.
+ * the data input so far is stored in the session. unlike 'amorEditProcess.php'
+ * or 'locusEditProcess.php', data are not to be taken from $_POST but from
+ * $_SESSION to be recovered in 'praxisEditProcess.php'.
  */
-    storeTempPraxisData()
-    this.submit();
+
+    // existing lovers are stored in $_SESSION['tempAmorData'][]:
+    var existingAmoresAmount =
+            document.querySelectorAll("input[name^='amorOrigin[']").length / 2;
+    
+//    for (var i = 0; i < existingAmoresAmount; i++) {
+//        
+//        // document data are codified as JSON:
+//        var tempAmorData = JSON.stringify({
+//            achtung: document.getElementById('achtung').value,
+//            alias: document.getElementById('alias').value,
+//            rating: parseInt(document.getElementById('rating').value),
+//            genre: parseInt(document.getElementById('genre').value),
+//            descr1: document.getElementById('descr1').value,
+//            descr2: document.getElementById('descr2').value,
+//            descr3: document.getElementById('descr3').value,
+//            descr4: document.getElementById('descr4').value,
+//            web: document.getElementById('web').value,
+//            name: document.getElementById('name').value,
+//            photo: document.getElementById('photo').checked ? 1 : 0,
+//            email: document.getElementById('email').value,
+//            other: document.getElementById('other').value
+//        });
+//        
+//        // store codified JSON in the session:
+//        var request = new XMLHttpRequest(); // TODO: make it cross browser
+//        request.open('POST', 'sessionFromJS.php', false); // non asynchonous
+//        request.setRequestHeader("Content-type",
+//            'application/x-www-form-urlencoded');
+//        request.send('tempAmorData=' + tempAmorData);
+//    
+//    }
+    
+    // experience data are stored in $_SESSION['tempPraxisData']:
+    storeTempPraxisData();
+    
+    /*
+     * the form is validated.
+     */
+    
+    var doesValidate = true; // default value
+    
+    // name validation:
+    var name = document.getElementById('name');
+    if (name.value === '') {
+        
+        doesValidate = false;
+        name.style.borderColor = 'red';
+        
+    }
+    
+    // place validation:
+    var locusID = document.getElementById('locusID');
+    var isTempLocus = document.getElementById('isTempLocus');
+    if (locusID.value === "" && isTempLocus.value === "false") {
+        
+        doesValidate = false;
+        document.getElementById('locusLegend').style.color = 'red';
+        
+    }
+    
+    // date validation:
+    var date = document.getElementById('date');
+    if (date.value === "") {
+        
+        doesValidate = false;
+        date.style.borderColor = 'red';
+        
+    }
+    
+    if (doesValidate) { // validation OK
+        
+        console.log('form validation successfully');
+        this.submit(); // the form is submitted
+    
+    } else {
+        
+        // the form is not submitted
+        console.log('form validation failed');
+        
+    }
     
 }

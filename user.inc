@@ -4,6 +4,7 @@
  * 
  * this script contains the implementation of class 'User',
  * the class which represents the abstraction of a user of the application.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-06-06
  */
@@ -95,7 +96,11 @@ class User {
      * returns the value of property 'email' (getter method).
      * @return string the user email property.
      */
-    public function getEmail() {return $this->email;}
+    public function getEmail() {
+        
+        return $this->email;
+        
+    }
     
     /**
      * method 'User::getUserKind'.
@@ -161,7 +166,6 @@ SELECT `username`, `password`, `email`, `userKind`
 FROM `myx`.`users`
 WHERE `userID` = :userID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
@@ -205,7 +209,6 @@ DELETE
 FROM `myX`.`usersLoggedIn`
 WHERE `userID` = :userID
 QUERY;
-        
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
@@ -254,7 +257,6 @@ SELECT `username`, `password`
 FROM `myx`.`users`
 WHERE `username` = :username
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         
         // 3.2. the parameter is binded:
@@ -265,17 +267,15 @@ QUERY;
         
         // 4. check that only one record was returned:
         $amount = $statement->rowCount();
-        
-        // if...
-        //        if ($amount === 0) {
-//            
-//            throw new LoginException;
-//            
-//        } elseif ($amount > 1) {
-//            
-//            throw new InternalException("Multiple users with the same username");
-//            
-//        }
+        if ($amount === 0) {
+            
+            throw new LoginException;
+            
+        } elseif ($amount > 1) {
+            
+            throw new InternalException("Multiple users with the same username");
+            
+        }
         
         // 5. the data is fetched:
         $row = $statement->fetch();
@@ -356,7 +356,6 @@ INSERT
 INTO `myx`.`users` (userID, username, password, email, birthdate, userKind)
 VALUES (:userID, :username, :password, :email, :birthdate, :userKind)
 QUERY;
-
         $statement = $pdo->prepare($queryString);
 
         // 5.2. the parameters are binded:
@@ -394,7 +393,6 @@ SELECT COUNT(`username`)
 FROM `myX`.`users`
 WHERE `username` = :username
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":username", $username, PDO::PARAM_STR);
         $statement->execute();
@@ -402,10 +400,15 @@ QUERY;
         // 3. the number of rows is checked (intval needed):
         $amount = intval($statement->fetchColumn());
         
-        if ($amount !== 0) // username already exists
+        if ($amount !== 0) { // username already exists
+            
             return true;
-        else
+            
+        } else {
+            
             return false;
+            
+        }
         
     } // method 'User::doesUsernameExist'
     
@@ -438,7 +441,6 @@ SELECT `birthdate`
 FROM `myX`.`users`
 WHERE `userID` = :userID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->
             bindParam(":userID", strval($_SESSION['userID']), PDO::PARAM_STR);
@@ -473,20 +475,18 @@ QUERY;
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
         
-        // 2. query the table 'users' to get the userID of the given username:
+        // the table 'users' is queried:
         
         $queryString = <<<QUERY
 SELECT `userID`
 FROM `myX`.`users`
 WHERE `username` = :username
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":username", $username, PDO::PARAM_STR);
         $statement->execute();
         
-        // 3. userID is fetched (intval needed)
-        // and returned:
+        // userID is fetched (intval needed) and returned:
         return intval($statement->fetchColumn());
         
     } // method 'User::getUserIDFromUsername'
@@ -495,7 +495,7 @@ QUERY;
      * method 'User::getUsernameFromUserID'.
      * 
      * this method queries the table 'users' and gets the username of the user
-     * whith the given identifier.
+     * with the given identifier.
      * 
      * @param int $userID the identifier of the user whose username is being
      * retrieved.
@@ -521,7 +521,6 @@ SELECT `username`
 FROM `myX`.`users`
 WHERE `userID` = :userID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
         $statement->execute();
@@ -552,7 +551,7 @@ QUERY;
     public static function getNavOptions () {
         
         // array to be returned:
-        $navigationOptions = array();
+        $navOptions = array();
         
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
@@ -564,22 +563,29 @@ SELECT `GUILang`, `resultsPerPage`, `listsOrder`
 FROM `myX`.`users`
 WHERE `userID` = :userID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
         $row = $statement->fetch();
         
-        if ($row['GUILang'] !== "")
-            $navigationOptions['GUILang'] = intval($row['GUILang']);
-        if ($row['resultsPerPage'] !== "")
-            $navigationOptions['resultsPerPage'] =
-                intval($row['resultsPerPage']);
-        if ($row['listsOrder'] !== "")
-            $navigationOptions['listsOrder'] = intval($row['listsOrder']);
+        if ($row['GUILang'] !== "") {
+            
+            $navOptions['GUILang'] = intval($row['GUILang']);
+            
+        }
+        if ($row['resultsPerPage'] !== "") {
+            
+            $navOptions['resultsPerPage'] = intval($row['resultsPerPage']);
+            
+        }
+        if ($row['listsOrder'] !== "") {
+            
+            $navOptions['listsOrder'] = intval($row['listsOrder']);
+            
+        }
        
         //return:
-        return $navigationOptions;
+        return $navOptions;
         
     } // method 'User::getNavOptions'
     
@@ -619,16 +625,31 @@ QUERY;
         $statement->execute();
         $row = $statement->fetch();
         
-        if ($row['defaultGenre'] !== "")
+        if ($row['defaultGenre'] !== "") {
+            
             $userOptions['defaultGenre'] = intval($row['defaultGenre']);
-        if ($row['descr1'] !== "")
+            
+        }
+        if ($row['descr1'] !== "") {
+            
             $userOptions['descr1'] = $row['descr1'];
-        if ($row['descr2'] !== "")
+            
+        }
+        if ($row['descr2'] !== "") {
+            
             $userOptions['descr2'] = $row['descr2'];
-        if ($row['descr3'] !== "")
+            
+        }
+        if ($row['descr3'] !== "") {
+            
             $userOptions['descr3'] = $row['descr3'];
-        if ($row['descr4'] !== "")
+            
+        }
+        if ($row['descr4'] !== "") {
+            
             $userOptions['descr4'] = $row['descr4'];
+            
+        }
         
         //return:
         return $userOptions;
@@ -650,12 +671,12 @@ QUERY;
      */
     static public function isValidUsername($username) {
         
-//        // 0. check internal arguments:
-//        if (trim($username) === "") {
-//            
-//            throw new ParameterException("one argument missing");
-//            
-//        }
+        // 0. check internal arguments:
+        if (trim($username) === "") {
+            
+            throw new ParameterException("one argument missing");
+            
+        }
          
         if (preg_match("/^[a-zA-Z0-9 _-]+$/", $username) &&
             trim($username) !== "") {
@@ -721,7 +742,6 @@ INSERT
 INTO `myX`.`usersLoggedIn` (sessionID, userID, lastUpdate)
 VALUES (:sessionID, :userID, NOW())
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":sessionID", session_id(), PDO::PARAM_STR);
         $statement->bindParam(":userID", $userID, PDO::PARAM_INT);
@@ -754,7 +774,6 @@ DELETE
 FROM `myX`.`usersLoggedIn`
 WHERE `sessionID` = :sessionID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":sessionID", session_id(), PDO::PARAM_STR);
         $statement->execute();       
@@ -778,8 +797,7 @@ QUERY;
         // get a DB handle to work with:
         $pdo = DB::getDBHandle();
 
-        // 2. query the table 'usersLoggedIn'
-        // to get the userID from the current session ID
+        // 2. query the table 'usersLoggedIn' is queried
         // (only one record, or none, expected):
 
         $queryString = <<<QUERY
@@ -888,7 +906,6 @@ SET `defaultGenre` = :defaultGenre,
     `descr4` = :descr4
 WHERE `userID` = :userID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":defaultGenre", $defaultGenre, PDO::PARAM_INT);
         $statement->bindParam(":descr1", $descr1, PDO::PARAM_STR);
@@ -903,6 +920,6 @@ QUERY;
         
     } // method 'User::setUserOptions'
     
-} // class User
+} // class 'User'
 
 ?>

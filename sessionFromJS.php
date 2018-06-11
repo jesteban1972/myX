@@ -12,7 +12,7 @@ require_once 'core.inc';
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     /*
-     * script called from outside the normal flush, throw exception
+     * script called from outside the normal flush, redirect to 'index.php'
      */
     header ("Location: index.php");
     

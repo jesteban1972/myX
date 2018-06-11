@@ -39,7 +39,7 @@ CREATE TABLE `myX`.`usersLoggedIn` (
 /* table 'countries' */
 CREATE TABLE `myX`.`countries` (
     `countryID` INTEGER NOT NULL,
-    `name`      VARCHAR(255),
+    `name`      VARCHAR(255) NOT NULL,
     `user`      INTEGER NOT NULL,
     CONSTRAINT countries_pk PRIMARY KEY (countryID),
     CONSTRAINT countries_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -48,7 +48,7 @@ CREATE TABLE `myX`.`countries` (
 /* table 'kinds' */
 CREATE TABLE `myX`.`kinds` (
     `kindID`    INTEGER NOT NULL,
-    `name`      VARCHAR(255),
+    `name`      VARCHAR(255) NOT NULL,
     `user`      INTEGER NOT NULL,
     CONSTRAINT kinds_pk PRIMARY KEY (kindID),
     CONSTRAINT kinds_user_fk FOREIGN KEY (user) REFERENCES `myX`.`users` (userID) ON DELETE CASCADE ON UPDATE CASCADE
@@ -163,7 +163,7 @@ CREATE TABLE `myX`.`assignations` (
 CREATE TABLE `myX`.`queries` (
     `queryID`       INTEGER NOT NULL,
     `name`          VARCHAR(255) NOT NULL,
-    `descr`         VARCHAR(510),
+    `descr`         VARCHAR(510) NOT NULL,
     `queryString`   VARCHAR(510),
     `user`          INTEGER NOT NULL,
     CONSTRAINT queries_pk PRIMARY KEY (queryID),

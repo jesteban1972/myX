@@ -310,9 +310,6 @@ SELECT COUNT(DISTINCT date)
 FROM `myX`.`practica`
 WHERE `locus` = :locusID
 QUERY;
-        
-        // " AND user=:userID" not needed; each user has his/her own places
-                
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":locusID", $this->locusID, PDO::PARAM_INT);
         $statement->execute();
@@ -338,7 +335,6 @@ FROM `myX`.`loca` INNER JOIN `myX`.`kinds`
 ON `myX`.`loca`.`kind` = `myX`.`kinds`.`kindID`                
 WHERE `loca`.`locusID` = :locusID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":locusID", $this->getLocusID(), PDO::PARAM_INT);
         $statement->execute();
@@ -368,7 +364,6 @@ SELECT COUNT(*)
 FROM `myX`.`loca`
 WHERE `user` = :userID
 QUERY;
-
         $statement = $pdo->prepare($queryString);
         $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
         $statement->execute();
@@ -434,8 +429,7 @@ QUERY;
                 break;
             
             // the coordinates -either exact or generic- are retrieved:
-            $coordinates =
-                ($row['coordExact'] !== "") ?
+            $coordinates = ($row['coordExact'] !== "") ?
                 $row['coordExact'] :
                 $row['coordGeneric'];
             
@@ -444,17 +438,6 @@ QUERY;
             $lats[] = explode(", ", $coordinates)[1]/*$lat*/;
              
         }
-        
-/*
- * jesteban1972:
- * N boundary: 55.957570, -3.192459 (Edinburgh/UK)
- * S boundary: 31.757469, 35.208082 (Jerusalem/Israel)
- * W boundary: 37.374629, -5.990226 (Seville/Spain)
- * E boundary: 31.952229, 35.939134 (Amman/Jordan)
- * 
- * maxLongDiff: 35.939134 - (-5.990226) = ...
- * maxLatDiff: 55.957570 - 31.757469 = ...
- */
         
 /*
  * the coordinates of the geographic center are calculated using the maximal
@@ -469,17 +452,12 @@ QUERY;
         $centerLong = ($maxLong - abs($minLong)) / 2;
         $centerLat = ($maxLat - abs($minLat)) / 2;
 
-//        $mapCenter = strval($centerLong).", ".strval($centerLat);
-//                strval($minLong + (($maxLong - abs($minLong)) / 2)).
-//                ", ".
-//                strval($minLat + (($maxLat - abs($minLat)) / 2));
-        
         $_SESSION['DBStatus']['mapCenter'] =
-            strval($centerLong).", ".strval($centerLat);//$mapCenter;
+            strval($centerLong).", ".strval($centerLat);
         
         return;
 
-    } // method Locus::getMapCenter
+    } // method 'Locus::getMapCenter'
     
     /**
      * method 'Locus::getPractica'.
@@ -528,6 +506,9 @@ QRY;
      * 
      * this method returns the amount of the experiences which happened in the
      * place from which the method is called.
+     * 
+     * @return int amount of experiences happened in the place from which the
+     * method is called.
     */
     public function getPracticaAmount() {
         
@@ -571,7 +552,8 @@ QUERY;
         // experiences amount:
         echo "\t\t\t\t\t<p>".$this->getPracticaAmount()." ";
         echo ($this->getPracticaAmount() > 1) ?
-            _("experiences") : _("experience");
+            _("experiences") :
+            _("experience");
         echo "</p>\n";
         
         echo "\t\t\t\t</div>\n";
@@ -581,7 +563,7 @@ QUERY;
     /**
      * method 'Locus::HTMLAsidePreviewLoca'.
      * 
-     * this method displays a sommary of all the places in the sidebar.
+     * this method displays a summary of all the places in the sidebar.
      * 
      * @return nothing, taken into account that the method echoes HTML code.
      */
@@ -597,14 +579,18 @@ QUERY;
         switch ($locaAmount) {
             
             case 0:
+                
                 echo "\t\t\t\t\t<p>"._("Not any places yet")."</p>\n";
                 break;
+            
             case 1:
+                
                 echo "\t\t\t\t\t<p>"._("Only one place so far")."</p>\n";
                 break;
+            
             default:
-                echo "\t\t\t\t\t<p>".
-                    sprintf(_("%d places"), $locaAmount).
+                
+                echo "\t\t\t\t\t<p>".sprintf(_("%d places"), $locaAmount).
                     "</p>\n";
                 
         }
@@ -640,12 +626,18 @@ QUERY;
         echo "\t\t\t\t\t\t\t<p class=\"medium\">";
 
         // ordinal number:
-        if ($ordinalNr !== 0)
+        if ($ordinalNr !== 0) {
+            
             echo $ordinalNr.". "; // ordinal number is 1-based
+            
+        }
 
-        if (DEBUG)
+        if (DEBUG) {
+            
             echo " <span class=\"debug\">[locusID <b>".$this->getLocusID().
                 "</b>]</span> ";
+            
+        }
         
         // name with hyperlink:
         echo "<b><a href=\"locus.php?locusID=".$this->getLocusID()."\">".
@@ -655,7 +647,8 @@ QUERY;
         $practicaAmount = $this->getPracticaAmount();
         echo " (".writtenNumber($practicaAmount, FEMENINE)." ";
         echo ($practicaAmount > 1) ?
-            _("experiences") : _("experience");
+            _("experiences") :
+            _("experience");
         echo ")";
         
         echo "</p>\n";
@@ -668,12 +661,21 @@ QUERY;
             $this->getWeb() !== "") {
             
             echo "\t\t\t\t\t\t\t<p>";
-            if ($this->getName() !== "")                
+            if ($this->getName() !== "") {
+                
                 echo $this->getName().".";
-            if ($this->getAddress() !== "")                
+                
+            }
+            if ($this->getAddress() !== "") {
+                
                 echo " ".$this->getAddress().". ";
-            if ($this->getWeb() !== "")                
+                
+            }
+            if ($this->getWeb() !== "") {
+                
                 echo " ".$this->getWeb().".";
+                
+            }
             echo "</p>\n";
             
         }

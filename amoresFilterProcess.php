@@ -1,7 +1,7 @@
 <?php
 /**
- * script amoresFilterProcess.php
- * XXX
+ * script 'amoresFilterProcess.php'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-06
 */

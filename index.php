@@ -2,9 +2,10 @@
 /** 
  * script 'index.php'.
  * 
- * home script of the app
+ * home script of the app myX.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-05-12
+ * last update: 2018-06-07
  */
 
 require_once 'core.inc';
@@ -23,16 +24,10 @@ $description = "Homepage of myX";
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
-if (DEBUG) {
+if (DEBUG)
     var_dump($_SESSION);
-//    echo "\t\t\t\t<div id=\"sessionViewer\"><h1>session status</h1>\n".
-//        "\t\t\t\t\t<pre>";
-//    print_r($_SESSION);
-//    echo "</pre>\n\t\t\t\t</div>\n";
-//    
-//    echo "<span class=\"debug\">session: ".var_dump($_SESSION)."</span>";
-}
 
+// quote uncut
 //echo <<<HTML
 //                <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
 //                et je vis des peines que j'ai enduré, et que je ne sens plus»<br />
@@ -55,14 +50,68 @@ if (!isset($_SESSION['userID']) || $_SESSION['userID'] === -1) {
     
     echo "\t\t\t\t\t<p class=\"large\"><b>"._("Welcome to myX!")."</b></p>\n";
 
-    echo <<<HTML
-                <p class="medium">«<cite>By recollecting the pleasures I have had formerly, I renew them, I enjoy them a second time</cite>», wrote once Casanova.<br />
-                There's no need to be a famous libertine. If you also feel pleasure remembering your sexual life, the web application <b>myX</b> is conceived to make your life easier:<br />
-                With the multilingual user interface, you can record your <b>experiences</b>, with the detail level you choose, in order to remember them everytime you want.<br />
-                Along with the experiences, you'll remember also your <b>lovers</b>. You could easily query your data.<br />
-                Last but not least, having your <b>places</b> well arranged will allow you to surf through them in a map.</p>
+    switch ($_SESSION['navOptions']['GUILang']) {
+        
+        case GUI_ENGLISH:
+            
+            echo <<<HTML
+                <p class="large">«<cite>By recollecting the pleasures I had I
+                renew them</cite>», wrote once Casanova.</p>
+                <p class="large">There's no need to be a famous libertine. If you
+                also feel pleasure remembering your sexual life, the web app
+                <b>myX</b> is conceived to make your life easier: You can record
+                your <b>experiences</b>, with the detail level you choose.
+                Afterwards you can easily query your data with a number of
+                exciting possibilites, in order to remember them everytime you
+                want and feel pleasure. Along with the experiences, you'll
+                remember also your <b>lovers</b>. Last but not least, having
+                your <b>places</b> well arranged you'll be able to surf through
+                them in a map.</p>
 
 HTML;
+            break;
+        
+        case GUI_SPANISH:
+            
+            echo <<<HTML
+                <p class="large">«<cite>Acordándome de los placeres que he
+                tenido yo me los renuevo</cite>», escribió una vez Casanova.</p>
+                <p class="large">No es necesario ser un famoso libertino. Si tú
+                también sientes placer recordando tu vida sexual, la aplicación
+                web <b>myX</b> está pensada para hacerte la vida más fácil:
+                Puedes registrar tus <b>experiencias</b>, con el nivel de
+                detalle que tú elijas. Después podrás fácilmente consultar tus
+                datos con varias interesantes posibilidades, de modo que puedas
+                acordarte de ellas cada vez que quieras, sintiendo así placer.
+                Junto con tus experiencias te acordarás también de tus
+                <b>amantes</b>. <i>Last but not least</i>, teniendo tus
+                <b>lugares</b> bien organizados podrás moverte a través ellos
+                por un mapa.</p>
+
+HTML;
+            break;
+
+        case GUI_GREEK:
+            
+            echo <<<HTML
+                <p class="large">«<cite>Ὅταν θυμοῦμαι τὰς ἡδονὰς ἃς ἀπήλαυσα
+                τὲς ἀνανεώνω</cite>», έγραψε κάποτε ο Καζανόβας.</p>
+                <p class="large">Δεν είναι ανάγκη να είσαι ένας περίφημος
+                λιβερτίνος. Εάν νοιώθεις κι εσύ ηδονή όταν θυμάσαι την
+                σεξουαλική σου ζωή, η εφαρμοφή web <b>myX</b> δημιουργήθηκε
+                για να διευκολύνει τη ζωή σου: μπορείς ν' αποθηκεύεις τις
+                <b>φάσεις</b> σου, όσο αναλυτικά θελήσεις. Έπειτα θα μπορέσεις
+                εύκολα ν' αναζητήσεις τα στοιχεία σου χρησιμοποιώντας
+                ενδιαφέρουσες επιλογές ούτως, έτσι μπορέσεις να τα θυμάσαι όταν
+                θελήσεις, δοκιμάζοντας έτσι ηδονή. Μαζί με τις φάσεις σου θα
+                θυμηθείς και τους <b>εραστές</b> σου. <i>Last but not least</i>,
+                έχοντας τους <b>τόπους</b> σου οργανωμένους θα μπορέσεις να πλεύσεις
+                σ' αυτούς μ' ένα χάρτη.</p>
+
+HTML;
+            break;
+    }
+    
 } else { // user logged in
     
 /*

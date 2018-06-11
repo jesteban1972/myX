@@ -21,8 +21,10 @@ $title = "myX - Query Lovers";
 $js = "amoresFilter.js";
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
-    // script called from outside the normal flush, throw exception
-
+    
+    // script called from outside the normal flush, redirect to 'index.php':
+    $_SESSION['notification'] = _("Unable to load the required page");
+    header ("Location: index.php");
     
 }
     

@@ -20,8 +20,10 @@ $title = "myX - Filter Experiences";
 $js = "practicaFilter.js";
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
-    // script called from outside the normal flush, throw exception
-
+    
+    // script called from outside the normal flush, redirect to 'index.php':
+    $_SESSION['notification'] = _("Unable to load the required page");
+    header ("Location: index.php");
     
 }
 
@@ -89,13 +91,12 @@ echo "\t\t\t\t\t\t\t\t<option value=\"date\">"._("Date")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"ordinal\">"._("Ordinal")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"name\">"._("Name")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"rating\">"._("Rating")."</option>\n";
-echo "\t\t\t\t\t\t\t\t<option value=\"descr\">".
-    _("Description")."</option>\n";
+echo "\t\t\t\t\t\t\t\t<option value=\"descr\">"._("Description")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"tq\">"._("TQ")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"tl\">"._("TL")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"favorite\">"._("Favorite")."</option>\n";
-echo "\t\t\t\t\t\t\t\t<option value=\"praxisID\">".
-    _("Experience ID")."</option>\n";
+echo "\t\t\t\t\t\t\t\t<option value=\"praxisID\">"._("Experience ID").
+    "</option>\n";
 echo "\t\t\t\t\t\t\t</select>";
 
 /*
@@ -109,12 +110,12 @@ echo "\t\t\t\t\t\t\t</select>";
 
 echo "<select name=\"ruleCriteria[0]\">\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"contains\">"._("contains")."</option>\n";
-echo "\t\t\t\t\t\t\t\t<option value=\"doesNotContain\">".
-    _("does not contain")."</option>\n";
+echo "\t\t\t\t\t\t\t\t<option value=\"doesNotContain\">"._("does not contain").
+    "</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"isString\">"._("is")."</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"isNotString\">"._("is not")."</option>\n";
-echo "\t\t\t\t\t\t\t\t<option value=\"beginsWith\">".
-    _("begins with")."</option>\n";
+echo "\t\t\t\t\t\t\t\t<option value=\"beginsWith\">"._("begins with").
+    "</option>\n";
 echo "\t\t\t\t\t\t\t\t<option value=\"endsWith\">"._("ends with")."</option>\n";
 echo "\t\t\t\t\t\t\t</select>\n";
 

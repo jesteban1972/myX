@@ -3,8 +3,9 @@
  * script 'loca.php'.
  * 
  * this script displays a list of places using an instance of class 'LocaQuery'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last updated 2018-05-26
+ * last updated 2018-06-09
 */
 
 require_once 'core.inc';
@@ -16,9 +17,8 @@ require_once 'locus.inc';
 $pdo = DB::getDBHandle();
 
 /*
- * initializes $locaList, and retrieves its components
- * if already storage in $_SESSION, retrieve the list;
- * otherwise create an unfiltered list 
+ * initializes '$locaQuery' retrieving its components as a saved query
+ * or if stored in the session. otherwise an unfiltered query is created.
  */
 
 if (isset($_GET['query'])) {
@@ -30,14 +30,14 @@ if (isset($_GET['query'])) {
     $locaQuery = new LocaQuery($query->getName(), $descr,
         $query->getQueryString());
     
-} else if (!isset($_SESSION['locaQuery'])) {
+} else if (isset($_SESSION['locaQuery'])) {
     
-    $locaQuery = new LocaQuery();
-    $_SESSION['locaQuery'] = $locaQuery;
+    $locaQuery = $_SESSION['locaQuery'];
     
 } else {
     
-    $locaQuery = $_SESSION['locaQuery'];
+    $locaQuery = new LocaQuery();
+    $_SESSION['locaQuery'] = $locaQuery;
     
 }
 
@@ -118,18 +118,16 @@ if ($locaQuery->getName() !== "all places") {
 if (DEBUG)
     echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
 
-// links to page sections:
-echo "\t\t\t\t\t<ul>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#map\">".
-    _("Map").
-    "</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#list\">".
-    _("List of places").
-    "</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
-    _("Actions").
-    "</a></li>\n";
-echo "\t\t\t\t\t</ul>\n";
+if ($_SESSION['DBStatus']['doPracticaExist']) {
+    
+    // links to page sections:
+    echo "\t\t\t\t\t<ul>\n";
+    echo "\t\t\t\t\t\t<li><a href=\"#map\">"._("Map")."</a></li>\n";
+    echo "\t\t\t\t\t\t<li><a href=\"#list\">"._("List of places")."</a></li>\n";
+    echo "\t\t\t\t\t\t<li><a href=\"#actions\">"._("Actions")."</a></li>\n";
+    echo "\t\t\t\t\t</ul>\n";
+
+}
 
 if ($locaAmount > 0) {
     
@@ -184,9 +182,9 @@ HTML;
         if (substr($value, 0, 5) != "page=")
                 $dataString .= $value; // this is the current segment number
 
-    // retrieves the current page (1 if not set)
-    $currentPage = ($_GET['page'] !== NULL) ?
-        intval($_GET['page']) :
+    // retrieves the current page, 1 if not set:
+    $currentPage = (isset($_GET['page'])) ?
+        filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT) :
         1; // $page is 1-based
 
     $pageSettings = pageSettings($locaAmount, $currentPage);
@@ -260,29 +258,31 @@ echo <<<HTML
 
 HTML;
 
-// filter places:
-echo "\t\t\t\t\t<form action=\"locaFilter.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
-    ._("Apply filter").
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-    ._("Remove filter").
-    "\" ";
-if ($locaQuery->getName() === "all places")
-    echo "disabled=\"disabled\" ";
-echo "/>\n";
-echo "\t\t\t\t\t</form>\n";
+if ($_SESSION['DBStatus']['doPracticaExist']) {
+    
+    // filter places:
+    echo "\t\t\t\t\t<form action=\"locaFilter.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
+        ._("Apply filter").
+        "\" />\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+        ._("Remove filter").
+        "\" ";
+    if ($locaQuery->getName() === "all places") {
+        
+        echo "disabled=\"disabled\" ";
+        
+    }
+    echo "/>\n";
+    echo "\t\t\t\t\t</form>\n";
 
-// add place:
-echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"GET\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New place")."\" />\n";
-echo "\t\t\t\t\t</form>\n";
+    // edit countries list:
+    echo "\t\t\t\t\t<form action=\"countriesEdit.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list").
+        "\" />\n";
+    echo "\t\t\t\t\t</form>\n";
 
-// edit countries list:
-echo "\t\t\t\t\t<form action=\"countriesEdit.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list").
-    "\" />\n";
-echo "\t\t\t\t\t</form>\n";
+}
 
 // link to previous page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".

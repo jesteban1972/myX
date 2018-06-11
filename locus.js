@@ -1,7 +1,7 @@
 /**
- * script 'index.js'.
+ * script 'locus.js'.
  * 
- * this script provides additional functionality to the script 'index.php'.
+ * this script provides additional functionality to the script 'locus.php'.
  * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-06-08

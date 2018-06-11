@@ -2,13 +2,13 @@
 /** 
  * script 'header.inc'.
  * 
- * script with the header of all pages
+ * script with the header of all pages of the app.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-04-21
  */
 
 require_once 'core.inc';
-//require_once 'DB.inc';
 require_once 'user.inc';
 require_once 'praxis.inc';
 
@@ -56,33 +56,19 @@ if ((isset($_SESSION['userID']) && ($_SESSION['userID'] !== -1))) { // user logg
 
    if (!isset($_SESSION['DBStatus']['doPracticaExist'])) {
        
-       if (Praxis::getPracticaAmount() > 0)
+       if (Praxis::getPracticaAmount() > 0) {
+           
            $_SESSION['DBStatus']['doPracticaExist'] = true;
-       
-//       // get a DB connection to work with:
-//        $pdo = DB::getDBHandle();
-//
-//       $queryString = <<<QUERY
-//SELECT COUNT(*)
-//FROM `myX`.`practica`
-//WHERE `user` = :userID
-//QUERY;
-//
-//        $statement = $pdo->prepare($queryString);
-//        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
-//        $statement->execute();
-//        
-//        $practicaAmount = intval($statement->fetchColumn());
-//        
-//        if ($practicaAmount === 0)
-//            unset($_SESSION['DBStatus']['doPracticaExist']);
-//        else
-//            $_SESSION['DBStatus']['doPracticaExist'] = true;
+           
+        }
 
     } else {
         
-        if (Praxis::getPracticaAmount() === 0) 
+        if (Praxis::getPracticaAmount() === 0) {
+            
             unset($_SESSION['DBStatus']['doPracticaExist']);
+            
+        }
         
     }
             
@@ -134,12 +120,18 @@ echo "\t\t<meta name=\"author\"".
     " content=\"Joaquin Javier ESTEBAN MARTINEZ\" />\n";
 echo "\t\t<title>"._($title)."</title>\n";
 
-if (isset($js))
+if (isset($js)) {
+    
     echo "\t\t<script type=\"text/javascript\" src=\"".$js.
         "\"></script> <!-- JavaScript code -->\n";
+    
+}
 
-if (isset($mapAPI))
+if (isset($mapAPI)) {
+    
     echo "\t\t<script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCzoiaEvQUJDVxv8f_7eA_IgbcO6cJnftc&sensor=false\"></script> <!-- Google Maps API -->\n";
+    
+}
 
 /*
  * if current script is 'index.php' include additional bootstrap JS and CSS
@@ -148,6 +140,7 @@ if (isset($mapAPI))
 
 if (end(explode('/', $_SERVER['PHP_SELF'])) === "index.php") {
     // additional JS and stylesheets for the slider
+    
     echo <<<HTML
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
@@ -185,10 +178,16 @@ echo "\t\t\t\t<div id=\"GUILangs\" style=\"position: absolute; right: 0%;\">".
 
 // parameters are retrieved from $_GET in case GUI language changes:
 $getString = "";
-if (sizeof($_GET) > 0)
+if (sizeof($_GET) > 0) {
+    
     $getString .= "?";
-foreach ($_GET as $key => $value)
+    
+}
+foreach ($_GET as $key => $value) {
+    
     $getString .= $key."=".$value;
+    
+}
 
 // GUI language form is echoed:
 
@@ -199,20 +198,29 @@ echo "\t\t\t\t\t\t<select name=\"GUILang\" onchange=\"this.form.submit();\">\n";
 
 // English:
 echo "\t\t\t\t\t\t\t<option value=\"en\"";
-if ($_SESSION['navOptions']['GUILang'] === GUI_ENGLISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_ENGLISH) {
+    
     echo " selected=\"selected\"";
+    
+}
 echo ">English</option>\n";
 
 // Spanish:
 echo "\t\t\t\t\t\t\t<option value=\"es\"";
-if ($_SESSION['navOptions']['GUILang'] === GUI_SPANISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_SPANISH) {
+    
     echo " selected=\"selected\"";
+    
+}
 echo ">Español</option>\n";
 
 // Greek:
 echo "\t\t\t\t\t\t\t<option value=\"el\"";
-if ($_SESSION['navOptions']['GUILang'] === GUI_GREEK)
+if ($_SESSION['navOptions']['GUILang'] === GUI_GREEK) {
+    
     echo " selected=\"selected\"";
+    
+}
 echo ">Ελληνικά</option>\n";
 echo "\t\t\t\t\t\t</select>\n";
 

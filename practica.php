@@ -6,7 +6,7 @@
  * 'PracticaList'.
  * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last updated 2018-05-29
+ * last updated 2018-06-09
 */
 
 require_once 'core.inc';
@@ -18,9 +18,8 @@ require_once 'praxis.inc';
 $pdo = DB::getDBHandle();
 
 /*
- * initializes $practicaQuery, and retrieves its components
- * if already storage in $_SESSION;
- * otherwise create an unfiltered query 
+ * initializes '$practicaQuery' retrieving its components as a saved query
+ * or if stored in the session. otherwise an unfiltered query is created.
  */
 
 if (isset($_GET['query'])) {
@@ -29,17 +28,17 @@ if (isset($_GET['query'])) {
     $descr = ($query->getDescr() !== "") ?
         $query->getDescr() :
         "";
-    $practicaQuery = new PracticaQuery($query->getName(), $descr,
-        $query->getQueryString());
+    $practicaQuery =
+        new PracticaQuery($query->getName(), $descr, $query->getQueryString());
     
-} else if (!isset($_SESSION['practicaQuery'])) {
+} else if (isset($_SESSION['practicaQuery'])) {
     
-    $practicaQuery = new PracticaQuery();
-    $_SESSION['practicaQuery'] = $practicaQuery;
+    $practicaQuery = $_SESSION['practicaQuery'];
     
 } else {
     
-    $practicaQuery = $_SESSION['practicaQuery'];
+    $practicaQuery = new PracticaQuery();
+    $_SESSION['practicaQuery'] = $practicaQuery;
     
 }
 
@@ -70,7 +69,7 @@ echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("praxis", "small").
  * experiences list.
  * a first query of practicaList::queryString is performed
  * just to retrieve the amount of experiences.
- * Praxis::getPracticaAmount() would retrieve the amount of all experiences,
+ * 'Praxis::getPracticaAmount' would retrieve the amount of all experiences,
  * but practicaList might be filtered.
  */
 
@@ -96,46 +95,6 @@ switch ($practicaAmount) {
             
 }
 echo "</p>\n";
-
-// filter experiences:
-
-echo "\t\t\t\t\t\t<div class=\"filter\">\n";
-echo "\t\t\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
-if ($practicaQuery->getName() === "all experiences") {
-    
-    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/filter-small.png\" />\n";
-    
-} else {
-    
-    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/filterStrikethrough-small.png\" />\n";
-    
-}
-
-echo "\t\t\t\t\t\t\t</form>\n";
-echo "\t\t\t\t\t\t</div>\n";
-    
-
-//echo "\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
-//echo "\t\t\t\t\t</form>\n";
-//
-//if ($practicaQuery->getName() === "all experiences") {
-//    
-//    echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Apply filter").
-//    "\" />\n"; //name=\"applyFilter\"
-//    echo "\t\t\t\t\t\t<a href=\"practicaQuery.php\">".
-//    "<img src=\"images/filter-small.png\" /></a>\n";
-//    
-//} else {
-//
-//    // filter button:
-//    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-//    ._("Remove filter").
-//    "\" />\n";
-//    echo "\t\t\t\t\t\t<a href=\"practicaFilter.php\">".
-//    "<img src=\"images/filterStrikethrough-small.png\" /></a>\n";
-//    
-//    
-//}
 
 if ($practicaQuery->getName() !== "all experiences") {
     
@@ -214,9 +173,9 @@ HTML;
         if (substr($value, 0, 5) != "page=")
             $dataString .= $value; // this is the current page number
 
-    // retrieves the current page (1 if not set)
-    $currentPage = ($_GET['page'] !== NULL) ?
-        intval($_GET['page']) :
+    // retrieves the current page, 1 if not set:
+    $currentPage = (isset($_GET['page'])) ?
+        filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT) :
         1; // $page is 1-based
 
     $pageSettings = pageSettings($practicaAmount, $currentPage);
@@ -241,20 +200,20 @@ HTML;
         
         case OLDEST_TO_NEWEST:
             
-            $queryString .= " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
+            $queryString .=
+                " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
             break;
         
         case NEWEST_TO_OLDEST:
             
-            $queryString .= " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
+            $queryString .=
+    " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
             break;
         
     }
     
-    $queryString .= " LIMIT ".
-        $ordinalZeroBased.
-        ", ".
-        $_SESSION['navOptions']['resultsPerPage'];
+    $queryString .= " LIMIT ".$ordinalZeroBased.
+        ", ".$_SESSION['navOptions']['resultsPerPage'];
 
     if (DEBUG)
         echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
@@ -279,18 +238,27 @@ HTML;
         $praxis->HTMLPreview($ordinal, $previewOptions); // $previewOptions???
 
         // names of the first and last lovers are stored to be shown in the sidebar
-        if ($ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
+        if ($ordinal ===
+        ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
             
             $firstPraxis = $row['date'];
-            if ($row['ordinal'] !== "")
+            if ($row['ordinal'] !== "") {
+                
                 $firstPraxis .= $row['ordinal'];
+                
+            }
             
-        } elseif ($ordinal === ($_SESSION['navOptions']['resultsPerPage']) * $currentPage ||
-            $ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
+        } elseif (
+    $ordinal === ($_SESSION['navOptions']['resultsPerPage']) * $currentPage ||
+    $ordinal ===
+($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
             
             $lastPraxis = $row['date'];
-            if ($row['ordinal'] !== "")
+            if ($row['ordinal'] !== "") {
+                
                 $lastPraxis .= $row['ordinal'];
+                
+            }
             
         }
         $ordinal++;
@@ -298,15 +266,20 @@ HTML;
     } //foreach
 
     // displays bottom navigation bar:
-    if ($pageSettings['navBar'])
+    if ($pageSettings['navBar']) {
+        
         navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pageSettings['numPages']);
-
+        
+    }
+    
+    // quote (uncut):
 //    echo <<<HTML
 //                    <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
 //                        et je vis des peines que j'ai enduré, et que je ne sens plus»
 //                        <br />(Giacomo Casanova, Histoire de ma vie, Préface)</p>
 //    
 //HTML;
+    
     echo <<<HTML
                     <p class="quote">«Me rappellant les plaisirs que j'eus je me les renouvelle,<br />
                         et je vis des peines que j'ai enduré, et que je ne sens plus»
@@ -316,8 +289,7 @@ HTML;
 
 // link to top of the page:
 echo "\t\t\t\t<p style=\"text-align: center;\"><img src=\"images/arrow_top.gif\" /> <a href=\"#start\">".
-    _("Back to top").
-    "</a></p>\n";
+    _("Back to top")."</a></p>\n";
 
 echo <<<HTML
                 </article>
@@ -334,18 +306,24 @@ HTML;
 
 echo "\t\t\t\t\t<h1>"._("Actions")."</h1>\n";
 
-// filter experiences:
-echo "\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
-    ._("Apply filter").
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-    ._("Remove filter").
-    "\" ";
-if ($practicaQuery->getName() === "all experiences")
-    echo "disabled=\"disabled\" ";
-echo "/>\n";
-echo "\t\t\t\t\t</form>\n";
+
+if ($_SESSION['DBStatus']['doPracticaExist']) {
+    
+    // filter experiences:
+    echo "\t\t\t\t\t<form action=\"practicaFilter.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
+        ._("Apply filter")."\" />\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+        ._("Remove filter")."\" ";
+    if ($practicaQuery->getName() === "all experiences") {
+        
+        echo "disabled=\"disabled\" ";
+        
+    }
+    echo "/>\n";
+    echo "\t\t\t\t\t</form>\n";
+
+}
 
 // new experience:
 echo "\t\t\t\t\t<form action=\"praxisEdit.php\" method=\"GET\">\n";
@@ -356,8 +334,7 @@ echo "\t\t\t\t\t</form>\n";
 // link to previous page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
     "<img src=\"images/arrow_back.gif\" />".
-    " <a href=\"javascript: history.back();\">".
-    _("Back to previous").
+    " <a href=\"javascript: history.back();\">"._("Back to previous").
     "</a></p>\n";
 
 echo "\t\t\t\t</article>\n";

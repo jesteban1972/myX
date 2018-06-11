@@ -1,18 +1,20 @@
 <?php
-
-/* 
- * DB.inc
- * implementation of class DB
+/** 
+ * script 'DB.inc'.
+ * 
+ * implementation of class 'DB'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2017-11-04
+ * last update: 2018-06-10
  */
 
 require_once 'DBConnectionInfo.inc';
 require_once 'exceptions.inc';
 
 /**
- * class DB
- * class to manage the handle to access to the DB
+ * class 'DB'.
+ * 
+ * class to manage the handle to access to the DB.
  */
 class DB {
     
@@ -46,22 +48,10 @@ class DB {
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC
             );
-//            $DSN = "mysql:host="
-//                    .$DBAccess['server']
-//                    .";dbname="
-//                    .$DBAccess['DBname'];
-//            $user = $DBAccess['user'];
-//            $password = $DBAccess['password'];
-//            $options = array(
-//                PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
-//                PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-//                PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"
-//                );
             
             try {
                 
                 $currentDBHandle = new PDO($DSN, $user, $password, $options);
-                //var_dump($currentDBHandle);
                 
             } catch (PDOException $e) {
                 
@@ -69,29 +59,14 @@ class DB {
                 
             }
             
-            // should be avoided because of SQL injection {{
-            // // make sure the connection is set for utf8 communications:
-            //$statement = $currentDBConnection->query("SET NAMES 'utf8'");
-            // }}
-            
             DB::$DBHandle = $currentDBHandle;
             
-        } // if
+        }
         
         return DB::$DBHandle;
         
     } // method getDBHandle
     
-    /**
-     * method DB::closeDBHandle
-     * method used to close the connection handle freeing resources
-     */
-//    public static function closeDBHandle() {
-//        
-//        DB::$DBHandle = NULL;
-//        
-//    } // method DB::closeDBHandle
-    
-} // class DB
+} // class 'DB'
 
 ?>

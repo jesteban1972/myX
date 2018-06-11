@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-05-31 08:02+0200\n"
-"PO-Revision-Date: 2018-05-31 08:30+0200\n"
+"POT-Creation-Date: 2018-06-09 19:32+0200\n"
+"PO-Revision-Date: 2018-06-09 19:39+0200\n"
 "Last-Translator: Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>\n"
 "Language-Team: \n"
 "Language: es\n"
@@ -17,6 +17,30 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.0.6\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+
+msgid "new moon"
+msgstr "luna nueva"
+
+msgid "waxing crescent"
+msgstr "luna nueva creciente"
+
+msgid "first quarter"
+msgstr "cuarto creciente"
+
+msgid "waxing gibbous"
+msgstr "luna menguante"
+
+msgid "full moon"
+msgstr "luna llena"
+
+msgid "waning gibbous"
+msgstr "luna gibosa menguante"
+
+msgid "last quarter"
+msgstr "cuarto menguante"
+
+msgid "waning crescent"
+msgstr "luna menguante"
 
 #: /Users/jesteban1972/Sites/myX/amor.php:22
 msgid "Amor"
@@ -63,6 +87,14 @@ msgstr "Seudónimo y valoración"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:377
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:297
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:388
+#: /Users/jesteban1972/Sites/myX/amor.php:362
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:298
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:423
+#: /Users/jesteban1972/Sites/myX/amor.php:363
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:204
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:299
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:300
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:433
 msgid "Other data"
 msgstr "Otros datos"
 
@@ -157,6 +189,17 @@ msgstr "Lugar"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:81
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:90
 #: /Users/jesteban1972/Sites/myX/queryEdit.php:52
+#: /Users/jesteban1972/Sites/myX/amor.php:341
+#: /Users/jesteban1972/Sites/myX/locus.php:90
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:82
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:118
+#: /Users/jesteban1972/Sites/myX/amor.php:342
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:214
+#: /Users/jesteban1972/Sites/myX/locus.php:91
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:83
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:119
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:47
+#: /Users/jesteban1972/Sites/myX/praxis.php:78
 msgid "Name"
 msgstr "Nombre"
 
@@ -168,6 +211,8 @@ msgstr "Nombre"
 #: /Users/jesteban1972/Sites/myX/locus.php:95
 #: /Users/jesteban1972/Sites/myX/locus.php:93
 #: /Users/jesteban1972/Sites/myX/locus.php:97
+#: /Users/jesteban1972/Sites/myX/locus.php:98
+#: /Users/jesteban1972/Sites/myX/locus.php:99
 msgid "Place description"
 msgstr "Descripción del lugar"
 
@@ -186,6 +231,8 @@ msgstr "No hay experiencias en este lugar"
 #: /Users/jesteban1972/Sites/myX/locus.php:127
 #: /Users/jesteban1972/Sites/myX/locus.php:129
 #: /Users/jesteban1972/Sites/myX/locus.php:135
+#: /Users/jesteban1972/Sites/myX/locus.php:138
+#: /Users/jesteban1972/Sites/myX/locus.php:139
 msgid "In this place was performed only <b>one</b> experience"
 msgstr "En este lugar ha habido solamente <b>una</b> experiencia"
 
@@ -197,6 +244,8 @@ msgstr "En este lugar ha habido solamente <b>una</b> experiencia"
 #: /Users/jesteban1972/Sites/myX/locus.php:132
 #: /Users/jesteban1972/Sites/myX/locus.php:134
 #: /Users/jesteban1972/Sites/myX/locus.php:142
+#: /Users/jesteban1972/Sites/myX/locus.php:143
+#: /Users/jesteban1972/Sites/myX/locus.php:144
 #, php-format
 msgid "In this place were performed the following <b>%s</b> experiences"
 msgstr "En este lugar ha habido las siguientes <b>%s</b> experiencias"
@@ -218,6 +267,10 @@ msgstr "En este lugar ha habido las siguientes <b>%s</b> experiencias"
 #: /Users/jesteban1972/Sites/myX/locus.php:150
 #: /Users/jesteban1972/Sites/myX/amor.php:190
 #: /Users/jesteban1972/Sites/myX/locus.php:154
+#: /Users/jesteban1972/Sites/myX/amor.php:191
+#: /Users/jesteban1972/Sites/myX/locus.php:155
+#: /Users/jesteban1972/Sites/myX/amor.php:192
+#: /Users/jesteban1972/Sites/myX/locus.php:156
 #, php-format
 msgid ", happened in <b>%s</b> different days"
 msgstr ", ocurridas en <b>%s</b> días distintos"
@@ -239,6 +292,10 @@ msgstr ", ocurridas en <b>%s</b> días distintos"
 #: /Users/jesteban1972/Sites/myX/locus.php:152
 #: /Users/jesteban1972/Sites/myX/amor.php:192
 #: /Users/jesteban1972/Sites/myX/locus.php:156
+#: /Users/jesteban1972/Sites/myX/amor.php:193
+#: /Users/jesteban1972/Sites/myX/locus.php:157
+#: /Users/jesteban1972/Sites/myX/amor.php:194
+#: /Users/jesteban1972/Sites/myX/locus.php:158
 #, php-format
 msgid " (i.e. %.2f experiences/day as average)"
 msgstr " (es decir %.2f experiencias/día, por término medio)"
@@ -253,6 +310,10 @@ msgstr " (es decir %.2f experiencias/día, por término medio)"
 #: /Users/jesteban1972/Sites/myX/locus.php:102
 #: /Users/jesteban1972/Sites/myX/locaFilter.php:97
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:133
+#: /Users/jesteban1972/Sites/myX/locus.php:103
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:134
+#: /Users/jesteban1972/Sites/myX/locus.php:104
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:135
 msgid "Address"
 msgstr "Dirección"
 
@@ -268,10 +329,15 @@ msgstr "lugar exacto"
 #: /Users/jesteban1972/Sites/myX/userOptions.php:28
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:83
 #: /Users/jesteban1972/Sites/myX/userOptions.php:31
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:85
+#: /Users/jesteban1972/Sites/myX/userOptions.php:17
+#: /Users/jesteban1972/Sites/myX/userOptions.php:37
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:88
 msgid "User options"
 msgstr "Opciones de usuario"
 
 #: /Users/jesteban1972/Sites/myX/userOptions.php:16
+#: /Users/jesteban1972/Sites/myX/userOptions.php:19
 msgid "User customizable options of myX"
 msgstr "Opciones de personalización de myX"
 
@@ -297,6 +363,12 @@ msgstr "Opciones de personalización de myX"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:164
 #: /Users/jesteban1972/Sites/myX/core.inc:596
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:128
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:129
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:165
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:123
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:130
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:166
+#: /Users/jesteban1972/Sites/myX/core.inc:623
 msgid "excellent"
 msgstr "excelente"
 
@@ -322,6 +394,12 @@ msgstr "excelente"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:158
 #: /Users/jesteban1972/Sites/myX/core.inc:605
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:122
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:123
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:159
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:118
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:124
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:160
+#: /Users/jesteban1972/Sites/myX/core.inc:632
 msgid "very good"
 msgstr "muy bien"
 
@@ -346,6 +424,12 @@ msgstr "muy bien"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:110
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:152
 #: /Users/jesteban1972/Sites/myX/core.inc:613
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:117
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:153
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:113
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:118
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:154
+#: /Users/jesteban1972/Sites/myX/core.inc:640
 msgid "good"
 msgstr "bien"
 
@@ -371,6 +455,11 @@ msgstr "bien"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:146
 #: /Users/jesteban1972/Sites/myX/core.inc:621
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:110
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:147
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:108
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:112
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:148
+#: /Users/jesteban1972/Sites/myX/core.inc:648
 msgid "bad"
 msgstr "mal"
 
@@ -396,6 +485,11 @@ msgstr "mal"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:140
 #: /Users/jesteban1972/Sites/myX/core.inc:629
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:104
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:105
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:141
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:103
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:142
+#: /Users/jesteban1972/Sites/myX/core.inc:656
 msgid "very bad"
 msgstr "muy mal"
 
@@ -429,6 +523,16 @@ msgstr "muy mal"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:98
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:399
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:442
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:99
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:135
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:434
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:477
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:98
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:100
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:136
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:444
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:487
+#: /Users/jesteban1972/Sites/myX/core.inc:664
 msgid "undefined"
 msgstr "indefinido"
 
@@ -486,6 +590,10 @@ msgstr "Lugar:"
 #: /Users/jesteban1972/Sites/myX/amor.inc:252
 #: /Users/jesteban1972/Sites/myX/locus.inc:568
 #: /Users/jesteban1972/Sites/myX/locus.inc:648
+#: /Users/jesteban1972/Sites/myX/amor.inc:621
+#: /Users/jesteban1972/Sites/myX/locus.inc:574
+#: /Users/jesteban1972/Sites/myX/locus.inc:658
+#: /Users/jesteban1972/Sites/myX/locus.inc:664
 msgid "experiences"
 msgstr "experiencias"
 
@@ -516,6 +624,10 @@ msgstr "experiencias"
 #: /Users/jesteban1972/Sites/myX/amor.inc:252
 #: /Users/jesteban1972/Sites/myX/locus.inc:568
 #: /Users/jesteban1972/Sites/myX/locus.inc:648
+#: /Users/jesteban1972/Sites/myX/amor.inc:621
+#: /Users/jesteban1972/Sites/myX/locus.inc:574
+#: /Users/jesteban1972/Sites/myX/locus.inc:658
+#: /Users/jesteban1972/Sites/myX/locus.inc:664
 msgid "experience"
 msgstr "experiencia"
 
@@ -566,7 +678,7 @@ msgstr "viernes"
 #: /Users/jesteban1972/Sites/myX/core.inc:51
 #: /Users/jesteban1972/Sites/myX/core.inc:52
 msgid "Saturday"
-msgstr "sabado"
+msgstr "sábado"
 
 #: /Users/jesteban1972/Sites/myX/praxis.php:63
 #: /Users/jesteban1972/Sites/myX/praxis.php:64
@@ -598,6 +710,7 @@ msgstr "el día era %s, "
 #: /Users/jesteban1972/Sites/myX/praxis.php:116
 #: /Users/jesteban1972/Sites/myX/praxis.php:107
 #: /Users/jesteban1972/Sites/myX/praxis.php:123
+#: /Users/jesteban1972/Sites/myX/praxis.php:129
 #, php-format
 msgid "I was %d years old"
 msgstr "yo tenía %d años"
@@ -666,6 +779,8 @@ msgstr ""
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:54
 #: /Users/jesteban1972/Sites/myX/locus.php:331
 #: /Users/jesteban1972/Sites/myX/locus.php:330
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:55
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:56
 msgid "Edit place"
 msgstr "Editar lugar"
 
@@ -686,6 +801,11 @@ msgstr "Editar lugar"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:236
 #: /Users/jesteban1972/Sites/myX/loca.php:259
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:237
+#: /Users/jesteban1972/Sites/myX/loca.php:278
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:55
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:238
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:56
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:240
 msgid "New place"
 msgstr "Nuevo lugar"
 
@@ -704,6 +824,10 @@ msgstr "Nuevo lugar"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:105
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:104
 #: /Users/jesteban1972/Sites/myX/queryEdit.php:40
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:70
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:72
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:71
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:41
 msgid "General data"
 msgstr "Datos generales"
 
@@ -786,6 +910,8 @@ msgstr "%s experiencias"
 #: /Users/jesteban1972/Sites/myX/core.inc:458
 #: /Users/jesteban1972/Sites/myX/core.inc:453
 #: /Users/jesteban1972/Sites/myX/core.inc:456
+#: /Users/jesteban1972/Sites/myX/core.inc:480
+#: /Users/jesteban1972/Sites/myX/core.inc:483
 msgid "one"
 msgstr "una"
 
@@ -798,6 +924,7 @@ msgstr "una"
 #: /Users/jesteban1972/Sites/myX/core.inc:462
 #: /Users/jesteban1972/Sites/myX/core.inc:463
 #: /Users/jesteban1972/Sites/myX/core.inc:461
+#: /Users/jesteban1972/Sites/myX/core.inc:488
 msgid "two"
 msgstr "dos"
 
@@ -810,6 +937,7 @@ msgstr "dos"
 #: /Users/jesteban1972/Sites/myX/core.inc:465
 #: /Users/jesteban1972/Sites/myX/core.inc:466
 #: /Users/jesteban1972/Sites/myX/core.inc:464
+#: /Users/jesteban1972/Sites/myX/core.inc:491
 msgid "three"
 msgstr "tres"
 
@@ -822,6 +950,7 @@ msgstr "tres"
 #: /Users/jesteban1972/Sites/myX/core.inc:468
 #: /Users/jesteban1972/Sites/myX/core.inc:469
 #: /Users/jesteban1972/Sites/myX/core.inc:467
+#: /Users/jesteban1972/Sites/myX/core.inc:494
 msgid "four"
 msgstr "cuatro"
 
@@ -833,6 +962,7 @@ msgstr "cuatro"
 #: /Users/jesteban1972/Sites/myX/amor.inc:337
 #: /Users/jesteban1972/Sites/myX/amor.inc:377
 #: /Users/jesteban1972/Sites/myX/amor.inc:378
+#: /Users/jesteban1972/Sites/myX/amor.inc:752
 msgid "as average"
 msgstr "por término medio"
 
@@ -844,6 +974,7 @@ msgstr "por término medio"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:469
 #: /Users/jesteban1972/Sites/myX/praxis.inc:472
 #: /Users/jesteban1972/Sites/myX/praxis.inc:557
+#: /Users/jesteban1972/Sites/myX/praxis.inc:576
 msgid "QVANDO"
 msgstr "CUÁNDO"
 
@@ -855,6 +986,7 @@ msgstr "CUÁNDO"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:482
 #: /Users/jesteban1972/Sites/myX/praxis.inc:485
 #: /Users/jesteban1972/Sites/myX/praxis.inc:568
+#: /Users/jesteban1972/Sites/myX/praxis.inc:587
 msgid "VBI"
 msgstr "DÓNDE"
 
@@ -866,6 +998,7 @@ msgstr "DÓNDE"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:504
 #: /Users/jesteban1972/Sites/myX/praxis.inc:507
 #: /Users/jesteban1972/Sites/myX/praxis.inc:590
+#: /Users/jesteban1972/Sites/myX/praxis.inc:609
 msgid "CVM QVIBVS"
 msgstr "CON QUIÉN"
 
@@ -877,6 +1010,7 @@ msgstr "CON QUIÉN"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:508
 #: /Users/jesteban1972/Sites/myX/praxis.inc:511
 #: /Users/jesteban1972/Sites/myX/praxis.inc:594
+#: /Users/jesteban1972/Sites/myX/praxis.inc:613
 msgid "QVOD"
 msgstr "QUÉ"
 
@@ -888,6 +1022,7 @@ msgstr "QUÉ"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:531
 #: /Users/jesteban1972/Sites/myX/praxis.inc:534
 #: /Users/jesteban1972/Sites/myX/praxis.inc:617
+#: /Users/jesteban1972/Sites/myX/praxis.inc:636
 msgid "See more..."
 msgstr "Ver más…"
 
@@ -977,6 +1112,8 @@ msgstr "se encontraron <b>%d</b> lugares"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:162
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:179
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:87
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:180
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:181
 msgid "Place"
 msgstr "Lugar"
 
@@ -1039,6 +1176,7 @@ msgstr "Atención:"
 #: /Users/jesteban1972/Sites/myX/locus.php:304
 #: /Users/jesteban1972/Sites/myX/locus.php:300
 #: /Users/jesteban1972/Sites/myX/locus.php:303
+#: /Users/jesteban1972/Sites/myX/locus.php:305
 msgid "Web:"
 msgstr "Web:"
 
@@ -1093,6 +1231,8 @@ msgstr "Teléfono:"
 #: /Users/jesteban1972/Sites/myX/amor.php:368
 #: /Users/jesteban1972/Sites/myX/amor.php:369
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:219
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:71
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:73
 msgid "Email:"
 msgstr "Email:"
 
@@ -1126,6 +1266,9 @@ msgstr "Otros datos:"
 #: /Users/jesteban1972/Sites/myX/amor.php:376
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:49
 #: /Users/jesteban1972/Sites/myX/amor.php:386
+#: /Users/jesteban1972/Sites/myX/amor.php:387
+#: /Users/jesteban1972/Sites/myX/amor.php:388
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:52
 msgid "Edit lover"
 msgstr "Editar amante"
 
@@ -1143,6 +1286,10 @@ msgstr "Editar amante"
 #: /Users/jesteban1972/Sites/myX/amores.php:251
 #: /Users/jesteban1972/Sites/myX/amores.php:282
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:343
+#: /Users/jesteban1972/Sites/myX/amores.php:311
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:360
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:52
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:370
 msgid "New lover"
 msgstr "Nuevo amante"
 
@@ -1167,6 +1314,10 @@ msgstr "Información sobre myX"
 #: /Users/jesteban1972/Sites/myX/locus.php:105
 #: /Users/jesteban1972/Sites/myX/locaFilter.php:92
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:145
+#: /Users/jesteban1972/Sites/myX/locus.php:106
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:146
+#: /Users/jesteban1972/Sites/myX/locus.php:107
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:147
 msgid "Country"
 msgstr "País"
 
@@ -1188,6 +1339,8 @@ msgstr "País existente:"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:202
 #: /Users/jesteban1972/Sites/myX/locaFilter.php:93
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:212
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:213
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:214
 msgid "Kind"
 msgstr "Tipo"
 
@@ -1239,6 +1392,7 @@ msgstr "Seudónimo:"
 #: /Users/jesteban1972/Sites/myX/core.inc:21
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:118
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:132
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:135
 msgid "man"
 msgstr "hombre"
 
@@ -1247,6 +1401,7 @@ msgstr "hombre"
 #: /Users/jesteban1972/Sites/myX/core.inc:21
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:123
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:137
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:140
 msgid "woman"
 msgstr "mujer"
 
@@ -1280,6 +1435,9 @@ msgstr "Foto:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:118
 #: /Users/jesteban1972/Sites/myX/userOptions.php:95
 #: /Users/jesteban1972/Sites/myX/userOptions.php:96
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:124
+#: /Users/jesteban1972/Sites/myX/userOptions.php:104
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:127
 msgid "Navigation options"
 msgstr "Opciones de navegación"
 
@@ -1288,6 +1446,9 @@ msgstr "Opciones de navegación"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:121
 #: /Users/jesteban1972/Sites/myX/userOptions.php:99
 #: /Users/jesteban1972/Sites/myX/userOptions.php:100
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:127
+#: /Users/jesteban1972/Sites/myX/userOptions.php:108
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:130
 msgid "GUI language:"
 msgstr "Idioma del interfaz:"
 
@@ -1300,6 +1461,8 @@ msgstr "Idioma del interfaz:"
 #: /Users/jesteban1972/Sites/myX/loca.php:260
 #: /Users/jesteban1972/Sites/myX/loca.php:261
 #: /Users/jesteban1972/Sites/myX/loca.php:264
+#: /Users/jesteban1972/Sites/myX/loca.php:283
+#: /Users/jesteban1972/Sites/myX/loca.php:282
 msgid "Edit countries list"
 msgstr "Editar lista de países"
 
@@ -1316,6 +1479,7 @@ msgstr "Guardar cambios"
 #: /Users/jesteban1972/Sites/myX/userOptions.php:125
 #: /Users/jesteban1972/Sites/myX/userOptions.php:153
 #: /Users/jesteban1972/Sites/myX/userOptions.php:154
+#: /Users/jesteban1972/Sites/myX/userOptions.php:163
 msgid "Discard changes"
 msgstr "Descartar cambios"
 
@@ -1326,6 +1490,7 @@ msgstr "Descartar cambios"
 #: /Users/jesteban1972/Sites/myX/loca.php:105
 #: /Users/jesteban1972/Sites/myX/loca.php:106
 #: /Users/jesteban1972/Sites/myX/loca.php:104
+#: /Users/jesteban1972/Sites/myX/loca.php:127
 msgid "List of places"
 msgstr "Lista de lugares"
 
@@ -1368,6 +1533,15 @@ msgstr "Lista de lugares"
 #: /Users/jesteban1972/Sites/myX/practica.php:161
 #: /Users/jesteban1972/Sites/myX/practica.php:336
 #: /Users/jesteban1972/Sites/myX/queries.php:104
+#: /Users/jesteban1972/Sites/myX/amor.php:53
+#: /Users/jesteban1972/Sites/myX/amores.php:122
+#: /Users/jesteban1972/Sites/myX/loca.php:130
+#: /Users/jesteban1972/Sites/myX/practica.php:137
+#: /Users/jesteban1972/Sites/myX/practica.php:312
+#: /Users/jesteban1972/Sites/myX/queries.php:89
+#: /Users/jesteban1972/Sites/myX/loca.php:128
+#: /Users/jesteban1972/Sites/myX/practica.php:120
+#: /Users/jesteban1972/Sites/myX/practica.php:300
 msgid "Actions"
 msgstr "Acciones"
 
@@ -1382,6 +1556,8 @@ msgstr "Nuevo país:"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:181
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:195
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:205
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:206
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:207
 msgid "Add country"
 msgstr "Añadir país"
 
@@ -1417,6 +1593,7 @@ msgstr "Conexión"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:35
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:49
 #: /Users/jesteban1972/Sites/myX/aside.inc:57
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:51
 msgid "Username:"
 msgstr "Nombre de usuario:"
 
@@ -1428,6 +1605,8 @@ msgstr "Nombre de usuario:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:41
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:57
 #: /Users/jesteban1972/Sites/myX/aside.inc:60
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:59
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:60
 msgid "Password:"
 msgstr "Contraseña:"
 
@@ -1477,6 +1656,12 @@ msgstr "¡regístrate!"
 #: /Users/jesteban1972/Sites/myX/amor.inc:243
 #: /Users/jesteban1972/Sites/myX/amor.inc:267
 #: /Users/jesteban1972/Sites/myX/praxis.inc:449
+#: /Users/jesteban1972/Sites/myX/amor.php:38
+#: /Users/jesteban1972/Sites/myX/amores.php:68
+#: /Users/jesteban1972/Sites/myX/amor.inc:607
+#: /Users/jesteban1972/Sites/myX/amor.inc:641
+#: /Users/jesteban1972/Sites/myX/praxis.inc:466
+#: /Users/jesteban1972/Sites/myX/amor.php:39
 msgid "(Image of a cycladic idol)"
 msgstr "(imagen de un ídolo cicládico)"
 
@@ -1486,6 +1671,7 @@ msgstr "(imagen de un ídolo cicládico)"
 #: /Users/jesteban1972/Sites/myX/amores.php:96
 #: /Users/jesteban1972/Sites/myX/amores.php:89
 #: /Users/jesteban1972/Sites/myX/amores.php:91
+#: /Users/jesteban1972/Sites/myX/amores.php:119
 msgid "List of lovers"
 msgstr "Lista de amantes"
 
@@ -1521,6 +1707,12 @@ msgstr "Se encontraron <b>%d</b> amantes:"
 #: /Users/jesteban1972/Sites/myX/practica.php:104
 #: /Users/jesteban1972/Sites/myX/amores.php:270
 #: /Users/jesteban1972/Sites/myX/practica.php:341
+#: /Users/jesteban1972/Sites/myX/amores.php:299
+#: /Users/jesteban1972/Sites/myX/loca.php:266
+#: /Users/jesteban1972/Sites/myX/practica.php:317
+#: /Users/jesteban1972/Sites/myX/amores.php:301
+#: /Users/jesteban1972/Sites/myX/loca.php:267
+#: /Users/jesteban1972/Sites/myX/practica.php:308
 msgid "Apply filter"
 msgstr "Aplicar filtro"
 
@@ -1549,6 +1741,11 @@ msgstr "Aplicar filtro"
 #: /Users/jesteban1972/Sites/myX/locus.inc:583
 #: /Users/jesteban1972/Sites/myX/praxis.inc:426
 #: /Users/jesteban1972/Sites/myX/praxis.inc:466
+#: /Users/jesteban1972/Sites/myX/queries.php:38
+#: /Users/jesteban1972/Sites/myX/locus.inc:592
+#: /Users/jesteban1972/Sites/myX/praxis.inc:446
+#: /Users/jesteban1972/Sites/myX/praxis.inc:484
+#: /Users/jesteban1972/Sites/myX/praxis.php:45
 msgid "(Image of a gold coin)"
 msgstr "(Imagen de una moneda de oro)"
 
@@ -1575,6 +1772,10 @@ msgstr "(Imagen de un marcador de Google Maps)"
 #: /Users/jesteban1972/Sites/myX/locus.php:47
 #: /Users/jesteban1972/Sites/myX/practica.php:126
 #: /Users/jesteban1972/Sites/myX/practica.php:160
+#: /Users/jesteban1972/Sites/myX/practica.php:136
+#: /Users/jesteban1972/Sites/myX/amor.php:51
+#: /Users/jesteban1972/Sites/myX/locus.php:53
+#: /Users/jesteban1972/Sites/myX/practica.php:119
 msgid "List of experiences"
 msgstr "Lista de experiencias"
 
@@ -1646,6 +1847,12 @@ msgstr "Se encontraron <b>%d</b> experiencias:"
 #: /Users/jesteban1972/Sites/myX/locus.php:310
 #: /Users/jesteban1972/Sites/myX/practica.php:320
 #: /Users/jesteban1972/Sites/myX/queries.php:217
+#: /Users/jesteban1972/Sites/myX/amores.php:283
+#: /Users/jesteban1972/Sites/myX/practica.php:296
+#: /Users/jesteban1972/Sites/myX/queries.php:202
+#: /Users/jesteban1972/Sites/myX/amor.php:305
+#: /Users/jesteban1972/Sites/myX/locus.php:312
+#: /Users/jesteban1972/Sites/myX/practica.php:284
 msgid "Back to top"
 msgstr "Vuelta al inicio de la página"
 
@@ -1665,6 +1872,9 @@ msgstr "Vuelta al inicio de la página"
 #: /Users/jesteban1972/Sites/myX/praxis.php:46
 #: /Users/jesteban1972/Sites/myX/amor.php:48
 #: /Users/jesteban1972/Sites/myX/praxis.php:49
+#: /Users/jesteban1972/Sites/myX/amor.php:50
+#: /Users/jesteban1972/Sites/myX/locus.php:50
+#: /Users/jesteban1972/Sites/myX/praxis.php:50
 msgid "Data"
 msgstr "Datos"
 
@@ -1695,6 +1905,13 @@ msgstr "Participantes"
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:93
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:371
 #: /Users/jesteban1972/Sites/myX/queryEdit.php:61
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:286
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:406
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:153
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:287
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:288
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:416
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:56
 msgid "Description"
 msgstr "Descripción"
 
@@ -1759,6 +1976,7 @@ msgstr "CONFRATRES"
 #: /Users/jesteban1972/Sites/myX/praxis.php:201
 #: /Users/jesteban1972/Sites/myX/praxis.php:191
 #: /Users/jesteban1972/Sites/myX/praxis.php:197
+#: /Users/jesteban1972/Sites/myX/praxis.php:202
 msgid "NARRATIO i.e. description of the facts"
 msgstr "NARRATIO i.e. descripción de los hechos"
 
@@ -1830,6 +2048,15 @@ msgstr "NARRATIO"
 #: /Users/jesteban1972/Sites/myX/locus.php:347
 #: /Users/jesteban1972/Sites/myX/practica.php:361
 #: /Users/jesteban1972/Sites/myX/queries.php:257
+#: /Users/jesteban1972/Sites/myX/amor.php:401
+#: /Users/jesteban1972/Sites/myX/loca.php:291
+#: /Users/jesteban1972/Sites/myX/practica.php:337
+#: /Users/jesteban1972/Sites/myX/queries.php:242
+#: /Users/jesteban1972/Sites/myX/amor.php:402
+#: /Users/jesteban1972/Sites/myX/locus.php:349
+#: /Users/jesteban1972/Sites/myX/loca.php:292
+#: /Users/jesteban1972/Sites/myX/practica.php:333
+#: /Users/jesteban1972/Sites/myX/praxis.php:297
 msgid "Back to previous"
 msgstr "Vuelta a la página anterior"
 
@@ -1842,6 +2069,8 @@ msgstr "Fecha de nacimiento"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:57
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:69
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:86
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:88
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:91
 msgid "Default lover's genre:"
 msgstr "Genero por defecto de amantes:"
 
@@ -1851,6 +2080,9 @@ msgstr "Genero por defecto de amantes:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:73
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:90
 #: /Users/jesteban1972/Sites/myX/userOptions.php:43
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:92
+#: /Users/jesteban1972/Sites/myX/userOptions.php:49
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:95
 msgid "Man"
 msgstr "Hombre"
 
@@ -1860,6 +2092,9 @@ msgstr "Hombre"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:75
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:92
 #: /Users/jesteban1972/Sites/myX/userOptions.php:49
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:94
+#: /Users/jesteban1972/Sites/myX/userOptions.php:55
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:97
 msgid "Woman"
 msgstr "Mujer"
 
@@ -1893,6 +2128,10 @@ msgstr "Mujer"
 #: /Users/jesteban1972/Sites/myX/amor.php:375
 #: /Users/jesteban1972/Sites/myX/locus.php:320
 #: /Users/jesteban1972/Sites/myX/praxis.php:263
+#: /Users/jesteban1972/Sites/myX/amor.php:376
+#: /Users/jesteban1972/Sites/myX/amor.php:377
+#: /Users/jesteban1972/Sites/myX/locus.php:321
+#: /Users/jesteban1972/Sites/myX/praxis.php:268
 msgid "ACTIONS i.e. XXX"
 msgstr "ACCIONES i.e. XXX"
 
@@ -1949,6 +2188,12 @@ msgstr "ACCIONES i.e. XXX"
 #: /Users/jesteban1972/Sites/myX/locus.php:324
 #: /Users/jesteban1972/Sites/myX/praxis.php:265
 #: /Users/jesteban1972/Sites/myX/praxis.php:267
+#: /Users/jesteban1972/Sites/myX/amor.php:378
+#: /Users/jesteban1972/Sites/myX/amor.php:380
+#: /Users/jesteban1972/Sites/myX/amor.php:381
+#: /Users/jesteban1972/Sites/myX/locus.php:325
+#: /Users/jesteban1972/Sites/myX/praxis.php:270
+#: /Users/jesteban1972/Sites/myX/praxis.php:272
 msgid "ACTIONS"
 msgstr "ACCIONES"
 
@@ -1966,6 +2211,10 @@ msgstr "ACCIONES"
 #: /Users/jesteban1972/Sites/myX/amor.php:393
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:25
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:49
+#: /Users/jesteban1972/Sites/myX/amor.php:394
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:26
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:50
+#: /Users/jesteban1972/Sites/myX/amor.php:395
 msgid "Delete lover"
 msgstr "Eliminar amante"
 
@@ -1974,16 +2223,19 @@ msgstr "Eliminar amante"
 #: /Users/jesteban1972/Sites/myX/praxisDelete.php:17
 #: /Users/jesteban1972/Sites/myX/userDelete.php:17
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:30
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:31
 msgid "Atention!"
 msgstr "¡Atención!"
 
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:20
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:33
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:34
 msgid "Are you sure you want to delete the current lover?"
 msgstr "¿Estás seguro que quieres eliminar el amante actual?"
 
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:23
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:36
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:37
 msgid "Lover details and its associated data will be erased"
 msgstr "Los detalles del amante y sus datos asociados serán borrados"
 
@@ -1992,6 +2244,9 @@ msgstr "Los detalles del amante y sus datos asociados serán borrados"
 #: /Users/jesteban1972/Sites/myX/praxisDelete.php:25
 #: /Users/jesteban1972/Sites/myX/userDelete.php:25
 #: /Users/jesteban1972/Sites/myX/amorDelete.php:38
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:39
+#: /Users/jesteban1972/Sites/myX/locusDelete.php:26
+#: /Users/jesteban1972/Sites/myX/praxisDelete.php:26
 msgid "This action cannot be undone"
 msgstr "Esta acción no se puede revertir"
 
@@ -2031,6 +2286,17 @@ msgstr "Esta acción no se puede revertir"
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:143
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:487
 #: /Users/jesteban1972/Sites/myX/queryEdit.php:70
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:53
+#: /Users/jesteban1972/Sites/myX/locusDelete.php:40
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:362
+#: /Users/jesteban1972/Sites/myX/praxisDelete.php:40
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:522
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:152
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:272
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:363
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:533
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:66
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:157
 msgid "Cancel"
 msgstr "Cancelar"
 
@@ -2038,6 +2304,7 @@ msgstr "Cancelar"
 #: /Users/jesteban1972/Sites/myX/amores.php:76
 #: /Users/jesteban1972/Sites/myX/amores.php:69
 #: /Users/jesteban1972/Sites/myX/amores.php:71
+#: /Users/jesteban1972/Sites/myX/amores.php:86
 msgid "(no lovers found)"
 msgstr "(no se encontraron amantes)"
 
@@ -2046,6 +2313,7 @@ msgstr "(no se encontraron amantes)"
 #: /Users/jesteban1972/Sites/myX/amores.php:81
 #: /Users/jesteban1972/Sites/myX/amores.php:74
 #: /Users/jesteban1972/Sites/myX/amores.php:76
+#: /Users/jesteban1972/Sites/myX/amores.php:91
 msgid "(only <b>one</b> lover found)"
 msgstr "(sólo se encontró <b>un</b> amante)"
 
@@ -2053,6 +2321,7 @@ msgstr "(sólo se encontró <b>un</b> amante)"
 #: /Users/jesteban1972/Sites/myX/amores.php:82
 #: /Users/jesteban1972/Sites/myX/amores.php:86
 #: /Users/jesteban1972/Sites/myX/amores.php:79
+#: /Users/jesteban1972/Sites/myX/amores.php:96
 #, php-format
 msgid "(<b>%d</b> lovers found)"
 msgstr "(se encontraron <b>%d</b> amantes)"
@@ -2062,6 +2331,7 @@ msgstr "(se encontraron <b>%d</b> amantes)"
 #: /Users/jesteban1972/Sites/myX/amores.php:113
 #: /Users/jesteban1972/Sites/myX/amores.php:106
 #: /Users/jesteban1972/Sites/myX/amores.php:108
+#: /Users/jesteban1972/Sites/myX/amores.php:136
 msgid "ELENCHUS i.e. list of lovers"
 msgstr "ELENCHUS i.e. lista de amantes"
 
@@ -2110,6 +2380,21 @@ msgstr "ELENCHUS i.e. lista de amantes"
 #: /Users/jesteban1972/Sites/myX/practica.php:179
 #: /Users/jesteban1972/Sites/myX/queries.php:120
 #: /Users/jesteban1972/Sites/myX/queries.php:122
+#: /Users/jesteban1972/Sites/myX/amores.php:138
+#: /Users/jesteban1972/Sites/myX/amores.php:140
+#: /Users/jesteban1972/Sites/myX/loca.php:163
+#: /Users/jesteban1972/Sites/myX/loca.php:165
+#: /Users/jesteban1972/Sites/myX/locus.php:123
+#: /Users/jesteban1972/Sites/myX/locus.php:125
+#: /Users/jesteban1972/Sites/myX/practica.php:153
+#: /Users/jesteban1972/Sites/myX/practica.php:155
+#: /Users/jesteban1972/Sites/myX/queries.php:105
+#: /Users/jesteban1972/Sites/myX/queries.php:107
+#: /Users/jesteban1972/Sites/myX/locus.php:126
+#: /Users/jesteban1972/Sites/myX/loca.php:162
+#: /Users/jesteban1972/Sites/myX/loca.php:164
+#: /Users/jesteban1972/Sites/myX/practica.php:136
+#: /Users/jesteban1972/Sites/myX/practica.php:138
 msgid "ELENCHUS"
 msgstr "ELENCHUS"
 
@@ -2117,6 +2402,8 @@ msgstr "ELENCHUS"
 #: /Users/jesteban1972/Sites/myX/loca.php:80
 #: /Users/jesteban1972/Sites/myX/loca.php:81
 #: /Users/jesteban1972/Sites/myX/loca.php:82
+#: /Users/jesteban1972/Sites/myX/loca.php:90
+#: /Users/jesteban1972/Sites/myX/loca.php:91
 msgid "(no places found)"
 msgstr "(no se encontraron lugares)"
 
@@ -2125,6 +2412,8 @@ msgstr "(no se encontraron lugares)"
 #: /Users/jesteban1972/Sites/myX/loca.php:86
 #: /Users/jesteban1972/Sites/myX/loca.php:87
 #: /Users/jesteban1972/Sites/myX/loca.php:85
+#: /Users/jesteban1972/Sites/myX/loca.php:95
+#: /Users/jesteban1972/Sites/myX/loca.php:96
 msgid "(only <b>one</b> place found)"
 msgstr "(sólo se encontró <b>un</b> lugar)"
 
@@ -2133,6 +2422,8 @@ msgstr "(sólo se encontró <b>un</b> lugar)"
 #: /Users/jesteban1972/Sites/myX/loca.php:91
 #: /Users/jesteban1972/Sites/myX/loca.php:92
 #: /Users/jesteban1972/Sites/myX/loca.php:90
+#: /Users/jesteban1972/Sites/myX/loca.php:100
+#: /Users/jesteban1972/Sites/myX/loca.php:101
 #, php-format
 msgid "(<b>%d</b> places found)"
 msgstr "(se encontraron <b>%d</b> lugares)"
@@ -2148,6 +2439,8 @@ msgstr "(se encontraron <b>%d</b> lugares)"
 #: /Users/jesteban1972/Sites/myX/loca.php:103
 #: /Users/jesteban1972/Sites/myX/locus.php:52
 #: /Users/jesteban1972/Sites/myX/loca.php:101
+#: /Users/jesteban1972/Sites/myX/loca.php:124
+#: /Users/jesteban1972/Sites/myX/loca.php:126
 msgid "Map"
 msgstr "Mapa"
 
@@ -2156,6 +2449,8 @@ msgstr "Mapa"
 #: /Users/jesteban1972/Sites/myX/loca.php:121
 #: /Users/jesteban1972/Sites/myX/loca.php:122
 #: /Users/jesteban1972/Sites/myX/loca.php:120
+#: /Users/jesteban1972/Sites/myX/loca.php:143
+#: /Users/jesteban1972/Sites/myX/loca.php:142
 msgid "CHARTA i.e. map of places"
 msgstr "CHARTA i.e. mapa de lugares"
 
@@ -2183,6 +2478,10 @@ msgstr "CHARTA i.e. mapa de lugares"
 #: /Users/jesteban1972/Sites/myX/locus.php:243
 #: /Users/jesteban1972/Sites/myX/loca.php:122
 #: /Users/jesteban1972/Sites/myX/locus.php:240
+#: /Users/jesteban1972/Sites/myX/loca.php:145
+#: /Users/jesteban1972/Sites/myX/loca.php:147
+#: /Users/jesteban1972/Sites/myX/loca.php:144
+#: /Users/jesteban1972/Sites/myX/loca.php:146
 msgid "CHARTA"
 msgstr "CHARTA"
 
@@ -2191,6 +2490,8 @@ msgstr "CHARTA"
 #: /Users/jesteban1972/Sites/myX/loca.php:139
 #: /Users/jesteban1972/Sites/myX/loca.php:140
 #: /Users/jesteban1972/Sites/myX/loca.php:138
+#: /Users/jesteban1972/Sites/myX/loca.php:161
+#: /Users/jesteban1972/Sites/myX/loca.php:160
 msgid "ELENCHUS i.e. list of places"
 msgstr "ELENCHUS i.e. lista de lugares"
 
@@ -2202,6 +2503,8 @@ msgstr "ELENCHUS i.e. lista de lugares"
 #: /Users/jesteban1972/Sites/myX/locus.php:118
 #: /Users/jesteban1972/Sites/myX/locus.php:116
 #: /Users/jesteban1972/Sites/myX/locus.php:120
+#: /Users/jesteban1972/Sites/myX/locus.php:121
+#: /Users/jesteban1972/Sites/myX/locus.php:122
 msgid "ELENCHUS i.e. experiences list"
 msgstr "ELENCHUS i.e. lista de experiencias"
 
@@ -2281,6 +2584,8 @@ msgstr "Mapa:"
 #: /Users/jesteban1972/Sites/myX/locus.php:336
 #: /Users/jesteban1972/Sites/myX/locus.php:340
 #: /Users/jesteban1972/Sites/myX/locus.php:339
+#: /Users/jesteban1972/Sites/myX/locusDelete.php:37
+#: /Users/jesteban1972/Sites/myX/locus.php:341
 msgid "Delete place"
 msgstr "Eliminar lugar"
 
@@ -2289,6 +2594,7 @@ msgid "Are you sure you want to delete the current place?"
 msgstr "¿Estás seguro que quieres eliminar el lugar actual?"
 
 #: /Users/jesteban1972/Sites/myX/locusDelete.php:23
+#: /Users/jesteban1972/Sites/myX/locusDelete.php:24
 msgid "Place details and its associated data will be erased"
 msgstr "Los detalles del lugar y sus datos asociados serán borrados"
 
@@ -2324,6 +2630,8 @@ msgstr "(se encontraron <b>%d</b> experiencias)"
 #: /Users/jesteban1972/Sites/myX/practica.php:118
 #: /Users/jesteban1972/Sites/myX/practica.php:143
 #: /Users/jesteban1972/Sites/myX/practica.php:175
+#: /Users/jesteban1972/Sites/myX/practica.php:151
+#: /Users/jesteban1972/Sites/myX/practica.php:134
 msgid "ELENCHUS i.e. list of experiences"
 msgstr "ELENCHUS i.e. lista de experiencias"
 
@@ -2339,6 +2647,8 @@ msgstr "ELENCHUS i.e. lista de experiencias"
 #: /Users/jesteban1972/Sites/myX/praxis.php:292
 #: /Users/jesteban1972/Sites/myX/praxis.php:278
 #: /Users/jesteban1972/Sites/myX/praxis.php:284
+#: /Users/jesteban1972/Sites/myX/praxisDelete.php:37
+#: /Users/jesteban1972/Sites/myX/praxis.php:289
 msgid "Delete experience"
 msgstr "Eliminar experiencia"
 
@@ -2347,6 +2657,7 @@ msgid "Are you sure you want to delete the current experience?"
 msgstr "¿Estás seguro que quieres eliminar la experiencia actual?"
 
 #: /Users/jesteban1972/Sites/myX/praxisDelete.php:23
+#: /Users/jesteban1972/Sites/myX/praxisDelete.php:24
 msgid "Experience details and its associated data will be erased"
 msgstr "Los detalles de la experiencia y sus datos asociados serán borrados"
 
@@ -2392,6 +2703,7 @@ msgstr "lista no filtrada de lugares"
 #: /Users/jesteban1972/Sites/myX/core.inc:492
 #: /Users/jesteban1972/Sites/myX/core.inc:493
 #: /Users/jesteban1972/Sites/myX/core.inc:491
+#: /Users/jesteban1972/Sites/myX/core.inc:518
 msgid "(1st)"
 msgstr "(1<sup>a</sup>)"
 
@@ -2402,6 +2714,7 @@ msgstr "(1<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:495
 #: /Users/jesteban1972/Sites/myX/core.inc:496
 #: /Users/jesteban1972/Sites/myX/core.inc:494
+#: /Users/jesteban1972/Sites/myX/core.inc:521
 msgid "(2nd)"
 msgstr "(2<sup>a</sup>)"
 
@@ -2412,6 +2725,7 @@ msgstr "(2<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:498
 #: /Users/jesteban1972/Sites/myX/core.inc:499
 #: /Users/jesteban1972/Sites/myX/core.inc:497
+#: /Users/jesteban1972/Sites/myX/core.inc:524
 msgid "(3rd)"
 msgstr "(3<sup>a</sup>)"
 
@@ -2422,6 +2736,7 @@ msgstr "(3<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:501
 #: /Users/jesteban1972/Sites/myX/core.inc:502
 #: /Users/jesteban1972/Sites/myX/core.inc:500
+#: /Users/jesteban1972/Sites/myX/core.inc:527
 msgid "(4th)"
 msgstr "(4<sup>a</sup>)"
 
@@ -2432,6 +2747,7 @@ msgstr "(4<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:504
 #: /Users/jesteban1972/Sites/myX/core.inc:505
 #: /Users/jesteban1972/Sites/myX/core.inc:503
+#: /Users/jesteban1972/Sites/myX/core.inc:530
 msgid "(5th)"
 msgstr "(5<sup>a</sup>)"
 
@@ -2442,6 +2758,7 @@ msgstr "(5<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:507
 #: /Users/jesteban1972/Sites/myX/core.inc:508
 #: /Users/jesteban1972/Sites/myX/core.inc:506
+#: /Users/jesteban1972/Sites/myX/core.inc:533
 msgid "(6th)"
 msgstr "(6<sup>a</sup>)"
 
@@ -2452,6 +2769,7 @@ msgstr "(6<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:510
 #: /Users/jesteban1972/Sites/myX/core.inc:511
 #: /Users/jesteban1972/Sites/myX/core.inc:509
+#: /Users/jesteban1972/Sites/myX/core.inc:536
 msgid "(7th)"
 msgstr "(7<sup>a</sup>)"
 
@@ -2462,6 +2780,7 @@ msgstr "(7<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:513
 #: /Users/jesteban1972/Sites/myX/core.inc:514
 #: /Users/jesteban1972/Sites/myX/core.inc:512
+#: /Users/jesteban1972/Sites/myX/core.inc:539
 msgid "(8th)"
 msgstr "(8<sup>a</sup>)"
 
@@ -2472,6 +2791,7 @@ msgstr "(8<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:516
 #: /Users/jesteban1972/Sites/myX/core.inc:517
 #: /Users/jesteban1972/Sites/myX/core.inc:515
+#: /Users/jesteban1972/Sites/myX/core.inc:542
 msgid "(9th)"
 msgstr "(9<sup>a</sup>)"
 
@@ -2482,6 +2802,7 @@ msgstr "(9<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:519
 #: /Users/jesteban1972/Sites/myX/core.inc:520
 #: /Users/jesteban1972/Sites/myX/core.inc:518
+#: /Users/jesteban1972/Sites/myX/core.inc:545
 msgid "(10th)"
 msgstr "(10<sup>a</sup>)"
 
@@ -2492,6 +2813,7 @@ msgstr "(10<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:522
 #: /Users/jesteban1972/Sites/myX/core.inc:523
 #: /Users/jesteban1972/Sites/myX/core.inc:521
+#: /Users/jesteban1972/Sites/myX/core.inc:548
 msgid "(11th)"
 msgstr "(11<sup>a</sup>)"
 
@@ -2502,6 +2824,7 @@ msgstr "(11<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:525
 #: /Users/jesteban1972/Sites/myX/core.inc:526
 #: /Users/jesteban1972/Sites/myX/core.inc:524
+#: /Users/jesteban1972/Sites/myX/core.inc:551
 msgid "(12th)"
 msgstr "(12<sup>a</sup>)"
 
@@ -2512,6 +2835,7 @@ msgstr "(12<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:528
 #: /Users/jesteban1972/Sites/myX/core.inc:529
 #: /Users/jesteban1972/Sites/myX/core.inc:527
+#: /Users/jesteban1972/Sites/myX/core.inc:554
 msgid "(13th)"
 msgstr "(13<sup>a</sup>)"
 
@@ -2522,6 +2846,7 @@ msgstr "(13<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:531
 #: /Users/jesteban1972/Sites/myX/core.inc:532
 #: /Users/jesteban1972/Sites/myX/core.inc:530
+#: /Users/jesteban1972/Sites/myX/core.inc:557
 msgid "(14th)"
 msgstr "(14<sup>a</sup>)"
 
@@ -2532,6 +2857,7 @@ msgstr "(14<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:534
 #: /Users/jesteban1972/Sites/myX/core.inc:535
 #: /Users/jesteban1972/Sites/myX/core.inc:533
+#: /Users/jesteban1972/Sites/myX/core.inc:560
 msgid "(15th)"
 msgstr "(15<sup>a</sup>)"
 
@@ -2542,6 +2868,7 @@ msgstr "(15<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:537
 #: /Users/jesteban1972/Sites/myX/core.inc:538
 #: /Users/jesteban1972/Sites/myX/core.inc:536
+#: /Users/jesteban1972/Sites/myX/core.inc:563
 msgid "(16th)"
 msgstr "(16<sup>a</sup>)"
 
@@ -2552,6 +2879,7 @@ msgstr "(16<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:540
 #: /Users/jesteban1972/Sites/myX/core.inc:541
 #: /Users/jesteban1972/Sites/myX/core.inc:539
+#: /Users/jesteban1972/Sites/myX/core.inc:566
 msgid "(17th)"
 msgstr "(17<sup>a</sup>)"
 
@@ -2572,6 +2900,8 @@ msgstr "DESCRIPTIO i.e. descripción de los hechos"
 #: /Users/jesteban1972/Sites/myX/amor.php:169
 #: /Users/jesteban1972/Sites/myX/amor.php:158
 #: /Users/jesteban1972/Sites/myX/amor.php:165
+#: /Users/jesteban1972/Sites/myX/amor.php:166
+#: /Users/jesteban1972/Sites/myX/amor.php:167
 msgid "Lived with him"
 msgstr "Vividas con él"
 
@@ -2584,6 +2914,8 @@ msgstr "Vividas con él"
 #: /Users/jesteban1972/Sites/myX/amor.php:174
 #: /Users/jesteban1972/Sites/myX/amor.php:163
 #: /Users/jesteban1972/Sites/myX/amor.php:170
+#: /Users/jesteban1972/Sites/myX/amor.php:171
+#: /Users/jesteban1972/Sites/myX/amor.php:172
 msgid "Lived with her"
 msgstr "Vividas con ella"
 
@@ -2618,6 +2950,14 @@ msgstr "Vividas con ella"
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:142
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:485
 #: /Users/jesteban1972/Sites/myX/queryEdit.php:69
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:357
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:520
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:150
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:267
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:358
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:531
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:65
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:155
 msgid "Submit data"
 msgstr "Enviar datos"
 
@@ -2632,6 +2972,11 @@ msgstr "Enviar datos"
 #: /Users/jesteban1972/Sites/myX/index.php:77
 #: /Users/jesteban1972/Sites/myX/practica.php:307
 #: /Users/jesteban1972/Sites/myX/practica.php:353
+#: /Users/jesteban1972/Sites/myX/index.php:126
+#: /Users/jesteban1972/Sites/myX/practica.php:329
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:60
+#: /Users/jesteban1972/Sites/myX/practica.php:325
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:61
 msgid "New experience"
 msgstr "Nueva experiencia"
 
@@ -2648,6 +2993,9 @@ msgstr "Nueva experiencia"
 #: /Users/jesteban1972/Sites/myX/praxis.php:268
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:59
 #: /Users/jesteban1972/Sites/myX/praxis.php:274
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:60
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:61
+#: /Users/jesteban1972/Sites/myX/praxis.php:279
 msgid "Edit experience"
 msgstr "Editar experiencia"
 
@@ -2665,6 +3013,7 @@ msgstr "Amante existente:"
 #: /Users/jesteban1972/Sites/myX/core.inc:543
 #: /Users/jesteban1972/Sites/myX/core.inc:544
 #: /Users/jesteban1972/Sites/myX/core.inc:542
+#: /Users/jesteban1972/Sites/myX/core.inc:569
 msgid "(18th)"
 msgstr "(18<sup>a</sup>)"
 
@@ -2675,6 +3024,7 @@ msgstr "(18<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:546
 #: /Users/jesteban1972/Sites/myX/core.inc:547
 #: /Users/jesteban1972/Sites/myX/core.inc:545
+#: /Users/jesteban1972/Sites/myX/core.inc:572
 msgid "(19th)"
 msgstr "(19<sup>a</sup>)"
 
@@ -2685,6 +3035,7 @@ msgstr "(19<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:549
 #: /Users/jesteban1972/Sites/myX/core.inc:550
 #: /Users/jesteban1972/Sites/myX/core.inc:548
+#: /Users/jesteban1972/Sites/myX/core.inc:575
 msgid "(20th)"
 msgstr "(20<sup>a</sup>)"
 
@@ -2695,6 +3046,7 @@ msgstr "(20<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:552
 #: /Users/jesteban1972/Sites/myX/core.inc:553
 #: /Users/jesteban1972/Sites/myX/core.inc:551
+#: /Users/jesteban1972/Sites/myX/core.inc:578
 msgid "(21st)"
 msgstr "(21<sup>a</sup>)"
 
@@ -2705,6 +3057,7 @@ msgstr "(21<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:555
 #: /Users/jesteban1972/Sites/myX/core.inc:556
 #: /Users/jesteban1972/Sites/myX/core.inc:554
+#: /Users/jesteban1972/Sites/myX/core.inc:581
 msgid "(22nd)"
 msgstr "(22<sup>a</sup>)"
 
@@ -2715,6 +3068,7 @@ msgstr "(22<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:558
 #: /Users/jesteban1972/Sites/myX/core.inc:559
 #: /Users/jesteban1972/Sites/myX/core.inc:557
+#: /Users/jesteban1972/Sites/myX/core.inc:584
 msgid "(23rd)"
 msgstr "(23<sup>a</sup>)"
 
@@ -2725,6 +3079,7 @@ msgstr "(23<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:561
 #: /Users/jesteban1972/Sites/myX/core.inc:562
 #: /Users/jesteban1972/Sites/myX/core.inc:560
+#: /Users/jesteban1972/Sites/myX/core.inc:587
 msgid "(24th)"
 msgstr "(24<sup>a</sup>)"
 
@@ -2735,6 +3090,7 @@ msgstr "(24<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:564
 #: /Users/jesteban1972/Sites/myX/core.inc:565
 #: /Users/jesteban1972/Sites/myX/core.inc:563
+#: /Users/jesteban1972/Sites/myX/core.inc:590
 msgid "(25th)"
 msgstr "(25<sup>a</sup>)"
 
@@ -2745,12 +3101,15 @@ msgstr "(25<sup>a</sup>)"
 #: /Users/jesteban1972/Sites/myX/core.inc:567
 #: /Users/jesteban1972/Sites/myX/core.inc:568
 #: /Users/jesteban1972/Sites/myX/core.inc:566
+#: /Users/jesteban1972/Sites/myX/core.inc:593
 msgid "(26th)"
 msgstr "(26<sup>a</sup>)"
 
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:41
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:46
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:61
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:63
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:65
 msgid "Confirm password:"
 msgstr "Confirmar contraseña:"
 
@@ -2784,6 +3143,9 @@ msgstr "¡Regístrate!"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:130
 #: /Users/jesteban1972/Sites/myX/userOptions.php:124
 #: /Users/jesteban1972/Sites/myX/userOptions.php:125
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:136
+#: /Users/jesteban1972/Sites/myX/userOptions.php:133
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:139
 msgid "Results per page:"
 msgstr "Resultados por página:"
 
@@ -2791,6 +3153,7 @@ msgstr "Resultados por página:"
 #: /Users/jesteban1972/Sites/myX/userOptions.php:123
 #: /Users/jesteban1972/Sites/myX/userOptions.php:151
 #: /Users/jesteban1972/Sites/myX/userOptions.php:152
+#: /Users/jesteban1972/Sites/myX/userOptions.php:161
 msgid "Save options"
 msgstr "Guardar opciones"
 
@@ -2851,6 +3214,11 @@ msgstr "con ella"
 #: /Users/jesteban1972/Sites/myX/loca.php:57
 #: /Users/jesteban1972/Sites/myX/locus.inc:559
 #: /Users/jesteban1972/Sites/myX/praxis.inc:433
+#: /Users/jesteban1972/Sites/myX/loca.php:67
+#: /Users/jesteban1972/Sites/myX/locus.inc:565
+#: /Users/jesteban1972/Sites/myX/praxis.inc:452
+#: /Users/jesteban1972/Sites/myX/locus.php:37
+#: /Users/jesteban1972/Sites/myX/loca.php:68
 msgid "(Image of a compass)"
 msgstr "(Imagen de una brújula)"
 
@@ -2903,6 +3271,9 @@ msgstr "Cumple todas/algunas de las siguientes reglas:"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:81
 #: /Users/jesteban1972/Sites/myX/amor.php:71
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:87
+#: /Users/jesteban1972/Sites/myX/amor.php:72
+#: /Users/jesteban1972/Sites/myX/amor.php:73
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:84
 msgid "Alias"
 msgstr "Seudónimo"
 
@@ -2912,6 +3283,9 @@ msgstr "Seudónimo"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:126
 #: /Users/jesteban1972/Sites/myX/amor.php:78
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:88
+#: /Users/jesteban1972/Sites/myX/amor.php:79
+#: /Users/jesteban1972/Sites/myX/amor.php:80
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:129
 msgid "Genre"
 msgstr "Sexo"
 
@@ -2921,6 +3295,7 @@ msgstr "Sexo"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:138
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:152
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:89
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:155
 msgid "Description 1"
 msgstr "Descripción 1"
 
@@ -2930,6 +3305,7 @@ msgstr "Descripción 1"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:148
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:162
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:91
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:165
 msgid "Description 2"
 msgstr "Descripción 2"
 
@@ -2939,6 +3315,7 @@ msgstr "Descripción 2"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:158
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:172
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:93
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:175
 msgid "Description 3"
 msgstr "Descripción 3"
 
@@ -2948,6 +3325,7 @@ msgstr "Descripción 3"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:168
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:182
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:95
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:185
 msgid "Description 4"
 msgstr "Descripción 4"
 
@@ -2969,6 +3347,15 @@ msgstr "Descripción 4"
 #: /Users/jesteban1972/Sites/myX/locus.php:92
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:91
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:91
+#: /Users/jesteban1972/Sites/myX/amor.php:75
+#: /Users/jesteban1972/Sites/myX/locus.php:93
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:92
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:128
+#: /Users/jesteban1972/Sites/myX/amor.php:76
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:92
+#: /Users/jesteban1972/Sites/myX/locus.php:94
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:93
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:129
 msgid "Rating"
 msgstr "Valoración"
 
@@ -2988,6 +3375,7 @@ msgstr "WWW"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:209
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:222
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:100
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:225
 msgid "Photo"
 msgstr "Foto"
 
@@ -3005,6 +3393,9 @@ msgstr "Teléfono"
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:232
 #: /Users/jesteban1972/Sites/myX/amor.php:357
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:103
+#: /Users/jesteban1972/Sites/myX/amor.php:358
+#: /Users/jesteban1972/Sites/myX/amor.php:359
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:235
 msgid "Email"
 msgstr "Email"
 
@@ -3013,6 +3404,7 @@ msgstr "Email"
 #: /Users/jesteban1972/Sites/myX/amoresQuery.php:149
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:239
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:104
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:242
 msgid "Other"
 msgstr "Otros"
 
@@ -3118,6 +3510,9 @@ msgstr "termina con"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:288
 #: /Users/jesteban1972/Sites/myX/locaFilter.php:99
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:300
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:301
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:302
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:303
 msgid "Exact coordinates"
 msgstr "Coordenadas exactas"
 
@@ -3128,6 +3523,9 @@ msgstr "Coordenadas exactas"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:297
 #: /Users/jesteban1972/Sites/myX/locaFilter.php:101
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:311
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:312
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:313
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:314
 msgid "Generic coordinates"
 msgstr "Coordenadas genéricas"
 
@@ -3144,6 +3542,8 @@ msgstr "Identificador de lugar"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:252
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:88
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:253
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:254
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:261
 msgid "Date"
 msgstr "Fecha"
 
@@ -3153,6 +3553,8 @@ msgstr "Fecha"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:259
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:89
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:260
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:261
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:268
 msgid "Ordinal"
 msgstr "Ordinal"
 
@@ -3176,6 +3578,8 @@ msgstr "TL"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:157
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:174
 #: /Users/jesteban1972/Sites/myX/practicaFilter.php:96
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:175
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:176
 msgid "Favorite"
 msgstr "Favorito"
 
@@ -3199,6 +3603,12 @@ msgstr "ID de experiencia"
 #: /Users/jesteban1972/Sites/myX/practica.php:112
 #: /Users/jesteban1972/Sites/myX/amores.php:273
 #: /Users/jesteban1972/Sites/myX/practica.php:344
+#: /Users/jesteban1972/Sites/myX/amores.php:302
+#: /Users/jesteban1972/Sites/myX/loca.php:269
+#: /Users/jesteban1972/Sites/myX/practica.php:320
+#: /Users/jesteban1972/Sites/myX/amores.php:303
+#: /Users/jesteban1972/Sites/myX/loca.php:270
+#: /Users/jesteban1972/Sites/myX/practica.php:311
 msgid "Remove filter"
 msgstr "Quitar filtro"
 
@@ -3207,6 +3617,7 @@ msgstr "Quitar filtro"
 #: /Users/jesteban1972/Sites/myX/amor.inc:235
 #: /Users/jesteban1972/Sites/myX/amor.inc:274
 #: /Users/jesteban1972/Sites/myX/amor.inc:275
+#: /Users/jesteban1972/Sites/myX/amor.inc:649
 msgid "Not any lovers yet"
 msgstr "Aún no hay amantes"
 
@@ -3215,6 +3626,7 @@ msgstr "Aún no hay amantes"
 #: /Users/jesteban1972/Sites/myX/amor.inc:238
 #: /Users/jesteban1972/Sites/myX/amor.inc:277
 #: /Users/jesteban1972/Sites/myX/amor.inc:278
+#: /Users/jesteban1972/Sites/myX/amor.inc:652
 msgid "Only one lover so far"
 msgstr "De momento sólo un amante:"
 
@@ -3223,6 +3635,7 @@ msgstr "De momento sólo un amante:"
 #: /Users/jesteban1972/Sites/myX/amor.inc:242
 #: /Users/jesteban1972/Sites/myX/amor.inc:281
 #: /Users/jesteban1972/Sites/myX/amor.inc:282
+#: /Users/jesteban1972/Sites/myX/amor.inc:656
 #, php-format
 msgid "%d lovers"
 msgstr "%d amantes"
@@ -3238,6 +3651,8 @@ msgstr "%d amantes"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:410
 #: /Users/jesteban1972/Sites/myX/amor.inc:286
 #: /Users/jesteban1972/Sites/myX/praxis.inc:490
+#: /Users/jesteban1972/Sites/myX/amor.inc:660
+#: /Users/jesteban1972/Sites/myX/praxis.inc:508
 #, php-format
 msgid "Displaying %d<br /><b>from</b> %s<br /><b>until</b> %s"
 msgstr "Mostrando %d<br /><b>de</b> %s<br /><b>hasta</b> %s"
@@ -3246,6 +3661,7 @@ msgstr "Mostrando %d<br /><b>de</b> %s<br /><b>hasta</b> %s"
 #: /Users/jesteban1972/Sites/myX/core.inc:277
 #: /Users/jesteban1972/Sites/myX/core.inc:278
 #: /Users/jesteban1972/Sites/myX/core.inc:279
+#: /Users/jesteban1972/Sites/myX/core.inc:305
 msgid "First Page"
 msgstr "Primera página"
 
@@ -3253,18 +3669,21 @@ msgstr "Primera página"
 #: /Users/jesteban1972/Sites/myX/core.inc:301
 #: /Users/jesteban1972/Sites/myX/core.inc:302
 #: /Users/jesteban1972/Sites/myX/core.inc:303
+#: /Users/jesteban1972/Sites/myX/core.inc:329
 msgid "Previous Page"
 msgstr "Página anterior"
 
 #: /Users/jesteban1972/Sites/myX/core.inc:491
 #: /Users/jesteban1972/Sites/myX/core.inc:329
 #: /Users/jesteban1972/Sites/myX/core.inc:330
+#: /Users/jesteban1972/Sites/myX/core.inc:356
 msgid "Page"
 msgstr "Página"
 
 #: /Users/jesteban1972/Sites/myX/core.inc:496
 #: /Users/jesteban1972/Sites/myX/core.inc:331
 #: /Users/jesteban1972/Sites/myX/core.inc:332
+#: /Users/jesteban1972/Sites/myX/core.inc:358
 msgid "of"
 msgstr "de"
 
@@ -3273,6 +3692,7 @@ msgstr "de"
 #: /Users/jesteban1972/Sites/myX/core.inc:349
 #: /Users/jesteban1972/Sites/myX/core.inc:340
 #: /Users/jesteban1972/Sites/myX/core.inc:341
+#: /Users/jesteban1972/Sites/myX/core.inc:367
 msgid "Next Page"
 msgstr "Siguiente página"
 
@@ -3281,6 +3701,7 @@ msgstr "Siguiente página"
 #: /Users/jesteban1972/Sites/myX/core.inc:376
 #: /Users/jesteban1972/Sites/myX/core.inc:367
 #: /Users/jesteban1972/Sites/myX/core.inc:368
+#: /Users/jesteban1972/Sites/myX/core.inc:394
 msgid "Last Page"
 msgstr "Última página"
 
@@ -3289,14 +3710,16 @@ msgstr "Última página"
 #: /Users/jesteban1972/Sites/myX/locus.inc:368
 #: /Users/jesteban1972/Sites/myX/locus.inc:412
 #: /Users/jesteban1972/Sites/myX/locus.inc:591
+#: /Users/jesteban1972/Sites/myX/locus.inc:600
 msgid "Not any places yet"
-msgstr "Aún no hay experiencias"
+msgstr "Aún no hay lugares"
 
 #: /Users/jesteban1972/Sites/myX/locus.inc:316
 #: /Users/jesteban1972/Sites/myX/locus.inc:346
 #: /Users/jesteban1972/Sites/myX/locus.inc:371
 #: /Users/jesteban1972/Sites/myX/locus.inc:415
 #: /Users/jesteban1972/Sites/myX/locus.inc:594
+#: /Users/jesteban1972/Sites/myX/locus.inc:603
 msgid "Only one place so far"
 msgstr "De momento sólo un lugar"
 
@@ -3305,6 +3728,7 @@ msgstr "De momento sólo un lugar"
 #: /Users/jesteban1972/Sites/myX/locus.inc:375
 #: /Users/jesteban1972/Sites/myX/locus.inc:419
 #: /Users/jesteban1972/Sites/myX/locus.inc:598
+#: /Users/jesteban1972/Sites/myX/locus.inc:607
 #, php-format
 msgid "%d places"
 msgstr "%d lugares"
@@ -3315,6 +3739,7 @@ msgstr "%d lugares"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:393
 #: /Users/jesteban1972/Sites/myX/praxis.inc:395
 #: /Users/jesteban1972/Sites/myX/praxis.inc:475
+#: /Users/jesteban1972/Sites/myX/praxis.inc:493
 msgid "Not any experiences yet"
 msgstr "Aún no hay experiencias"
 
@@ -3324,6 +3749,7 @@ msgstr "Aún no hay experiencias"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:398
 #: /Users/jesteban1972/Sites/myX/praxis.inc:400
 #: /Users/jesteban1972/Sites/myX/praxis.inc:480
+#: /Users/jesteban1972/Sites/myX/praxis.inc:498
 msgid "Only one experience so far"
 msgstr "De momento sólo una experiencia:"
 
@@ -3333,6 +3759,7 @@ msgstr "De momento sólo una experiencia:"
 #: /Users/jesteban1972/Sites/myX/praxis.inc:404
 #: /Users/jesteban1972/Sites/myX/praxis.inc:406
 #: /Users/jesteban1972/Sites/myX/praxis.inc:486
+#: /Users/jesteban1972/Sites/myX/praxis.inc:504
 #, php-format
 msgid "%d experiences"
 msgstr "%d experiencias"
@@ -3377,6 +3804,8 @@ msgstr "termina con"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:201
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:243
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:244
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:245
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:247
 msgid "Add place..."
 msgstr "Añadir lugar…"
 
@@ -3384,6 +3813,7 @@ msgstr "Añadir lugar…"
 #: /Users/jesteban1972/Sites/myX/userOptions.php:141
 #: /Users/jesteban1972/Sites/myX/userOptions.php:169
 #: /Users/jesteban1972/Sites/myX/userOptions.php:170
+#: /Users/jesteban1972/Sites/myX/userOptions.php:174
 msgid "Delete user"
 msgstr "Eliminar usuario"
 
@@ -3401,6 +3831,7 @@ msgstr "Eliminar usuario"
 
 #: /Users/jesteban1972/Sites/myX/userOptions.php:32
 #: /Users/jesteban1972/Sites/myX/userOptions.php:35
+#: /Users/jesteban1972/Sites/myX/userOptions.php:41
 msgid "Default genre for lovers:"
 msgstr "Genero por defecto de amantes:"
 
@@ -3424,6 +3855,9 @@ msgstr "Significado personalizado de descripción 4:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:134
 #: /Users/jesteban1972/Sites/myX/userOptions.php:132
 #: /Users/jesteban1972/Sites/myX/userOptions.php:133
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:140
+#: /Users/jesteban1972/Sites/myX/userOptions.php:142
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:143
 msgid "Lists order:"
 msgstr "Orden de las listas:"
 
@@ -3431,6 +3865,9 @@ msgstr "Orden de las listas:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:136
 #: /Users/jesteban1972/Sites/myX/userOptions.php:139
 #: /Users/jesteban1972/Sites/myX/userOptions.php:140
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:142
+#: /Users/jesteban1972/Sites/myX/userOptions.php:149
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:145
 msgid "From oldest to newest"
 msgstr "De más antiguo a más reciente"
 
@@ -3438,11 +3875,16 @@ msgstr "De más antiguo a más reciente"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:138
 #: /Users/jesteban1972/Sites/myX/userOptions.php:144
 #: /Users/jesteban1972/Sites/myX/userOptions.php:145
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:144
+#: /Users/jesteban1972/Sites/myX/userOptions.php:154
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:147
 msgid "From newest to oldest"
 msgstr "De más reciente a más antiguo"
 
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:58
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:74
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:76
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:78
 msgid "Birthdate:"
 msgstr "Fecha de nacimiento:"
 
@@ -3450,6 +3892,8 @@ msgstr "Fecha de nacimiento:"
 #: /Users/jesteban1972/Sites/myX/locus.php:106
 #: /Users/jesteban1972/Sites/myX/locus.php:104
 #: /Users/jesteban1972/Sites/myX/locus.php:108
+#: /Users/jesteban1972/Sites/myX/locus.php:109
+#: /Users/jesteban1972/Sites/myX/locus.php:110
 msgid "Kind of place"
 msgstr "Tipo de lugar"
 
@@ -3457,6 +3901,9 @@ msgstr "Tipo de lugar"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:97
 #: /Users/jesteban1972/Sites/myX/userOptions.php:55
 #: /Users/jesteban1972/Sites/myX/userOptions.php:56
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:99
+#: /Users/jesteban1972/Sites/myX/userOptions.php:62
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:102
 msgid "Custom meaning of description fields"
 msgstr "Significado personalizado de los campos de descripción"
 
@@ -3464,6 +3911,9 @@ msgstr "Significado personalizado de los campos de descripción"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:100
 #: /Users/jesteban1972/Sites/myX/userOptions.php:58
 #: /Users/jesteban1972/Sites/myX/userOptions.php:59
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:102
+#: /Users/jesteban1972/Sites/myX/userOptions.php:65
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:105
 msgid "Description 1:"
 msgstr "Descripción 1:"
 
@@ -3471,6 +3921,9 @@ msgstr "Descripción 1:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:103
 #: /Users/jesteban1972/Sites/myX/userOptions.php:65
 #: /Users/jesteban1972/Sites/myX/userOptions.php:66
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:106
+#: /Users/jesteban1972/Sites/myX/userOptions.php:72
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:109
 msgid "Description 2:"
 msgstr "Descripción 2:"
 
@@ -3478,6 +3931,9 @@ msgstr "Descripción 2:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:106
 #: /Users/jesteban1972/Sites/myX/userOptions.php:72
 #: /Users/jesteban1972/Sites/myX/userOptions.php:73
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:110
+#: /Users/jesteban1972/Sites/myX/userOptions.php:79
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:113
 msgid "Description 3:"
 msgstr "Descripción 3:"
 
@@ -3485,16 +3941,22 @@ msgstr "Descripción 3:"
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:109
 #: /Users/jesteban1972/Sites/myX/userOptions.php:79
 #: /Users/jesteban1972/Sites/myX/userOptions.php:80
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:114
+#: /Users/jesteban1972/Sites/myX/userOptions.php:86
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:117
 msgid "Description 4:"
 msgstr "Descripción 4:"
 
 #: /Users/jesteban1972/Sites/myX/userSignUp.php:38
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:40
 msgid "User data (all fields required)"
 msgstr "Datos de usuario (todos los campos obligatorios)"
 
 #: /Users/jesteban1972/Sites/myX/amor.php:88
 #: /Users/jesteban1972/Sites/myX/amor.php:89
 #: /Users/jesteban1972/Sites/myX/amor.php:82
+#: /Users/jesteban1972/Sites/myX/amor.php:90
+#: /Users/jesteban1972/Sites/myX/amor.php:91
 msgid "Lover description"
 msgstr "Descripción del amante"
 
@@ -3502,6 +3964,7 @@ msgstr "Descripción del amante"
 #: /Users/jesteban1972/Sites/myX/amor.inc:331
 #: /Users/jesteban1972/Sites/myX/amor.inc:371
 #: /Users/jesteban1972/Sites/myX/amor.inc:372
+#: /Users/jesteban1972/Sites/myX/amor.inc:746
 #, php-format
 msgid "<b>%s</b> experiences"
 msgstr "<b>%s</b> experiencias"
@@ -3514,18 +3977,23 @@ msgstr ", ésta es la número %s"
 #: /Users/jesteban1972/Sites/myX/index.php:31
 #: /Users/jesteban1972/Sites/myX/index.php:41
 #: /Users/jesteban1972/Sites/myX/index.php:56
+#: /Users/jesteban1972/Sites/myX/index.php:51
 msgid "Welcome to myX!"
 msgstr "¡Bienvenido a myX!"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:208
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:251
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:252
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:253
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:260
 msgid "Time"
 msgstr "Tiempo"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:218
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:272
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:273
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:283
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:290
 msgid "Participant(s)"
 msgstr "Participante(s)"
 
@@ -3533,6 +4001,8 @@ msgstr "Participante(s)"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:337
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:339
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:350
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:368
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:378
 msgid "Add lover..."
 msgstr "Añadir amante…"
 
@@ -3540,6 +4010,8 @@ msgstr "Añadir amante…"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:378
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:381
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:392
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:427
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:437
 msgid "TQ:"
 msgstr "TQ:"
 
@@ -3547,6 +4019,8 @@ msgstr "TQ:"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:391
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:394
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:405
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:440
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:450
 msgid "E_PRIVATE"
 msgstr "E_PRIVATE"
 
@@ -3554,6 +4028,8 @@ msgstr "E_PRIVATE"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:397
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:400
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:411
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:446
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:456
 msgid "E_EDIT_TO_SHARE"
 msgstr "E_EDIT_TO_SHARE"
 
@@ -3561,6 +4037,8 @@ msgstr "E_EDIT_TO_SHARE"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:403
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:406
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:417
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:452
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:462
 msgid "E_SHARE"
 msgstr "E_SHARE"
 
@@ -3568,6 +4046,8 @@ msgstr "E_SHARE"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:409
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:412
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:423
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:458
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:468
 msgid "E_SHARE_TO_BROADCAST"
 msgstr "E_SHARE_TO_BROADCAST"
 
@@ -3575,6 +4055,8 @@ msgstr "E_SHARE_TO_BROADCAST"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:415
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:418
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:429
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:464
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:474
 msgid "E_BROADCAST"
 msgstr "E_BROADCAST"
 
@@ -3582,6 +4064,8 @@ msgstr "E_BROADCAST"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:421
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:424
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:435
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:470
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:480
 msgid "TL:"
 msgstr "TL:"
 
@@ -3589,6 +4073,8 @@ msgstr "TL:"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:434
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:437
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:448
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:483
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:493
 msgid "E_LANG1"
 msgstr "E_LANG1"
 
@@ -3596,6 +4082,8 @@ msgstr "E_LANG1"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:440
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:443
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:454
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:489
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:499
 msgid "E_LANG2"
 msgstr "E_LANG2"
 
@@ -3603,6 +4091,8 @@ msgstr "E_LANG2"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:446
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:449
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:460
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:495
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:505
 msgid "E_LANG3"
 msgstr "E_LANG3"
 
@@ -3610,6 +4100,8 @@ msgstr "E_LANG3"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:452
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:455
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:466
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:501
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:511
 msgid "E_LANG4"
 msgstr "E_LANG4"
 
@@ -3617,6 +4109,8 @@ msgstr "E_LANG4"
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:458
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:461
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:472
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:507
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:517
 msgid "E_LANG5"
 msgstr "E_LANG5"
 
@@ -3624,6 +4118,7 @@ msgstr "E_LANG5"
 #: /Users/jesteban1972/Sites/myX/amor.inc:334
 #: /Users/jesteban1972/Sites/myX/amor.inc:374
 #: /Users/jesteban1972/Sites/myX/amor.inc:375
+#: /Users/jesteban1972/Sites/myX/amor.inc:749
 #, php-format
 msgid ", this one #%s"
 msgstr ", ésta es la nr. %s"
@@ -3639,6 +4134,9 @@ msgstr "Nuevo tipo"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:229
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:263
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:273
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:274
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:275
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:276
 msgid "Add kind"
 msgstr "Añadir tipo"
 
@@ -3650,6 +4148,12 @@ msgstr "Añadir tipo"
 #: /Users/jesteban1972/Sites/myX/amoresQuery.php:143
 #: /Users/jesteban1972/Sites/myX/amoresFilter.php:98
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:322
+#: /Users/jesteban1972/Sites/myX/amor.php:337
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:323
+#: /Users/jesteban1972/Sites/myX/amor.php:338
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:207
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:324
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:325
 msgid "Web"
 msgstr "Web"
 
@@ -3658,23 +4162,38 @@ msgstr "Web"
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:72
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:108
 #: /Users/jesteban1972/Sites/myX/amor.php:332
+#: /Users/jesteban1972/Sites/myX/amor.php:333
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:73
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:109
+#: /Users/jesteban1972/Sites/myX/amor.php:334
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:76
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:74
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:110
 msgid "Achtung"
 msgstr "Atención"
 
 #: /Users/jesteban1972/Sites/myX/amor.php:339
 #: /Users/jesteban1972/Sites/myX/amor.php:349
+#: /Users/jesteban1972/Sites/myX/amor.php:350
+#: /Users/jesteban1972/Sites/myX/amor.php:351
 msgid "Pictures"
 msgstr "Fotos"
 
 #: /Users/jesteban1972/Sites/myX/amor.php:343
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:225
 #: /Users/jesteban1972/Sites/myX/amor.php:353
+#: /Users/jesteban1972/Sites/myX/amor.php:354
+#: /Users/jesteban1972/Sites/myX/amor.php:355
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:228
 msgid "Phone"
 msgstr "Teléfono"
 
 #: /Users/jesteban1972/Sites/myX/amorEdit.php:260
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:326
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:344
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:353
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:263
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:354
 msgid "Submit data and continue..."
 msgstr "Guardar datos y continuar…"
 
@@ -3685,31 +4204,44 @@ msgstr "Valoración subjetiva"
 
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:151
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:162
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:163
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:164
 msgid "Existing country"
 msgstr "País existente"
 
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:190
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:200
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:201
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:202
 msgid "New country"
 msgstr "Nuevo país"
 
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:218
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:228
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:229
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:230
 msgid "Existing kind"
 msgstr "Tipo existente"
 
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:257
 #: /Users/jesteban1972/Sites/myX/locusEdit.php:267
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:268
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:269
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:270
 msgid "New kind"
 msgstr "Nuevo tipo"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:195
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:196
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:197
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:199
 msgid "Existing place"
 msgstr "Lugar existente"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:242
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:243
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:244
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:246
 msgid "Edit place..."
 msgstr "Editar lugar…"
 
@@ -3718,7 +4250,6 @@ msgid "Existing lover(s)"
 msgstr "Amante existente"
 
 #: /Users/jesteban1972/Sites/myX/amor.php:74
-#, fuzzy
 msgid "Subjective rating"
 msgstr "Valoración subjetiva"
 
@@ -3727,10 +4258,12 @@ msgid "We are sorry, but the access to this page is not allowed"
 msgstr "Lo sentimos, pero el acceso a esta página no está permitido"
 
 #: /Users/jesteban1972/Sites/myX/index.php:75
+#: /Users/jesteban1972/Sites/myX/index.php:124
 msgid "Add experiences"
 msgstr "Añadir experiencias"
 
 #: /Users/jesteban1972/Sites/myX/index.php:83
+#: /Users/jesteban1972/Sites/myX/index.php:132
 msgid "Discover your experiences"
 msgstr "Descubre tus experiencias"
 
@@ -3744,32 +4277,39 @@ msgstr "Descubre tus lugares"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:338
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:349
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:367
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:377
 msgid "Edit lover..."
 msgstr "Editar amante…"
 
 #: /Users/jesteban1972/Sites/myX/queries.php:79
 #: /Users/jesteban1972/Sites/myX/queries.php:80
+#: /Users/jesteban1972/Sites/myX/queries.php:64
 msgid "(no saved queries found)"
 msgstr "(no se encontraron consultas)"
 
 #: /Users/jesteban1972/Sites/myX/queries.php:84
 #: /Users/jesteban1972/Sites/myX/queries.php:85
+#: /Users/jesteban1972/Sites/myX/queries.php:69
 msgid "(only <b>one</b> saved query found)"
 msgstr "(sólo se encontró <b>una</b> consulta)"
 
 #: /Users/jesteban1972/Sites/myX/queries.php:89
 #: /Users/jesteban1972/Sites/myX/queries.php:90
+#: /Users/jesteban1972/Sites/myX/queries.php:74
 #, php-format
 msgid "(<b>%d</b> saved queries found)"
 msgstr "(se encontraron <b>%d</b> consultas)"
 
 #: /Users/jesteban1972/Sites/myX/queries.php:105
 #: /Users/jesteban1972/Sites/myX/queries.php:101
+#: /Users/jesteban1972/Sites/myX/queries.php:86
 msgid "List of saved queries"
 msgstr "Lista de consultas"
 
 #: /Users/jesteban1972/Sites/myX/queries.php:122
 #: /Users/jesteban1972/Sites/myX/queries.php:118
+#: /Users/jesteban1972/Sites/myX/queries.php:103
 msgid "ELENCHUS i.e. list of queries"
 msgstr "ELENCHUS i.e. lista de consultas"
 
@@ -3778,16 +4318,117 @@ msgid "Queries"
 msgstr "Consultas"
 
 #: /Users/jesteban1972/Sites/myX/praxisEdit.php:296
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:317
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:327
 msgid "Existing lover"
 msgstr "Amante existente"
 
 #: /Users/jesteban1972/Sites/myX/queries.php:54
+#: /Users/jesteban1972/Sites/myX/queries.php:38
 msgid "Saved queries"
 msgstr "Consultas almacenadas"
 
 #: /Users/jesteban1972/Sites/myX/queryEdit.php:27
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:28
 msgid "Edit query"
 msgstr "Editar consulta"
+
+#: /Users/jesteban1972/Sites/myX/amorDelete.php:35
+msgid "(you might want to edit his/her data instead)."
+msgstr "(en lugar de éso, quizá lo que desées sea editar sus datos)"
+
+#: /Users/jesteban1972/Sites/myX/locusDelete.php:21
+#: /Users/jesteban1972/Sites/myX/praxisDelete.php:21
+msgid "(you might want to edit its data instead)."
+msgstr "(en lugar de éso, quizá lo que desées sea editar sus datos)"
+
+#: /Users/jesteban1972/Sites/myX/praxisEditProcess.php:525
+msgid "Experience inserted successfully"
+msgstr "Experiencia insertada con éxito"
+
+#: /Users/jesteban1972/Sites/myX/amorDeleteProcess.php:22
+#: /Users/jesteban1972/Sites/myX/locusEditProcess.php:19
+#: /Users/jesteban1972/Sites/myX/praxisDeleteProcess.php:22
+#: /Users/jesteban1972/Sites/myX/userDeleteProcess.php:19
+#: /Users/jesteban1972/Sites/myX/amorEdit.php:29
+#: /Users/jesteban1972/Sites/myX/amorEditProcess.php:17
+#: /Users/jesteban1972/Sites/myX/locusDeleteProcess.php:24
+#: /Users/jesteban1972/Sites/myX/locusEdit.php:29
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:30
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:23
+#: /Users/jesteban1972/Sites/myX/queryEditProcess.php:20
+#: /Users/jesteban1972/Sites/myX/userOptionsProcess.php:33
+#: /Users/jesteban1972/Sites/myX/userSignUpProcess.php:18
+msgid "Unable to load the required page"
+msgstr "Imposible cargar la página pedida"
+
+#: /Users/jesteban1972/Sites/myX/amorDeleteProcess.php:102
+msgid "Lover deleted successfully"
+msgstr "Amante eliminado con éxito"
+
+#: /Users/jesteban1972/Sites/myX/amorDeleteProcess.php:109
+msgid "There was a problem deleting the lover"
+msgstr "Se produjo un problema al eliminar el amante"
+
+#: /Users/jesteban1972/Sites/myX/locusDeleteProcess.php:71
+#: /Users/jesteban1972/Sites/myX/locusDeleteProcess.php:75
+msgid "Place deleted successfully"
+msgstr "Lugar borrado con éxito"
+
+#: /Users/jesteban1972/Sites/myX/locusDeleteProcess.php:78
+#: /Users/jesteban1972/Sites/myX/locusDeleteProcess.php:82
+msgid "There was a problem deleting the place"
+msgstr "Se produjo un problema al eliminar el lugar"
+
+#: /Users/jesteban1972/Sites/myX/locusEditProcess.php:77
+msgid "Place edited successfully"
+msgstr "Lugar editado con éxito"
+
+#: /Users/jesteban1972/Sites/myX/locusEditProcess.php:82
+msgid "There was a problem editing the place"
+msgstr "Se produjo un problema al editar el lugar"
+
+#: /Users/jesteban1972/Sites/myX/praxisDeleteProcess.php:112
+msgid "Experience deleted successfully"
+msgstr "Experiencia eliminada con éxito"
+
+#: /Users/jesteban1972/Sites/myX/praxisDeleteProcess.php:119
+msgid "There was a problem deleting the experience"
+msgstr "Se produjo un problema al eliminar la experiencia"
+
+#: /Users/jesteban1972/Sites/myX/praxisEditProcess.php:540
+msgid "There was a problem inserting the experience"
+msgstr "Se produjo un problema al insertar la experiencia"
+
+#: /Users/jesteban1972/Sites/myX/userDeleteProcess.php:60
+msgid "User account deleted successfully"
+msgstr "Cuenta de usuario eliminada con éxito"
+
+#: /Users/jesteban1972/Sites/myX/userDeleteProcess.php:66
+msgid "There was a problem deleting the user account"
+msgstr "Se produjo un problema al eliminar la cuenta de usuario"
+
+#: /Users/jesteban1972/Sites/myX/amorEditProcess.php:100
+msgid "Lover edited successfully"
+msgstr "Amante editado con éxito"
+
+#: /Users/jesteban1972/Sites/myX/amorEditProcess.php:105
+msgid "There was a problem editing the lover"
+msgstr "Se produjo un problema un problema al editar el amante"
+
+#: /Users/jesteban1972/Sites/myX/praxisEdit.php:525
+#: /Users/jesteban1972/Sites/myX/queryEdit.php:64
+#: /Users/jesteban1972/Sites/myX/userSignUp.php:154
+msgid "compulsory fields"
+msgstr "campos obligatorios"
+
+#: /Users/jesteban1972/Sites/myX/queryEditProcess.php:69
+msgid "Query inserted successfully"
+msgstr "Consulta insertada con éxito"
+
+#: /Users/jesteban1972/Sites/myX/queryEditProcess.php:74
+msgid "There was a problem inserting the query"
+msgstr "Se produjo un problema al insertar la consulta"
 
 #~ msgid "myX - Home"
 #~ msgstr "myX - Home"

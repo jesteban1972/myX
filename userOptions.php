@@ -1,10 +1,12 @@
 <?php
-
-/* 
- * userOptions.php
- * script to process user options
+/** 
+ * script 'userOptions.php'.
+ * 
+ * this script builds a page with a form to set user options and navigation
+ * options. it also contains a button for the deletion of the user account.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
- * last update: 2018-03-24
+ * last update: 2018-06-09
  */
 
 require_once 'core.inc';
@@ -13,6 +15,7 @@ require_once 'user.inc';
 //require_once 'exceptions.inc';
 
 $title = _("User options");
+$js = "userOptions.js";
 $description = _("User customizable options of myX");
 
 
@@ -20,11 +23,14 @@ require_once 'header.inc';
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
 
-echo "\t\t\t\t<form action=\"userOptionsProcess.php\" method=\"POST\">\n";
+echo "\t\t\t\t<form id=\"userOptionsForm\"".
+    " action=\"userOptionsProcess.php\"".
+    " method=\"POST\">\n";
 
-// user options:
+/*
+ * user options are retrieved from the DB to populate the fields.
+ */
 
-// get userOptions from the DB:
 $userOptions = User::getUserOptions();
 
 echo "\t\t\t\t\t<fieldset>\n";
@@ -84,11 +90,13 @@ if ($userOptions['descr4'] !== "")
     echo $userOptions['descr4'];
 echo "\" />\n";
 
-echo "\t\t\t\t\t</fieldset>\n";
+echo "\t\t\t\t\t\t</fieldset>\n";
 
 echo "\t\t\t\t\t</fieldset>\n";
 
-// navigation options:
+/*
+ * navigation options are retrieved from the DB to populate the fields.
+ */
 
 $navOptions = User::getNavOptions();
 
@@ -124,7 +132,8 @@ echo "\t\t\t\t\t\t</select><br />\n";
 echo "\t\t\t\t\t\t<label for=\"resultsPerPage\">".
     _("Results per page:").
     "</label>\n";
-echo "\t\t\t\t\t\t<input type=\"number\" name=\"resultsPerPage\" value=\"";
+echo "\t\t\t\t\t\t<input type=\"number\" id=\"resultsPerPage\"".
+    " name=\"resultsPerPage\" value=\"";
 if ($navOptions['resultsPerPage'] !== null)
     echo $navOptions['resultsPerPage'];
 echo "\" /><br />\n";
@@ -135,12 +144,12 @@ echo "\t\t\t\t\t\t<select name=\"listsOrder\">\n";
 
 echo "\t\t\t\t\t\t\t<option value=\"1\"";
 
-if ($_SESSION['navigationOptions']['listsOrder'] === OLDEST_TO_NEWEST)
+if ($_SESSION['navOptions']['listsOrder'] === OLDEST_TO_NEWEST)
     echo " selected=\"selected\"";
 echo ">"._("From oldest to newest")."</option>\n";
 
 echo "\t\t\t\t\t\t\t<option value=\"2\"";
-if ($_SESSION['navigationOptions']['listsOrder'] === NEWEST_TO_OLDEST)
+if ($_SESSION['navOptions']['listsOrder'] === NEWEST_TO_OLDEST)
     echo " selected=\"selected\"";
 echo ">"._("From newest to oldest")."</option>\n";
 
@@ -155,20 +164,14 @@ echo "\t\t\t\t\t<input type=\"button\" value=\"".
     "\" onclick=\"javascript: history.back();\" />\n";
 echo "\t\t\t\t</form>\n";
 
-// delete user form:
-
 /*
- * the delete user form is put separatedly
- * the reason of this is that this independent action
- * should not undertake by the user
+ * delete user form: the form is put separatedly. the user should not undertake
+ * this action.
  */
-echo "\t\t\t\t<form action=\"userDelete.php\" method=\"POST\">\n";
-//echo "\t\t\t\t\t\t<input type=\"hidden\" name=\"praxisID\" value=\"".
-//    $praxis->getPraxisID().
-//    "\" />\n";
-echo "\t\t\t\t\t<input type=\"submit\" value=\"".
-    _("Delete user").
-    "\" />\n";
+echo "\t\t\t\t<br /><br /><br /><br /><br /><br /><br />\n";
+echo "\t\t\t\t<form id=\"userDeleteForm\"".
+    " action=\"userDelete.php\" method=\"POST\">\n";
+echo "\t\t\t\t\t<input type=\"submit\" value=\""._("Delete user")."\" />\n";
 echo "\t\t\t\t</form>\n";
 
 echo "\t\t\t</section> <!-- }} section -->\n\n";

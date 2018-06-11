@@ -1,10 +1,11 @@
 <?php
-/*
+/**
  * script 'query.inc'.
  * 
  * this script contains the implementation of class 'Query',
  * the class which represents the abstraction of a query, as well as its 
  * derivate classes 'PracticaQuery', 'AmoresQuery' and 'LocaQuery'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-27
  */
@@ -102,9 +103,7 @@ class Query {
      * @param string $descr the description given to the query.
      * @param string $queryString SQL sentence which defines the query.
      */
-    public function __construct(/*$name = "",
-            $descr = "",
-            $queryString = ""*/) {
+    public function __construct() {
         
         $args = func_get_args(); 
 
@@ -150,7 +149,8 @@ QUERY;
                     $this->name = "all queries";
                     $this->descr = "unfiltered list of queries";
                     $this->queryString = "SELECT * FROM `myX`.`queries`";
-                    $this->queryString .= " WHERE `user` = ".$_SESSION['userID'];
+                    $this->queryString .=
+                        " WHERE `user` = ".$_SESSION['userID'];
 
                 } else {
 
@@ -165,40 +165,7 @@ QUERY;
         }
             
     } // method 'Query::__construct'
-    
-    /**
-     * method 'Query::__construct'
-     * 
-     * class constructor: initiates an instance of the class,
-     * and sets its properties from the DB.
-     * 
-     * @param int $queryID the identifier of the query being constructed.
-     */
-//    public function __construct($queryID) {
-//        
-//        // get a DB connection to work with:
-//        $pdo = DB::getDBHandle();
-//
-//        // the table 'queries' is queried. only one row expected.
-//        $queryString = <<<QUERY
-//SELECT *
-//FROM `myX`.`queries`
-//WHERE queryID = :queryID
-//QUERY;
-//        $statement = $pdo->prepare($queryString);
-//        $statement->bindParam(":queryID", $queryID, PDO::PARAM_INT);
-//        $statement->execute();
-//
-//        // the data are fetched:
-//        $row = $statement->fetch();
-//
-//        // the propierties of the current object are taken from the query:
-//        $this->queryID = $queryID;
-//        $this->name = $row['name'];
-//        $this->descr = $row['descr'];
-//            
-//    } // method 'Query::__construct'
-    
+       
     /**
      * method 'Query::HTMLPreview'.
      * 
@@ -242,9 +209,12 @@ QUERY;
         // 1. ordinal number:
         echo "\t\t\t\t\t\t<p class=\"medium\"> ".$ordinalNr.". ";
         
-        if (DEBUG)
+        if (DEBUG) {
+            
             echo " <span class=\"debug\">[queryString <b>".
                 $this->queryString."</b>]</span> ";
+            
+        }
         
         // 2. name (with hyperlink):
         echo "<b><a href=\"".$targetScript."?query=".$this->queryID."\">".
@@ -266,7 +236,7 @@ QUERY;
 /**
  * class 'PracticaQuery'.
  * 
- * used to be displayed in the scripts 'practica.php' and 'amor.php'
+ * used to be displayed in the scripts 'practica.php' and 'amor.php'.
  */
 class PracticaQuery extends Query {
 
@@ -279,7 +249,8 @@ class PracticaQuery extends Query {
     /**
      * method 'PracticaQuery::__construct'.
      * 
-     * class constructor
+     * class constructor.
+     * 
      * @param string $name the name given to the query.
      * @param string $descr the description given to the query.
      * @param string $queryString SQL sentence which defines the query.
@@ -307,7 +278,7 @@ class PracticaQuery extends Query {
 /**
  * class 'AmoresQuery'.
  * 
- * used to be displayed by the script amoresList.php
+ * used to be displayed by the script 'amoresList.php'.
  */
 class AmoresQuery extends Query {
 
@@ -315,12 +286,13 @@ class AmoresQuery extends Query {
     // 
     // II. implementation methods
 
-    // getties: inherited from class 'Query'.
+    // getters: inherited from class 'Query'.
 
     /**
      * method 'AmoresQuery::__construct'.
      * 
-     * class constructor
+     * class constructor.
+     * 
      * @param string $name the name given to the query.
      * @param string $descr the description given to the query.
      * @param string $queryString SQL sentence which defines the query.

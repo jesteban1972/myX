@@ -1,6 +1,6 @@
 /**
- * script amoresQuery.js
- * XXX
+ * script 'amoresQuery.js'.
+ * 
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-06
 */
@@ -209,9 +209,9 @@ function addRule(evt) {
     
     option = document.createElement('option');
     att = document.createAttribute('value');
-    att.value = 'www';
+    att.value = 'web';
     option.setAttributeNode(att);
-    txt = document.createTextNode('WWW');
+    txt = document.createTextNode('Web');
     option.appendChild(txt);
     select.appendChild(option);
     

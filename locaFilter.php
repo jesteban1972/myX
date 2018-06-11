@@ -1,8 +1,7 @@
 <?php
 /**
  * script 'locaFilter.php'.
- * 
- * XXX
+ *
  * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-06
 */
@@ -23,8 +22,10 @@ $title = "myX - Query Places";
 $js = "locaFilter.js";
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
-    // script called from outside the normal flush, throw exception
-
+    
+    // script called from outside the normal flush, redirect to 'index.php':
+    $_SESSION['notification'] = _("Unable to load the required page");
+    header ("Location: index.php");
     
 }
     
