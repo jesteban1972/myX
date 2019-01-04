@@ -2,21 +2,21 @@
 /** 
  * script 'locusEditProcess.php'.
  * 
- * script to process the edition or insertion of a new place
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-04-24
+ * script to process the edition or insertion of a new place.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-06-08
  */
 
 require_once 'session.inc';
 require_once 'DB.inc';
-//require_once 'user.inc';
-//require_once 'exceptions.inc';
 
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     /*
-     * script called from outside the normal flush, throw exception
+     * script called from outside the normal flush, redirect to 'index.php'
      */
+    $_SESSION['notification'] = _("Unable to load the required page");
     header ("Location: index.php");
     
 }
@@ -24,58 +24,31 @@ if ($_SERVER['REQUEST_METHOD'] !== "POST") {
 // get a DB connection to work with:
 $pdo = DB::getDBHandle();
     
-// the input is verified:
-if (
-    !isset($_POST['locusID']) || (trim($_POST['locusID']) === "") ||
-    !isset($_POST['achtung']) /*|| /*(trim($_POST['achtung']) === "")*/ ||
-    !isset($_POST['name']) || (trim($_POST['name']) === "") ||
-    !isset($_POST['rating']) || (trim($_POST['rating']) === "") ||
-    !isset($_POST['address']) || (trim($_POST['address']) === "") ||
-    !isset($_POST['country']) || (trim($_POST['country']) === "") ||
-    !isset($_POST['kind']) || (trim($_POST['kind']) === "") ||
-    !isset($_POST['descr']) || (trim($_POST['descr']) === "") ||
-    !isset($_POST['coordExact']) || (trim($_POST['coordExact']) === "") ||
-    !isset($_POST['coordGeneric']) || (trim($_POST['coordGeneric']) === "") ||
-    !isset($_POST['web']) /*|| (trim($_POST['web']) === "")*/
-    )
-        throw new Exception();
-
-if (isset($_POST['locusID'])) { // called form locus.php: edit place
-
-    $locusEdit = true;
-    $locusID = intval($_POST['locusID']);
-
-} else { // called from loca.php: new place
-
-    $locusEdit = false;
-
-    // locusID is calculated:
-    $maxLocusID =
-        $pdo->query("SELECT MAX(`locusID`) FROM `loca`")->fetchColumn();
-    $locusID = ($maxLocusID === null) ? 1 : intval($maxLocusID) + 1;
-
-}
+// the input is verified ('locusID' and 'name' are compulsory fields):
+if (!isset($_POST['locusID']) || (trim($_POST['locusID']) === "") ||
+    !isset($_POST['name']) || (trim($_POST['name']) === ""))
+    throw new Exception();
 
 // the values are retrieved from $_POST:
+$locusID = intval($_POST['locusID']);
 $achtung = $_POST['achtung'];
 $name = $_POST['name'];
 $rating = intval($_POST['rating']);
 $address = $_POST['address'];
 $country = intval($_POST['country']);
 $kind = intval($_POST['kind']);
-$description = $_POST['descr'];
+$descr = $_POST['descr'];
 $coordExact = $_POST['coordExact'];
 $coordGeneric = $_POST['coordGeneric'];
 $web = $_POST['web'];
 
-
-// build the SQL query depending on $locusEdit:
-if ($locusEdit) { // update existing place
+try {
 
     // update query:
     $queryString = <<<QUERY
 UPDATE `loca`
-SET `name` = :name,
+SET `achtung` = :achtung,
+    `name` = :name,
     `rating` = :rating,
     `address` = :address,
     `country` = :country,
@@ -86,53 +59,31 @@ SET `name` = :name,
     `web` = :web    
 WHERE `locusID` = :locusID
 QUERY;
-    
-} else { // insert new place   
+    $statement = $pdo->prepare($queryString);
+    $statement->bindParam(":locusID", $locusID, PDO::PARAM_INT);
+    $statement->bindParam(":achtung", $achtung, PDO::PARAM_STR);
+    $statement->bindParam(":name", $name, PDO::PARAM_STR);
+    $statement->bindParam(":rating", $rating, PDO::PARAM_INT);
+    $statement->bindParam(":address", $address, PDO::PARAM_STR);
+    $statement->bindParam(":country", $country, PDO::PARAM_INT);
+    $statement->bindParam(":kind", $kind, PDO::PARAM_INT);
+    $statement->bindParam(":descr", $descr, PDO::PARAM_STR);
+    $statement->bindParam(":coordExact", $coordExact, PDO::PARAM_STR);
+    $statement->bindParam(":coordGeneric", $coordGeneric, PDO::PARAM_STR);
+    $statement->bindParam(":web", $web, PDO::PARAM_STR);
+    $statement->execute();
 
-    // insertion query:
-    $queryString = <<<QUERY
-INSERT
-INTO `loca`
-VALUES (:locusID,
-    :achtung,
-    :name,
-    :rating,
-    :address,
-    :country,
-    :kind,
-    :descr,
-    :coordExact,
-    :coordGeneric,
-    :web,
-    :user)
-QUERY;
+    // set success notification:
+    $_SESSION['notification'] = _("Place edited successfully");
+
+} catch (Exception $e) {
+
+    // set failure notification:
+    $_SESSION['notification'] = _("There was a problem editing the place");
 
 }
 
-$statement = $pdo->prepare($queryString);
-$statement->bindParam(":locusID", $locusID, PDO::PARAM_INT);
-$statement->bindParam(":name", $name, PDO::PARAM_STR);
-$statement->bindParam(":rating", $rating, PDO::PARAM_INT);
-$statement->bindParam(":address", $address, PDO::PARAM_STR);
-$statement->bindParam(":country", $country, PDO::PARAM_INT);
-$statement->bindParam(":kind", $kind, PDO::PARAM_INT);
-$statement->bindParam(":description", $description, PDO::PARAM_STR);
-$statement->bindParam(":coordExact", $coordExact, PDO::PARAM_STR);
-$statement->bindParam(":coordGeneric", $coordGeneric, PDO::PARAM_STR);
-$statement->bindParam(":web", $web, PDO::PARAM_STR);
-if (!$locusEdit)
-    $statement->bindParam(":user",$_SESSION['userID'], PDO::PARAM_INT);
-$statement->execute();
-/*
- * TODO: if temporaryLocus we are redirected to page 'praxisEdit.php'
- */
-
-// redirect the user to the page 'amores.php' or 'amor.php:
-if ($locusEdit)
-    header ("Location: locus.php?locusID=".$locusID);
-else
-    header ("Location: loca.php");
-
-
+// redirect to the page 'amor.php':
+header ("Location: locus.php?locusID=".$locusID);
 
 ?>

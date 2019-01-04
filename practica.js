@@ -1,9 +1,10 @@
 /**
  * script 'practica.js'.
  * 
- * XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-03-31
+ * this script provides additional functionality to the script 'practica.php'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-06-08
 */
 
 window.onload = function(){
@@ -14,6 +15,10 @@ window.onload = function(){
             
     for (var i = 0; i < directPageInput.length; i++) // there are two items
         directPageInput[i].addEventListener('change', gotoPage, false);
+    
+    // makes notification (if any) dessapear after 3 secs:
+    if (document.getElementById('notification'))
+        window.setTimeout('hideNotification()', 3000);
     
 }
 
@@ -33,5 +38,11 @@ function gotoPage(evt) {
     var url = 'http://' + window.location.host + window.location.pathname +
         '?page=' + page;
     window.location.replace(url);
+    
+}
+
+function hideNotification() {
+    
+    document.getElementById("notification").style.display = "none";
     
 }

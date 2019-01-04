@@ -1,9 +1,11 @@
 /**
  * script 'locusEdit.js'.
  * 
- * XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-21
+ * this script is used to provide complementary functionality to the form
+ * of the script 'locusEdit.php'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-06-09
 */
 
 window.onload = function() {
@@ -128,27 +130,33 @@ function changeKindOrigin(evt) {
 
 function newCountry() {
     
-    // the current value of field 'countryNewTxt' is temporarily stored:
-    var temporaryCountryData;
-    
-    sessionStorage.setItem(temporaryCountryData,
-        JSON.stringify({
+    // the current value of field 'countryNewTxt' is codified:
+    var tempCountryData = JSON.stringify({
             name: document.getElementById('countryNewTxt').value
-        })
-    );
+        });
     
+    // store codified JSON in the session:
+    var request = new XMLHttpRequest(); // TODO: make it cross browser
+    request.open('POST', 'sessionFromJS.php', false); // non asynchonous
+    request.setRequestHeader('Content-type', 
+        'application/x-www-form-urlencoded');
+    request.send('tempCountryData=' + tempCountryData);
+        
 }
 
 function newKind() {
     
-    // the current value of field 'kindNewTxt' is temporarily stored:
-    var temporaryKindData;
-    
-    sessionStorage.setItem(temporaryKindData,
-        JSON.stringify({
+    // the current value of field 'kindNewTxt' is codified:
+    var tempKindData = JSON.stringify({
             name: document.getElementById('kindNewTxt').value
-        })
-    );
+        });
+    
+    // store codified JSON in the session:
+    var request = new XMLHttpRequest(); // TODO: make it cross browser
+    request.open('POST', 'sessionFromJS.php', false); // non asynchonous
+    request.setRequestHeader('Content-type', 
+        'application/x-www-form-urlencoded');
+    request.send('tempKindData=' + tempKindData);
     
 }
 
@@ -157,70 +165,115 @@ function newKind() {
  * 
  * the data input so far is JSON codified and stored in PHP's session,
  * making an asynchronous call to microscript 'sessionFromJS.php'.
+ * the data is updated in the following three scenaris:
+ * i) when the page is left.
+ * ii) when country is changed.
+ * iii) when kind is changed.
  */
-function storeTempLocusData() {
-
-    var tempLocusData = JSON.stringify({
-            achtung: document.getElementById('achtung').value,
-            name: document.getElementById('name').value,
-            rating: parseInt(document.getElementById('rating').value),
-            address: document.getElementById('address').value,
-            /*country: document.getElementById('XXX').value,
-            kind: document.getElementById('XXX').value,*/
-            descr: document.getElementById('descrTxt').value,
-            coordExact: document.getElementById('coordExact').value,
-            coordGeneric: document.getElementById('coordGeneric').value,
-            web: document.getElementById('web').value
-        });
-    
-    var request = new XMLHttpRequest(); // TODO: make it cross browser
-    request.open('POST', 'sessionFromJS.php', true);
-    request.setRequestHeader("Content-type",
-        "application/x-www-form-urlencoded");
-    request.send('tempLocusData=' + tempLocusData);
-    
-    return;
-    
-}
+//function storeTempLocusData() {
+//    
+//    // fields 'country' and 'kind' are prepared:
+//    var countryOrigin = document.getElementsByName('countryOrigin');
+//    var countryID = (countryOrigin[0].checked) ?
+//        parseInt(document.getElementById('countryID').value) :
+//        -1; // using temporary value -1 when new country
+//    var kindOrigin = document.getElementsByName('kindOrigin');
+//    var kindID = (kindOrigin[0].checked) ?
+//        parseInt(document.getElementById('kindID').value) :
+//        -1; // using temporary value -1 when new country
+//
+//    // document data are codified as JSON:
+//    var tempLocusData = JSON.stringify({
+//        achtung: document.getElementById('achtung').value,
+//        name: document.getElementById('name').value,
+//        rating: parseInt(document.getElementById('rating').value),
+//        address: document.getElementById('address').value,
+//        country: countryID,
+//        kind: kindID,
+//        descr: document.getElementById('descrTxt').value,
+//        coordExact: document.getElementById('coordExact').value,
+//        coordGeneric: document.getElementById('coordGeneric').value,
+//        web: document.getElementById('web').value
+//    });
+//
+//    // codified JSON is stored in the session:
+//    var request = new XMLHttpRequest(); // TODO: make it cross browser
+//    request.open('POST', 'sessionFromJS.php', false); // non asynchonous
+//    request.setRequestHeader('Content-type',
+//        'application/x-www-form-urlencoded');
+//    request.send('tempLocusData=' + tempLocusData);
+//    
+//    return;
+//    
+//}
 
 function submitForm(evt) { // TODO: validate form
     
     evt.preventDefault();
     
-/*
- * a hidden field tempPraxis has been placed in the document when...
- */
-    
     var tempPraxis = document.getElementById('tempPraxis');
     
-    if (tempPraxis === null) { // tempPraxis not set, script not called from praxisEdit.php
+    if (tempPraxis === null) {
+        // if tempPraxis not set, script called from 'locus.php' for edition
         
-        this.submit();
+        var doesValidate = true; // default value
+        
+        // name validation:
+        var name = document.getElementById('name');
+        if (name.value === '') {
+
+            doesValidate = false;
+            name.style.borderColor = 'red';
+
+        }
+        
+        if (doesValidate) { // validation OK
+        
+            console.log('form validation successfully');
+            this.submit(); // the form is submitted
+    
+        } else {
+        
+            // the form is not submitted
+            console.log('form validation failed');
+
+        }
         
     } else { // save and continue
         
-        storeTempLocusData();
+        // fields 'country' and 'kind' are prepared:
+        var countryOrigin = document.getElementsByName('countryOrigin');
+        var countryID = (countryOrigin[0].checked) ?
+            parseInt(document.getElementById('countryID').value) :
+            -1; // using temporary value -1 when new country
+        var kindOrigin = document.getElementsByName('kindOrigin');
+        var kindID = (kindOrigin[0].checked) ?
+            parseInt(document.getElementById('kindID').value) :
+            -1; // using temporary value -1 when new country
+
+        // document data are codified as JSON:
+        var tempLocusData = JSON.stringify({
+            achtung: document.getElementById('achtung').value,
+            name: document.getElementById('name').value,
+            rating: parseInt(document.getElementById('rating').value),
+            address: document.getElementById('address').value,
+            country: countryID,
+            kind: kindID,
+            descr: document.getElementById('descrTxt').value,
+            coordExact: document.getElementById('coordExact').value,
+            coordGeneric: document.getElementById('coordGeneric').value,
+            web: document.getElementById('web').value
+        });
+
+        // codified JSON is stored in the session:
+        var request = new XMLHttpRequest(); // TODO: make it cross browser
+        request.open('POST', 'sessionFromJS.php', false); // non asynchonous
+        request.setRequestHeader('Content-type',
+            'application/x-www-form-urlencoded');
+        request.send('tempLocusData=' + tempLocusData);
         
-        // redirect to 'praxisEdit.php' passing in the URL an argument (GET method):
+        // redirect to 'praxisEdit.php':
         window.location = 'praxisEdit.php?tempLocus=1';
-        
-/*
- * a temporary form is created and submitted,
- * so that 'praxisEdit.php' has $_SERVER['REQUEST_METHOD'] === "GET".
- */    
-    
-//        var tempForm = document.createElement('form');
-//        tempForm.action = 'praxisEdit.php';
-//        tempForm.method = 'GET';
-//
-////        var input = document.createElement('input');
-////        input.type = 'hidden';
-////        input.name = 'fragment';
-////        input.value = '<!DOCTYPE html>' + document.documentElement.outerHTML;
-////        tempForm.appendChild(input);
-//
-//        document.body.appendChild(tempForm);
-//        tempForm.submit();
         
     }
     

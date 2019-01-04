@@ -7,8 +7,9 @@
  * using this lover identificator an object of class 'Amor' is created,
  * whose data are read from database.
  * the page´s parts will be created using this object.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-05-05
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-06-09
 */
 
 require_once 'core.inc';
@@ -29,6 +30,7 @@ $pdo = DB::getDBHandle();
 $amor = new Amor(intval($_GET['amorID']));
 
 $title = "myX - Lover";
+$js = "amor.js";
 include 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
@@ -64,14 +66,17 @@ HTML;
 // alias and rating:
 echo "\t\t\t\t\t<p class=\"medium\">";
 
-if (DEBUG)
-    echo " <span class=\"debug\">[amorID <b>".$amor->getAmorID().
-        "</b> ".$amor->getAlias()."]</span> ";
+if (DEBUG) {
+    
+    echo " <span class=\"debug\">[amorID <b>".$amor->getAmorID()."</b> ".
+        $amor->getAlias()."]</span> ";
+    
+}
 
 echo _("Alias").": <b>".$amor->getAlias()."</b>.</p>\n";
 
 // rating:
-echo "\t\t\t\t\t<p class=\"medium\">"._("Subjective rating").": <b>".
+echo "\t\t\t\t\t<p class=\"medium\">"._("Rating").": <b>".
     writtenRate($amor->getRating(), TRUE)."</b>.</p>\n";
 
 // genre:
@@ -153,8 +158,7 @@ HTML;
 // the amount of experiences is retrieved:
 $practicaAmount = $amor->getPracticaAmount();
 
-// the amount of different dates when these experiences happened
-// is retrieved:
+// the amount of different dates when these experiences happened is retrieved:
 $differentDatesAmount = $amor->getDifferentDatesAmount();
 
 echo "\t\t\t\t\t<p>";
@@ -206,22 +210,25 @@ echo ".</p>\n";
 /*
  * retrieves the parameter list and composes the string
  * $datatring (without page) that will be passed to navigationBar().
- * 
- * 
- * XXX
  */
 
 $uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
 
 $data = explode("&", $uriQuery);
 $dataString = "";
-foreach ($data as $value)
-    if (substr($value, 0, 5) != "page=")
+foreach ($data as $value) {
+    
+    if (substr($value, 0, 5) != "page=") {
+        
         $dataString .= $value; // this is the current page number
+        
+    }
+    
+}
 
-// retrieves the current page (1 if not set)
+// retrieves the current page, 1 if not set:
 $currentPage = ($_GET['page'] !== NULL) ?
-    intval($_GET['page']) :
+    filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT) :
     1; // $page is 1-based
 
 $pageSettings = pageSettings($practicaAmount, $currentPage);
@@ -230,8 +237,11 @@ $ordinal = $pageSettings['ordinal']; // $ordinal is 1-based
 $ordinalZeroBased = $ordinal - 1;
 
 // displays top navigation bar
-if ($pageSettings['navigationBar'])
-    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+if ($pageSettings['navBar']) {
+    
+    navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    
+}
 
 //////////////////////////////////////////////////////////////////////////////////////////
 // experiences list
@@ -251,28 +261,30 @@ ON `myX`.`practica`.`praxisID`=`myX`.`assignations`.`praxis`
 WHERE `myX`.`assignations`.`amor` = :amorID
 QRY;
 
-switch ($_SESSION['navigationOptions']['listsOrder']) {
+switch ($_SESSION['navOptions']['listsOrder']) {
         
     case OLDEST_TO_NEWEST:
 
-        $queryString .= " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
+        $queryString .=
+            " ORDER BY `myX`.`practica`.`date`, `myX`.`practica`.`ordinal`";
         break;
 
     case NEWEST_TO_OLDEST:
 
-        $queryString .= " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
+        $queryString .=
+    " ORDER BY `myX`.`practica`.`date` DESC, `myX`.`practica`.`ordinal` DESC";
         break;
         
 }
-$queryString .= " LIMIT ".
-    $ordinalZeroBased.
-    ", ".
-    $_SESSION['navigationOptions']['resultsPerPage'];
+$queryString .= " LIMIT ".$ordinalZeroBased.", ".
+    $_SESSION['navOptions']['resultsPerPage'];
 
-if (DEBUG)
-    echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
-        $queryString.
+if (DEBUG) {
+    
+    echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".$queryString.
         "]</span></p>";
+    
+}
 
 $statement = $pdo->prepare($queryString);
 $statement->bindParam(":amorID", $amor->getAmorID(), PDO::PARAM_INT);
@@ -293,14 +305,15 @@ foreach ($statement as $row) {
 }
 
 // displays bottom navigation bar:
-if ($pageSettings['navigationBar'])
-    navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+if ($pageSettings['navBar']) {
+    
+    navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    
+}
 
 // link to top of the page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
-    "<img src=\"images/arrow_top.gif\" />".
-    " <a href=\"#start\">".
-    _("Back to top").
+    "<img src=\"images/arrow_top.gif\" /> <a href=\"#start\">"._("Back to top").
     "</a></p>\n";
 
 echo <<<HTML
@@ -328,38 +341,59 @@ if ($amor->getAchtung() !== ""
 
 HTML;
 
-    if ($amor->getAchtung() !== "")
+    if ($amor->getAchtung() !== "") {
+        
         echo "\t\t\t\t\t<p class=\"medium\">"._("Achtung").": <b>".
             $amor->getAchtung()."</b>.</p>\n";
+        
+    }
 
-    if ($amor->getWeb() !== "")
+    if ($amor->getWeb() !== "") {
+        
         echo "\t\t\t\t\t<p class=\"medium\">"._("Web").": <b>".$amor->getWeb().
             "</b>.</p>\n";
+        
+    }
 
-    if ($amor->getName() !== "")
+    if ($amor->getName() !== "") {
+        
         echo "\t\t\t\t\t<p class=\"medium\">"._("Name").": <b>".
             $amor->getName()."</b>.</p>\n";
+        
+    }
 
 /*
  * photo: a boolean value is stored, which indicates just
- * if there are any pictures or not. TODO: a checkbox is to be displayed.
+ * if there are any pictures or not. desideratum: display rather a checkbox.
  * in a more evaluated version this should be a real picture to display.
  */
-    if ($amor->getPhoto() !== "")
+    if ($amor->getPhoto() !== "") {
+        
         echo "\t\t\t\t\t<p class=\"medium\">"._("Pictures").": <b>".
             $amor->getPhoto()."</b>.</p>\n";
+        
+    }
 
-    if ($amor->getPhone() !== "")
+    if ($amor->getPhone() !== "") {
+        
         echo "\t\t\t\t\t<p class=\"medium\">"._("Phone").": <b>".
             $amor->getPhone()."</b>.</p>\n";
+        
+    }
 
-    if ($amor->getEmail() !== "")
+    if ($amor->getEmail() !== "") {
+        
         echo "\t\t\t\t\t<p class=\"medium\">"._("Email").": <b>".
             $amor->getEmail()."</b>.</p>\n";
+        
+    }
 
-    if ($amor->getOther() !== "")
+    if ($amor->getOther() !== "") {
+        
         echo "\t\t\t\t\t<p class=\"medium\">"._("Other data").": <b>".
             $amor->getOther()."</b>.</p>\n";
+        
+    }
     
 }
 
@@ -373,10 +407,7 @@ HTML;
 
 echo "\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
         _("ACTIONS i.e. XXX").
-        "';\" onMouseOut=\"this.innerHTML='".
-        _("ACTIONS").
-        "';\">".
-        _("ACTIONS").
+        "';\" onMouseOut=\"this.innerHTML='"._("ACTIONS")."';\">"._("ACTIONS").
         "</h1>\n";
 
 // edit lover form:
@@ -396,8 +427,7 @@ echo "\t\t\t\t\t</form>\n";
 // link to previous page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".
     "<img src=\"images/arrow_back.gif\" />".
-    " <a href=\"javascript: history.back();\">".
-    _("Back to previous").
+    " <a href=\"javascript: history.back();\">"._("Back to previous").
     "</a></p>\n";
 
 echo "\t\t\t\t</article>\n";

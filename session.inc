@@ -1,13 +1,15 @@
 <?php
-
-/* 
- * session.inc
- * script to handle session start and timeouts
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+/** 
+ * script 'session.inc'.
+ * 
+ * script to handle session start and timeouts.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2017-12-16
  */
 
-session_start(); // TODO: change for anything more sophisticated, including timing out
+session_start();
+// desideratum: change for anything more sophisticated, including timing out
 //$timeout = 3600; // number of seconds until it times out.
 //     
 //// check if the timeout field exists:

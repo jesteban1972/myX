@@ -2,9 +2,24 @@
  * script 'locaMap.php'.
  * 
  * JavaScript code for displaying places map
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * 
  * last updated 2018-04-21
 */
+
+window.onload = function() {
+    
+    // makes notification (if any) dessapear after 3 secs:
+    if (document.getElementById('notification'))
+        window.setTimeout('hideNotification()', 3000);
+    
+}
+
+function hideNotification() {
+    
+    document.getElementById("notification").style.display = "none";
+    
+}
 
 function initializeMap() {
     
@@ -17,10 +32,12 @@ function initializeMap() {
     */
     
     // TODO: this value should come from PHP
-    sessionStorage.setItem("mapCenter", "38.325707, 24.390816");
+    sessionStorage.setItem('mapCenter', '44.973132, 3.924388'/*'38.325707, 24.390816'*/);
         
-    var mapCenterLat = parseFloat(sessionStorage.getItem("mapCenter").split(", ")[0]);
-    var mapCenterLng = parseFloat(sessionStorage.getItem("mapCenter").split(", ")[1]);
+    var mapCenterLat =
+        parseFloat(sessionStorage.getItem("mapCenter").split(", ")[0]);
+    var mapCenterLng =
+        parseFloat(sessionStorage.getItem("mapCenter").split(", ")[1]);
     
     var mapCenter = new google.maps.LatLng(mapCenterLat, mapCenterLng);
     var mapZoom = 4;
@@ -49,7 +66,7 @@ function initializeMap() {
             var name = loca[i].getAttribute('name');
             //var country = loca[i].getAttribute('country');
             //var kind = loca[i].getAttribute('kind');
-            var description = loca[i].getAttribute('description');
+            var descr = loca[i].getAttribute('descr');
             var address = loca[i].getAttribute('address');
 
             var coordinates;
@@ -91,13 +108,17 @@ function initializeMap() {
 
             // compose the content string for the infowindow:
             contentString[i] = name;
-            contentString[i] += " (" + practicaAmount + ")";
-            if (description) {
-                contentString[i] += "<br />" + description;
+            if (practicaAmount > 1)
+                contentString[i] += ' (' + practicaAmount + ' experiences)';
+            else
+                contentString[i] += ' (' + practicaAmount + ' experience)';
+            if (descr) {
+                contentString[i] += '<br />' + descr + '.';
             }
-            contentString[i] += "<br /><a href=\"locus.php?locusID=" + locusID + "\">Go to place ></a>";
+            contentString[i] += "<br /><a href=\"locus.php?locusID=" +
+                locusID + "\">Go to place ></a>";
            
-           // country, kind, description, address
+           // country, kind, description, address not taken into account
            
             // add the event listener for click:
             google.maps.event.addListener(marker, 'click', (function(marker, i) {

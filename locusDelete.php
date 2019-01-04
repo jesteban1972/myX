@@ -3,7 +3,7 @@
 /**
  * script locusDelete.php
  * contains the form to confirm the deletion of a place
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-01-23
 */
 
@@ -16,10 +16,11 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     echo "\t\t\t\t<h1>".
         _("Atention!").
         "</h1>\n";
-    echo "\t\t\t\t<p>".
-        _("Are you sure you want to delete the current place?").
+    echo "\t\t\t\t<p class=\"medium\">".
+        _("Are you sure you want to delete the current place?")." ".
+        _("(you might want to edit its data instead).").
         "</p>\n";
-    echo "\t\t\t\t<p>".
+    echo "\t\t\t\t<p class=\"medium\">".
         _("Place details and its associated data will be erased").
         ". ".
         _("This action cannot be undone").
@@ -43,6 +44,6 @@ if ($_SERVER['REQUEST_METHOD'] === "POST") {
     echo "\t\t\t</section> <!-- }} section -->\n";
     require_once 'footer.inc'; // footer of all the pages of the app
 
-} /*else script called from outside the normal flush, throw exception*/
+} /*else script called from outside the normal flush, redirect to 'index.php'*/
 
 ?>

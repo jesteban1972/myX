@@ -1,9 +1,12 @@
 <?php
 /**
- * script amores.php
- * displays a list of lovers
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-03-24
+ * script 'amores.php'.
+ * 
+ * this script displays a list of lovers using an instance of class
+ * 'amoresQuery'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-06-09
 */
 
 require_once 'core.inc';
@@ -15,27 +18,37 @@ require_once 'amor.inc';
 $pdo = DB::getDBHandle();
 
 /*
- * initializes $amoresList, and retrieves its components
- * if already storage in $_SESSION, retrieve list;
- * otherwise create an unfiltered list 
+ * initializes '$amoresQuery' retrieving its components as a saved query
+ * or if stored in the session. otherwise an unfiltered query is created.
  */
-if (!isset($_SESSION['amoresQuery'])) {
+
+if (isset($_GET['query'])) {
+    
+    $query = new Query($_GET['query']);
+    $descr = ($query->getDescr() !== "") ?
+        $query->getDescr() :
+        "";
+    $amoresQuery = new AmoresQuery($query->getName(), $descr,
+        $query->getQueryString());
+    
+} else if (isset($_SESSION['amoresQuery'])) {
+    
+    $amoresQuery = $_SESSION['amoresQuery'];
+    
+} else {
     
     $amoresQuery = new AmoresQuery();
     $_SESSION['amoresQuery'] = $amoresQuery;
     
-} else {
-    
-    $amoresQuery = $_SESSION['amoresQuery'];
-    
 }
 
-$designation = $amoresQuery->getDesignation();
-$description = $amoresQuery->getDescription();
+$name = $amoresQuery->getName();
+$descr = $amoresQuery->getDescr();
 $queryString = $amoresQuery->getQueryString();
 
 // page header:
 $title = "myX - Lovers";
+$js = "amores.js";
 require_once 'header.inc'; // header of all the pages of the app
 echo "\t\t\t<section> <!-- section {{ -->\n";
 
@@ -48,15 +61,15 @@ HTML;
 // list designation and description:
 
 echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".getImage("amor", "small").
-    "\" alt=\""._("(Image of a cycladic idol)")."\" /> <b>"._($designation).
-    "</b>: "._($description)." ";
+    "\" alt=\""._("(Image of a cycladic idol)")."\" /> <b>"._($name).
+    "</b>: "._($descr)." ";
 
 /*
  * lovers amount.
- * a first query of amoresList::queryString is performed
+ * a first query of amoresQuery::queryString is performed
  * just to retrieve the amount of lovers
- * Amor::getAmoresAmount() would retrieve the amount of all experiences,
- * but amoresList might be filtered.
+ * 'Amor::getAmoresAmount'' would retrieve the amount of all lovers,
+ * but amoresQuery might be filtered.
  */
 
 $statement = $pdo->prepare($queryString);
@@ -80,6 +93,19 @@ switch ($amoresAmount) {
             
 }
 echo "</p>\n";
+
+if ($amoresQuery->getName() !== "all lovers") {
+    
+    // save query div/form:
+    echo "\t\t\t\t\t\t<div class=\"floppy\">\n";
+    echo "\t\t\t\t\t\t\t<form action=\"queryEdit.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"queryString\"".
+        " value=\"".$queryString."\" />\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/floppy-small.png\" />\n";
+    echo "\t\t\t\t\t\t\t</form>\n";
+    echo "\t\t\t\t\t\t</div>\n";
+    
+}
 
 if (DEBUG)
     echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
@@ -131,9 +157,9 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
         if (substr($value, 0, 5) != "page=")
             $dataString .= $value; // this is the current segment number
 
-    // retrieves the current page (1 if not set)
-    $currentPage = ($_GET['page'] !== NULL) ?
-        intval($_GET['page']) :
+    // retrieves the current page, 1 if not set:
+    $currentPage = (isset($_GET['page'])) ?
+        filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT) :
         1; // $page is 1-based
 
     $pageSettings = pageSettings($amoresAmount, $currentPage);
@@ -142,8 +168,8 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -157,7 +183,7 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
     $queryString .= " LIMIT ".
         $ordinalZeroBased.
         ", ".
-        $_SESSION['navigationOptions']['resultsPerPage'];
+        $_SESSION['navOptions']['resultsPerPage'];
 
     if (DEBUG)
         echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
@@ -180,12 +206,12 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
         $amor->HTMLPreview($ordinal, $preview_options);
 
         // names of the first and last lovers are stored to be shown in the sidebar
-        if ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
+        if ($ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + 1) {
             
             $firstAmor = $row['alias'];
             
-        } elseif ($ordinal === ($_SESSION['navigationOptions']['resultsPerPage']) * $currentPage ||
-            $ordinal === ($_SESSION['navigationOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
+        } elseif ($ordinal === ($_SESSION['navOptions']['resultsPerPage']) * $currentPage ||
+            $ordinal === ($_SESSION['navOptions']['resultsPerPage'] * ($currentPage - 1)) + $numRows) {
             
             $lastAmor = $row['alias'];
         }
@@ -195,9 +221,10 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 
 
    // displays bottom navigation bar
-   if ($pageSettings['navigationBar'])
-       navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+   if ($pageSettings['navBar'])
+       navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
+    // quotation alternative 1 (original):
 //   echo <<<HTML
 //                        <p class="quote">«<i>Χαρὰ καὶ μύρο τῆς ζωῆς μου ἡ μνήμη τῶν ὡρῶν<br />
 //                                           ποὺ ηὗρα καὶ ποὺ κράτηξα τὴν ἡδονὴ ὡς τὴν ἤθελα.<br />
@@ -207,6 +234,35 @@ echo "\t\t\t\t\t\t<h1 onMouseOver=\"this.innerHTML='".
 //
 //HTML;
    
+    // quotation alternative 2 (original):
+//   echo <<<HTML
+//                        <p class="quote">«<i>V'han fra queste contadine,<br />
+//                            Cameriere, cittadine,<br />
+//                            V'han contesse, baronesse,<br />
+//                            Marchesine, principesse.<br />
+//                            E v'han donne d'ogni grado,<br />
+//                            D'ogni forma, d'ogni età.<br />
+//                            Nella bionda egli ha l'usanza<br />
+//                            Di lodar la gentilezza,<br />
+//                            Nella bruna la costanza,<br />
+//                            Nella bianca la dolcezza.<br />
+//                            Vuol d'inverno la grassotta,<br />
+//                            Vuol d'estate la magrotta;<br />
+//                            È la grande maestosa,<br />
+//                            La piccina e ognor vezzosa.<br />
+//                            Delle vecchie fa conquista<br />
+//                            Pel piacer di porle in lista;<br />
+//                            Sua passion predominante<br />
+//                            È la giovin principiante.<br />
+//                            Non si picca - se sia ricca,<br />
+//                            Se sia brutta, se sia bella;<br />
+//                            Purché porti la gonnella,<br />
+//                            Voi sapete quel che fa.</i>»<br />
+//                            (Lorenzo da Ponte/W. A. Mozart:<br />«Don Giovanni» 1787, atto I, scena quinta)</p>
+//
+//HTML;
+   
+     // quote (selected option)
    echo <<<HTML
                         <p class="quote">«<i>Esencia y perfume de mi vida, la memoria de las horas<br />
                                              que hallé y retuve el placer tal como anhelaba.<br/>
@@ -233,23 +289,23 @@ echo <<<HTML
 
 HTML;
 
-// filter lovers:
-echo "\t\t\t\t\t<form action=\"amoresQuery.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
-    ._("Apply filter").
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-    ._("Remove filter").
-    "\" ";
-if ($amoresQuery->getDesignation() === "all lovers")
-    echo "disabled=\"disabled\" ";
-echo "/>\n";
-echo "\t\t\t\t\t</form>\n";
+if ($_SESSION['DBStatus']['doPracticaExist']) {
+    
+    // filter lovers:
+    echo "\t\t\t\t\t<form action=\"amoresFilter.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
+        ._("Apply filter")."\" />\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+        ._("Remove filter")."\" ";
+    if ($amoresQuery->getName() === "all lovers") {
+        
+        echo "disabled=\"disabled\" ";
+        
+    }
+    echo "/>\n";
+    echo "\t\t\t\t\t</form>\n";
 
-// new lover:
-echo "\t\t\t\t\t<form action=\"amorEdit.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New lover")."\" />\n";
-echo "\t\t\t\t\t</form>\n";
+}
 
 echo "\t\t\t\t</article>\n";
 

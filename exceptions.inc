@@ -5,7 +5,7 @@
  * script with the implementation of
  * i) exception classes (...)
  * ii) myX's own exception handler
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-05-11
  */
 
@@ -132,8 +132,8 @@ function exceptionHandler($exception) {
     
     echo <<<HTML
                     <article>
-                        <p>We are sorry, but an error occured while executing the application. The retrived error follows.</p>
-                        <p style="color: red; text-align: center;">{$msg}</p>
+                        <p class="medium">We are sorry, but an error occured while executing the application. The retrived error follows.</p>
+                        <p class="medium" style="color: red; text-align: center;">{$msg}</p>
                         <p>Back to <a href="javascript: history.back()">previous page</a></p>
                         <p>Back to <a href="index.php">start page</a></p>
                     </article>
@@ -152,6 +152,6 @@ HTML;
 } // function exceptionHandler
 
 // function exceptionHandler is set:
-//set_exception_handler("exceptionHandler");
+set_exception_handler("exceptionHandler");
 
 ?>

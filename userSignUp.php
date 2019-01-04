@@ -1,10 +1,12 @@
 <?php
-
-/* 
- * userSignUp.php
- * sign up PHP file of myX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-04-10
+/** 
+ * script 'userSignUp.php'.
+ * 
+ * this script is used to display a sign up form to set up an account in the
+ * application. this form which will be processed with 'userSignUpProcess.php'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-06-09
  */
 
 //session_start(); // the session is initiated NOT NEEDED
@@ -26,7 +28,7 @@ HTML;
 // the form is echoed:
 
 /*
- * tooltips shoud be used to explain the meaning of the fields.
+ * desiderata: tooltips could be used to explain the meaning of the fields.
  */
 
 echo "\t\t\t\t\t<form id=\"userSignUpForm\" action=\"userSignUpProcess.php\"".
@@ -46,7 +48,8 @@ echo "\t\t\t\t\t\t\t<legend>"._("User data (all fields required)").
  * to inform him/her about the availability of the user name.
  */
 
-echo "\t\t\t\t\t\t\t<label for=\"username\">"._("Username:")."</label>\n";
+echo "\t\t\t\t\t\t\t<label for=\"username\">"._("Username:").
+    "<sup>*</sup></label>\n";
 echo "\t\t\t\t\t\t\t<input id=\"username\" name=\"username\"".
     " type=\"text\" required=\"required\" />\n";
 echo "\t\t\t\t\t\t\t<div id=\"usernameAvailability\"".
@@ -54,11 +57,12 @@ echo "\t\t\t\t\t\t\t<div id=\"usernameAvailability\"".
 echo "<br />\n";
 
 // password (and confirmation):
-echo "\t\t\t\t\t\t\t<label for=\"password1\">"._("Password:")."</label>\n";
+echo "\t\t\t\t\t\t\t<label for=\"password1\">"._("Password:").
+    "<sup>*</sup></label>\n";
 echo "\t\t\t\t\t\t\t<input id=\"password1\" name=\"password1\"".
     " type=\"password\" required=\"required\" /><br />\n";
 echo "\t\t\t\t\t\t\t<label for=\"password2\">".
-    _("Confirm password:")."</label>\n";
+    _("Confirm password:")."<sup>*</sup></label>\n";
 echo "\t\t\t\t\t\t\t<input id=\"password2\" name=\"password2\"".
     " type=\"password\" required=\"required\" />\n";
 echo "\t\t\t\t\t\t\t<div id=\"passwordMessage\"".
@@ -66,12 +70,13 @@ echo "\t\t\t\t\t\t\t<div id=\"passwordMessage\"".
 echo "<br />\n";
 
 // email:
-echo "\t\t\t\t\t\t\t<label for=\"email\">"._("Email:")."</label>\n";
+echo "\t\t\t\t\t\t\t<label for=\"email\">"._("Email:")."<sup>*</sup></label>\n";
 echo "\t\t\t\t\t\t\t<input id=\"email\" name=\"email\" type=\"email\"".
     " required=\"required\" /><br />\n";
 
 // birthdate:
-echo "\t\t\t\t\t\t\t<label for=\"birthdate\">"._("Birthdate:")."</label>\n";
+echo "\t\t\t\t\t\t\t<label for=\"birthdate\">"._("Birthdate:").
+    "<sup>*</sup></label>\n";
 echo "\t\t\t\t\t\t\t<input type=\"date\" name=\"birthdate\"".
     " pattern=\"[0-9]{4}-[0-9]{2}-[0-9]{2}\" />\n";
 
@@ -98,16 +103,20 @@ echo "\t\t\t\t\t\t\t\t<legend>"._("Custom meaning of description fields").
     "</legend>\n";
 echo "\t\t\t\t\t\t\t\t<label for=\"descr1\">".
     _("Description 1:")."</label>\n";
-echo "\t\t\t\t\t\t\t\t<input name=\"descr1\" type=\"text\" size=\"100\" /><br />\n";
+echo "\t\t\t\t\t\t\t\t<input name=\"descr1\" type=\"text\" size=\"100\" />".
+    "<br />\n";
 echo "\t\t\t\t\t\t\t\t<label for=\"descr2\">".
     _("Description 2:")."</label>\n";
-echo "\t\t\t\t\t\t\t\t<input name=\"descr2\" type=\"text\" size=\"100\" /><br />\n";
+echo "\t\t\t\t\t\t\t\t<input name=\"descr2\" type=\"text\" size=\"100\" />".
+    "<br />\n";
 echo "\t\t\t\t\t\t\t\t<label for=\"descr3\">".
     _("Description 3:")."</label>\n";
-echo "\t\t\t\t\t\t\t\t<input name=\"descr3\" type=\"text\" size=\"100\" /><br />\n";
+echo "\t\t\t\t\t\t\t\t<input name=\"descr3\" type=\"text\" size=\"100\" />".
+    "<br />\n";
 echo "\t\t\t\t\t\t\t\t<label for=\"descr4\">".
     _("Description 4:")."</label>\n";
-echo "\t\t\t\t\t\t\t\t<input name=\"descr4\" type=\"text\" size=\"100\" /><br />\n";
+echo "\t\t\t\t\t\t\t\t<input name=\"descr4\" type=\"text\" size=\"100\" />".
+    "<br />\n";
 echo "\t\t\t\t\t\t\t</fieldset>\n";
 
 echo "\t\t\t\t\t\t</fieldset>\n";
@@ -141,6 +150,8 @@ echo "\t\t\t\t\t\t\t</select>\n";
 
 echo "\t\t\t\t\t\t</fieldset>\n";
 
+// form footer:
+echo "\t\t\t\t\t\t<p><sup>*</sup>"._("compulsory fields")."</p>\n";
 echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Submit data")."\" />\n";
 echo "\t\t\t\t\t\t<input type=\"button\" name=\"cancel\" value=\"".
         _("Cancel")."\" onclick=\"javascript: history.back();\" />\n";

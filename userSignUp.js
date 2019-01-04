@@ -1,8 +1,11 @@
 /**
- * script userSignUp.js
- * XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-10
+ * script 'userSignUp.js'.
+ * 
+ * this script is used to provide complementary functionality to the form
+ * of the script 'userSignUp.php'. 
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-06-09
 */
 
 window.onload = function() {
@@ -27,13 +30,6 @@ function checkAvailability(evt) {
     
     usernameAvailability = document.getElementById('usernameAvailability');
     
-    // username must be at least 6 characters length:
-//    if (evt.target.value.length < 6) {
-//        
-//        usernameAvailability.innerHTML = '';
-//        return;
-//        
-//    }
     if (!isValidUsername())
         return;
     
@@ -69,7 +65,13 @@ function checkAvailability(evt) {
 
 /**
  * 
- * @type Boolean
+ * function 'doesPasswordMatch'.
+ * 
+ * this function check if the values input in the fields 'password1' and
+ * 'password2' are the same.
+ * 
+ * @return bool boolean value indicating whether the values input in the fields
+ * 'password1' and 'password2' are the same.
  */
 function doesPasswordMatch() {
     
@@ -82,7 +84,7 @@ function doesPasswordMatch() {
     if (password1 !== password2) {
         
         passwordMessage.style.visibility = 'visible';
-        passwordMessage.innerHTML = 'Password does not match.'
+        passwordMessage.innerHTML = 'Password does not match.';
         
         doesPasswordMatch = false;
         
@@ -93,11 +95,12 @@ function doesPasswordMatch() {
 }
 
 /**
+ * function 'isValidEmail'.
  * 
- * the username must be a string containing any ASCII characters
- * whith minimal length 6 and maximal length 255.
+ * this function checks if the input email is valid.
  *
- * @type Boolean
+ * @return bool boolean value indicating whether the input email is valid or
+ * not.
  */
 function isValidEmail() {
     
@@ -117,6 +120,17 @@ function isValidEmail() {
     
 }
 
+/**
+ * function 'isValidUsername'.
+ * 
+ * this function checks if the input username is valid.
+ * 
+ * a valid username should be between 6 and 255 characters length, including
+ * only latin alphabetical characters, numbers, space, underscore or hyphen.
+ *
+ * @return bool boolean value indicating whether the input username is valid or
+ * not.
+ */
 function isValidUsername() {
     
     var isValidUsername = true;
@@ -172,40 +186,45 @@ function resetPasswordMessage() {
     
 }
 
+/**
+ * function 'validateForm'.
+ * 
+ * this function validates the form.
+ */
 function validateForm(evt) {
-    
-    var validates = true;
     
     evt.preventDefault();
     
+    var doesValidate = true; // default value
+       
     // username validation:
     if (!isValidUsername())
-        validates = false;
+        doesValidate = false;
     else
         document.getElementById('usernameAvailability').style.visibility =
             'hidden';
     
     // passwords match validation:
     if (!doesPasswordMatch())
-        validates = false;
+        doesValidate = false;
     else
         document.getElementById('passwordMessage').style.visibility = 'hidden';
     
     // email validation:
     if (!isValidEmail())
-        validates = false;
+        doesValidate = false;
     
     // birthdate validation:
     
-    if (validates) { // validation OK
+    if (doesValidate) { // validation OK
         
-        console.log('validation OK');
+        console.log('form validation successfully');
         this.submit(); // the form is submitted
     
     } else {
         
         // the form is not submitted
-        console.log('validation KO');
+        console.log('form validation failed');
         
     }
     

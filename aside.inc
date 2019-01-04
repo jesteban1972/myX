@@ -3,7 +3,7 @@
 /* 
  * aside.inc
  * sidebar for all pages of myX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-01-10
  */
 
@@ -39,7 +39,8 @@ $userID = $_SESSION['userID'];
 
 // divide the URL in parts in order to filter actions according with $fileName:
 $resourceParts = explode('/', $_SERVER['PHP_SELF']); // SCRIPT_NAME, SCRIPT_FILENAME
-$fileName = end($resourceParts); // alternatively: $file_name = $resource_parts[count($URL_parts) - 1]
+$fileName = end($resourceParts);
+// alternatively: $scriptΝame = $resource_parts[count($URL_parts) - 1]
 
 if ($fileName !== "userSignUp.php") { // login form not shown when signing up
     
@@ -95,6 +96,21 @@ HTML;
 
 }
 // }} login
+
+/*
+ * notification area: the following space is temporarily occupied by system
+ * notifications (e.g. "Experience inserted successfully"). these are retrieved
+ * from the variable '$_SESSION['notification'] and displayed in this area for
+ * three seconds. inmediatly after being displayed the session variable get
+ * unset to avoid being shown more than once.
+ */
+if (isset($_SESSION['notification'])) {
+    
+    echo "\t\t\t\t<div id=\"notification\"><p>"._($_SESSION['notification']).
+        "</p></div>\n";
+    unset($_SESSION['notification']);
+    
+}
 
 // sidebar content:
 

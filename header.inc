@@ -2,14 +2,15 @@
 /** 
  * script 'header.inc'.
  * 
- * script with the header of all pages
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * script with the header of all pages of the app.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-04-21
  */
 
 require_once 'core.inc';
-require_once 'DB.inc';
 require_once 'user.inc';
+require_once 'praxis.inc';
 
 /*
  * initialization of userOptions and navigationOptions:
@@ -21,19 +22,18 @@ require_once 'user.inc';
 
 if ((isset($_SESSION['userID']) && ($_SESSION['userID'] !== -1))) { // user logged in
     
-    $navigationOptions = User::getNavigationOptions();
+    $navOptions = User::getNavOptions();
     
-    if ($navigationOptions['GUILang'] !== null &&
-        !isset($_SESSION['navigationOptions']['GUILang']))
-            $_SESSION['navigationOptions']['GUILang'] =
-                $navigationOptions['GUILang'];
+    if ($navOptions['GUILang'] !== null/* &&
+        !isset($_SESSION['navOptions']['GUILang'])*/)
+            $_SESSION['navOptions']['GUILang'] = $navOptions['GUILang'];
     
-    if ($navigationOptions['resultsPerPage'] !== null)
-        $_SESSION['navigationOptions']['resultsPerPage'] =
-            $navigationOptions['resultsPerPage'];
-    if ($navigationOptions['listsOrder'] !== null)
-        $_SESSION['navigationOptions']['listsOrder'] =
-            $navigationOptions['listsOrder'];
+    if ($navOptions['resultsPerPage'] !== null)
+        $_SESSION['navOptions']['resultsPerPage'] =
+            $navOptions['resultsPerPage'];
+    if ($navOptions['listsOrder'] !== null)
+        $_SESSION['navOptions']['listsOrder'] =
+            $navOptions['listsOrder'];
             
     $userOptions = User::getUserOptions();
     
@@ -56,28 +56,27 @@ if ((isset($_SESSION['userID']) && ($_SESSION['userID'] !== -1))) { // user logg
 
    if (!isset($_SESSION['DBStatus']['doPracticaExist'])) {
        
-       // get a DB connection to work with:
-        $pdo = DB::getDBHandle();
+       if (Praxis::getPracticaAmount() > 0) {
+           
+           $_SESSION['DBStatus']['doPracticaExist'] = true;
+           
+        }
 
-       $queryString = <<<QUERY
-SELECT COUNT(*)
-FROM `myX`.`practica`
-WHERE `user` = :userID
-QUERY;
-
-        $statement = $pdo->prepare($queryString);
-        $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
-        $statement->execute();
-        $_SESSION['DBStatus']['doPracticaExist'] =
-            (intval($statement->fetchColumn()) > 0) ? true : false;
-
+    } else {
+        
+        if (Praxis::getPracticaAmount() === 0) {
+            
+            unset($_SESSION['DBStatus']['doPracticaExist']);
+            
+        }
+        
     }
             
 } else { // user not logged in, use defaults
     
-    $_SESSION['navigationOptions']['GUILang'] = GUI_ENGLISH;
-    $_SESSION['navigationOptions']['resultsPerPage'] = 25;
-    $_SESSION['navigationOptions']['listsOrder'] = OLDEST_TO_NEWEST;
+    $_SESSION['navOptions']['GUILang'] = GUI_ENGLISH;
+    $_SESSION['navOptions']['resultsPerPage'] = 25;
+    $_SESSION['navOptions']['listsOrder'] = OLDEST_TO_NEWEST;
     
 }
 
@@ -91,24 +90,24 @@ if (isset($_POST['GUILang'])) {
         
         case "es":
             
-            $_SESSION['navigationOptions']['GUILang'] = GUI_SPANISH;
+            $_SESSION['navOptions']['GUILang'] = GUI_SPANISH;
             break;
         
         case "el":
             
-            $_SESSION['navigationOptions']['GUILang'] = GUI_GREEK;
+            $_SESSION['navOptions']['GUILang'] = GUI_GREEK;
             break;
         
         default:
             
-            $_SESSION['navigationOptions']['GUILang'] = GUI_ENGLISH;            
+            $_SESSION['navOptions']['GUILang'] = GUI_ENGLISH;            
         
     }
     
 }
 
 // initialize gettext:
-GUILangInitialize($GUILangCodes[$_SESSION['navigationOptions']['GUILang']]);
+GUILangInitialize($GUILangCodes[$_SESSION['navOptions']['GUILang']]);
 
 // the top of the page is echoed:
 
@@ -121,12 +120,44 @@ echo "\t\t<meta name=\"author\"".
     " content=\"Joaquin Javier ESTEBAN MARTINEZ\" />\n";
 echo "\t\t<title>"._($title)."</title>\n";
 
-if (isset($js))
+if (isset($js)) {
+    
     echo "\t\t<script type=\"text/javascript\" src=\"".$js.
         "\"></script> <!-- JavaScript code -->\n";
+    
+}
 
-if (isset($mapAPI))
+if (isset($mapAPI)) {
+    
     echo "\t\t<script type=\"text/javascript\" src=\"https://maps.googleapis.com/maps/api/js?key=AIzaSyCzoiaEvQUJDVxv8f_7eA_IgbcO6cJnftc&sensor=false\"></script> <!-- Google Maps API -->\n";
+    
+}
+
+/*
+ * if current script is 'index.php' include additional bootstrap JS and CSS
+ * for the slider:
+ */
+
+if (end(explode('/', $_SERVER['PHP_SELF'])) === "index.php") {
+    // additional JS and stylesheets for the slider
+    
+    echo <<<HTML
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet"/>
+        <style>
+            .HTMLPreview {
+                position: absolute;
+                display: inline-block;
+                width: 90%;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+        </style>
+
+HTML;
+    
+}
 
 echo "\t\t<link rel=\"stylesheet\" type=\"text/css\"".
     " href=\"stylesheets/default.css\" />\n";
@@ -147,10 +178,16 @@ echo "\t\t\t\t<div id=\"GUILangs\" style=\"position: absolute; right: 0%;\">".
 
 // parameters are retrieved from $_GET in case GUI language changes:
 $getString = "";
-if (sizeof($_GET) > 0)
+if (sizeof($_GET) > 0) {
+    
     $getString .= "?";
-foreach ($_GET as $key => $value)
+    
+}
+foreach ($_GET as $key => $value) {
+    
     $getString .= $key."=".$value;
+    
+}
 
 // GUI language form is echoed:
 
@@ -161,20 +198,29 @@ echo "\t\t\t\t\t\t<select name=\"GUILang\" onchange=\"this.form.submit();\">\n";
 
 // English:
 echo "\t\t\t\t\t\t\t<option value=\"en\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_ENGLISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_ENGLISH) {
+    
     echo " selected=\"selected\"";
+    
+}
 echo ">English</option>\n";
 
 // Spanish:
 echo "\t\t\t\t\t\t\t<option value=\"es\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_SPANISH)
+if ($_SESSION['navOptions']['GUILang'] === GUI_SPANISH) {
+    
     echo " selected=\"selected\"";
+    
+}
 echo ">Español</option>\n";
 
 // Greek:
 echo "\t\t\t\t\t\t\t<option value=\"el\"";
-if ($_SESSION['navigationOptions']['GUILang'] === GUI_GREEK)
+if ($_SESSION['navOptions']['GUILang'] === GUI_GREEK) {
+    
     echo " selected=\"selected\"";
+    
+}
 echo ">Ελληνικά</option>\n";
 echo "\t\t\t\t\t\t</select>\n";
 

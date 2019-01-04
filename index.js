@@ -1,21 +1,22 @@
 /**
  * script 'index.js'.
  * 
- * XXX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-16
+ * this script provides additional functionality to the script 'index.php'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-06-08
 */
 
 window.onload = function() {
     
-    // add event to the session viewer:
-//    document.getElementById('sessionViewer').
-//        addEventListener('click', disableSessionViewer, false);
+    // makes notification (if any) dessapear after 3 secs:
+    if (document.getElementById('notification'))
+        window.setTimeout('hideNotification()', 3000);
     
 }
 
-function disableSessionViewer(evt) {
+function hideNotification() {
     
-    document.getElementById('sessionViewer').style.visibility = 'hidden';
+    document.getElementById("notification").style.display = "none";
     
 }

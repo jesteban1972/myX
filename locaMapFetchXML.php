@@ -1,10 +1,11 @@
 <?php
-
-/* 
- * locaMapFetchXML.php
- * script to fetch the places from the DB into a XML file
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-01-21
+/**
+ * script 'locaMapFetchXML.php'.
+ * 
+ * script to fetch the places from the DB into a XML file.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-05-22
  */
 
 require_once 'session.inc';
@@ -22,7 +23,7 @@ function parseToXML($htmlStr) {
     return $xmlStr; 
 }
 
-// Start XML file, create parent node
+// initialize XML file, create parent node
 
 $dom = new DOMDocument("1.0");
 $node = $dom->createElement("loca");
@@ -58,7 +59,7 @@ foreach ($statement as $row) {
     $newnode = $documentNode->appendChild($node);
     $newnode->setAttribute('locusID', $row['locusID']);
 
-    // xperiences amount on place:
+    // experiences amount on place:
     $locus = new Locus(intval($row['locusID']));
     $newnode->setAttribute("practicaAmount", $locus->getPracticaAmount());
 
@@ -72,9 +73,9 @@ foreach ($statement as $row) {
     //$newnode->setAttribute('country', $tuple['name']);
     //$newnode->setAttribute('kind', $tuple['denomination']);
 
-    if ($row["description"] !== "") {
+    if ($row["descr"] !== "") {
 
-        $newnode->setAttribute("description", $row['description']);
+        $newnode->setAttribute("descr", $row['descr']);
 
     }
     
@@ -94,9 +95,9 @@ foreach ($statement as $row) {
         
     }
 
-    if ($row['www'] !== "") {
+    if ($row['web'] !== "") {
 
-        $newnode->setAttribute("www", $row['www']);
+        $newnode->setAttribute("web", $row['web']);
 
     }
 

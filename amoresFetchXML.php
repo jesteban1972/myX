@@ -1,9 +1,10 @@
 <?php
-
-/* 
- * amoresFetchXML.php
- * script to fetch the lovers from the DB into a XML file
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+/** 
+ * script 'amoresFetchXML.php'.
+ * 
+ * script to fetch the lovers from the DB into a XML file.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-03-01
  */
 
@@ -43,7 +44,7 @@ $statement = $pdo->prepare($queryString);
 $statement->bindParam(":userID", $_SESSION['userID'], PDO::PARAM_INT);
 $statement->execute();
 
-// iterate through the rows, adding XML nodes for each one
+// iterate through the rows, adding XML nodes for each one:
 foreach ($statement as $row) {
 
     // ADD TO XML DOCUMENT NODE
@@ -51,22 +52,25 @@ foreach ($statement as $row) {
     $newnode = $documentNode->appendChild($amor);
     $newnode->setAttribute("amorID", $row['amorID']);
 
-//    // xperiences amount on place:
-//    $locus = new Locus(intval($row['locusID']));
-//    $newnode->setAttribute("practicaAmount", $locus->getPracticaAmount());
-
     // actung:
     if ($row['achtung'] !== "") {
 
         $achtung = $amor->appendChild($dom->createElement("achtung"));
-        $achtung->appendChild($dom->createTextNode($row['achtung'])); 
-        
+        $achtung->appendChild($dom->createTextNode($row['achtung']));
 
     }
     
     // alias:
     $alias = $amor->appendChild($dom->createElement("alias"));
     $alias->appendChild($dom->createTextNode($row['alias']));
+    
+    // rating:
+    if ($row['rating'] !== "") {
+        
+        $rating = $amor->appendChild($dom->createElement("rating"));
+        $rating->setAttribute("rating", $row['rating']);
+        
+    }
     
     // genre:
     if ($row['genre'] !== "") {
@@ -107,17 +111,9 @@ foreach ($statement as $row) {
         $descr4->appendChild($dom->createTextNode($row['descr4']));
         
     }
-    
-    // rating:
-    if ($row['rating'] !== "") {
-        
-        $rating = $amor->appendChild($dom->createElement("rating"));
-        $rating->setAttribute("rating", $row['rating']);
-        
-    }
 
-    // www:
-    if ($row['www'] !== "") {
+    // web:
+    if ($row['web'] !== "") {
         
         $www = $amor->appendChild($dom->createElement("www"));
         $www->appendChild($dom->createTextNode($row['www']));
@@ -140,11 +136,11 @@ foreach ($statement as $row) {
         
     }
     
-    // telephone:
-    if ($row['telephone'] !== "") {
+    // phone:
+    if ($row['phone'] !== "") {
         
-        $telephone = $amor->appendChild($dom->createElement("telephone"));
-        $telephone->appendChild($dom->createTextNode($row['telephone']));
+        $telephone = $amor->appendChild($dom->createElement("phone"));
+        $telephone->appendChild($dom->createTextNode($row['phone']));
         
     }
     

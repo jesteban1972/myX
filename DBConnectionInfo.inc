@@ -1,16 +1,17 @@
 <?php
-
-/* 
- * DBConnInfo.inc
+/** 
+ * script 'DBConnInfo.inc'.
  * 
- * data used to etablish the DB connection
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2017-11-04
+ * data used to establish the DB connection. this data should be edited when
+ * testing the app in another computer.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-06-10
  */
 
 function getDBInfo() {
     
-    $server = "localhost"; // rewrite it using $_SERVER!
+    $server = "localhost";
     
     if ($server === "localhost") {
         
@@ -22,6 +23,6 @@ function getDBInfo() {
     
     return $DBInfo;
     
-} // function getDBInfo
+}
 
 ?>

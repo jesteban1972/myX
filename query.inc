@@ -1,28 +1,39 @@
 <?php
-/*
- * query.inc
- * inc file implementing class 'Query'
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last update: 2018-03-28
+/**
+ * script 'query.inc'.
+ * 
+ * this script contains the implementation of class 'Query',
+ * the class which represents the abstraction of a query, as well as its 
+ * derivate classes 'PracticaQuery', 'AmoresQuery' and 'LocaQuery'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last update: 2018-05-27
  */
 
 /**
- * class Query
- * this is the base class of PracticaQuery, AmoresQuery and LocaQuery
- * used to store a list of experiences, lovers or places respectively
- * containing:
- * a) their designation/title,
+ * class 'Query'.
+ *
+ * this class represents the abstraction of a query entity, i.e. a logical
+ * query to the DB after experiences, lovers and/or places.
+ * 
+ * in the DB every query is linked with the user proprietary of the information.
+ *  
+ * 'Query' is the base class of classes 'PracticaQuery', 'AmoresQuery' and
+ * 'LocaQuery' used to store a list of experiences, lovers or places
+ * respectively.
+ * 
+ * every query entity contains:
+ * a) a designation/title,
  * b) a description of it, and
  * c) the SQL query used to retrieve the list
- * TODO: when entering into each list entry details, the former catalogue should
- * be loaded calling the method backToPreviousList()
  */
 class Query {
 
-    // I. member variables
+    // I. properties
     
-    protected $designation; // list designation or title
-    protected $description; // list description in a somehow extended way
+    protected $queryID; // identifier of the query
+    protected $name; // list designation or title
+    protected $descr; // list description in a somehow extended way
     protected $queryString; // SQL query used to retrieve the list
     
     // II. class constants
@@ -33,137 +44,317 @@ class Query {
     // III. implementation methods
 
     // getters:
-    public function getDesignation() {return $this->designation;}
-    public function getDescription() {return $this->description;}
-    public function getQueryString() {return $this->queryString;}
+    
+    /**
+     * method 'Query::getName'.
+     * 
+     * returns the value of property 'name' (getter method).
+     * 
+     * @return string returns the query name attribute.
+     */
+    public function getName() {
+        
+        return $this->name;
+        
+    }
+    
+    /**
+     * method 'Query::getDescr'.
+     * 
+     * returns the value of property 'descr' (getter method).
+     * 
+     * @return string returns the query description attribute.
+     */
+    public function getDescr() {
+        
+        return $this->descr;
+        
+    }
+    
+    /**
+     * method 'Query::getQueryString'.
+     * 
+     * returns the value of property 'queryString' (getter method).
+     * 
+     * @return string returns the query SQL string attribute.
+     */
+    public function getQueryString() {
+        
+        return $this->queryString;
+        
+    }
+    
+    // constructors:
 
     /**
-     * method List::__construct
-     * class constructor
-     * @designation: list designation or title
-     * @description: list description in a somehow extended way
-     * @queryString: SQL query used to retrieve the list
+     * method 'Query::__construct'
+     * 
+     * class constructor: initiates an instance of the class.
+     * 
+     * the instance can be initialized in two different ways:
+     * i) with a single parameter (queryID)
+     * ii) with three parameters (name, description and queryString)
+     * 
+     * as the method '__construct' can not be overridden, the arguments passed
+     * to the method are checked to determine which method is being used.
+     * 
+     * @param int $queryID the identifier of the query being constructed.
+     * @param string $name the name given to the query.
+     * @param string $descr the description given to the query.
+     * @param string $queryString SQL sentence which defines the query.
      */
-    public function __construct($designation = "",
-            $description = "",
-            $queryString = "") {
+    public function __construct() {
+        
+        $args = func_get_args(); 
 
-        $this->designation = $designation;
-        $this->description = $description;
-        $this->queryString = $queryString;
+        switch(sizeof(func_get_args())) {
+
+            case 1: // one argument, queryID
+
+                $queryID = $args[0];
+
+                // get a DB connection to work with:
+                $pdo = DB::getDBHandle();
+
+                // the table 'queries' is queried. only one row expected.
+                $queryString = <<<QUERY
+SELECT *
+FROM `myX`.`queries`
+WHERE queryID = :queryID
+QUERY;
+                $statement = $pdo->prepare($queryString);
+                $statement->bindParam(":queryID", $queryID, PDO::PARAM_INT);
+                $statement->execute();
+
+                // the data are fetched:
+                $row = $statement->fetch();
+
+                // the propierties of the current object are taken from the query:
+                $this->queryID = $queryID;
+                $this->name = $row['name'];
+                $this->descr = $row['descr'];
+                $this->queryString = $row['queryString'];
+
+                break;              
+
+            case 3:  // three arguments, name, descr and queryString
+
+                $name = $args[0];
+                $descr = $args[1];
+                $queryString = $args[2];
+
+                if ($name === "" && $descr === "" && $queryString === "") {
+                // empty args, full list
+
+                    $this->name = "all queries";
+                    $this->descr = "unfiltered list of queries";
+                    $this->queryString = "SELECT * FROM `myX`.`queries`";
+                    $this->queryString .=
+                        " WHERE `user` = ".$_SESSION['userID'];
+
+                } else {
+
+                    $this->name = $name;
+                    $this->descr = $descr;
+                    $this->queryString = $queryString;
+
+                }
+
+                break;            
+
+        }
             
-    } // method List::__construct
+    } // method 'Query::__construct'
+       
+    /**
+     * method 'Query::HTMLPreview'.
+     * 
+     * this method displays a preview of the query with a link which redirects
+     * to 'practica.php' passing the query ID as parameter.
+     * 
+     * @param int $ordinalNr experience ordinal in a given list.
+     * @return nothing, taken into account that the method echoes HTML code.
+     */
+    public function HTMLPreview($ordinalNr) {
+
+        // get a DB connection to work with:
+        //$pdo = DB::getDBHandle();
+
+/*
+ * $this->queryString is queried to distinguish which kind of query is it
+ * (experiences, lovers or places).
+ * 
+ * $queryKind is set by reading the table from the query.
+ * 
+ * $targetScript is the script to which the user should be redirected.
+ * 
+ * the format of all queries is:
+ * SELECT * FROM `myX`.`{queriedTable}` ...
+ * 0123456789012345678901
+ *           1         2              backtick4Pos
+ * (start position: 21; end position: 4th backtick occurrence)
+ */
+        
+        $backtick4Pos = strpos($this->queryString, "`", 21);
+        $queriedTable = substr($this->queryString, 21, $backtick4Pos - 21);
+        
+        $targetScript = $queriedTable.".php";
+        
+        echo "\t\t\t\t\t<div class=\"HTMLPreview\">\n";
+        
+/*
+ * first line (headline): 1/ ordinal and 2/ name (with hyperlink).
+ */
+        
+        // 1. ordinal number:
+        echo "\t\t\t\t\t\t<p class=\"medium\"> ".$ordinalNr.". ";
+        
+        if (DEBUG) {
+            
+            echo " <span class=\"debug\">[queryString <b>".
+                $this->queryString."</b>]</span> ";
+            
+        }
+        
+        // 2. name (with hyperlink):
+        echo "<b><a href=\"".$targetScript."?query=".$this->queryID."\">".
+            $this->name."</a></b>";
+        
+        echo "</p>\n";
+        
+/*
+ * second line: description.
+ */
+        echo "\t\t\t\t\t\t<p>".$this->getDescr();"</p>\n";
+        
+        echo "\t\t\t\t\t</div>\n";
+        
+    } // method 'Query::HTMLPreview'
     
-} // class GenericList
+} // class 'Query'
 
 /**
- * class PracticaList
- * used to be displayed in the scripts 'practica.php' and 'amor.php'
+ * class 'PracticaQuery'.
+ * 
+ * used to be displayed in the scripts 'practica.php' and 'amor.php'.
  */
 class PracticaQuery extends Query {
 
-    // I. member variables: inherited from GenericList
+    // I. member variables: inherited from class 'Query'.
 
     // II. implementation methods
 
-    // getties: inherited from GenericList
+    // getters: inherited from class 'Query'.
 
     /**
-     * method PracticaList::__construct
-     * class constructor
+     * method 'PracticaQuery::__construct'.
+     * 
+     * class constructor.
+     * 
+     * @param string $name the name given to the query.
+     * @param string $descr the description given to the query.
+     * @param string $queryString SQL sentence which defines the query.
      */
-    public function __construct($designation = "",
-        $description = "",
-        $queryString = "") {
+    public function __construct($name = "", $descr = "", $queryString = "") {
 
-        if ($designation === "" || $description === "" || $queryString === "") {
+        if ($name === "" && $descr === "" && $queryString === "") {
             // empty args, full list
             
-            $this->designation = "all experiences";
-            $this->description = "unfiltered list of experiences";
+            $this->name = "all experiences";
+            $this->descr = "unfiltered list of experiences";
             $this->queryString = "SELECT * FROM `myX`.`practica`";
             $this->queryString .= " WHERE `user` = ".$_SESSION['userID'];
                         
         } else {
 
-            parent::__construct($designation, $description, $queryString);
+            parent::__construct($name, $descr, $queryString);
 
         }
 
-    } // method PracticaList::__construct
+    } // method 'PracticaQuery::__construct'
 		
-} // class PracticaList
+} // class 'PracticaQuery'
 
 /**
- * class AmoresList, used to be displayed by the script amoresList.php
+ * class 'AmoresQuery'.
+ * 
+ * used to be displayed by the script 'amoresList.php'.
  */
 class AmoresQuery extends Query {
 
-    // I. member variables: inherited from GenericList
+    // I. member variables: inherited from class 'Query'.
     // 
     // II. implementation methods
 
-    // getties: inherited from GenericList
+    // getters: inherited from class 'Query'.
 
     /**
-     * method LoversList::__construct
-     * class constructor
+     * method 'AmoresQuery::__construct'.
+     * 
+     * class constructor.
+     * 
+     * @param string $name the name given to the query.
+     * @param string $descr the description given to the query.
+     * @param string $queryString SQL sentence which defines the query.
      */
-    public function __construct($designation = "",
-        $description = "",
-        $queryString = "") {
+    public function __construct($name = "", $descr = "", $queryString = "") {
 
-        if ($designation === "" || $description === "" || $queryString === "") {
+        if ($name === "" || $descr === "" || $queryString === "") {
             // empty args, full list
             
-            $this->designation = "all lovers";
-            $this->description = "unfiltered list of lovers";
+            $this->name = "all lovers";
+            $this->descr = "unfiltered list of lovers";
             $this->queryString = "SELECT * FROM `myX`.`amores`";
             $this->queryString .= " WHERE `user` = ".$_SESSION['userID'];
             
         } else {
             
-            parent::__construct($designation, $description, $queryString);
+            parent::__construct($name, $descr, $queryString);
             
         }
 
-    } // method AmoresList::__construct
+    } // method 'AmoresQuery::__construct'
 		
-} // class AmoresList
+} // class 'AmoresQuery'
 
 /**
- * class LocaList, used to be displayed by the script locaList.php
+ * class 'LocaQuery'.
+ * 
+ * used to be displayed by the script 'locaList.php'.
  */
 class LocaQuery extends Query {
 
-    // I. member variables: inherited from GenericList
+    // I. member variables: inherited from class 'Query'.
 
     // II. implementation methods
 
-    // getties: inherited from GenericList
+    // getties: inherited from class 'Query'.
 
     /**
-     * method LocaList::__construct
-     * class constructor
+     * method 'LocaQuery::__construct'.
+     * 
+     * class constructor.
+     * 
+     * @param string $name the name given to the query.
+     * @param string $descr the description given to the query.
+     * @param string $queryString SQL sentence which defines the query.
      */
-    public function __construct($designation = "",
-        $description = "",
-        $queryString = "") {
+    public function __construct($name = "", $descr = "", $queryString = "") {
 
-        if ($designation === "" || $description === "" || $queryString === "") {
+        if ($name === "" || $descr === "" || $queryString === "") {
             // empty args, full list
 
-            $this->designation = "all places";
-            $this->description = "unfiltered list of places";
+            $this->name = "all places";
+            $this->descr = "unfiltered list of places";
             $this->queryString = "SELECT * FROM `myX`.`loca`";
             $this->queryString .= " WHERE `user` = ".$_SESSION['userID'];
 
         } else {
 
-            parent::__construct($designation, $description, $queryString);
+            parent::__construct($name, $descr, $queryString);
 
         }
 
-    } // method LocaList::__construct
+    } // method 'LocaQuery::__construct'
 		
-} // class LocaList
+} // class 'LocaQuery'

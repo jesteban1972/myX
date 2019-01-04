@@ -2,9 +2,10 @@
 /**
  * script 'loca.php'.
  * 
- * displays a list of places based in an instance of class 'LocaQuery'
- * (c) Joaquin Javier ESTEBAN MARTINEZ
- * last updated 2018-04-24
+ * this script displays a list of places using an instance of class 'LocaQuery'.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
+ * last updated 2018-06-09
 */
 
 require_once 'core.inc';
@@ -16,23 +17,32 @@ require_once 'locus.inc';
 $pdo = DB::getDBHandle();
 
 /*
- * initializes $locaList, and retrieves its components
- * if already storage in $_SESSION, retrieve the list;
- * otherwise create an unfiltered list 
+ * initializes '$locaQuery' retrieving its components as a saved query
+ * or if stored in the session. otherwise an unfiltered query is created.
  */
-if (!isset($_SESSION['locaQuery'])) {
+
+if (isset($_GET['query'])) {
+    
+    $query = new Query($_GET['query']);
+    $descr = ($query->getDescr() !== "") ?
+        $query->getDescr() :
+        "";
+    $locaQuery = new LocaQuery($query->getName(), $descr,
+        $query->getQueryString());
+    
+} else if (isset($_SESSION['locaQuery'])) {
+    
+    $locaQuery = $_SESSION['locaQuery'];
+    
+} else {
     
     $locaQuery = new LocaQuery();
     $_SESSION['locaQuery'] = $locaQuery;
     
-} else {
-    
-    $locaQuery = $_SESSION['locaQuery'];
-    
 }
 
-$designation = $locaQuery->getDesignation();
-$description = $locaQuery->getDescription();
+$name = $locaQuery->getName();
+$descr = $locaQuery->getDescr();
 $queryString = $locaQuery->getQueryString();
 
 // map center: the coordinates are stored in the session to be read from JS
@@ -53,19 +63,17 @@ HTML;
 
 // list designation and description:
 
-echo "\t\t\t\t\t<p class=\"medium\">".
-    "<img src=\"".
-    getImage("locus","small")."\" alt=\"".
-    _("(Image of a compass)").
+echo "\t\t\t\t\t<p class=\"medium\"><img src=\"".
+    getImage("locus","small")."\" alt=\""._("(Image of a compass)").
     "\" /> <b>".
-    _($designation).
+    _($name).
     "</b>: ".
-    _($description).
+    _($descr).
     " ";
 
 /*
  * places amount.
- * a first query of locaList::queryString is performed
+ * a first query of 'locaQuery::queryString' is performed
  * just to retrieve the amount of places.
  * Locus::getLocaAmount() would retrieve the amount of all places,
  * but locaList might be filtered.
@@ -94,21 +102,32 @@ switch ($locaAmount) {
 }
 echo "</p>\n";
 
+if ($locaQuery->getName() !== "all places") {
+    
+    // save query div/form:
+    echo "\t\t\t\t\t\t<div class=\"floppy\">\n";
+    echo "\t\t\t\t\t\t\t<form action=\"queryEdit.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"hidden\" name=\"queryString\"".
+        " value=\"".$queryString."\" />\n";
+    echo "\t\t\t\t\t\t\t\t<input type=\"image\" src=\"images/floppy-small.png\" />\n";
+    echo "\t\t\t\t\t\t\t</form>\n";
+    echo "\t\t\t\t\t\t</div>\n";
+    
+}
+
 if (DEBUG)
     echo "<span class=\"debug\">[query string: ".$queryString."]</span> ";
 
-// links to page sections:
-echo "\t\t\t\t\t<ul>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#map\">".
-    _("Map").
-    "</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#list\">".
-    _("List of places").
-    "</a></li>\n";
-echo "\t\t\t\t\t\t<li><a href=\"#actions\">".
-    _("Actions").
-    "</a></li>\n";
-echo "\t\t\t\t\t</ul>\n";
+if ($_SESSION['DBStatus']['doPracticaExist']) {
+    
+    // links to page sections:
+    echo "\t\t\t\t\t<ul>\n";
+    echo "\t\t\t\t\t\t<li><a href=\"#map\">"._("Map")."</a></li>\n";
+    echo "\t\t\t\t\t\t<li><a href=\"#list\">"._("List of places")."</a></li>\n";
+    echo "\t\t\t\t\t\t<li><a href=\"#actions\">"._("Actions")."</a></li>\n";
+    echo "\t\t\t\t\t</ul>\n";
+
+}
 
 if ($locaAmount > 0) {
     
@@ -154,9 +173,7 @@ HTML;
      * retrieves the parameter list and composes the string
      * $dataString (without page) that will be passed to navigationBar()
      */
-    //del $uri = $_SERVER['REQUEST_URI'];
-    //del $uriQuery = parse_url($uri)['query'];
-    // parse_url: parse a URL, and return its components
+    
     $uriQuery = parse_url($_SERVER['REQUEST_URI'])['query'];
 
     $data = explode("&", $uriQuery);
@@ -165,9 +182,9 @@ HTML;
         if (substr($value, 0, 5) != "page=")
                 $dataString .= $value; // this is the current segment number
 
-    // retrieves the current page (1 if not set)
-    $currentPage = ($_GET['page'] !== NULL) ?
-        intval($_GET['page']) :
+    // retrieves the current page, 1 if not set:
+    $currentPage = (isset($_GET['page'])) ?
+        filter_input(INPUT_GET, "page", FILTER_VALIDATE_INT) :
         1; // $page is 1-based
 
     $pageSettings = pageSettings($locaAmount, $currentPage);
@@ -176,8 +193,8 @@ HTML;
     $ordinalZeroBased = $ordinal - 1;
 
     // displays top navigation bar
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     ////////////////////////////////////////////////////////////////////////////
     // page contents
@@ -192,10 +209,11 @@ HTML;
     $queryString .= " LIMIT ".
         $ordinalZeroBased.
         ", ".
-        $_SESSION['navigationOptions']['resultsPerPage'];
+        $_SESSION['navOptions']['resultsPerPage'];
 
     if (DEBUG)
-        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".$queryString."]</span></p>";
+        echo "\t\t\t\t\t\t\t<p><span class=\"debug\">[query string: ".
+            $queryString."]</span></p>";
 
     $statement = $pdo->prepare($queryString);
     $statement->execute();
@@ -219,8 +237,8 @@ HTML;
     } //foreach
 
     // displays bottom navigation bar:
-    if ($pageSettings['navigationBar'])
-        navigationBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
+    if ($pageSettings['navBar'])
+        navBar($_SERVER['PHP_SELF'], $dataString, $currentPage, $pagesAmount);
 
     echo <<<HTML
                     <p class="quote">«Cuando emprendas tu viaje a Ítaca<br />
@@ -240,29 +258,31 @@ echo <<<HTML
 
 HTML;
 
-// filter places:
-echo "\t\t\t\t\t<form action=\"locaQuery.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
-    ._("Apply filter").
-    "\" />\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
-    ._("Remove filter").
-    "\" ";
-if ($locaQuery->getDesignation() === "all places")
-    echo "disabled=\"disabled\" ";
-echo "/>\n";
-echo "\t\t\t\t\t</form>\n";
+if ($_SESSION['DBStatus']['doPracticaExist']) {
+    
+    // filter places:
+    echo "\t\t\t\t\t<form action=\"locaFilter.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"setFilter\" value=\""
+        ._("Apply filter").
+        "\" />\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" name=\"removeFilter\" value=\""
+        ._("Remove filter").
+        "\" ";
+    if ($locaQuery->getName() === "all places") {
+        
+        echo "disabled=\"disabled\" ";
+        
+    }
+    echo "/>\n";
+    echo "\t\t\t\t\t</form>\n";
 
-// add place:
-echo "\t\t\t\t\t<form action=\"locusEdit.php\" method=\"GET\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("New place")."\" />\n";
-echo "\t\t\t\t\t</form>\n";
+    // edit countries list:
+    echo "\t\t\t\t\t<form action=\"countriesEdit.php\" method=\"POST\">\n";
+    echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list").
+        "\" />\n";
+    echo "\t\t\t\t\t</form>\n";
 
-// edit countries list:
-echo "\t\t\t\t\t<form action=\"countriesEdit.php\" method=\"POST\">\n";
-echo "\t\t\t\t\t\t<input type=\"submit\" value=\""._("Edit countries list").
-    "\" />\n";
-echo "\t\t\t\t\t</form>\n";
+}
 
 // link to previous page:
 echo "\t\t\t\t\t<p style=\"text-align: center;\">".

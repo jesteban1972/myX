@@ -4,7 +4,7 @@
  * 
  * this microscript is used to store a variable in the session
  * interactuating asynchronously with a JS script.
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last updated 2018-04-26
 */
 
@@ -12,7 +12,7 @@ require_once 'core.inc';
 
 if ($_SERVER['REQUEST_METHOD'] !== "POST") {
     /*
-     * script called from outside the normal flush, throw exception
+     * script called from outside the normal flush, redirect to 'index.php'
      */
     header ("Location: index.php");
     

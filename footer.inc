@@ -1,9 +1,10 @@
 <?php
-
-/* 
- * footer.inc
- * footer for all pages of myX
- * (c) Joaquin Javier ESTEBAN MARTINEZ
+/** 
+ * script 'footer.inc'.
+ * 
+ * this script displays the footer for all pages of the app.
+ * 
+ * @author Joaquin Javier ESTEBAN MARTINEZ <jesteban1972@me.com>
  * last update: 2018-04-11
  */
 
