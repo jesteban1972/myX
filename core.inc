@@ -14,7 +14,7 @@ require_once 'session.inc';
 
 // constants definition {{
 
-define("DEBUG", 0); // DEBUG: turn to 0 in production environment
+define("DEBUG", 1); // DEBUG: turn to 0 in production environment
 
 // genres
 define("GENRE_MASCULINE", 1);

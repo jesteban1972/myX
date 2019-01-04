@@ -122,8 +122,17 @@ echo "\t\t<title>"._($title)."</title>\n";
 
 if (isset($js)) {
     
+    echo "\t\t<script type=\"text/javascript\" src=\"vendor/jquery/jquery-3.3.1.js\"></script>\n";
     echo "\t\t<script type=\"text/javascript\" src=\"".$js.
         "\"></script> <!-- JavaScript code -->\n";
+    
+}
+
+if (isset($charts)) {
+    
+    echo "\t\t<script type=\"text/javascript\" src=\"vendor/amcharts/core.js\"></script>\n";
+    echo "\t\t<script type=\"text/javascript\" src=\"vendor/amcharts/charts.js\"></script>\n";
+    echo "\t\t<script type=\"text/javascript\" src=\"vendor/amcharts/themes/animated.js\"></script>\n";
     
 }
 
